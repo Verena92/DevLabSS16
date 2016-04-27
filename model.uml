@@ -916,6 +916,11 @@
   <packagedElement xmi:type="uml:Usage" xmi:id="_7cLAcAutEeaIyribcAdU1w" client="_96kRsASrEeaF29yyBA46tw" supplier="_ucgfsAIjEeaK975k-NI_oA"/>
   <packagedElement xmi:type="uml:Usage" xmi:id="_H7JCkAuuEeaIyribcAdU1w" client="_qPs8gAcPEeawdYaVkSIUQA" supplier="_k0LycAZ0EeaK0O_nlzXMjg"/>
   <packagedElement xmi:type="uml:Usage" xmi:id="_ON0hkAuuEeaIyribcAdU1w" client="_hruVAAS5EeaF29yyBA46tw" supplier="_ucgfsAIjEeaK975k-NI_oA"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_VZScwAw9Eea9oYLVuBYznQ" name="All Activities" group="_T1kKwAw-Eea9oYLVuBYznQ _affsIAw-Eea9oYLVuBYznQ _zjsJYAw-Eea9oYLVuBYznQ">
+    <group xmi:type="uml:ActivityPartition" xmi:id="_T1kKwAw-Eea9oYLVuBYznQ" name="SpeechTokenizer"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_affsIAw-Eea9oYLVuBYznQ" name="EventProcessor"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_zjsJYAw-Eea9oYLVuBYznQ" name="DocumentRepresentation"/>
+  </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_cRUKwAGYEea1t_OyiSnmHw">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cRZDQAGYEea1t_OyiSnmHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
