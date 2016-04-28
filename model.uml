@@ -880,10 +880,37 @@
   <packagedElement xmi:type="uml:Usage" xmi:id="_7cLAcAutEeaIyribcAdU1w" client="_96kRsASrEeaF29yyBA46tw" supplier="_ucgfsAIjEeaK975k-NI_oA"/>
   <packagedElement xmi:type="uml:Usage" xmi:id="_H7JCkAuuEeaIyribcAdU1w" client="_qPs8gAcPEeawdYaVkSIUQA" supplier="_k0LycAZ0EeaK0O_nlzXMjg"/>
   <packagedElement xmi:type="uml:Usage" xmi:id="_ON0hkAuuEeaIyribcAdU1w" client="_hruVAAS5EeaF29yyBA46tw" supplier="_ucgfsAIjEeaK975k-NI_oA"/>
-  <packagedElement xmi:type="uml:Activity" xmi:id="_VZScwAw9Eea9oYLVuBYznQ" name="All Activities" group="_T1kKwAw-Eea9oYLVuBYznQ _affsIAw-Eea9oYLVuBYznQ _zjsJYAw-Eea9oYLVuBYznQ">
-    <group xmi:type="uml:ActivityPartition" xmi:id="_T1kKwAw-Eea9oYLVuBYznQ" name="SpeechTokenizer"/>
-    <group xmi:type="uml:ActivityPartition" xmi:id="_affsIAw-Eea9oYLVuBYznQ" name="EventProcessor"/>
-    <group xmi:type="uml:ActivityPartition" xmi:id="_zjsJYAw-Eea9oYLVuBYznQ" name="DocumentRepresentation"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_VZScwAw9Eea9oYLVuBYznQ" name="All Activities" node="_iaGD8A0qEea9oYLVuBYznQ _QbKcYA0uEea9oYLVuBYznQ _0Nkv0A0uEea9oYLVuBYznQ _KLUuoA0xEea9oYLVuBYznQ _f72bsA0xEea9oYLVuBYznQ _uN498A0xEea9oYLVuBYznQ _3Ld88A0xEea9oYLVuBYznQ _BVMmAA0yEea9oYLVuBYznQ _KejXMA0yEea9oYLVuBYznQ _90GoYA0yEea9oYLVuBYznQ _QNpykA0zEea9oYLVuBYznQ _W7DesA0zEea9oYLVuBYznQ _YKP1sA0zEea9oYLVuBYznQ _fr63YA0zEea9oYLVuBYznQ" group="_T1kKwAw-Eea9oYLVuBYznQ _affsIAw-Eea9oYLVuBYznQ _zjsJYAw-Eea9oYLVuBYznQ">
+    <edge xmi:type="uml:ControlFlow" xmi:id="_uzWi0A0uEea9oYLVuBYznQ" target="_QbKcYA0uEea9oYLVuBYznQ" source="_iaGD8A0qEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_4mROYA0uEea9oYLVuBYznQ" target="_0Nkv0A0uEea9oYLVuBYznQ" source="_QbKcYA0uEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_j_sEkA0xEea9oYLVuBYznQ" target="_KLUuoA0xEea9oYLVuBYznQ" source="_f72bsA0xEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_0KLWMA0xEea9oYLVuBYznQ" target="_uN498A0xEea9oYLVuBYznQ" source="_0Nkv0A0uEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_9eL4MA0xEea9oYLVuBYznQ" target="_3Ld88A0xEea9oYLVuBYznQ" source="_uN498A0xEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Fyw9gA0yEea9oYLVuBYznQ" target="_BVMmAA0yEea9oYLVuBYznQ" source="_3Ld88A0xEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_N3HOcA0yEea9oYLVuBYznQ" name="yes" target="_KejXMA0yEea9oYLVuBYznQ" source="_BVMmAA0yEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_zUJ3sA0yEea9oYLVuBYznQ" name="no" target="_uN498A0xEea9oYLVuBYznQ" source="_BVMmAA0yEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="__qvZ4A0yEea9oYLVuBYznQ" target="_90GoYA0yEea9oYLVuBYznQ" source="_KejXMA0yEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_TVcp8A0zEea9oYLVuBYznQ" target="_QNpykA0zEea9oYLVuBYznQ" source="_90GoYA0yEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_iqh9kA0zEea9oYLVuBYznQ" target="_fr63YA0zEea9oYLVuBYznQ" source="_QNpykA0zEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_05g2gA0zEea9oYLVuBYznQ" target="_W7DesA0zEea9oYLVuBYznQ" source="_fr63YA0zEea9oYLVuBYznQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_1knpAA0zEea9oYLVuBYznQ" target="_YKP1sA0zEea9oYLVuBYznQ" source="_fr63YA0zEea9oYLVuBYznQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_T1kKwAw-Eea9oYLVuBYznQ" name="SpeechTokenizer" node="_QbKcYA0uEea9oYLVuBYznQ _0Nkv0A0uEea9oYLVuBYznQ _f72bsA0xEea9oYLVuBYznQ _W7DesA0zEea9oYLVuBYznQ _YKP1sA0zEea9oYLVuBYznQ _fr63YA0zEea9oYLVuBYznQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_affsIAw-Eea9oYLVuBYznQ" name="EventProcessor" node="_uN498A0xEea9oYLVuBYznQ _3Ld88A0xEea9oYLVuBYznQ _BVMmAA0yEea9oYLVuBYznQ _KejXMA0yEea9oYLVuBYznQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_zjsJYAw-Eea9oYLVuBYznQ" name="DocumentRepresentation" node="_90GoYA0yEea9oYLVuBYznQ _QNpykA0zEea9oYLVuBYznQ"/>
+    <node xmi:type="uml:InitialNode" xmi:id="_iaGD8A0qEea9oYLVuBYznQ" name="Activity Start" outgoing="_uzWi0A0uEea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_QbKcYA0uEea9oYLVuBYznQ" name="start session" incoming="_uzWi0A0uEea9oYLVuBYznQ" outgoing="_4mROYA0uEea9oYLVuBYznQ" inPartition="_T1kKwAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_0Nkv0A0uEea9oYLVuBYznQ" name="send SpeechToken" incoming="_4mROYA0uEea9oYLVuBYznQ" outgoing="_0KLWMA0xEea9oYLVuBYznQ" inPartition="_T1kKwAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_KLUuoA0xEea9oYLVuBYznQ" name="Activity Final" incoming="_j_sEkA0xEea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_f72bsA0xEea9oYLVuBYznQ" name="end session" outgoing="_j_sEkA0xEea9oYLVuBYznQ" inPartition="_T1kKwAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_uN498A0xEea9oYLVuBYznQ" name="receive SpeechTokenEnvent" incoming="_0KLWMA0xEea9oYLVuBYznQ _zUJ3sA0yEea9oYLVuBYznQ" outgoing="_9eL4MA0xEea9oYLVuBYznQ" inPartition="_affsIAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_3Ld88A0xEea9oYLVuBYznQ" name="check for pattern" incoming="_9eL4MA0xEea9oYLVuBYznQ" outgoing="_Fyw9gA0yEea9oYLVuBYznQ" inPartition="_affsIAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_BVMmAA0yEea9oYLVuBYznQ" name="pattern detected?" incoming="_Fyw9gA0yEea9oYLVuBYznQ" outgoing="_N3HOcA0yEea9oYLVuBYznQ _zUJ3sA0yEea9oYLVuBYznQ" inPartition="_affsIAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_KejXMA0yEea9oYLVuBYznQ" name="react to pattern" incoming="_N3HOcA0yEea9oYLVuBYznQ" outgoing="__qvZ4A0yEea9oYLVuBYznQ" inPartition="_affsIAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_90GoYA0yEea9oYLVuBYznQ" name="receive document information" incoming="__qvZ4A0yEea9oYLVuBYznQ" outgoing="_TVcp8A0zEea9oYLVuBYznQ" inPartition="_zjsJYAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_QNpykA0zEea9oYLVuBYznQ" name="send document information" incoming="_TVcp8A0zEea9oYLVuBYznQ" outgoing="_iqh9kA0zEea9oYLVuBYznQ" inPartition="_zjsJYAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_W7DesA0zEea9oYLVuBYznQ" name="receive suggestion accepted event" incoming="_05g2gA0zEea9oYLVuBYznQ" inPartition="_T1kKwAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_YKP1sA0zEea9oYLVuBYznQ" name="receive suggestion refused event" incoming="_1knpAA0zEea9oYLVuBYznQ" inPartition="_T1kKwAw-Eea9oYLVuBYznQ"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_fr63YA0zEea9oYLVuBYznQ" name="user reaction" incoming="_iqh9kA0zEea9oYLVuBYznQ" outgoing="_05g2gA0zEea9oYLVuBYznQ _1knpAA0zEea9oYLVuBYznQ" inPartition="_T1kKwAw-Eea9oYLVuBYznQ"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Interface" xmi:id="_CdkzEA0hEeazO5XaatMCDA" name="KieSession"/>
   <packagedElement xmi:type="uml:Association" xmi:id="_FACv0A0hEeazO5XaatMCDA" visibility="private" memberEnd="_FADW4g0hEeazO5XaatMCDA _FAD98A0hEeazO5XaatMCDA">
