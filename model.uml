@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_b9R0cAGYEea1t_OyiSnmHw" name="RootElement">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_A4DrIA0_Eea7f48FPnOBuQ">
+    <body>Zu klären: Wie sieht der konkrete Endpoint zum Versenden der Dokumente aus?&#xD;
+&#xD;
+Zu entscheiden: &#xD;
+Wann senden wir die Vorschläge nur an einen Teilnehmer,&#xD;
+&#xD;
+TODO: Schnittstelle klären&#xD;
+wann an alle Teilnehmer?</body>
+  </ownedComment>
   <packageImport xmi:type="uml:PackageImport" xmi:id="_ch914AGYEea1t_OyiSnmHw">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
@@ -221,8 +230,13 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Usage" xmi:id="_Q4h7EAStEeaF29yyBA46tw" name="consume" client="_b9R0cAGYEea1t_OyiSnmHw" supplier="_ucgfsAIjEeaK975k-NI_oA"/>
   <packagedElement xmi:type="uml:Class" xmi:id="_hruVAAS5EeaF29yyBA46tw" name="SpeechTokenSender">
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_zDcS0AY6EeakVoKRTPyrJg" name="sendDocument">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_zDcS0AY6EeakVoKRTPyrJg" name="sendDocumentToParticipants">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_fCdbUAY7EeakVoKRTPyrJg" name="document" type="_ucgfsAIjEeaK975k-NI_oA"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_GynP8A09Eea7f48FPnOBuQ" name="sessionId" type="_K71PsAVIEea8RsHoubVOUw"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_8CgjYA08Eea7f48FPnOBuQ" name="sendDocumentToParticipant">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_ahWEYA09Eea7f48FPnOBuQ" name="document" type="_ucgfsAIjEeaK975k-NI_oA"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_gqjeUA09Eea7f48FPnOBuQ" name="participant" type="_rM5JEAIjEeaK975k-NI_oA"/>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Usage" xmi:id="_0LteYAS5EeaF29yyBA46tw" client="_b9R0cAGYEea1t_OyiSnmHw" supplier="_ucgfsAIjEeaK975k-NI_oA"/>
@@ -918,13 +932,16 @@
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_FADW4Q0hEeazO5XaatMCDA" key="nature" value="UML_Nature"/>
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_FAD98A0hEeazO5XaatMCDA" type="_CdkzEA0hEeazO5XaatMCDA" association="_FACv0A0hEeazO5XaatMCDA"/>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_FADW4g0hEeazO5XaatMCDA" type="_7Q7ekAZvEeaK0O_nlzXMjg" association="_FACv0A0hEeazO5XaatMCDA"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_FADW4g0hEeazO5XaatMCDA" name="gets added to" type="_7Q7ekAZvEeaK0O_nlzXMjg" association="_FACv0A0hEeazO5XaatMCDA">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZNaCMA07Eea7f48FPnOBuQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZNm2gA07Eea7f48FPnOBuQ" value="*"/>
+    </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_LJMfYA0hEeazO5XaatMCDA" memberEnd="_LJNtgA0hEeazO5XaatMCDA _LJNtgQ0hEeazO5XaatMCDA">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LJNGcA0hEeazO5XaatMCDA" source="org.eclipse.papyrus">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LJNGcQ0hEeazO5XaatMCDA" key="nature" value="UML_Nature"/>
     </eAnnotations>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_LJNtgQ0hEeazO5XaatMCDA" type="_k0LycAZ0EeaK0O_nlzXMjg" association="_LJMfYA0hEeazO5XaatMCDA"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_LJNtgQ0hEeazO5XaatMCDA" name="gets inserted" type="_k0LycAZ0EeaK0O_nlzXMjg" association="_LJMfYA0hEeazO5XaatMCDA"/>
     <ownedEnd xmi:type="uml:Property" xmi:id="_LJNtgA0hEeazO5XaatMCDA" type="_CdkzEA0hEeazO5XaatMCDA" association="_LJMfYA0hEeazO5XaatMCDA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_OKhiYA0hEeazO5XaatMCDA" memberEnd="_OKiwgA0hEeazO5XaatMCDA _OKiwgQ0hEeazO5XaatMCDA">
