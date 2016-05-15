@@ -9,12 +9,14 @@
 			upgrade ();
 		} else {
 			/*Erlaubt der Seite Zugriff auf das Mikrofon - webkitSpeechRecognition Objekt stellt das Speech Interface bereit und definiert Eventhandler*/
- 			var recognition = new webkitSpeechRecognition();
+			//That is the object that will manage our whole recognition process.
+			var recognition = new webkitSpeechRecognition();
   			/* Continous: true = User kann Pause einlegen, bei false wird sofort geschickt sobald pause*/
-  			recognition.continuous = true;
+  			recognition.continuous = false;
   	        /* interimResults: true = angezeigte graue Wörter sind noch nicht festgestetzt, erst wenn sie schwarz sind, sind sie fest. 
   	        false: Wörter kommen erst wenn sich das System sicher ist*/
   			recognition.interimResults = false;
+  			//Listening (capturing voice from audio input) started.
   			recognition.onstart = function() {
     			recognition.lang = "en-US";
     			recognizing = true;
@@ -25,6 +27,21 @@
       			return;
     			}
   			};
+  			recognition.onresult = function(event) { //the event holds the results
+  				if (typeof(event.results) === 'undefined') { //Something is wrong…
+  			        recognition.stop();
+  			        return;
+  				}
+
+  			    for (var i = event.resultIndex; i < event.results.length; ++i) {      
+  			        if (event.results[i].isFinal) { //Final results
+  			            console.log("final results: " + event.results[i][0].transcript);   //Of course – here is the place to do useful things with the results.
+  			        } else {   //i.e. interim...
+  			            console.log("interim results: " + event.results[i][0].transcript);  //You can use these results to give the user near real time experience.
+  			        } 
+  			    } //end for loop
+  			}
+  			
   			/*interim_transcript und wird jedes mal neu befüllt, da nur vorübergehend. Der schwarze Text (final_transcript) ändert sich nicht, deswegen kann er nur neue Audios aufnehmen
   			recognition.onresult = function(event) {
    				var interim_transcript = '';
@@ -49,12 +66,12 @@ function startButton(event) {
 	/*if (recognizing) {
     	recognition.stop();
     	return;
-  	}*/
-	final_transcript = '';
+  	}
+	final_transcript = '';*/
 	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
 	recognition.start();
-	ignore_onend = false;
-	/*final_span.innerHTML = '';
+	/*ignore_onend = false;
+	final_span.innerHTML = '';
 	interim_span.innerHTML = '';*/
 	}
 	
