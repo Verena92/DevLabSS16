@@ -16,16 +16,19 @@
 <script src="//speech-tokenizer-1282.appspot.com/app.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/Webspeech.js"></script>
 
-<h1>Speech Tokenizer</h1>
-<div style="float: left; padding: 0px 20px; border-right: 1px solid #EEE">
+<h1 style="color: white">Speech Tokenizer</h1>
+<div style="float: left; padding: 0px 20px; border-right: 1px solid #EEE; color: white">
   <dl>
-	<dt>Mic aktiv:</dt>
-	<dt id="micstatus"></dt>
-	<dt>Hangouts-ID:</dt>
-	<dt id="hangoutsid"></dt>
-	<dt><button onClick="hangoutsid();startButton(event)">Click</button></dt>
+	<dt>Mic aktiv:</dt><dt id="micstatus"></dt>
+	<dt>Hangouts-ID:</dt><dt id="hangoutsid"></dt>
+	<dt>Result:</dt><dt id="interim" class="interim"></dt>
+	<!-- <dt><button onClick="hangoutsid()">Click</button></dt> -->
+	<dt><button onClick="startButton(event)">Click</button></dt>
   </dl>
 </div>
+<!--<div id="results">
+  <span id="interim" class="interim"></span>
+</div>-->
 <div></div>
 <div style="clear: both;"></div>
 
