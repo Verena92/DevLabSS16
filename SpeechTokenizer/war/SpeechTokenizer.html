@@ -35,8 +35,6 @@
     <!-- gapi for Hangouts Button -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     
-   
-
     
     <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
     <noscript>
@@ -46,22 +44,23 @@
       </div>
     </noscript>
 
-    <h1>Speech Tokenizer Plugin</h1>
+    	<h1>Speech Tokenizer Plugin</h1>
 
-    <div>Start Google+ Hangouts Client with the Application</div>
-    <div class="g-hangout" data-render="createhangout" data-initial_apps="[{ app_id : 'speech-tokenizer-1282', start_data : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }]"></div>
-  	<div>Developer-Link: <a href="http://g.co/hangout">Click</a></div>
-  	<div id="button"><button onClick="document.getElementById(startButton(event))">Click</button></div>
-  	<!-- <input type="button" value="Click" onClick="document.getElementById(startButton(event))">-->
-  	<div>Result:</div>
-  	<div id="results">
-  		<span id="final_span" class="final"></span>
-	</div>
-	
+   		<div>Start Google+ Hangouts Client with the Application</div>
+    	
+    	<div class="g-hangout" data-render="createhangout" data-initial_apps="[{ app_id : 'speech-tokenizer-1282', start_data : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }]"></div>
+  		
+  		<div>Developer-Link: <a href="http://g.co/hangout">Click</a></div>
+  		
+  		<div id="button"><button onClick="startButton(event)">Click</button></div>
+  		<!-- <input type="button" value="Click" onClick="document.getElementById(startButton(event))">-->
+  		
+  		<div>Result:</div>
+  		<div id="results">
+  			<span id="final_span" class="final"></span>
+		</div>
   </body>
 </html>
-
-
 
 
 <!--  <script type="text/javascript">
