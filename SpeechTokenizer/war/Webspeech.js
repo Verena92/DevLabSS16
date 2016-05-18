@@ -1,6 +1,3 @@
-<script type="text/javascript">
-
-
 	var sttResult = '';	
 	var recognizing = false;
 	var ignore_onend;
@@ -104,7 +101,7 @@ function capitalize(sttResult) {
 	return sttResult;
 	}
 	
-</script>
+
 
 
 /*<script type="text/javascript">
