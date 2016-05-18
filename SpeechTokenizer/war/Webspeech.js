@@ -50,10 +50,13 @@
     			for (var i = event.resultIndex; i < event.results.length; ++i) {
       				if (event.results[i].isFinal) {
         				sttResult += event.results[i][0].transcript;
-      				} 
+      				}
+      				console.log(event.results[i][0]);
+      				//Token(event.results[i][0]);
     			}
     			/*linebreak für neuen Paragraphen, wird dann in HTML übersetzt*/
     			sttResult = capitalize(sttResult);
+    			
     			/*final_span für schwarzen Text*/
     			final_span.innerHTML = linebreak(sttResult);
   			};

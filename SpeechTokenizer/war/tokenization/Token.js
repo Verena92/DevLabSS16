@@ -17,7 +17,7 @@ function Token(){
 	/**
 	 * Call Tokenize JS
 	 */
-	console.log(Tokenize());
+	Tokenize();
 		
 	/**
 	 * Create Tokens with the keywords

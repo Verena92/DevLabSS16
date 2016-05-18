@@ -17,7 +17,7 @@ function Tokenize(){
 	 * PLS update the list in GoogleDrive also!
 	 */
 		
-	var sttResult = "Hello Thomas! What's up at the Ninja Project? Talking about some figures here.";
+	var sttResult = "Haha this is a great test, isn't it? Hello Thomas! What's up at the Ninja Project? Talking about some figures here.";
 	var sttResult1 = sttResult.split('!').join("");
 	var sttResult2 = sttResult1.split(':').join("");
 	var sttResult3 = sttResult2.split('.').join("");
