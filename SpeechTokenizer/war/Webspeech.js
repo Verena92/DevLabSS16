@@ -11,7 +11,9 @@
 			/*Erlaubt der Seite Zugriff auf das Mikrofon - webkitSpeechRecognition Objekt stellt das Speech Interface bereit und definiert Eventhandler*/
 			//That is the object that will manage our whole recognition process.
 			var recognition = new webkitSpeechRecognition();
-	  		recognition.interimResults = true;
+  			/* Continous: true = User kann Pause einlegen, bei false wird sofort geschickt sobald pause*/
+  			recognition.continuous = true;
+	  		//recognition.interimResults = true;
 	
 			//Listening (capturing voice from audio input) started.
 			recognition.onstart = function() {
