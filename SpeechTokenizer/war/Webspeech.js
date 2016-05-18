@@ -1,6 +1,11 @@
-	var sttResult = '';	
-	var recognizing = false;
-	var ignore_onend;
+/**
+ * Autor: Verena Hofmann
+ */
+
+
+var sttResult = '';	
+var recognizing = false;
+var ignore_onend;
 
 	if (!('webkitSpeechRecognition' in window)) { //diese Funktion ermöglicht, dass der Click Button öfters ausgeführt werden kann, ohne dass die Seite aktualisiert werden muss.
 			upgrade ();
@@ -46,18 +51,22 @@
   			};*/
   	
   	recognition.onresult = function(event) {
-   				//var interim_transcript = '';
     			for (var i = event.resultIndex; i < event.results.length; ++i) {
       				if (event.results[i].isFinal) {
         				sttResult += event.results[i][0].transcript;
       				}
-      				console.log(event.results[i][0]);
+      				
+      				//Aufruf der Tokenize Funktion in Tokenize.js
+      				Tokenize(sttResult);
+      				
       				//Token(event.results[i][0]);
+      				console.log(event.results[i][0]);
+      				
     			}
     			/*linebreak für neuen Paragraphen, wird dann in HTML übersetzt*/
     			sttResult = capitalize(sttResult);
     			
-    			/*final_span für schwarzen Text*/
+    			/*final_span Anzeige in HTML*/
     			final_span.innerHTML = linebreak(sttResult);
   			};
   }
@@ -68,18 +77,7 @@
   		recognition.stop();
   	}*/
   			
-		
-/*Wird nach Drücken auf den Start-Button aufgerufen
-function startButton(event) {
-	if (recognizing) {
-    	recognition.stop();
-    	return;
-  	}
-	sttResult = '';
-	aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
-	recognition.start();
-	interim.innerHTML = '';
-	}*/
+
 	
 	/*Wird nach Drücken auf den Start-Button aufgerufen*/
 function startButton(event) {	
