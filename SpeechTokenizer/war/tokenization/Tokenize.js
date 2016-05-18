@@ -2,7 +2,7 @@
  * Autor: Benjamin Mateja
  */
 
-var filterWords = 'be, have, do, say, get, make, get, know, take, see, come, think, look, want, give, use, find, tell, ask, work, seem, feel, try, leave, call, good, new, first, last, long, great, little, own, other, old, right, big, high, different, small, large, next, early, young, important, few, public, bad, same, able, to, of, in, for, on, with, at, by, from, up, about, into, over, after, beneath, under, above, the, and, a, that, I, it, not, he, as, you, this, but, his, they, her, she, or, and, will, my, one, all, would, there, their, is, now, hi, hello, hey, up';
+
 var uncommonArr = [];
 
 function Tokenize(){
@@ -16,8 +16,10 @@ function Tokenize(){
 	 * This list can be updated here.
 	 * PLS update the list in GoogleDrive also!
 	 */
+	
+	var filterWords = 'be, have, do, say, get, make, get, know, take, see, come, think, look, want, give, use, find, tell, ask, work, seem, feel, try, leave, call, good, new, first, last, long, great, little, own, other, old, right, big, high, different, small, large, next, early, young, important, few, public, bad, same, able, to, of, in, for, on, with, at, by, from, up, about, into, over, after, beneath, under, above, the, and, a, that, I, it, not, he, as, you, this, but, his, they, her, she, or, and, will, my, one, all, would, there, their, is, now, hi, hello, hey, up';
 		
-	var sttResult = "Haha this is a great test, isn't it? Hello Thomas! What's up at the Ninja Project? Talking about some figures here.";
+	//var sttResult = "Haha this is a great test, isn't it? Hello Thomas! What's up at the Ninja Project? Talking about some figures here.";
 	var sttResult1 = sttResult.split('!').join("");
 	var sttResult2 = sttResult1.split(':').join("");
 	var sttResult3 = sttResult2.split('.').join("");
@@ -77,6 +79,7 @@ function Tokenize(){
 		}
 		
 		return uncommonArr;
+		
 				
 		}
 	

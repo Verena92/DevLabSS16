@@ -53,14 +53,16 @@ var ignore_onend;
   	recognition.onresult = function(event) {
     			for (var i = event.resultIndex; i < event.results.length; ++i) {
       				if (event.results[i].isFinal) {
-        				sttResult += event.results[i][0].transcript;
+        				sttResult = event.results[i][0].transcript;
       				}
       				
       				//Aufruf der Tokenize Funktion in Tokenize.js
-      				Tokenize(sttResult);
+      				//Tokenize(sttResult);
       				
       				//Token(event.results[i][0]);
-      				console.log(event.results[i][0]);
+      				//console.log(event.results[i][0]);
+      				//console.log(sttResult);
+      				Token();
       				
     			}
     			/*linebreak für neuen Paragraphen, wird dann in HTML übersetzt*/

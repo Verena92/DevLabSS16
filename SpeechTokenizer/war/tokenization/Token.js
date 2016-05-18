@@ -11,8 +11,11 @@
 
 var TokenNew = new Object();
 var TokenArray = new Array();
+var oldIdentifier = 0;
 
 function Token(){
+	
+	
 	
 	/**
 	 * Call Tokenize JS
@@ -22,7 +25,7 @@ function Token(){
 	/**
 	 * Create Tokens with the keywords
 	 */
-	for (i = 0; i < uncommonArr.length; i++){
+	for (i = oldIdentifier; i < uncommonArr.length; i++){
 		TokenNew = {
 				id: i,
 				keyword: uncommonArr[i],
@@ -34,13 +37,23 @@ function Token(){
 					this.profession + ". Keyword: " +this.keyword + " with ID: " +this.id;
 				}
 		};
+				
+		console.log(TokenNew);
 		
 		TokenArray.push(TokenNew);
+		
+		oldIdentifier = i+1;
+		
+		
+		
+		
+		
 		//console.log(TokenNew);
 		
-		
 	}
-	console.log(TokenArray);
-	console.log(TokenArray[2]);
+	
+	//console.log(TokenArray);
+	
+	//console.log(TokenArray[2]);
 
 };
