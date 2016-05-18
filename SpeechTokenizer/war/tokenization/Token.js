@@ -15,30 +15,37 @@ var oldIdentifier = 0;
 
 function Token(){
 	
-	
-	
 	/**
 	 * Call Tokenize JS
 	 */
 	Tokenize();
+	
+	date = new Date();
+	hour = date.getHours();
+	minutes = date.getMinutes();
+	seconds = date.getSeconds();
+	dateCombined = hour + " " + minutes + " " + seconds;
 		
 	/**
 	 * Create Tokens with the keywords
 	 */
 	for (i = oldIdentifier; i < uncommonArr.length; i++){
+		
 		TokenNew = {
 				id: i,
 				keyword: uncommonArr[i],
+				timestamp: dateCombined,
 				createdByFirstName:"Benjamin",
 				createdByLastName:"Mateja",
-				profession:"Student",
-				TokenInformation: function() {
+				/**TokenInformation: function() {
 					return this.createdByFirstName + " " + this.createdByLastName + " is a " +
 					this.profession + ". Keyword: " +this.keyword + " with ID: " +this.id;
-				}
+				}*/
 		};
 				
-		console.log(TokenNew);
+		//console.log(TokenNew);
+		
+		Stringify();
 		
 		TokenArray.push(TokenNew);
 		

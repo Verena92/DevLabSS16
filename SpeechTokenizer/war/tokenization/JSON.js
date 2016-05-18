@@ -4,7 +4,7 @@
 
 function Stringify (){
 	
-	car1 = new Object();
+	/**car1 = new Object();
 	car2 = new Object();
 	
 	
@@ -16,9 +16,9 @@ function Stringify (){
 	car2.modell = "A4";
 	
 	console.log(car1);
-	console.log(car2);
+	console.log(car2);*/
 	
-	var jsonString = JSON.stringify(car1);
+	var jsonString = JSON.stringify(TokenNew);
 	
 	console.log(jsonString);
 	
