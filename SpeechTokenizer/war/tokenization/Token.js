@@ -9,7 +9,8 @@
  * Input Keywords / User Data -> Token 
  */
 
-var TokenNew = {};
+var TokenNew = new Object();
+var TokenArray = new Array();
 
 function Token(){
 	
@@ -23,7 +24,7 @@ function Token(){
 	 */
 	for (i = 0; i < uncommonArr.length; i++){
 		TokenNew = {
-				id: i+1,
+				id: i,
 				keyword: uncommonArr[i],
 				createdByFirstName:"Benjamin",
 				createdByLastName:"Mateja",
@@ -34,8 +35,12 @@ function Token(){
 				}
 		};
 		
-		console.log(TokenNew);
+		TokenArray.push(TokenNew);
+		//console.log(TokenNew);
+		
 		
 	}
+	console.log(TokenArray);
+	console.log(TokenArray[2]);
 
 };
