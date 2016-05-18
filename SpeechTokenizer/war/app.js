@@ -1,10 +1,11 @@
 var serverPath = '//speech-tokenizer-1282.appspot.com/';
 
 function hangoutsid(state){
-	var hangoutsid=gapi.hangout.getHangoutId();
+	var hangoutsid = gapi.hangout.getHangoutId();
 	var idElement = document.getElementById('hangoutsid');
-	setText(idElement, 'TEST');
-	alert('Test');
+	console.log(hangoutsid);
+	/*setText(idElement, 'TEST');
+	alert('Test');*/
 }
 
 // A function to be run at app initialization time which registers our callbacks

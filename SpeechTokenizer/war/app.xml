@@ -25,8 +25,8 @@
 	<dt>Hangouts-ID:</dt><dt id="hangoutsid"></dt>
 	<dt>Result:</dt><dt id="results"></dt>
 	<dt span id="final_span" class="final"></dt>
-	<!-- <dt><button onClick="hangoutsid()">Click</button></dt>-->
-	<dt id="button"><button id="startbutton" onClick="startButton(event);hangoutsid(state)">Click</button></dt>
+	<!-- <dt><button onClick="hangoutsid(state)">Click</button></dt>-->
+	<dt id="button"><button id="startbutton" onClick="startButton(event)">Click</button></dt>
   </dl>
 </div>
 
