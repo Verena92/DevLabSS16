@@ -16,7 +16,7 @@
 <script src="//speech-tokenizer-1282.appspot.com/app.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/Webspeech.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/tokenization/Token.js"></script>
-<script src="//speech-tokenizer-1282.appspot.com/tokenization/Tokenization.js"></script>
+<script src="//speech-tokenizer-1282.appspot.com/tokenization/Tokenize.js"></script>
 
 <h1 style="color: white">Speech Tokenizer</h1>
 <div style="float: left; padding: 50px 100px; border-right: 1px solid #EEE; color: white">
