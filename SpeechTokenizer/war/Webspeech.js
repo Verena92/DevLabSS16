@@ -22,7 +22,7 @@ var ignore_onend;
     			recognition.lang = "en-US";
     			recognizing = true;
   			};
-  	
+  			  	
   			recognition.onend = function() {
     			recognizing = false;
     			if (ignore_onend) {

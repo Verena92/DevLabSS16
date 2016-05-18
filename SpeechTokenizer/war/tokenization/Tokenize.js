@@ -2,7 +2,9 @@
  * Autor: Benjamin Mateja
  */
 
-
+	/**
+	 * uncommonArr is the global array with desired words.
+	 */
 var uncommonArr = [];
 
 function Tokenize(){
@@ -46,9 +48,7 @@ function Tokenize(){
 		return sttResultMatch;
 		/**return [sttResult, sttResultMatch];*/
 		
-	/**
-	 * uncommonArr is the global array with desired words.
-	 */
+
 	
 		/**
 		 * Function to filter common words.
