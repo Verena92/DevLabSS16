@@ -17,21 +17,28 @@
 <script src="//speech-tokenizer-1282.appspot.com/Webspeech.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/tokenization/Token.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/tokenization/Tokenize.js"></script>
+<script src="//speech-tokenizer-1282.appspot.com/user/user.js"></script>
 
-<h1 style="color: white">Speech Tokenizer</h1>
-<div style="float: left; padding: 100px; border: 1px solid #EEE; color: white">
-  <dl>
-	<dt>Mic aktiv:</dt><dt id="micstatus"></dt>
-	<dt>Hangouts-ID:</dt><dt id="hangoutsid"></dt>
-	<dt>Result:</dt><dt id="results"></dt>
-	<dt span id="final_span" class="final"></dt>
-	<!-- <dt><button onClick="hangoutsid(state)">Click</button></dt>-->
-	<dt id="button"><button id="startbutton" onClick="startButton(event)">Click</button></dt>
-  </dl>
+<!-- CSS Plugin -->
+<link rel="stylesheet" href="//speech-tokenizer-1282.appspot.com/app.css">
+
+<div id="wrap">
+	<h1>Speech Tokenizer</h1>
+	<div>
+		<dl>
+			<dt><h2>Result:</h2></dt>
+			<dt id="results"></dt>
+			<dt span id="final_span" class="final"></dt>
+			<dt id="button"><button id="startbutton" onClick="startButton(event)">Click</button></dt>
+		</dl>
+	</div>
+	<p>Developer-Box</p>
+	<div id="developer">
+		<dl>
+			<dt>Mic aktiv:</dt><dt id="micstatus"></dt>
+			<dt>Hangouts-ID:</dt><dt id="hangoutsid"></dt>
+		</dl>
+	</div>
 </div>
-
-<div></div>
-<div style="clear: both;"></div>
-
 ]]></Content>
 </Module>

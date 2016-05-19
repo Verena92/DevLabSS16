@@ -1,14 +1,12 @@
 var serverPath = '//speech-tokenizer-1282.appspot.com/';
 
-function hangoutsid(state){
-	var hangoutsid = gapi.hangout.getHangoutId();
-	var idElement = document.getElementById('hangoutsid');
-	console.log(hangoutsid);
-	/*setText(idElement, 'TEST');
-	alert('Test');*/
+function initUi(){
+	var hangoutsid = getUserData('id');
+	var hangoutsidelement = document.getElementById('hangoutsid');
+	hangoutsidelement.innerHTML=hangoutsid;
 }
 
-// A function to be run at app initialization time which registers our callbacks
+// A function to be run at app initialization time which registers the callbacks
 function init() {
   console.log('Init app.');
 
@@ -16,13 +14,15 @@ function init() {
     if (eventObj.isApiReady) {
       console.log('API is ready');
 
-      gapi.hangout.data.onStateChanged.add(function(eventObj) {
+      /*gapi.hangout.data.onStateChanged.add(function(eventObj) {
         hangoutsid(eventObj.state);
       });
       /*gapi.hangout.onParticipantsChanged.add(function(eventObj) {
         updateParticipantsUi(eventObj.participants);
       });*/
-
+      
+      initUi();
+      
       gapi.hangout.onApiReady.remove(apiReady);
     }
   };
