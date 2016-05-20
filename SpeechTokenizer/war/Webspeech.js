@@ -51,13 +51,26 @@ var ignore_onend;
   			};*/
   	recognition.onspeechstart=function(){
   		var micstatuselement = document.getElementById('micstatus');
+  		
+  		/**
+  		 * Outcomment the next two lines for tests on local server.
+  		 * You need the two lines just for App Engine.
+  		 */
   		micstatuselement.style.color='green';
   		micstatuselement.innerHTML='Mic aktiv';
+  		
   	}
   	recognition.onspeechend=function(){
   		var micstatuselement = document.getElementById('micstatus');
+  		
+  		/**
+  		 * Outcomment the next two lines for tests on local server.
+  		 * You need the two lines just for App Engine.
+  		 */
   		micstatuselement.removeAttribute('style');
   		micstatuselement.innerHTML='Mic inaktiv';
+  		
+  		
   		recognition.stop();
   	}
   	
@@ -74,7 +87,7 @@ var ignore_onend;
       				//console.log(event.results[i][0]);
       				//console.log(sttResult);
       				
-      				//Token();
+      				Token();
       				
     			}
     			/*linebreak für neuen Paragraphen, wird dann in HTML übersetzt*/

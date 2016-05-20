@@ -20,6 +20,9 @@ function Token(){
 	 */
 	Tokenize();
 	
+	//vorname = getUserData('firstName');
+	//console.log(vorname);
+	
 	date = new Date();
 	hour = date.getHours();
 	minutes = date.getMinutes();
@@ -50,10 +53,6 @@ function Token(){
 		TokenArray.push(TokenNew);
 		
 		oldIdentifier = i+1;
-		
-		
-		
-		
 		
 		//console.log(TokenNew);
 		
