@@ -20,11 +20,18 @@ function getUserData(userData){
 				data=nameArray[1];
 			}
 		}else{
-			data=JSON.stringify(localParticipant[userData]);		
+			data=JSON.stringify(localParticipant[userData]);
+			data=data.replace(/\"/g,'');
 		}
 	}else{
 		console.log('Falsches Argument in getUserData! Siehe: https://developers.google.com/+/hangouts/api/gapi.hangout.html#classes-in-gapihangout');
 	}
 	
 	return data;
+}
+
+function getHangoutId(){
+	var hangoutId=gapi.hangout.getHangoutId();
+	
+	return hangoutId;
 }

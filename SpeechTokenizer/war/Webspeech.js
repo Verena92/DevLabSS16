@@ -28,7 +28,7 @@ var ignore_onend;
     			if (ignore_onend) {
       				return;
     			}
-  			};
+  	};
   		
   			/*recognition.onresult = function(event) { //the event holds the results
   				The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
@@ -49,6 +49,17 @@ var ignore_onend;
 				sttResult = capitalize(sttResult);
 				interim.innerHTML = linebreak(sttResult);
   			};*/
+  	recognition.onspeechstart=function(){
+  		var micstatuselement = document.getElementById('micstatus');
+  		micstatuselement.style.color='green';
+  		micstatuselement.innerHTML='Mic aktiv';
+  	}
+  	recognition.onspeechend=function(){
+  		var micstatuselement = document.getElementById('micstatus');
+  		micstatuselement.removeAttribute('style');
+  		micstatuselement.innerHTML='Mic inaktiv';
+  		recognition.stop();
+  	}
   	
   	recognition.onresult = function(event) {
     			for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -62,7 +73,8 @@ var ignore_onend;
       				//Token(event.results[i][0]);
       				//console.log(event.results[i][0]);
       				//console.log(sttResult);
-      				Token();
+      				
+      				//Token();
       				
     			}
     			/*linebreak für neuen Paragraphen, wird dann in HTML übersetzt*/
@@ -92,17 +104,17 @@ function startButton(event) {
 	recognition.start();
 	ignore_onend = false;
 	final_span.innerHTML = '';
-	}
+}
 	
 /* Durch linebreak und capatilize wird Text in Box eingeblendet */
 
 function linebreak(sttResult) {
 	return sttResult;
-	}
+}
 
 function capitalize(sttResult) {
 	return sttResult;
-	}
+}
 	
 
 

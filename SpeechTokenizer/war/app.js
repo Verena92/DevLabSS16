@@ -13,15 +13,15 @@ function init() {
   var apiReady = function(eventObj) {
     if (eventObj.isApiReady) {
       console.log('API is ready');
-
+      
+      initUi();
+      
       /*gapi.hangout.data.onStateChanged.add(function(eventObj) {
         hangoutsid(eventObj.state);
       });
       /*gapi.hangout.onParticipantsChanged.add(function(eventObj) {
         updateParticipantsUi(eventObj.participants);
       });*/
-      
-      initUi();
       
       gapi.hangout.onApiReady.remove(apiReady);
     }
