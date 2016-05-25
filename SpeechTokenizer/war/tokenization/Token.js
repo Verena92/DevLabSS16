@@ -40,19 +40,16 @@ function Token(){
 				timestamp: dateCombined,
 				createdByFirstName:"Benjamin",
 				createdByLastName:"Mateja",
-				/**TokenInformation: function() {
-					return this.createdByFirstName + " " + this.createdByLastName + " is a " +
-					this.profession + ". Keyword: " +this.keyword + " with ID: " +this.id;
-				}*/
 		};
 				
 		//console.log(TokenNew);
 		
-		Stringify();
-		
 		TokenArray.push(TokenNew);
-		
 		oldIdentifier = i+1;
+		
+		GetKeywordInformation();
+		
+		Stringify();
 		
 		//console.log(TokenNew);
 		

@@ -72,7 +72,7 @@ function Tokenize(){
 		 * After that, push them in an array.
 		 */
 		for ( i = 0; i < wordArr.length; i++){
-			word = wordArr[i].trim().toLowerCase();
+			word = wordArr[i].trim();
 			if ( !commonObj[word] ) {
 				uncommonArr.push(word);
 			}

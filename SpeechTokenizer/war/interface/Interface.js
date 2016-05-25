@@ -11,7 +11,12 @@
 	//var keyword = TokenNew.keyword;	
 //});
 
-var keyword = "Lisa";	
+
+
+function GetKeywordInformation(){
+	
+	var keyword = TokenNew.keyword;
+	var size;
 
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
@@ -22,13 +27,25 @@ var keyword = "Lisa";
 		error: function(){
 	    	console.log("Error");
 		},
-		//Bei erfolgreichem Request Objekt in der Console ausgeben
+		//Bei erfolgreichem Request Objekt in der Console ausgebenc
 		success: function(responseData){
 	    	//data = responseData["data"];
-	    	console.log("Success",responseData);
+	    	//console.log("Success",responseData);
+	    	size = Object.keys(responseData.data).length;
+	    	
+	    	if (size == 0) {
+				console.log("empty");
+			} else {
+				console.log("Success",responseData);
+			}
+			
 	    	
 		}
-	  }); 
+			
+		
+	  });
+	  
+}
 	  
 	  /*
 	  

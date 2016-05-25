@@ -56,8 +56,8 @@ var ignore_onend;
   		 * Outcomment the next two lines for tests on local server.
   		 * You need the two lines just for App Engine.
   		 */
-  		micstatuselement.style.color='green';
-  		micstatuselement.innerHTML='Mic aktiv';
+  		//micstatuselement.style.color='green';
+  		//micstatuselement.innerHTML='Mic aktiv';
   		
   	}
   	recognition.onspeechend=function(){
@@ -67,8 +67,8 @@ var ignore_onend;
   		 * Outcomment the next two lines for tests on local server.
   		 * You need the two lines just for App Engine.
   		 */
-  		micstatuselement.removeAttribute('style');
-  		micstatuselement.innerHTML='Mic inaktiv';
+  		//micstatuselement.removeAttribute('style');
+  		//micstatuselement.innerHTML='Mic inaktiv';
   		
   		
   		recognition.stop();
