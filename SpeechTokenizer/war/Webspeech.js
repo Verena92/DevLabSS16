@@ -99,13 +99,10 @@ var ignore_onend;
   }
   			
   	
-  	
   	/*recognition.onspeechend = function() {
   		recognition.stop();
   	}*/
   			
-
-	
 	/*Wird nach Drücken auf den Start-Button aufgerufen*/
 function startButton(event) {	
 	if (recognizing) {
