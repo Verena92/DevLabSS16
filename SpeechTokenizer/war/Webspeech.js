@@ -36,7 +36,7 @@ var ignore_onend;
   				It has a getter so it can be accessed like an array
   				The first [0] returns the SpeechRecognitionResult at position 0.
   				Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
-  				These also have getters so they can be accessed like arrays.
+  				These have also getters so they can be accessed like arrays.
   				The second [0] returns the SpeechRecognitionAlternative at position 0.
   				We then return the transcript property of the SpeechRecognitionAlternative object
   				
@@ -136,7 +136,7 @@ function capitalize(sttResult) {
 	Erlaubt der Seite Zugriff auf das Mikrofon - webkitSpeechRecognition Objekt stellt das Speech Interface bereit und definiert Eventhandler
 	That is the object that will manage our whole recognition process.
 	var recognition = new webkitSpeechRecognition();
-  			Continous: true = User kann Pause einlegen, bei false wird sofort geschickt sobald pause
+  			Continous: true = User kann Pause einlegen, bei false wird sofort geschickt sobald Pause
   			recognition.continuous = false;
   	        /* interimResults: true = angezeigte graue Wörter sind noch nicht festgestetzt, erst wenn sie schwarz sind, sind sie fest. 
   	        false: Wörter kommen erst wenn sich das System sicher ist
@@ -170,13 +170,13 @@ function capitalize(sttResult) {
 			}
 
 	}
-  	
-  	
+  		
   	/*recognition.onspeechend = function() {
   		recognition.stop();
   	}
   					
-  			interim_transcript und wird jedes mal neu befüllt, da nur vorübergehend. Der schwarze Text (sttResult) ändert sich nicht, deswegen kann er nur neue Audios aufnehmen
+  			interim_transcript und wird jedes mal neu befüllt, da nur vorübergehend. 
+  			Der schwarze Text (sttResult) ändert sich nicht, deswegen kann er nur neue Audios aufnehmen
   			recognition.onresult = function(event) {
    				var interim_transcript = '';
     			for (var i = event.resultIndex; i < event.results.length; ++i) {
