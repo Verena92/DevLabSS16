@@ -15,7 +15,7 @@ function GetKeywordInformation(TokenNew){
 	
 	var keyword = TokenNew.keyword;
 	var size;
-	var sizeInside;
+	var sizeOR;
 	var i;
 
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
@@ -27,7 +27,7 @@ function GetKeywordInformation(TokenNew){
 		error: function(){
 	    	console.log("Error");
 		},
-		//Bei erfolgreichem Request Objekt in der Console ausgebenc
+		//Bei erfolgreichem Request Objekt in der Console ausgeben
 		success: function(responseData){
 	    	//data = responseData["data"];
 	    	//console.log("Success",responseData);
@@ -45,15 +45,15 @@ function GetKeywordInformation(TokenNew){
 				TokenNew.keywordValueType = responseData.data[0].valueType;
 				TokenNew.keywordValue = responseData.data[0].value;
 				
-				sizeInside = Object.keys(responseData.data[0].objectRelation).length;
+				sizeOR = Object.keys(responseData.data[0].objectRelation).length;
+									
+					TokenNew.keywordInformation = {
+							
+					}
 				
-				TokenNew.keywordInformation = {
-					
-				}
-				
-				for (i = 0; i < sizeInside; i++){
-					TokenNew.keywordInformation[responseData.data[0].objectRelation[i].type] = responseData.data[0].objectRelation[i].value;										
-				}
+					for (i = 0; i < sizeOR; i++){
+						TokenNew.keywordInformation[responseData.data[0].objectRelation[i].type] = responseData.data[0].objectRelation[i].value;										
+					}
 				
 				//console.log(TokenNew);
 				

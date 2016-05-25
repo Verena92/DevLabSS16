@@ -39,10 +39,10 @@ function Token(){
 				keyword: uncommonArr[i],
 				timestamp: dateCombined,
 				//Muss noch mit den Hangouts Sachen ersetzt werden. Geht nur im Localhost Mode logischerweise nicht ;)
-				createdByFirstName: getUserData('firstName'),
-				createdByLastName: getUserData('lastName'),
-				createdByUserId: getUserData('id'),
-				hangoutsId: getHangoutId(),
+				//createdByFirstName: getUserData('firstName'),
+				//createdByLastName: getUserData('lastName'),
+				//createdByUserId: getUserData('id'),
+				//hangoutsId: getHangoutId(),
 				
 		};
 			
