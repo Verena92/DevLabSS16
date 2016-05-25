@@ -21,12 +21,7 @@ function GetKeywordInformation(TokenNew){
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
 		  url:'http://104.197.87.226:8080/document/rest/GetWordinformation/'+keyword,
-		  dataType: 'jsonp',
-		  //added crossDomain and contentType.
-		  //Also changed data Typ from json to jsonp
-		  crossDomain: true,
-		  contentType: "application/json; charset=utf-8",
-		  
+		  dataType: 'json',
 		 
 		//Fehler loggen 
 		error: function(){
@@ -48,7 +43,8 @@ function GetKeywordInformation(TokenNew){
 				TokenNew.keywordClassName = responseData.data[0].className;
 				TokenNew.keywordDataType = responseData.data[0].dataType;
 				TokenNew.keywordValueType = responseData.data[0].valueType;
-								
+				TokenNew.keywordValue = responseData.data[0].value;
+				
 				sizeInside = Object.keys(responseData.data[0].objectRelation).length;
 				
 				TokenNew.keywordInformation = {
