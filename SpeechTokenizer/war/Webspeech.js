@@ -97,8 +97,7 @@ var ignore_onend;
     			final_span.innerHTML = linebreak(sttResult);
   			};
   }
-  			
-  	
+  				
   	/*recognition.onspeechend = function() {
   		recognition.stop();
   	}*/
@@ -126,9 +125,6 @@ function capitalize(sttResult) {
 	return sttResult;
 }
 	
-
-
-
 /*<script type="text/javascript">
 	
 	var ignore_onend;
@@ -179,8 +175,7 @@ function capitalize(sttResult) {
   	/*recognition.onspeechend = function() {
   		recognition.stop();
   	}
-  			
-  			
+  					
   			interim_transcript und wird jedes mal neu befüllt, da nur vorübergehend. Der schwarze Text (sttResult) ändert sich nicht, deswegen kann er nur neue Audios aufnehmen
   			recognition.onresult = function(event) {
    				var interim_transcript = '';
@@ -207,6 +202,5 @@ function startButton(event) {
 	final_span.innerHTML = '';
 	interim.innerHTML = '';
 	}
-	
 	
 </script>-->*/
