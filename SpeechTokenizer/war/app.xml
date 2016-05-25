@@ -13,12 +13,15 @@
 <script src="//hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0"></script>
 
 <!-- Javascript Application -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/app.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/Webspeech.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/tokenization/Token.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/tokenization/Tokenize.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/tokenization/JSON.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/user/user.js"></script>
+<script src="//speech-tokenizer-1282.appspot.com/interface/interface.js"></script>
+
 
 <!-- CSS Plugin -->
 <link rel="stylesheet" href="//speech-tokenizer-1282.appspot.com/app.css">
