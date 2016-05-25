@@ -20,7 +20,7 @@
 <script src="//speech-tokenizer-1282.appspot.com/tokenization/Tokenize.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/tokenization/JSON.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/user/user.js"></script>
-<script src="//speech-tokenizer-1282.appspot.com/interface/interface.js"></script>
+<script src="//speech-tokenizer-1282.appspot.com/interface/Interface.js"></script>
 
 
 <!-- CSS Plugin -->
