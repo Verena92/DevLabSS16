@@ -1,26 +1,41 @@
 /**
- * 
+ * Autor: Maren
  */
-/*
-//Funktionierende statische GET Methode für "Lisa" mit JQuery
+
+
+//Funktionierende GET Methode mit JQuery
+
+//ToDO: Anstelle von des festen Keyword muss hier das Keyword aus dem PreToken übergeben werden TokenNew.keyword
+//$.getScript("../tokenization/Token.js", function (){
+	//Token();
+	//var keyword = TokenNew.keyword;	
+//});
+
+var keyword = "Lisa";	
+
+//Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
-		  url:'http://104.197.87.226:8080/document/rest/GetWordinformation/Lisa',
+		  url:'http://104.197.87.226:8080/document/rest/GetWordinformation/'+keyword,
 		  dataType: 'json',
 		 
-		 
+		//Fehler loggen 
 		error: function(){
 	    	console.log("Error");
 		},
+		//Bei erfolgreichem Request Objekt in der Console ausgeben
 		success: function(responseData){
 	    	//data = responseData["data"];
 	    	console.log("Success",responseData);
 	    	
 		}
-	  }); */
+	  }); 
 	  
-	  //Funktionierende statische GET Methode für "Haruki" ohne JQuery
+	  /*
+	  
+	  //Funktionierende  GET Methode ohne JQuery
 	  var request = new XMLHttpRequest();
-	  request.open('GET', "http://104.197.87.226:8080/document/rest/GetWordinformation/Haruki", true);
+	  var keyword = "Haruki";
+	  request.open('GET', "http://104.197.87.226:8080/document/rest/GetWordinformation/"+ keyword, true);
 	  request.setRequestHeader("Content-type", "application/json");
 	  request.send();
 	  request.addEventListener("readystatechange", processRequest, false);
@@ -33,3 +48,9 @@
 			        console.log("Sucess",JSON.parse(request.responseText));
 		    }
 	  };
+	 
+	  
+	  
+	  function UpdateToken(){ //ToDo
+		  
+	  };*/
