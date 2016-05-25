@@ -11,12 +11,12 @@
 	//var keyword = TokenNew.keyword;	
 //});
 
-
-
-function GetKeywordInformation(){
+function GetKeywordInformation(TokenNew){
 	
 	var keyword = TokenNew.keyword;
 	var size;
+	var sizeInside;
+	var i;
 
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
@@ -34,9 +34,30 @@ function GetKeywordInformation(){
 	    	size = Object.keys(responseData.data).length;
 	    	
 	    	if (size == 0) {
-				console.log("empty");
+	    		//console.log(TokenNew);
+				Stringify(TokenNew);
 			} else {
-				console.log("Success",responseData);
+				//console.log(responseData);
+				//console.log(responseData.data[0].className);
+				
+				TokenNew.keywordClassName = responseData.data[0].className;
+				TokenNew.keywordDataType = responseData.data[0].dataType;
+				TokenNew.keywordValueType = responseData.data[0].valueType;
+								
+				sizeInside = Object.keys(responseData.data[0].objectRelation).length;
+				
+				TokenNew.keywordInformation = {
+					
+				}
+				
+				for (i = 0; i < sizeInside; i++){
+					TokenNew.keywordInformation[responseData.data[0].objectRelation[i].type] = responseData.data[0].objectRelation[i].value;										
+				}
+				
+				//console.log(TokenNew);
+				
+				Stringify(TokenNew);
+				
 			}
 			
 	    	

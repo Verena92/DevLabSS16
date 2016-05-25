@@ -38,21 +38,21 @@ function Token(){
 				id: i,
 				keyword: uncommonArr[i],
 				timestamp: dateCombined,
+				//Muss noch mit den Hangouts Sachen ersetzt werden. Geht nur im Localhost Mode logischerweise nicht ;)
 				createdByFirstName:"Benjamin",
 				createdByLastName:"Mateja",
-		};
 				
-		//console.log(TokenNew);
-		
+		};
+			
 		TokenArray.push(TokenNew);
-		oldIdentifier = i+1;
 		
-		GetKeywordInformation();
+		//GetKeywordInformation ruft interface.js auf und reichert ggf. das Keyword an.
+		GetKeywordInformation(TokenNew);
 		
-		Stringify();
+		//stringify ruft direkt JSON.js auf, und wandelt das objekt um, ohne vorher nach dem keyword zufragen.
+		//Stringify();
 		
-		//console.log(TokenNew);
-		
+		oldIdentifier = i+1;	
 	}
 	
 	//console.log(TokenArray);
