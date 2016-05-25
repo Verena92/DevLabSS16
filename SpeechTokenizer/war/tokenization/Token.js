@@ -42,7 +42,7 @@ function Token(){
 				createdByFirstName: getUserData('firstName'),
 				createdByLastName: getUserData('lastName'),
 				createdByUserId: getUserData('id'),
-				hangoutsId: getHangoutId();
+				hangoutsId: getHangoutId(),
 				
 		};
 			
