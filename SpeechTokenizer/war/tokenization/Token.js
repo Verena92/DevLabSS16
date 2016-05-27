@@ -47,9 +47,6 @@ function Token(){
 				
 		};
 		
-		var jsonString = JSON.stringify(TokenNew);
-		console.log(jsonString);
-		
 		TokenArray.push(TokenNew);
 		
 		//GetKeywordInformation ruft interface.js auf und reichert ggf. das Keyword an.
