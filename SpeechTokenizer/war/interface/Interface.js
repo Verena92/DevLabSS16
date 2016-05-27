@@ -23,7 +23,6 @@ function GetKeywordInformation(TokenNew){
 	  $.ajax({type:'GET', 
 		  url:'http://104.197.87.226:8080/document/rest/GetWordinformation/'+keyword,
 		  dataType: 'json',
-		  crossDomain: true,
 		 
 		//Fehler loggen 
 		error: function(){
