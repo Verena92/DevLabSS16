@@ -44,38 +44,37 @@ function GetKeywordInformation(TokenNew){
 				
 				for (i = 0; i < size; i++) {
 					
-				var sizestring = String(i+1);
-				var keywordattribute = "keywordInformation" + sizestring;
+					var sizestring = String(i+1);
+					var keywordattribute = "keywordInformation" + sizestring;
 				
-				TokenNew[keywordattribute] = {
-				}
-				
-				TokenNew[keywordattribute].keywordClassName = responseData.data[i].className,
-				TokenNew[keywordattribute].keywordDataType = responseData.data[i].dataType,
-				TokenNew[keywordattribute].keywordValueType = responseData.data[i].valueType,
-				TokenNew[keywordattribute].keywordValue = responseData.data[i].value,
-			
-				sizeInside = Object.keys(responseData.data[i].objectRelation).length;
-				//console.log(sizeInside);
-									
-				TokenNew[keywordattribute].keywordRelation = {		
-				}
-				
-					for (j = 0; j < sizeInside; j++){
-						TokenNew[keywordattribute].keywordRelation[responseData.data[i].objectRelation[j].type] = responseData.data[i].objectRelation[j].value;										
+						TokenNew[keywordattribute] = {
 					}
+				
+							TokenNew[keywordattribute].keywordClassName = responseData.data[i].className,
+							TokenNew[keywordattribute].keywordDataType = responseData.data[i].dataType,
+							TokenNew[keywordattribute].keywordValueType = responseData.data[i].valueType,
+							TokenNew[keywordattribute].keywordValue = responseData.data[i].value,
+			
+							sizeInside = Object.keys(responseData.data[i].objectRelation).length;
+									
+							TokenNew[keywordattribute].keywordRelation = {		
+							}
+				
+							for (j = 0; j < sizeInside; j++){
+								TokenNew[keywordattribute].keywordRelation[responseData.data[i].objectRelation[j].type] = responseData.data[i].objectRelation[j].value;										
+							}
 				}
 				//console.log(TokenNew);
 				
-				Stringify(TokenNew);
+			Stringify(TokenNew);
 				
-			}
-			
-	    	
 		}
 			
+	    	
+	}
+			
 		
-	  });
+});
 	  
 }
 	  
