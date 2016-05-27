@@ -15,8 +15,9 @@ function GetKeywordInformation(TokenNew){
 	
 	var keyword = TokenNew.keyword;
 	var size;
-	var sizeOR;
+	var sizeInside;
 	var i;
+	var j;
 
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
@@ -32,7 +33,8 @@ function GetKeywordInformation(TokenNew){
 	    	//data = responseData["data"];
 	    	//console.log("Success",responseData);
 	    	size = Object.keys(responseData.data).length;
-	    	
+	    	//console.log(size);
+	    			
 	    	if (size == 0) {
 	    		//console.log(TokenNew);
 				Stringify(TokenNew);
@@ -40,21 +42,29 @@ function GetKeywordInformation(TokenNew){
 				//console.log(responseData);
 				//console.log(responseData.data[0].className);
 				
-				TokenNew.keywordClassName = responseData.data[0].className;
-				TokenNew.keywordDataType = responseData.data[0].dataType;
-				TokenNew.keywordValueType = responseData.data[0].valueType;
-				TokenNew.keywordValue = responseData.data[0].value;
+				for (i = 0; i < size; i++) {
+					
+				var sizestring = String(i+1);
+				var keywordattribute = "keywordInformation" + sizestring;
 				
-				sizeOR = Object.keys(responseData.data[0].objectRelation).length;
+				TokenNew[keywordattribute] = {
+				}
+				
+				TokenNew[keywordattribute].keywordClassName = responseData.data[i].className,
+				TokenNew[keywordattribute].keywordDataType = responseData.data[i].dataType,
+				TokenNew[keywordattribute].keywordValueType = responseData.data[i].valueType,
+				TokenNew[keywordattribute].keywordValue = responseData.data[i].value,
+			
+				sizeInside = Object.keys(responseData.data[i].objectRelation).length;
+				//console.log(sizeInside);
 									
-					TokenNew.keywordInformation = {
-							
-					}
+				TokenNew[keywordattribute].keywordRelation = {		
+				}
 				
-					for (i = 0; i < sizeOR; i++){
-						TokenNew.keywordInformation[responseData.data[0].objectRelation[i].type] = responseData.data[0].objectRelation[i].value;										
+					for (j = 0; j < sizeInside; j++){
+						TokenNew[keywordattribute].keywordRelation[responseData.data[i].objectRelation[j].type] = responseData.data[i].objectRelation[j].value;										
 					}
-				
+				}
 				//console.log(TokenNew);
 				
 				Stringify(TokenNew);
