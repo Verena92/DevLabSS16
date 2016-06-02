@@ -15,7 +15,6 @@ var ignore_onend;
 			var recognition = new webkitSpeechRecognition();
   			/* Continous: true = User kann Pause einlegen, bei false wird sofort geschickt sobald pause*/
   			recognition.continuous = true;
-	  		//recognition.interimResults = true;
 	
 			//Listening (capturing voice from audio input) started.
 			recognition.onstart = function() {
@@ -49,6 +48,7 @@ var ignore_onend;
 				sttResult = capitalize(sttResult);
 				interim.innerHTML = linebreak(sttResult);
   			};*/
+  	
   	recognition.onspeechstart=function(){
   		var micstatuselement = document.getElementById('micstatus');
   		
@@ -58,6 +58,12 @@ var ignore_onend;
   		 */
   		micstatuselement.style.color='green';
   		micstatuselement.innerHTML='Mic aktiv';
+  		sttResult = '';
+  		/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
+  		recognition.start();
+  		ignore_onend = false;
+  		final_span.innerHTML = '';
+
   		
   	}
   	recognition.onspeechend=function(){
@@ -80,13 +86,7 @@ var ignore_onend;
         				sttResult = event.results[i][0].transcript;
       				}
       				
-      				//Aufruf der Tokenize Funktion in Tokenize.js
-      				//Tokenize(sttResult);
-      				
-      				//Token(event.results[i][0]);
-      				//console.log(event.results[i][0]);
-      				//console.log(sttResult);
-      				
+      				//Aufruf der Token Funktion in Token.js      				
       				Token();
       				
     			}
@@ -102,18 +102,18 @@ var ignore_onend;
   		recognition.stop();
   	}*/
   			
-	/*Wird nach Drücken auf den Start-Button aufgerufen*/
+	/*Wird nach Drücken auf den Start-Button aufgerufen
 function startButton(event) {	
 	if (recognizing) {
     	recognition.stop();
     	return;
   	}
 	sttResult = '';
-	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
+	aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
 	recognition.start();
 	ignore_onend = false;
 	final_span.innerHTML = '';
-}
+}*/
 	
 /* Durch linebreak und capatilize wird Text in Box eingeblendet */
 
