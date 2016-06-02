@@ -59,10 +59,10 @@ var ignore_onend;
   		micstatuselement.style.color='green';
   		micstatuselement.innerHTML='Mic aktiv';
   		sttResult = '';
-  		/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
+  		/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
   		recognition.start();
   		ignore_onend = false;
-  		final_span.innerHTML = '';
+  		final_span.innerHTML = '';*/
 
   		
   	}
@@ -102,18 +102,18 @@ var ignore_onend;
   		recognition.stop();
   	}*/
   			
-	/*Wird nach Drücken auf den Start-Button aufgerufen
+	/*Wird nach Drücken auf den Start-Button aufgerufen*/
 function startButton(event) {	
 	if (recognizing) {
     	recognition.stop();
     	return;
   	}
 	sttResult = '';
-	aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
+	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
 	recognition.start();
 	ignore_onend = false;
 	final_span.innerHTML = '';
-}*/
+}
 	
 /* Durch linebreak und capatilize wird Text in Box eingeblendet */
 
