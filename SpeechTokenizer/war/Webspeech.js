@@ -49,7 +49,7 @@ var ignore_onend;
 				interim.innerHTML = linebreak(sttResult);
   			};*/
   	
-  	recognition.onspeechstart=function(){
+  	recognition.onspeechstart = function(){
   		var micstatuselement = document.getElementById('micstatus');
   		
   		/**
@@ -66,7 +66,7 @@ var ignore_onend;
 
   		
   	}
-  	recognition.onspeechend=function(){
+  	recognition.onspeechend = function(){
   		var micstatuselement = document.getElementById('micstatus');
   		
   		/**
