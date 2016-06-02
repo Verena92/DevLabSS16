@@ -58,8 +58,8 @@ var ignore_onend;
   		 */
   		micstatuselement.style.color='green';
   		micstatuselement.innerHTML='Mic aktiv';
-  		sttResult = '';
-  		/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
+  		/*sttResult = '';
+  		aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
   		recognition.start();
   		ignore_onend = false;
   		final_span.innerHTML = '';*/
