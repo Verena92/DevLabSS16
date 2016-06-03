@@ -21,7 +21,7 @@ function GetKeywordInformation(TokenNew){
 
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
-		  url:'http://104.197.87.226:8080/document/rest/GetWordinformation/'+"HighNet",
+		  url:'http://104.197.87.226:8080/document/rest/GetWordinformation/'+keyword,
 		  dataType: 'json',
 		 
 		//Fehler loggen 
