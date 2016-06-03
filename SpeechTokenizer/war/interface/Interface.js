@@ -21,7 +21,7 @@ function GetKeywordInformation(TokenNew){
 
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
-		  url:'http://104.197.87.226:8080/document/rest/GetWordinformation/'+keyword,
+		  url:'http://104.197.87.226:8080/document/rest/GetWordinformation/'+"HighNet",
 		  dataType: 'json',
 		 
 		//Fehler loggen 
@@ -45,8 +45,8 @@ function GetKeywordInformation(TokenNew){
 				for (i = 0; i < size; i++) {
 					
 					var sizestring = String(i+1);
-					var keywordattribute = "keywordInformation" + sizestring;
-				
+					var keywordattribute = sizestring;
+					
 						TokenNew[keywordattribute] = {
 					}
 				
@@ -63,8 +63,10 @@ function GetKeywordInformation(TokenNew){
 							for (j = 0; j < sizeInside; j++){
 								TokenNew[keywordattribute].keywordRelation[responseData.data[i].objectRelation[j].type] = responseData.data[i].objectRelation[j].value;										
 							}
+							TokenNew.keywordInformation[i] = TokenNew[keywordattribute];
+							delete TokenNew[keywordattribute];
 				}
-				//console.log(TokenNew);
+				console.log(TokenNew);
 				
 			Stringify(TokenNew);
 				

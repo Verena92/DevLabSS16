@@ -45,10 +45,11 @@ function Token(){
 				createdByUserId: getUserData('id'),
 				hangoutsId: getHangoutId(),
 				
+				keywordInformation: [],
+				
 		};
 		
 		TokenArray.push(TokenNew);
-		
 		//GetKeywordInformation ruft interface.js auf und reichert ggf. das Keyword an.
 		GetKeywordInformation(TokenNew);
 		
