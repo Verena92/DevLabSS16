@@ -49,7 +49,7 @@ var ignore_onend;
 				interim.innerHTML = linebreak(sttResult);
   			};*/
   	
-  	recognition.onspeechstart = function(){
+  	recognition.onaudiostart = function(event) {
   		var micstatuselement = document.getElementById('micstatus');
   		
   		/**
@@ -58,15 +58,16 @@ var ignore_onend;
   		 */
   		micstatuselement.style.color='green';
   		micstatuselement.innerHTML='Mic aktiv';
-  		/*sttResult = '';
-  		aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
-  		recognition.start();
-  		ignore_onend = false;
-  		final_span.innerHTML = '';*/
 
+  		sttResult = '';
+  		recognition.start();
+  		/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
+  		ignore_onend = false;
+  		final_span.innerHTML = '';
   		
-  	}
-  	recognition.onspeechend = function(){
+  	};
+  	
+  	recognition.onaudioend = function(){
   		var micstatuselement = document.getElementById('micstatus');
   		
   		/**
@@ -76,13 +77,13 @@ var ignore_onend;
   		micstatuselement.removeAttribute('style');
   		micstatuselement.innerHTML='Mic inaktiv';
   		
-  		
   		recognition.stop();
-  	}
+  	};
   	
   	recognition.onresult = function(event) {
     			for (var i = event.resultIndex; i < event.results.length; ++i) {
       				if (event.results[i].isFinal) {
+      					//the text representation of a word.
         				sttResult = event.results[i][0].transcript;
       				}
       				
@@ -102,7 +103,7 @@ var ignore_onend;
   		recognition.stop();
   	}*/
   			
-	/*Wird nach Drücken auf den Start-Button aufgerufen*/
+/*Wird nach Drücken auf den Start-Button aufgerufen*/
 function startButton(event) {	
 	if (recognizing) {
     	recognition.stop();
