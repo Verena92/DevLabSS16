@@ -7,7 +7,8 @@ var sttResult = '';
 var recognizing = false;
 var ignore_onend;
 
-	if (!('webkitSpeechRecognition' in window)) { //diese Funktion ermöglicht, dass der Click Button öfters ausgeführt werden kann, ohne dass die Seite aktualisiert werden muss.
+	if (!('webkitSpeechRecognition' in window)) { 
+			//Hier wird geprüft, ob der Browser die Web Speech API unterstützt. Falls nicht wird er aufgefordert den Browser upd
 			upgrade ();
 		} else {
 			/*Erlaubt der Seite Zugriff auf das Mikrofon - webkitSpeechRecognition Objekt stellt das Speech Interface bereit und definiert Eventhandler*/
@@ -49,7 +50,7 @@ var ignore_onend;
 				interim.innerHTML = linebreak(sttResult);
   			};*/
   	
-  	recognition.onaudiostart = function(event) {
+  	recognition.onspeechstart = function(event) {
   		var micstatuselement = document.getElementById('micstatus');
   		
   		/**
@@ -59,15 +60,15 @@ var ignore_onend;
   		micstatuselement.style.color='green';
   		micstatuselement.innerHTML='Mic aktiv';
 
-  		sttResult = '';
+  		/*sttResult = '';
   		recognition.start();
-  		/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
+  		/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
   		ignore_onend = false;
-  		final_span.innerHTML = '';
+  		final_span.innerHTML = '';*/
   		
   	};
   	
-  	recognition.onaudioend = function(){
+  	recognition.onspeechend = function(){
   		var micstatuselement = document.getElementById('micstatus');
   		
   		/**
