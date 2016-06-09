@@ -98,9 +98,3 @@ function GetKeywordInformation(TokenNew){
 			        console.log("Sucess",JSON.parse(request.responseText));
 		    }
 	  };
-	 
-	  
-	  
-	  function UpdateToken(){ //ToDo
-		  
-	  };*/
