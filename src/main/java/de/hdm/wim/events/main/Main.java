@@ -16,6 +16,7 @@ import de.hdm.wim.events.mocks.UserInterfaceMock;
 import de.hdm.wim.events.model.Event;
 import de.hdm.wim.events.model.Participant;
 import de.hdm.wim.events.model.SpeechToken;
+import de.hdm.wim.token.Token;
 
 public class Main {
 
@@ -26,21 +27,22 @@ public class Main {
 		KieContainer kieContainer = kieServices.getKieClasspathContainer();
 		KieSession kieSession = kieContainer.newKieSession();
 		
-		kieSession.addEventListener( new EventStorageInterceptor());
+		//kieSession.addEventListener( new EventStorageInterceptor());
 		
 		//insert events
 		try {
 			List<Event> events = new ArrayList<>();
-			Participant user = new Participant("jens", "lindner", "jens@gmail.com", "hangoutssessionId-asdf-1234", "it architect");
-			List<String> related = new ArrayList<>();
-			related.add("mercedes");
-			related.add("tuning");
-			SpeechToken speechToken = new SpeechToken(user, "amg", related);
-			events.add( UserInterfaceMock.createSpeechTokenEvent("1", "jens", speechToken, "01-01-2016:12:00:00"));
-			events.add( UserInterfaceMock.createSpeechTokenEvent("2", "max", speechToken, "01-01-2016:12:00:30"));
-			events.add( UserInterfaceMock.createSpeechTokenEvent("3", "sebastian", speechToken, "01-01-2016:12:01:30"));
-			events.add( UserInterfaceMock.createSpeechTokenEvent("4", "stefan", speechToken, "01-01-2016:12:02:45"));
+//			Participant user = new Participant("jens", "lindner", "jens@gmail.com", "hangoutssessionId-asdf-1234", "it architect");
+//			List<String> related = new ArrayList<>();
+//			related.add("mercedes");
+//			related.add("tuning");
+//			SpeechToken speechToken = new SpeechToken(user, "amg", related);
+//			events.add( UserInterfaceMock.createSpeechTokenEvent("1", "jens", speechToken, "01-01-2016:12:00:00"));
+//			events.add( UserInterfaceMock.createSpeechTokenEvent("2", "max", speechToken, "01-01-2016:12:00:30"));
+//			events.add( UserInterfaceMock.createSpeechTokenEvent("3", "sebastian", speechToken, "01-01-2016:12:01:30"));
+//			events.add( UserInterfaceMock.createSpeechTokenEvent("4", "stefan", speechToken, "01-01-2016:12:02:45"));
 
+			events.add( new Token());
 			for (Event event : events) {
 				System.out.println( "insert");
 				insert(kieSession, "SpeechTokenEventStream", event);

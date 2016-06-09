@@ -1,22 +1,18 @@
 //created on: 06.05.2016
 package de.hdm.wim.events
 
-//list any import classes here.
+import de.hdm.wim.token.Token
 
+declare Token
+    @role( event )
+    @timestamp( timestamp.getTime() ) //long
+end
 
-
-//declare any global variables here
-
-
-
-
-rule "Your First Rule"
-
-    when
-        //conditions
-    then
-        //actions
-
+rule "Hello World" dialect "mvel"
+  when
+      $t : Token() from entry-point SpeechTokenEventStream
+  then
+      System.out.println( "a token occured!"); 
 end
 
 rule "Your Second Rule"
