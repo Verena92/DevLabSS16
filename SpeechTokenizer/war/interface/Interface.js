@@ -13,15 +13,27 @@
 
 function GetKeywordInformation(TokenNew){
 	
+	//keyword wird noch ersetzt durch die komplexere Objekt Abfrage previousKeyword, keyword und nextKeyword. 
 	var keyword = TokenNew.keyword;
-	var size;
-	var sizeInside;
-	var i;
-	var j;
+	
+	/**
+	 * size, sizeInside, i und j werden nur für die komplexere, alte Frage benötigt. bitte noch nicht löschen.
+	 */
+	//var size;
+	//var sizeInside;
+	//var i;
+	//var j;
+	
+	var queryWords = new Object();
+	queryWords.previousKeyword = TokenNew.previousKeyword;
+	queryWords.keyword = TokenNew.keyword;
+	queryWords.nextKeyword = TokenNew.nextKeyword;
+	
+	console.log(queryWords);
 
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
-		  url:'https://104.155.140.18/document/rest/GetWordinformation/Lisa',
+		  url:'https://104.155.140.18/document/rest/GetWordinformation/'+keyword,
 		  dataType: 'json',
 		 
 		//Fehler loggen 
@@ -42,7 +54,9 @@ function GetKeywordInformation(TokenNew){
 				//console.log(responseData);
 				//console.log(responseData.data[0].className);
 				
-				for (i = 0; i < size; i++) {
+				TokenNew.keywordInformation = responseData.data;
+				
+				/**for (i = 0; i < size; i++) {
 					
 					var sizestring = String(i+1);
 					var keywordattribute = sizestring;
@@ -66,7 +80,8 @@ function GetKeywordInformation(TokenNew){
 							TokenNew.keywordInformation[i] = TokenNew[keywordattribute];
 							delete TokenNew[keywordattribute];
 				}
-				console.log(TokenNew);
+				*/
+				//console.log(TokenNew);
 				
 			Stringify(TokenNew);
 				

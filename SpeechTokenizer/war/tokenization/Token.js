@@ -37,16 +37,17 @@ function Token(){
 		TokenNew = {
 				id: i,
 				keyword: uncommonArr[i],
+				previousKeyword: uncommonArr[i-1],
+				nextKeyword: uncommonArr[i+1],
 				timestamp: dateCombined,
+				keywordInformation: [],
 				
-				//Muss noch mit den Hangouts Sachen ersetzt werden. Geht nur im Localhost Mode logischerweise nicht ;)
+				//Geht nur in Hangouts
 				createdByFirstName: getUserData('firstName'),
 				createdByLastName: getUserData('lastName'),
 				createdByUserId: getUserData('id'),
 				hangoutsId: getHangoutId(),
-				
-				keywordInformation: [],
-				
+								
 		};
 		
 		TokenArray.push(TokenNew);
