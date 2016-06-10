@@ -21,7 +21,7 @@ function GetKeywordInformation(TokenNew){
 
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
-		  url:'http://104.197.87.226:8080/document/rest/GetWordinformation/'+keyword,
+		  url:'https://104.155.140.18/document/rest/GetWordinformation/Lisa',
 		  dataType: 'json',
 		 
 		//Fehler loggen 
