@@ -80,8 +80,8 @@ function GetKeywordInformation(TokenNew){
 	  
 }
 	  
-	  /*
 	  
+	  /*
 	  //Funktionierende  GET Methode ohne JQuery
 	  var request = new XMLHttpRequest();
 	  var keyword = "Haruki";
@@ -97,4 +97,4 @@ function GetKeywordInformation(TokenNew){
 			        //var response = JSON.parse(request.responseText);
 			        console.log("Sucess",JSON.parse(request.responseText));
 		    }
-	  };
+	  };*/
