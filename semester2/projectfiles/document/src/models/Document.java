@@ -11,6 +11,7 @@ public class Document {
 	private String status;
 	private double version;
 	private ArrayList<String> listKeyword;
+	private ArrayList<Project> listProjects;
 	
 	public String getName() {
 		return name;
@@ -59,5 +60,11 @@ public class Document {
 	}
 	public void setVersion(double version) {
 		this.version = version;
+	}
+	public ArrayList<Project> getListProjects() {
+		return listProjects;
+	}
+	public void setListProjects(ArrayList<Project> listProjects) {
+		this.listProjects = listProjects;
 	}
 }
