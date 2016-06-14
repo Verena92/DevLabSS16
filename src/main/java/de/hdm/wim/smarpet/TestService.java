@@ -2,9 +2,6 @@ package de.hdm.wim.smarpet;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -20,6 +17,7 @@ import org.kie.api.runtime.rule.EntryPoint;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.hdm.wim.events.interceptor.EventStorageInterceptor;
 import de.hdm.wim.events.model.Event;
 import de.hdm.wim.events.model.Token;
 
@@ -30,9 +28,16 @@ import de.hdm.wim.events.model.Token;
  */
 @Path("/events")
 public class TestService {
-
-	private static EntityManager em;
-	private static EntityManagerFactory emFactory;
+	private static KieServices kieServices;
+	private static KieContainer kieContainer;
+	private static KieSession kieSession;
+	
+	static {
+		//set everything up
+		kieServices = KieServices.Factory.get();
+		kieContainer = kieServices.getKieClasspathContainer();
+		kieSession = kieContainer.newKieSession();
+	}
 	
 	public static void main( String[] args) {
 		try {
@@ -41,7 +46,6 @@ public class TestService {
 			t.setId("1");
 			t.setKeyword("amg");
 			
-//			EventEntity e = new EventEntity("asdf", new Date());
 			String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(t);
 			System.out.println(jsonInString);
 		} catch (JsonProcessingException e1) {
@@ -52,32 +56,17 @@ public class TestService {
 	@POST
 	@Path("/insert")
 	@Consumes("application/json")
-	public Response doRealStuff(Token token) {
-		//set everything up
-		KieServices kieServices = KieServices.Factory.get();
-		KieContainer kieContainer = kieServices.getKieClasspathContainer();
-		KieSession kieSession = kieContainer.newKieSession();
-		
-		//kieSession.addEventListener( new EventStorageInterceptor());
+	public Response insertToken(Token token) {
+		kieSession.addEventListener( new EventStorageInterceptor());
 		try {
 			insert(kieSession, "SpeechTokenEventStream", token);
-			kieSession.fireAllRules(); //this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
+			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
 		} catch (ParseException e) {
-			//never happens in this example
 			System.out.println("A ParseException happened during creation of SpeechTokenEvents: " + e.getMessage());
 		} finally {
-			kieSession.dispose();
+			//kieSession.dispose();
 		}
-		
-		emFactory = Persistence.createEntityManagerFactory("test");
-		em = emFactory.createEntityManager();
-
-		em.getTransaction().begin();
-		//EventEntity eventEntity = new EventEntity("someString", new Date());
-		em.persist(token);
-		em.getTransaction().commit();
-		
-		return Response.status(200).entity("persisted: " + token.getId()).build();
+		return Response.status(200).entity("inserted token: " + token.getId()).build();
 	}
 	
 	private static void insert(KieSession kieSession, String stream, Event event) {
