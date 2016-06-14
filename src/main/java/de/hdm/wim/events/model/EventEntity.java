@@ -37,4 +37,9 @@ public class EventEntity implements Event {
 	public String getId() {
 		return this.id;
 	}
+
+	@Override
+	public String toString() {
+		return "EventEntity [id=" + id + ", timestamp=" + timestamp + "]";
+	}
 }

@@ -1,7 +1,7 @@
 //created on: 06.05.2016
 package de.hdm.wim.events
 
-import de.hdm.wim.token.Token
+import de.hdm.wim.events.model.Token
 
 declare Token
     @role( event )
