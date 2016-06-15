@@ -5,14 +5,17 @@ package de.hdm.speechtomcat;
 	 * @author Maren Gräff
 	 */
 
+	import java.sql.*;	
 	import org.apache.log4j.Logger;
 	import org.codehaus.jettison.json.JSONArray;
 
 	import java.io.File;
 	import java.io.IOException;
+	import java.sql.ResultSet;
 	import java.text.ParseException;
 	import java.util.ArrayList;
 	import java.util.Arrays;
+	import java.util.Date;
 	import java.util.List;
 	import java.util.UUID;
 
@@ -34,6 +37,8 @@ package de.hdm.speechtomcat;
 	import com.fasterxml.jackson.core.JsonProcessingException;
 	import com.fasterxml.jackson.databind.JsonMappingException;
 	import com.fasterxml.jackson.databind.ObjectMapper;
+	//import com.mysql.jdbc.Connection;
+	//import com.mysql.jdbc.Statement;
 
 
 
@@ -50,17 +55,16 @@ package de.hdm.speechtomcat;
 			// INSERT Statements
 			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		  
+		  /*
 			@POST
-			@Path( "/AddDocumentMetadata" )
-			@Consumes("application/x-www-form-urlencoded")
+			@Path( "/AddDocumentInformation" )
+			@Consumes("application/json")
 		    
-			public void addDocumentMetadata(@FormParam("name") String name, @FormParam("documentType") String documentType , 
-			@FormParam("status") String status, @FormParam("documentPath") String documentPath, @FormParam("keyword") String keyword, 
-					@FormParam("driveDocumetID") String driveDocumentID, @FormParam("version") String version, 
-					@FormParam("creationDate") String creationDate, @FormParam("project") String project ) 
+			public void addDocumentInformation(@FormParam("userId") String userId, @FormParam("hangoutsId") String hangoutsId , 
+			@FormParam("documentName") String documentName, @FormParam("drivePath") String drivePath) 
 							throws IOException, ParseException, org.codehaus.jettison.json.JSONException {
 				
-					log.info(name+" "+documentType+" "+status+" "+documentPath+" "+keyword+" "+driveDocumentID);
+					log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 					try{
 						String UPDATE_TEMPLATE =  "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
 				 		+ "INSERT DATA"
@@ -84,7 +88,7 @@ package de.hdm.speechtomcat;
 			            "http://localhost:3030/ds/update");
 						upp.execute();
 					} catch (Exception e){
-						log.error( "AddDocumentMetadata: Can¥t add document metadata "+e);
+						log.error( "AddDocumentInformation: Can¥t add document information "+e);
 					}
 			}
 			*/
@@ -92,7 +96,10 @@ package de.hdm.speechtomcat;
 			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// EDIT Statements
 			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-						@POST
+					
+/*
+		  
+		  				@POST
 						@Path( "/EditDocumentMetadata" )
 						@Consumes("application/x-www-form-urlencoded")
 						
@@ -132,7 +139,7 @@ package de.hdm.speechtomcat;
 						}}
 
 			
-		   
+		   */
 			 
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Speech Token Interface
@@ -143,107 +150,50 @@ package de.hdm.speechtomcat;
 			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			 
 			 @GET
-			 @Path("/GetWordinformation/{word}")
+			 @Path("/GetDocuments/{hangoutId}")
 			 @Produces("application/json")
-			 public Response getWordinformation(@PathParam("word") String word) throws JSONException {
+			 public Response getDocuments(@PathParam("hangoutId") String hangoutId) throws JSONException {
 					jsonObject = new JSONObject();
-					Word wordInformation;
-					ArrayList<Word> listWord = new ArrayList<Word>();				
-					try {
-						String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-								+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-								+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-								+ " SELECT  * "
-								+ " WHERE   { ?Dokument ?Typ ?Ausgabe ."
-								+ " FILTER regex(?Ausgabe, '"+word+"') . "
-								+ "?Typ <http://www.w3.org/2000/01/rdf-schema#domain> ?Klassentyp ."
-								+ "?Typ <http://www.w3.org/2000/01/rdf-schema#range> ?Datentyp}";
-						
-						QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-
-				        ResultSet results = qe.execSelect();
-				        List var = results.getResultVars();
-				        String documentMetadata="";
-				        String documentName="";
-				        while (results.hasNext()){
-				        	wordInformation = new Word();
-							QuerySolution qs = results.nextSolution();
-							for(int i=0; i<var.size();i++){			
-								String va = var.get(i).toString();
-								RDFNode node = qs.get(va);
-								String value = node.toString().substring(node.toString().indexOf("#")+1, node.toString().length());
-								switch(i){
-									case 0: wordInformation.setObjectRelation(getGraphInformatoin("<"+node.toString()+">"));
-										documentName = node.toString().substring(node.toString().indexOf("#")+1, node.toString().length());
-										break;
-									case 1: wordInformation.setValueType(value);
-										documentMetadata=value;
-									break;
-										case 2: wordInformation.setValue(node.toString());
-									break;
-										case 3: wordInformation.setClassName(value);
 									
-									if(value.equals("Dokument")){
-										System.out.println(documentMetadata+"_von: "+documentName);
-									}
-									break;
-										case 4: wordInformation.setDataType(value);
-									break;
-								}
-							}
-							listWord.add(wordInformation);
-						}
-				        qe.close();
+					try {
+					     // create our mysql database connection
+					      String myDriver = "org.gjt.mm.mysql.Driver";
+					      String myUrl = "jdbc:mysql://localhost/documentreference";
+					      Class.forName(myDriver);
+					      Connection conn = DriverManager.getConnection(myUrl, "speechtokenizer", "password");
+					       
+					      // our SQL SELECT query. 
+					      // if you only need a few columns, specify them by name instead of using "*"
+					      String query = "SELECT * FROM reference";
+					 
+					      // create the java statement
+					      Statement st = conn.createStatement();
+					       
+					      // execute the query, and get a java resultset
+					      ResultSet rs = st.executeQuery(query);
+					       
+					      // iterate through the java resultset
+					      while (rs.next())
+					      {
+					        int id = rs.getInt("id");
+					        String userId = rs.getString("userId");
+					        String hangoutsId = rs.getString("hangoutsId");
+					        String documentName = rs.getString("documentName");
+					        String drivePath = rs.getString("drivePath");
+					        Date timestamp = rs.getDate("timestamp");
+					         
+					        // print the results
+					        System.out.format("%s, %s, %s, %s, %s, %s\n", id, userId, hangoutsId, documentName, drivePath, timestamp);
+					      }
+					      st.close();
+					      jsonObject.put("data", rs);
 					} catch(Exception e){
 						log.error( "GetWordInformation: Can¥t get word information "+e);
 					}
-					jsonObject.put("data", listWord);
+					
 					return Response.status(200).entity(jsonObject.toString()).build();
 			 	}
-			 
-			 public ArrayList<ObjectRelation>  getGraphInformatoin(String GrapfInformation) {
-					jsonObject = new JSONObject();
-					ObjectRelation objectRelation;
-					ArrayList<ObjectRelation> listObjectRelation = new ArrayList<ObjectRelation>();
-					
-					try {
-						String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-								+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-								+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-								+ " SELECT  * "
-								+ " WHERE   { "+GrapfInformation+" ?Typ ?Ausgabe }";
-						
-						QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-
-				        ResultSet results = qe.execSelect();
-				        List var = results.getResultVars();
-				        while (results.hasNext()){
-							QuerySolution qs = results.nextSolution();
-							for(int i=0; i<var.size();i++){
-								String va = var.get(i).toString();
-								RDFNode node = qs.get(va);
-								System.out.println(node.toString());
-								if(va.equals("Typ")&&node.toString().contains("#")){
-									RDFNode ausgabe = qs.get(var.get(i+1).toString());
-									String type = node.toString().substring(node.toString().indexOf("#")+1, node.toString().length());
-									String value = ausgabe.toString().substring(ausgabe.toString().indexOf("#")+1, ausgabe.toString().length());
-									if(type.contains("_")){
-										if(ausgabe.toString().contains("#")){
-											objectRelation = new ObjectRelation();
-											objectRelation.setType(type);
-											objectRelation.setValue(value);
-											listObjectRelation.add(objectRelation);
-										}
-									}
-								}
-							}
-						}
-				        qe.close();
-						
-					} catch(Exception e){
-						log.error( "GetGraphInformation: Can¥t get Graph information document metadata "+e);
-					}
-					return listObjectRelation;
+			
 			}
 			 
 			 
@@ -254,5 +204,4 @@ package de.hdm.speechtomcat;
 	
 	
 	
-	
-}
+
