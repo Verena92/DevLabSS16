@@ -19,7 +19,7 @@ var ignore_onend;
 	
 			//Listening (capturing voice from audio input) started.
 			recognition.onstart = function() {
-    			recognition.lang = "en-US";
+    			//recognition.lang = "en-US";
     			recognizing = true;
   			};
   			  	
