@@ -54,6 +54,8 @@ function GetKeywordInformation(TokenNew){
 				//console.log(responseData);
 				//console.log(responseData.data[0].className);
 				
+				delete TokenNew.previousKeyword;
+				delete TokenNew.nextKeyword;
 				TokenNew.keywordInformation = responseData.data;
 				
 				/**for (i = 0; i < size; i++) {
