@@ -20,6 +20,12 @@ public class Token implements Event {
 	
 	public Token() {
 	}
+	
+	public Token(String id, Date timestamp, String keyword) {
+		this.id = id;
+		this.timestamp = timestamp; 
+		this.keyword = keyword;
+	}
 
 	public String getId() {
 		return id;

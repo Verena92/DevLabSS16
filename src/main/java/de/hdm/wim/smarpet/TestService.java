@@ -1,8 +1,10 @@
 package de.hdm.wim.smarpet;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -13,9 +15,6 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.EntryPoint;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.hdm.wim.events.interceptor.EventStorageInterceptor;
 import de.hdm.wim.events.model.Event;
@@ -40,17 +39,25 @@ public class TestService {
 	}
 	
 	public static void main( String[] args) {
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			Token t = new Token();
-			t.setId("1");
-			t.setKeyword("amg");
-			
-			String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(t);
-			System.out.println(jsonInString);
-		} catch (JsonProcessingException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			ObjectMapper mapper = new ObjectMapper();
+//			Token t = new Token();
+//			t.setId("1");
+//			t.setKeyword("amg");
+//			t.setTimestamp( new Date());
+//			
+//			String jsonInString = mapper.writeValueAsString(t);
+//					//writerWithDefaultPrettyPrinter().writeValueAsString(t);
+//			System.out.println(jsonInString);
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
+	}
+	
+	@GET
+	@Path("/test")
+	public Response test() {
+		return Response.status(200).entity("test successful").build();
 	}
 
 	@POST
