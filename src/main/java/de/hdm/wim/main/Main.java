@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
 import de.hdm.wim.events.documentrepresentation.SearchRequest;
 import de.hdm.wim.events.model.Company;
+import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.Product;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.model.Token;
@@ -45,6 +46,9 @@ public class Main {
 			
 			String projectString = mapper.writeValueAsString(Project.createDummyProject());
 			System.out.println(projectString);
+			
+			String documentString = mapper.writeValueAsString(Document.createDummyDocument());
+			System.out.println(documentString);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
