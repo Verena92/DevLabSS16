@@ -6,15 +6,19 @@ public class KeywordInformation {
 
 	private List<String> projects;
 	private List<String> companies;
+	private List<String> products;
+	private List<String> employees;
+	
 	
 	public KeywordInformation() {
 		
 	}
 	
-	public KeywordInformation(List<String> projects, List<String> companies) {
-		super();
+	public KeywordInformation(List<String> projects, List<String> companies, List<String> products, List<String> employees) {
 		this.projects = projects;
 		this.companies = companies;
+		this.products = products;
+		this.employees = employees;
 	}
 
 	public List<String> getProjects() {
@@ -31,5 +35,21 @@ public class KeywordInformation {
 	
 	public void setCompanies(List<String> companies) {
 		this.companies = companies;
+	}
+
+	public List<String> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<String> products) {
+		this.products = products;
+	}
+
+	public List<String> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<String> employees) {
+		this.employees = employees;
 	}
 }

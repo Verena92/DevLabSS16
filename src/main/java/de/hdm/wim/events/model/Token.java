@@ -34,9 +34,17 @@ public class Token implements Event {
 		companies.add("C001");
 		companies.add("C007");
 		
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies);
+		List<String> products = new ArrayList<String>();
+		
+		List<String> employees = new ArrayList<String>();
+		
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
 		Token token = new Token("id", new Date(), "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		return token;
+	}
+	
+	public Token() {
+		
 	}
 	
 	public Token(String id, Date timestamp, String keyword, String createdByFirstName, String createdByLastName, String createdByUserId, String hangoutsId,
@@ -51,10 +59,6 @@ public class Token implements Event {
 		this.keywordInformation = keywordInformation;
 	}
 	
-	public Token(){
-		return;
-	}
-
 	public String getCreatedByFirstName() {
 		return createdByFirstName;
 	}
