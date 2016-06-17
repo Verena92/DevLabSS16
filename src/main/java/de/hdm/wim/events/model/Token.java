@@ -51,6 +51,10 @@ public class Token implements Event {
 		this.keywordInformation = keywordInformation;
 	}
 	
+	public Token(){
+		return;
+	}
+
 	public String getCreatedByFirstName() {
 		return createdByFirstName;
 	}
