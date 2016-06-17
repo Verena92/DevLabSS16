@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Project {
-	/**
-	 * project:{ "projectID":"P003", "projectName":"HighNet",
-	 * "projectType":"Einführungsprojekt", "projectStatus":"Grün",
-	 * "projectManager":"M001", "projectOfCompany":["C003"],
-	 * "projectMember":["M001", "M002"], }
-	 */
 
 	private String projectID;
 	private String projectName;

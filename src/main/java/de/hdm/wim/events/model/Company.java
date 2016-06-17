@@ -5,13 +5,6 @@ import java.util.List;
 
 public class Company {
 
-	/**
-	 * company:{ "companyID":"C001", "companyName":"HighNet GmbH",
-	 * "sector":"Finanzen", "country":"Germany", "Headquarter":"Stuttgart",
-	 * "employees":["M001", "M002"], "projects":["P001", "P003"],
-	 * "products":["PR001", "PR003"] }
-	 */
-
 	private String companyID;
 	private String companyName;
 	private String sector;

@@ -50,12 +50,6 @@ public class Token implements Event {
 		this.hangoutsId = hangoutsId;
 		this.keywordInformation = keywordInformation;
 	}
-
-	public Token(String id, Date timestamp, String keyword) {
-		this.id = id;
-		this.timestamp = timestamp; 
-		this.keyword = keyword;
-	}
 	
 	public String getCreatedByFirstName() {
 		return createdByFirstName;

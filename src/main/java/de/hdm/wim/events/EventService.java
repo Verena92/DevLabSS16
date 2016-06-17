@@ -42,22 +42,6 @@ public class EventService {
 		kieSession = kieContainer.newKieSession();
 	}
 	
-	public static void main( String[] args) {
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			Token t = new Token();
-			t.setId("1");
-			t.setKeyword("amg");
-			t.setTimestamp( new Date());
-			
-			String jsonInString = mapper.writeValueAsString(t);
-					//writerWithDefaultPrettyPrinter().writeValueAsString(t);
-			System.out.println(jsonInString);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-	}
-	
 	@GET
 	@Path("/test")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -71,6 +55,7 @@ public class EventService {
 	@Consumes("application/json")
 	public Response insertToken(Token token) throws JsonProcessingException {
 		//kieSession.addEventListener( new EventStorageInterceptor());
+		
 		try {
 			insert(kieSession, "SpeechTokenEventStream", token);
 			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
