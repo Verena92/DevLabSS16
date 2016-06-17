@@ -1,11 +1,14 @@
 package de.hdm.wim.events;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.drools.compiler.lang.ParseException;
@@ -40,29 +43,31 @@ public class EventService {
 	}
 	
 	public static void main( String[] args) {
-//		try {
-//			ObjectMapper mapper = new ObjectMapper();
-//			Token t = new Token();
-//			t.setId("1");
-//			t.setKeyword("amg");
-//			t.setTimestamp( new Date());
-//			
-//			String jsonInString = mapper.writeValueAsString(t);
-//					//writerWithDefaultPrettyPrinter().writeValueAsString(t);
-//			System.out.println(jsonInString);
-//		} catch (Exception e1) {
-//			e1.printStackTrace();
-//		}
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			Token t = new Token();
+			t.setId("1");
+			t.setKeyword("amg");
+			t.setTimestamp( new Date());
+			
+			String jsonInString = mapper.writeValueAsString(t);
+					//writerWithDefaultPrettyPrinter().writeValueAsString(t);
+			System.out.println(jsonInString);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	@GET
 	@Path("/test")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response test() {
 		return Response.status(200).entity("test successful").build();
 	}
 
 	@POST
 	@Path("/insert")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
 	public Response insertToken(Token token) throws JsonProcessingException {
 		//kieSession.addEventListener( new EventStorageInterceptor());

@@ -21,7 +21,7 @@
 			<version>6.2.0.Final</version>
 		</dependency>
 		
-		<!-- jersey for RESTful services -->
+		<!-- jersey for RESTful services (serverside) -->
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
@@ -32,6 +32,14 @@
 			<artifactId>jersey-media-json-jackson</artifactId>
 			<version>2.23.1</version>
 		</dependency>
+		
+		<!-- jersey client -->
+		<dependency>
+		    <groupId>org.glassfish.jersey.core</groupId>
+		    <artifactId>jersey-client</artifactId>
+		    <version>2.23</version>
+		</dependency>
+
 		
 		<!-- JSON parsing -->
 		<dependency>
