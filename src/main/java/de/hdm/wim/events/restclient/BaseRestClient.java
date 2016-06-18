@@ -1,6 +1,7 @@
 package de.hdm.wim.events.restclient;
 
 import java.net.URI;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -11,8 +12,14 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.jersey.client.ClientConfig;
 
-import de.hdm.wim.events.model.Token;
+import de.hdm.wim.events.model.Document;
 
+/**
+ * Abstraction class to encapsulate the technical REST handling
+ * 
+ * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+ *
+ */
 public class BaseRestClient {
 	
 	private Client client;
@@ -25,8 +32,8 @@ public class BaseRestClient {
 		target = client.target(uri);
 	}
 	
-	public Response doPost(Token token) {
-	    return target.path("insert").request().post(Entity.entity(token,MediaType.APPLICATION_JSON),Response.class);
+	public Response doPost(String thing, Document document) {
+	    return target.path(thing).request().post(Entity.entity(document,MediaType.APPLICATION_JSON),Response.class);
 	}
 
 	public Response doGet(String thing) {

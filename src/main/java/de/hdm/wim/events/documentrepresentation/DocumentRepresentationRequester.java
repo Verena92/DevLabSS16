@@ -11,6 +11,15 @@ import de.hdm.wim.events.model.Product;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.restclient.BaseRestClient;
 
+/**
+ * Class used to request further infrmation about a given 'thing',
+ * i.e. a project, product, company or employee.
+ * Further to request a document regarding given things,
+ * i.e. documents in relation to a combination of a project and an employee.
+ * 
+ * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+ *
+ */
 public class DocumentRepresentationRequester {
 
 	public static final String DOCUMENT_REPRESENTATION_URL = "http://104.155.140.18/document/rest/";
