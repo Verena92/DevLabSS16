@@ -3,47 +3,60 @@ package de.hdm.wim.events.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representation of a company as it is saved by the document representation.
+ * The Lists 'employees', 'projects' and 'products' can be used to find connections
+ * with other entities (such as 'Product', 'Employee' or 'Project').
+ * 
+ * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+ *
+ */
 public class Company {
 
 	private String companyID;
 	private String companyName;
-	private String sector;
-	private String country;
-	private String headQuarter;
+	private String industrialSector;
+	private String headquarter;
 
 	private List<String> employees;
 	private List<String> projects;
 	private List<String> products;
 	
+	/**
+	 * Helper method to create a dummy Company
+	 * 
+	 * @return a dummy Company with fix values
+	 */
 	public static Company createDummyCompany() {
 		List<String> employees = new ArrayList<String>();
-		employees.add( "M001");
-		employees.add("M002");
+		employees.add( "M0101");
+		employees.add("M0102");
 		
 		List<String> projects = new ArrayList<String>();
-		projects.add( "P001");
-		projects.add("P003");
+		projects.add( "P0001");
+		projects.add("P0003");
 		
 		List<String> products = new ArrayList<String>();
-		projects.add( "PR001");
-		projects.add("PR003");
+		projects.add( "PR0001");
+		projects.add("PR0003");
 		
-		Company company = new Company("C001", "HighNet GmbH", "Finanzen", "Germany", "Stuttgart", employees, projects, products);
+		Company company = new Company("U0001", "HighNet GmbH", "Finanzen", "Stuttgart", employees, projects, products);
 		return company;		
 	}
 	
-	public Company(String companyID, String companyName, String sector, String country, String headQuarter, List<String> employees, List<String> projects, List<String> products) {
-		super();
+	public Company(String companyID, String companyName, String sector, String headquarter, List<String> employees, List<String> projects, List<String> products) {
 		this.companyID = companyID;
 		this.companyName = companyName;
-		this.sector = sector;
-		this.country = country;
-		this.headQuarter = headQuarter;
+		this.industrialSector = sector;
+		this.headquarter = headquarter;
 		this.employees = employees;
 		this.projects = projects;
 		this.products = products;
 	}
 
+    /**
+	 * Default constructor needed for JSON Parsing
+	 */
 	public Company() {
 		
 	}
@@ -65,27 +78,19 @@ public class Company {
 	}
 
 	public String getSector() {
-		return sector;
+		return industrialSector;
 	}
 
-	public void setSector(String sector) {
-		this.sector = sector;
+	public void setIndustrialSector(String industrialSector) {
+		this.industrialSector = industrialSector;
 	}
 
-	public String getCountry() {
-		return country;
+	public String getHeadquarter() {
+		return headquarter;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getHeadQuarter() {
-		return headQuarter;
-	}
-
-	public void setHeadQuarter(String headQuarter) {
-		this.headQuarter = headQuarter;
+	public void setHeadquarter(String headquarter) {
+		this.headquarter = headquarter;
 	}
 
 	public List<String> getEmployees() {

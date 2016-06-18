@@ -43,6 +43,9 @@ public class Token implements Event {
 		return token;
 	}
 	
+	/**
+	 * Default constructor needed for JSON Parsing and JPA
+	 */
 	public Token() {
 		
 	}

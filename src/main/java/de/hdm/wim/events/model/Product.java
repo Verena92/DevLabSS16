@@ -3,6 +3,7 @@ package de.hdm.wim.events.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Product {
 
 	private String productID;
@@ -30,6 +31,9 @@ public class Product {
 		this.relatedCompanies = relatedCompanies;
 	}
 
+	/**
+	 * Default constructor needed for JSON Parsing
+	 */
 	public Product() {
 
 	}
