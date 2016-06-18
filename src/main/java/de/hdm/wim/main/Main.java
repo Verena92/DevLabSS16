@@ -1,17 +1,14 @@
 package de.hdm.wim.main;
 
-import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
-import de.hdm.wim.events.documentrepresentation.SearchRequest;
 import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Document;
+import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.Product;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.model.Token;
-import de.hdm.wim.events.speechtokenizer.SpeechTokenSender;
 
 public class Main {
 
@@ -32,6 +29,15 @@ public class Main {
 		
 		Company company = documentRepresentationRequester.getCompany("U0001");
 		System.out.println( company);
+		
+		Project project = documentRepresentationRequester.getProject("P0001");
+		System.out.println( project);
+		
+		Employee employee = documentRepresentationRequester.getEmployee("M0001");
+		System.out.println( employee);
+		
+		Product product = documentRepresentationRequester.getProduct("PR0001");
+		System.out.println( product);
 	}
 
 	private static void printJSONStuff() {

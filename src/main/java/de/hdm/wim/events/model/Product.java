@@ -78,4 +78,9 @@ public class Product {
 		this.relatedCompanies = relatedCompanies;
 	}
 
+	@Override
+	public String toString() {
+		return "Product [productID=" + productID + ", productName=" + productName + ", categorie=" + categorie + ", relatedProjects=" + relatedProjects + ", relatedCompanies="
+				+ relatedCompanies + "]";
+	}
 }
