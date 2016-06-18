@@ -16,19 +16,22 @@ import de.hdm.wim.events.speechtokenizer.SpeechTokenSender;
 public class Main {
 
 	public static void main(String[] args) {
-//		doRestCalls();
-		printJSONStuff();
+		doRestCalls();
+//		printJSONStuff();
 	}
 
 	private static void doRestCalls() {
-		SpeechTokenSender speechTokenSender = new SpeechTokenSender();
-		Token token = Token.createDummyToken();
-		speechTokenSender.sendDocument(token);
+//		SpeechTokenSender speechTokenSender = new SpeechTokenSender();
+//		Token token = Token.createDummyToken();
+//		speechTokenSender.sendDocument(token);
 
 		DocumentRepresentationRequester documentRepresentationRequester = new DocumentRepresentationRequester();
-		SearchRequest searchRequest = new SearchRequest();
-		List<String> foundDocuments = documentRepresentationRequester.getDocuments(searchRequest);
-		System.out.println("found Documents: " + foundDocuments);
+//		SearchRequest searchRequest = new SearchRequest();
+//		List<String> foundDocuments = documentRepresentationRequester.getDocuments(searchRequest);
+//		System.out.println("found Documents: " + foundDocuments);
+		
+		Company company = documentRepresentationRequester.getCompany("U0001");
+		System.out.println( company);
 	}
 
 	private static void printJSONStuff() {

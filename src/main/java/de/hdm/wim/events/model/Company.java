@@ -17,6 +17,7 @@ public class Company {
 	private String companyName;
 	private String industrialSector;
 	private String headquarter;
+	private int numberEmployee;
 
 	private List<String> employees;
 	private List<String> projects;
@@ -40,11 +41,11 @@ public class Company {
 		projects.add( "PR0001");
 		projects.add("PR0003");
 		
-		Company company = new Company("U0001", "HighNet GmbH", "Finanzen", "Stuttgart", employees, projects, products);
+		Company company = new Company("U0001", "HighNet GmbH", "Finanzen", "Stuttgart", employees, projects, products, 600);
 		return company;		
 	}
 	
-	public Company(String companyID, String companyName, String sector, String headquarter, List<String> employees, List<String> projects, List<String> products) {
+	public Company(String companyID, String companyName, String sector, String headquarter, List<String> employees, List<String> projects, List<String> products, int numberEmployee) {
 		this.companyID = companyID;
 		this.companyName = companyName;
 		this.industrialSector = sector;
@@ -52,6 +53,7 @@ public class Company {
 		this.employees = employees;
 		this.projects = projects;
 		this.products = products;
+		this.numberEmployee = numberEmployee;
 	}
 
     /**
@@ -59,6 +61,22 @@ public class Company {
 	 */
 	public Company() {
 		
+	}
+	
+	public int getNumberEmployee() {
+		return numberEmployee;
+	}
+
+	public void setNumberEmployee(int numberEmployee) {
+		this.numberEmployee = numberEmployee;
+	}
+
+	public String getIndustrialSector() {
+		return industrialSector;
+	}
+
+	public void setIndustrialSector(String industrialSector) {
+		this.industrialSector = industrialSector;
 	}
 	
 	public String getCompanyID() {
@@ -75,14 +93,6 @@ public class Company {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
-	}
-
-	public String getSector() {
-		return industrialSector;
-	}
-
-	public void setIndustrialSector(String industrialSector) {
-		this.industrialSector = industrialSector;
 	}
 
 	public String getHeadquarter() {
@@ -116,4 +126,12 @@ public class Company {
 	public void setProducts(List<String> products) {
 		this.products = products;
 	}
+
+	@Override
+	public String toString() {
+		return "Company [companyID=" + companyID + ", companyName=" + companyName + ", industrialSector=" + industrialSector + ", headquarter=" + headquarter + ", numberEmployee="
+				+ numberEmployee + ", employees=" + employees + ", projects=" + projects + ", products=" + products + "]";
+	}
+	
+	
 }

@@ -29,7 +29,7 @@ public class BaseRestClient {
 	    return target.path("insert").request().post(Entity.entity(token,MediaType.APPLICATION_JSON),Response.class);
 	}
 
-	public String doGet(String thing) {
-		return target.path(thing).request().accept(MediaType.APPLICATION_JSON).get(Response.class).toString();
+	public Response doGet(String thing) {
+		return target.path(thing).request().accept(MediaType.APPLICATION_JSON).get(Response.class);
 	}
 }
