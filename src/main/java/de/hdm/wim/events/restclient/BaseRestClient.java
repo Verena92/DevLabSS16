@@ -31,6 +31,5 @@ public class BaseRestClient {
 
 	public String doGet(String thing) {
 		return target.path(thing).request().accept(MediaType.APPLICATION_JSON).get(Response.class).toString();
-		//String plainAnswer = target.path("test").request().accept(MediaType.APPLICATION_JSON).get(String.class);
 	}
 }
