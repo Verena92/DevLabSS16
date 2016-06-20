@@ -179,13 +179,13 @@ package de.hdm.speechtomcat;
 					      {
 					        int id = rs.getInt("id");
 					        String userId = rs.getString("userId");
-					        String hangoutsId = rs.getString("hangoutsId");
+					        String hangoutId = rs.getString("hangoutsId");
 					        String documentName = rs.getString("documentName");
 					        String drivePath = rs.getString("drivePath");
 					        Date timestamp = rs.getDate("timestamp");
 					         
 					        // print the results
-					        System.out.format("%s, %s, %s, %s, %s, %s\n", id, userId, hangoutsId, documentName, drivePath, timestamp);
+					        System.out.format("%s, %s, %s, %s, %s, %s\n", id, userId, hangoutId, documentName, drivePath, timestamp);
 					      }
 					      st.close();
 					      jsonObject.put("data", rs);
