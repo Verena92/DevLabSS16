@@ -32,7 +32,6 @@
 	<div>
 		<dl>
 			<dt><h2>Result:</h2></dt>
-			<!--<dt id="results"></dt>-->
 			<dt id="DocumentArray"></dt>
 			<dt span id="final_span" class="final"></dt>
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Click</button></dt>
