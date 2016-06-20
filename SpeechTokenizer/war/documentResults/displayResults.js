@@ -33,6 +33,8 @@ function GetDocuments(){
 	DocumentArray.push(Document);
 	DocumentArray.push(Document2);
 	
+	var Results = document.show;
+	
 	console.log(DocumentArray);
 	
 }
