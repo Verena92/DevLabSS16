@@ -40,7 +40,7 @@
 	<p>Developer-Box</p>
 	<div id="developer">
 		<dl>
-			<dt><b>Mic aktiv:</b></dt><dt id="micstatus">Warte auf Input...</dt>
+			<dt><b>Mic active:</b></dt><dt id="micstatus">Warte auf Input...</dt>
 			<dt><b>Hangouts-ID:</b></dt><dt id="hangoutsid"></dt>
 		</dl>
 	</div>
