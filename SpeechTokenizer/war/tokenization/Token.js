@@ -26,11 +26,12 @@ function Token(){
 	var date = new Date();
 	var year = date.getFullYear();
 	var month = date.getMonth();
+	var modifiedMonth = month + 1;
 	var day = date.getDate();
 	var hour = date.getHours();
 	var minute = date.getMinutes();
 	var second = date.getSeconds();
-	var dateCombined = year + " " + month + " " + day + " " + hour + " " + minute + " " + second;
+	var dateCombined = year + " " + modifiedMonth + " " + day + " " + hour + " " + minute + " " + second;
 		
 	/**
 	 * Create Tokens with the keywords
