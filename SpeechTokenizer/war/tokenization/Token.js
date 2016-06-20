@@ -23,11 +23,14 @@ function Token(){
 	//vorname = getUserData('firstName');
 	//console.log(vorname);
 	
-	date = new Date();
-	hour = date.getHours();
-	minutes = date.getMinutes();
-	seconds = date.getSeconds();
-	dateCombined = hour + " " + minutes + " " + seconds;
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth();
+	var day = date.getDate();
+	var hour = date.getHours();
+	var minute = date.getMinutes();
+	var second = date.getSeconds();
+	var dateCombined = year + " " + month + " " + day + " " + hour + " " + minute + " " + second;
 		
 	/**
 	 * Create Tokens with the keywords
