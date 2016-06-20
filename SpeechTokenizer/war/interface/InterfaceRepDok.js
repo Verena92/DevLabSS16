@@ -49,7 +49,8 @@ function GetKeywordInformation(TokenNew){
 	    			
 	    	if (size == 0) {
 	    		//console.log(TokenNew);
-				Stringify(TokenNew);
+				//Stringify(TokenNew);
+	    		delete TokenNew;
 			} else {
 				//console.log(responseData);
 				//console.log(responseData.data[0].className);
