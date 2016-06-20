@@ -2,10 +2,11 @@ package de.hdm.speechtomcat;
 
 	/**
 	 * @author Verena Hofmann
-	 * @author Maren Gräff
+	 * @author Maren Gr��ff
 	 */
 
 	import java.sql.*;	
+
 	import org.apache.log4j.Logger;
 	import org.codehaus.jettison.json.JSONArray;
 
@@ -45,7 +46,7 @@ package de.hdm.speechtomcat;
 	@Path("/rest") 
 	public class RestService {
 		  private static JSONObject jsonObject;	 
-		  private static Logger log = Logger.getLogger( RestService.class.getName() );
+		  private static Logger log = Logger.getLogger(RestService.class.getName());
 		  
 
 	// Event Interface
@@ -88,7 +89,7 @@ package de.hdm.speechtomcat;
 			            "http://localhost:3030/ds/update");
 						upp.execute();
 					} catch (Exception e){
-						log.error( "AddDocumentInformation: Can¥t add document information "+e);
+						log.error( "AddDocumentInformation: Can��t add document information "+e);
 					}
 			}
 			*/
@@ -134,7 +135,7 @@ package de.hdm.speechtomcat;
 						        "http://localhost:3030/ds/update");
 								upp.execute();
 							}catch (Exception e){
-								log.error( "EditDocumentMetadata: Can¥t edit document metadata "+e);
+								log.error( "EditDocumentMetadata: Can��t edit document metadata "+e);
 							}
 						}}
 
@@ -150,16 +151,16 @@ package de.hdm.speechtomcat;
 			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			 
 			 @GET
-			 @Path("/GetDocuments/{hangoutId}")
+			 @Path("/GetDocuments/{hangoutsId}")
 			 @Produces("application/json")
-			 public Response getDocuments(@PathParam("hangoutId") String hangoutId) throws JSONException {
+			 public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
 					jsonObject = new JSONObject();
 									
 					try {
 					     // create our mysql database connection
 					      String myDriver = "org.gjt.mm.mysql.Driver";
-					      String myUrl = "jdbc:mysql://localhost/documentreference";
-					      Class.forName(myDriver);
+					      String myUrl = "jdbc:mysql://146.148.67.230/documentreference";
+					      Class.forName(myDriver).newInstance();
 					      Connection conn = DriverManager.getConnection(myUrl, "speechtokenizer", "password");
 					       
 					      // our SQL SELECT query. 
@@ -188,7 +189,7 @@ package de.hdm.speechtomcat;
 					      st.close();
 					      jsonObject.put("data", rs);
 					} catch(Exception e){
-						log.error( "GetWordInformation: Can¥t get word information "+e);
+						log.error( "GetWordInformation: Can't get word information "+e);
 					}
 					
 					return Response.status(200).entity(jsonObject.toString()).build();
