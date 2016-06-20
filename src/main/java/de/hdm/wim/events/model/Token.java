@@ -1,5 +1,7 @@
 package de.hdm.wim.events.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +13,12 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Token implements Event {
+
+	/**
+	 * SimpleDateFormat used to format incoming Strings into java.util.Date.
+	 * (2016 5 1 12 0 0 therefore represents the 1. May 2016 12 o'clock)
+	 */
+	public static final SimpleDateFormat DATE_FORMAT_yyyy_M_d_H_m_s = new SimpleDateFormat("yyyy M d H m s");
 
 	@Id
 	private String id;
@@ -39,7 +47,13 @@ public class Token implements Event {
 		List<String> employees = new ArrayList<String>();
 		
 		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
-		Token token = new Token("id", new Date(), "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		
+		Token token = null;
+		try {
+			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return token;
 	}
 	
@@ -50,10 +64,10 @@ public class Token implements Event {
 		
 	}
 	
-	public Token(String id, Date timestamp, String keyword, String createdByFirstName, String createdByLastName, String createdByUserId, String hangoutsId,
-			KeywordInformation keywordInformation) {
+	public Token(String id, String timeString, String keyword, String createdByFirstName, String createdByLastName, String createdByUserId, String hangoutsId,
+			KeywordInformation keywordInformation) throws ParseException {
 		this.id = id;
-		this.timestamp = timestamp;
+		this.timestamp = DATE_FORMAT_yyyy_M_d_H_m_s.parse(timeString);
 		this.keyword = keyword;
 		this.createdByFirstName = createdByFirstName;
 		this.createdByLastName = createdByLastName;
@@ -120,7 +134,8 @@ public class Token implements Event {
 
 	@Override
 	public String toString() {
-		return "Token [id=" + id + ", keyword=" + keyword + ", creator=" + "]";
+		return "Token [id=" + id + ", timestamp=" + timestamp + ", keyword=" + keyword + ", createdByFirstName=" + createdByFirstName + ", createdByLastName=" + createdByLastName
+				+ ", createdByUserId=" + createdByUserId + ", hangoutsId=" + hangoutsId + ", keywordInformation=" + keywordInformation + "]";
 	}
 
 	@Override
