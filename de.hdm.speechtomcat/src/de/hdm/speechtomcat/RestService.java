@@ -155,7 +155,7 @@ package de.hdm.speechtomcat;
 			 @Produces("application/json")
 			 public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
 					jsonObject = new JSONObject();
-									
+					System.out.println("Hello");				
 					try {
 					     // create our mysql database connection
 					      String myDriver = "org.gjt.mm.mysql.Driver";
