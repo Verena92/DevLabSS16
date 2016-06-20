@@ -29,7 +29,7 @@ function GetKeywordInformation(TokenNew){
 	queryWords.keyword = TokenNew.keyword;
 	queryWords.nextKeyword = TokenNew.nextKeyword;
 	
-	console.log(queryWords);
+	//console.log(queryWords);
 
 //Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'GET', 
