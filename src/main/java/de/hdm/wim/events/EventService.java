@@ -1,6 +1,7 @@
 package de.hdm.wim.events;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.Consumes;
@@ -40,6 +41,8 @@ public class EventService {
 		kieServices = KieServices.Factory.get();
 		kieContainer = kieServices.getKieClasspathContainer();
 		kieSession = kieContainer.newKieSession();
+		List<String> resultList = new ArrayList<String>();
+		kieSession.setGlobal( "resultList", resultList);
 	}
 	
 	@GET
@@ -54,8 +57,7 @@ public class EventService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
 	public Response insertToken(Token token) throws JsonProcessingException {
-		//kieSession.addEventListener( new EventStorageInterceptor());
-		
+		//kieSession.addEventListener( new EventStorageInterceptor()); //TODO
 		try {
 			insert(kieSession, "SpeechTokenEventStream", token);
 			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
@@ -64,9 +66,7 @@ public class EventService {
 		} finally {
 			//kieSession.dispose();
 		}
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonInString = mapper.writeValueAsString(token);
-        return Response.status(200).entity(jsonInString).build();
+        return Response.status(200).build();
 	}
 	
 	private static void insert(KieSession kieSession, String stream, Event event) {
