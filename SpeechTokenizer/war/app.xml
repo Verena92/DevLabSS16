@@ -32,8 +32,15 @@
 	<div>
 		<dl>
 			<dt><h2>Result:</h2></dt>
-			<dt id="displayText"></dt>
 			<dt span id="final_span" class="final"></dt>
+			
+			
+			<dt><h2>Documents:</h2></dt>
+			<dt span id="showdocument" class="final"></dt>
+				<script type="text/javascript">
+					document.write(GetDocuments());
+ 					document.displayText;
+ 				</script>
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Click</button></dt>
 		</dl>
 	</div>

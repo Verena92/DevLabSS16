@@ -8,7 +8,7 @@ var recognizing = false;
 var ignore_onend;
 
 	if (!('webkitSpeechRecognition' in window)) { 
-			//Hier wird geprüft, ob der Browser die Web Speech API unterstützt. Falls nicht wird er aufgefordert den Browser upd
+			//Hier wird geprüft, ob der Browser die Web Speech API unterstützt. Falls nicht wird er aufgefordert den Browser upzudaten.
 			upgrade ();
 		} else {
 			/*Erlaubt der Seite Zugriff auf das Mikrofon - webkitSpeechRecognition Objekt stellt das Speech Interface bereit und definiert Eventhandler*/
