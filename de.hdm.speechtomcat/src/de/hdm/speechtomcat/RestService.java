@@ -45,9 +45,38 @@ package de.hdm.speechtomcat;
 
 	@Path("/rest") 
 	public class RestService {
-		  private static JSONObject jsonObject;	 
+		// This method is called if TEXT_PLAIN is request
+		  @GET
+		  @Path("/GetDocuments") 
+		  @Produces(MediaType.TEXT_PLAIN)
+		  public String sayPlainTextHello() {
+		    return "Hello Jersey";
+		  }
+
+		  // This method is called if XML is request
+		  @GET
+		  @Path("/GetDocuments") 
+		  @Produces(MediaType.TEXT_XML)
+		  public String sayXMLHello() {
+		    return "<?xml version=\"1.0\"?>" + "<hello> Hello Jersey" + "</hello>";
+		  }
+
+		  // This method is called if HTML is request
+		  @GET
+		  @Path("/GetDocuments") 
+		  @Produces(MediaType.TEXT_HTML)
+		  public String sayHtmlHello() {
+		    return "<html> " + "<title>" + "Hello Jersey" + "</title>"
+		        + "<body><h1>" + "Hello Jersey" + "</body></h1>" + "</html> ";
+		  }
+		
+		
+		
+	}
+		 /*Zeile 49-50 wieder einfügen
+		  *  private static JSONObject jsonObject;	 
 		  private static Logger log = Logger.getLogger(RestService.class.getName());
-		  
+		  */
 
 	// Event Interface
 
@@ -143,13 +172,13 @@ package de.hdm.speechtomcat;
 		   */
 			 
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Speech Token Interface
+	// Speech Token Interface WIEDER EINFÜGEN
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				 		
 			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// GET Statements
 			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			 
+			 /* Zeile 153-201 wieder einfügen
 			 @GET
 			 @Path("/GetDocuments/{hangoutsId}")
 			 @Produces("application/json")
@@ -179,7 +208,7 @@ package de.hdm.speechtomcat;
 					      {
 					        int id = rs.getInt("id");
 					        String userId = rs.getString("userId");
-					        String hangoutId = rs.getString("hangoutsId");
+					        //String hangoutId = rs.getString("hangoutsId");
 					        String documentName = rs.getString("documentName");
 					        String drivePath = rs.getString("drivePath");
 					        Date timestamp = rs.getDate("timestamp");
@@ -197,7 +226,7 @@ package de.hdm.speechtomcat;
 			 	}
 			
 			}
-			 
+			 */
 			 
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// END-----------------------Speech Token Interface
