@@ -143,7 +143,7 @@ public class Token implements Event {
 		return timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
+	public void setTimestamp(String timestampString) throws ParseException {
+		this.timestamp = DATE_FORMAT_yyyy_M_d_H_m_s.parse(timestampString);
 	}
 }
