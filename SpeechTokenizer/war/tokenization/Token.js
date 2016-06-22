@@ -47,10 +47,10 @@ function Token(){
 				keywordInformation: [],
 				
 				//Geht nur in Hangouts
-				//createdByFirstName: getUserData('firstName'),
-				//createdByLastName: getUserData('lastName'),
-				//createdByUserId: getUserData('id'),
-				//hangoutsId: getHangoutId(),
+				createdByFirstName: getUserData('firstName'),
+				createdByLastName: getUserData('lastName'),
+				createdByUserId: getUserData('id'),
+				hangoutsId: getHangoutId(),
 								
 		};
 		
