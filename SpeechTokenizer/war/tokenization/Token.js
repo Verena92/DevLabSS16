@@ -56,9 +56,11 @@ function Token(){
 		};
 		
 		//sample data for test event 
-		var data = {projects:"test", companies:"test2", products:"test3", employees:"Jens Lindner"};
+		var array = ["12", "1223"];
+		var data = {projects:array, companies:array, products:array, employees:array};
+
 		TokenNew.keywordInformation = data;
-	
+
 		TokenArray.push(TokenNew);
 		//GetKeywordInformation ruft interface.js auf und reichert ggf. das Keyword an.
 		GetKeywordInformation(TokenNew);
