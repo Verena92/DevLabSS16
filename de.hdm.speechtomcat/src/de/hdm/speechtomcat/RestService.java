@@ -2,7 +2,7 @@ package de.hdm.speechtomcat;
 
 	/**
 	 * @author Verena Hofmann
-	 * @author Maren Gr��ff
+	 * @author Maren Graeff
 	 */
 
 	import java.sql.*;	
@@ -20,6 +20,7 @@ package de.hdm.speechtomcat;
 	import java.util.List;
 	import java.util.UUID;
 
+	import javax.sql.DataSource;
 	import javax.ws.rs.Consumes;
 	import javax.ws.rs.FormParam;
 	import javax.ws.rs.GET;
