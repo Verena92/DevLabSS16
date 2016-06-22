@@ -45,16 +45,20 @@ function Token(){
 				nextKeyword: uncommonArr[i+1],
 				timestamp: dateCombined,
 				
-				keywordInformation: ["projects", "companies", "employees", "products"],
+				keywordInformation: [],
 								
 				//Geht nur in Hangouts
-				createdByFirstName: getUserData('firstName'),
-				createdByLastName: getUserData('lastName'),
-				createdByUserId: getUserData('id'),
-				hangoutsId: getHangoutId(),
+				//createdByFirstName: getUserData('firstName'),
+				//createdByLastName: getUserData('lastName'),
+				//createdByUserId: getUserData('id'),
+				//hangoutsId: getHangoutId(),
 								
 		};
 		
+		//sample data for test event 
+		var data = {projects:"test", companies:"test2", products:"test3", employees:"Jens Lindner"};
+		TokenNew.keywordInformation = data;
+	
 		TokenArray.push(TokenNew);
 		//GetKeywordInformation ruft interface.js auf und reichert ggf. das Keyword an.
 		GetKeywordInformation(TokenNew);
