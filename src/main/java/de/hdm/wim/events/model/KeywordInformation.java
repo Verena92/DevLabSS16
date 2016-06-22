@@ -70,5 +70,10 @@ public class KeywordInformation {
 		this.employees = employees;
 	}
 
+	@Override
+	public String toString() {
+		return "KeywordInformation [id=" + id + ", projects=" + projects + ", companies=" + companies + ", products=" + products + ", employees=" + employees + "]";
+	}
+
 	
 }
