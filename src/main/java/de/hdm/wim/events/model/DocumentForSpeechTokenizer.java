@@ -13,11 +13,7 @@ public class DocumentForSpeechTokenizer {
 	private String documentName;
 	private String drivePath;
 	
-	public static DocumentForSpeechTokenizer createDummyDocumentForSpeechTokenizer() {
-		DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("asdf", "fdassHangouts", Document.createDummyDocument());
-		return documentForSpeechTokenizer;
-	}
-	
+
 	public DocumentForSpeechTokenizer() {
 		
 	}

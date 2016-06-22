@@ -21,21 +21,6 @@ public class Project {
 	private String status;
 
 	/**
-	 * Helper method to create a dummy Project 
-	 * 
-	 * @return a dummy Project with fix values
-	 */
-	public static Project createDummyProject() {
-		List<String> involvedCompanies = new ArrayList<String>();
-		involvedCompanies.add("U0003");
-		List<String> projectMembers = new ArrayList<String>();
-		projectMembers.add("M0001");
-		projectMembers.add("M0002");
-		Project project = new Project("P0100", "HighNet", "M0001", projectMembers, involvedCompanies, "Gruen");
-		return project;
-	}
-
-	/**
 	 * Default constructor needed for JSON Parsing
 	 */
 	public Project() {

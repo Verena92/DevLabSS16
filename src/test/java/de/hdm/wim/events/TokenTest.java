@@ -48,7 +48,7 @@ public class TokenTest {
 	@Test
 	public void test_one_token_occured() throws Exception {
 		//ohne token has fired, so the 'A Token has fired' rule should fire
-		entryPoint.insert(Token.createDummyToken());
+		entryPoint.insert(TestDataProvider.createDummyToken());
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 1, amountOfRulesFired);
@@ -57,7 +57,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_token_with_only_one_related_project_occured() throws Exception {
-		entryPoint.insert(Token.createDummyTokenWithRelatedProjectP004());
+		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedProjectP004());
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 2, amountOfRulesFired);
@@ -67,7 +67,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_token_with_only_one_related_company_occured() throws Exception {
-		entryPoint.insert(Token.createDummyTokenWithRelatedCompanyU001());
+		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedCompanyU001());
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 2, amountOfRulesFired);
@@ -77,7 +77,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_token_with_only_one_related_product_occured() throws Exception {
-		entryPoint.insert(Token.createDummyTokenWithRelatedProductPR001());
+		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedProductPR001());
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 2, amountOfRulesFired);
@@ -87,7 +87,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_token_with_only_one_related_employee_occured() throws Exception {
-		entryPoint.insert(Token.createDummyTokenWithRelatedEmployeeM001());
+		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedEmployeeM001());
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 2, amountOfRulesFired);

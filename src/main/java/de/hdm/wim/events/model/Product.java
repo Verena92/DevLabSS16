@@ -13,16 +13,6 @@ public class Product {
 	private List<String> relatedProjects;
 	private List<String> relatedCompanies;
 
-	public static Product createDummyProduct() {
-		List<String> relatedProjects = new ArrayList<String>();
-		relatedProjects.add("P001");
-		List<String> relatedCompanies = new ArrayList<String>();
-		relatedCompanies.add( "C001");
-		
-		Product product = new Product("PR001", "Mercedes Benz", "Automobile", relatedProjects, relatedCompanies);
-		return product;
-	}
-	
 	public Product(String productID, String productName, String categorie, List<String> relatedProjects, List<String> relatedCompanies) {
 		this.productID = productID;
 		this.productName = productName;

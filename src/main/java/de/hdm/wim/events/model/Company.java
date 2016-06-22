@@ -23,28 +23,6 @@ public class Company {
 	private List<String> projects;
 	private List<String> products;
 	
-	/**
-	 * Helper method to create a dummy Company
-	 * 
-	 * @return a dummy Company with fix values
-	 */
-	public static Company createDummyCompany() {
-		List<String> employees = new ArrayList<String>();
-		employees.add( "M0101");
-		employees.add("M0102");
-		
-		List<String> projects = new ArrayList<String>();
-		projects.add( "P0001");
-		projects.add("P0003");
-		
-		List<String> products = new ArrayList<String>();
-		projects.add( "PR0001");
-		projects.add("PR0003");
-		
-		Company company = new Company("U0001", "HighNet GmbH", "Finanzen", "Stuttgart", employees, projects, products, 600);
-		return company;		
-	}
-	
 	public Company(String companyID, String companyName, String sector, String headquarter, List<String> employees, List<String> projects, List<String> products, int numberEmployee) {
 		this.companyID = companyID;
 		this.companyName = companyName;

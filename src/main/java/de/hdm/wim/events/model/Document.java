@@ -33,20 +33,6 @@ public class Document {
 	 */
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	
-	public static Document createDummyDocument() {
-		List<String> keywords = new ArrayList<String>();
-		keywords.add( "Ideensammlung");
-		keywords.add( "Aufgabenverteilung");
-		keywords.add( "Vorgehensmodell");
-		Document document = null;
-		try {
-			document = new Document( "Besprechungsprotokoll", "D0002", "Besprechungsprotokoll_HighNet_15-01-2016", "2008-02-01T09:00:22", "2009-03-01T09:00:22", "P001", "M0001", "Textdokument", keywords, "1.2", "Feriggestellt", "https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g", "158XmEV097o9QTHiK1j7UyN5fBNvbzYVICXZgHRv3UuA");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return document;
-	}
 
 	public Document(String type, String documentID, String documentName, String creationDate, String lastEditDate, String project, String author, String documentType,
 			List<String> keywords, String version, String status, String googleDrivePath, String googleDriveID) throws ParseException {

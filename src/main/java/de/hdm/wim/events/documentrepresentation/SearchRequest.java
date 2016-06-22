@@ -18,21 +18,7 @@ public class SearchRequest {
 	private List<String> projects;
 	private List<String> products;
 
-	public static SearchRequest createDummySearchRequest() {
-		List<String> employees = new ArrayList<String>();
-//		employees.add("M001");
-//		employees.add("M002");
-		List<String> companies = new ArrayList<String>();
-//		companies.add("C002");
-		List<String> projects = new ArrayList<String>();
-		projects.add("P001");
-//		projects.add("P002");
-		List<String> products = new ArrayList<String>();
-//		products.add("PR001");
 
-		SearchRequest searchRequest = new SearchRequest(employees, companies, projects, products);
-		return searchRequest;
-	}
 
 	public SearchRequest(List<String> employees, List<String> companies, List<String> projects, List<String> products) {
 		this.employees = employees;

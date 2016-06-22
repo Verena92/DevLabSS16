@@ -13,19 +13,7 @@ public class Employee {
 
 	private List<String> projects;
 
-	/**
-	 * Helper method to create a dummy Employee
-	 * 
-	 * @return a dummy Employee with fix values
-	 */
-	public static Employee createDummyEmployee() {
-		List<String> projects = new ArrayList<String>();
-		projects.add( "P0001");
-		projects.add("P0100");
-		
-		Employee employee = new Employee("M0001", "Maier", "Lisa", "Projektleiter", "U0002", projects);
-		return employee;
-	}
+
 	
 	public Employee(String employeeID, String employeeName, String employeeSurname, String jobTitle, String employeeOf, List<String> projects) {
 		this.employeeID = employeeID;

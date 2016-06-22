@@ -2,6 +2,7 @@ package de.hdm.wim.events.documentrepresentation;
 
 import javax.ws.rs.core.Response;
 
+import de.hdm.wim.events.TestDataProvider;
 import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.Employee;
@@ -28,7 +29,7 @@ public class DocumentRepresentationRequester {
 		Response result = restClient.doPostSearchRequest("document", searchRequest); //TODO: use correct path
 		Document document = result.readEntity(Document.class);
 //		return document;
-		return Document.createDummyDocument();
+		return TestDataProvider.createDummyDocument();
 	}	
 	
 	/**
