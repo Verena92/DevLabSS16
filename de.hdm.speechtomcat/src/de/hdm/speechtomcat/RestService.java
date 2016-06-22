@@ -86,7 +86,7 @@ package de.hdm.speechtomcat;
 					// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					 @GET
 					 //@Path("/GetDocuments/{hangoutsId}")
-					 @Path("/GetDocuments/45678")
+					 @Path("/GetDocuments")
 					 @Produces("application/json")
 					//public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
 					public Response getDocuments() {		
@@ -100,9 +100,9 @@ package de.hdm.speechtomcat;
 							
 							try {
 							    // create our mysql database connection
-							    String myDriver = "com.mysql.jdbc.Driver";
+							    //String myDriver = "com.mysql.jdbc.Driver";
 							    String myUrl = "jdbc:mysql://146.148.67.230/documentreference";
-							    Class.forName(myDriver).newInstance();
+							    //Class.forName(myDriver).newInstance();
 								Connection con = DriverManager.getConnection(myUrl, "speechtokenizer", "password");
 								//con = ds.getConnection();
 								//st = con.createStatement();
