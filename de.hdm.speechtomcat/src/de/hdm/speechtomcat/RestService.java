@@ -92,15 +92,15 @@ package de.hdm.speechtomcat;
 					public Response getDocuments() {		
 					 jsonObject = new JSONObject();
 							
-							/*DataSource ds = "jdbc/documentreference";
+							//DataSource ds = "jdbc/documentreference";
 							
-							Connection con = null;
-							Statement st = null;
-							ResultSet rs = null;*/
+							//Connection con = null;
+							//Statement st = null;
+							//ResultSet rs = null;
 							
 							try {
 							    // create our mysql database connection
-							    //String myDriver = "com.mysql.jdbc.Driver";
+							    String myDriver = "com.mysql.jdbc.Driver";
 							    String myUrl = "jdbc:mysql://146.148.67.230/documentreference";
 							    //Class.forName(myDriver).newInstance();
 								Connection con = DriverManager.getConnection(myUrl, "speechtokenizer", "password");
@@ -108,12 +108,12 @@ package de.hdm.speechtomcat;
 								//st = con.createStatement();
 								//rs = st.executeQuery("SELECT * FROM reference");
 							       
-							      // our SQL SELECT query. 
-							      // if you only need a few columns, specify them by name instead of using "*"
-							     // String query = "SELECT * FROM reference";
 							 
 							      // create the java statement
 							      Statement st = con.createStatement();
+							      
+							      // SQL SELECT query
+							      //String query = "SELECT * FROM reference";
 							       
 							      // execute the query, and get a java resultset
 							      ResultSet rs = st.executeQuery("SELECT * FROM reference");
