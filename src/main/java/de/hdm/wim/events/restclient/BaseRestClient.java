@@ -12,7 +12,8 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.jersey.client.ClientConfig;
 
-import de.hdm.wim.events.model.Document;
+import de.hdm.wim.events.documentrepresentation.SearchRequest;
+import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
 
 /**
  * Abstraction class to encapsulate the technical REST handling
@@ -31,12 +32,16 @@ public class BaseRestClient {
 		uri =  UriBuilder.fromUri(baseUrl).build();
 		target = client.target(uri);
 	}
-	
-	public Response doPost(String thing, Document document) {
-	    return target.path(thing).request().post(Entity.entity(document,MediaType.APPLICATION_JSON),Response.class);
-	}
 
 	public Response doGet(String thing) {
 		return target.path(thing).request().accept(MediaType.APPLICATION_JSON).get(Response.class);
+	}
+	
+	public Response doPostSearchRequest(String path, SearchRequest searchRequest) {
+	    return target.path(path).request().post(Entity.entity(searchRequest,MediaType.APPLICATION_JSON),Response.class);
+	}
+	
+	public Response doPostDocument(String path, DocumentForSpeechTokenizer document) {
+	    return target.path(path).request().post(Entity.entity(document,MediaType.APPLICATION_JSON),Response.class);
 	}
 }

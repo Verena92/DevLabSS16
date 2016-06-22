@@ -3,9 +3,11 @@ package de.hdm.wim.events;
 
 import de.hdm.wim.events.model.Token;
 import de.hdm.wim.events.model.Project;
-import de.hdm.wim.events.model.Document
+import de.hdm.wim.events.model.Document;
+import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
 
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
+import de.hdm.wim.events.documentrepresentation.SearchRequest;
 import de.hdm.wim.events.speechtokenizer.SpeechTokenSender;
 
 global java.util.List resultList;
@@ -35,10 +37,14 @@ rule "A Token with exactly 1 related project occured"
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
       Project project = requester.getProject("P0001");
       System.out.println( "requested project: " + project);
-      Document document = requester.getDocument();
+      
+      SearchRequest searchRequest = new SearchRequest();
+      Document document = requester.getDocument(searchRequest);
       System.out.println( "found document: " + document);
+
       SpeechTokenSender sender = new SpeechTokenSender();
-      sender.sendDocument( document);
+      DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("userId", "hangoutsId", document); //TODO
+      sender.sendDocument( documentForSpeechTokenizer); 
 end
 
 rule "A Token with exactly 1 related company occured"

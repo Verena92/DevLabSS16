@@ -14,19 +14,19 @@ public class DocumentForSpeechTokenizer {
 	private String drivePath;
 	
 	public static DocumentForSpeechTokenizer createDummyDocumentForSpeechTokenizer() {
-		DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("asdf", "fdassHangouts", "Besprechungsprotokoll_HighNet_15-01-2016", "https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g");
+		DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("asdf", "fdassHangouts", Document.createDummyDocument());
 		return documentForSpeechTokenizer;
 	}
 	
 	public DocumentForSpeechTokenizer() {
 		
 	}
-
-	public DocumentForSpeechTokenizer(String userId, String hangoutsId, String documentName, String drivePath) {
+	
+	public DocumentForSpeechTokenizer( String userId, String hangoutsId, Document document) {
 		this.userId = userId;
 		this.hangoutsId = hangoutsId;
-		this.documentName = documentName;
-		this.drivePath = drivePath;
+		this.documentName = document.getDocumentName();
+		this.drivePath = document.getGoogleDrivePath();
 	}
 
 	public String getUserId() {
