@@ -58,6 +58,7 @@ function GetKeywordInformation(TokenNew){
 				delete TokenNew.previousKeyword;
 				delete TokenNew.nextKeyword;
 				TokenNew.keywordInformation = responseData.data;
+				SendTokenToEvent(TokenNew);
 				
 				/**for (i = 0; i < size; i++) {
 					

@@ -1,12 +1,14 @@
 /**
- * Autor Mona Brunner, Verena Hofmann
+ * Autor Mona Brunner
  */
 
 
-
+function SendTokenToEvent(TokenNew){
 //Asynchroner Post Request auf die Event Gruppe
 $.ajax({ type:'POST', 
-	url: 'IP-Adresse-zur-Schnittstelle/nameSchnittstelle', 
+	url: 'http:130.211.110.54/EventbaseIntegration-4/rest/events/insert',  
+	data: JSON.stringify(TokenNew),
+	contentType: 'application/json',
 	datatyp: 'json',
 
 	//Fehler loggen 
@@ -16,13 +18,22 @@ $.ajax({ type:'POST',
 
 	//Bei erfolgreichem Request Objekt in der Console ausgeben
     success: function(responsedata){
-
+    	console.log("success")
         // hier response_data 
   
 
-    	        new_keys = response_data["new_keys"]
+    	    //    new_keys = response_data["new_keys"]
+    		
     	}
 });
+
+}
+
+
+
+
+
+
 
 
 /*$.ajax({ method: "POST", url: "IP-Adresse-zur-Schnittstelle/nameSchnittstelle", data: { name: "John", location: "Boston" }
