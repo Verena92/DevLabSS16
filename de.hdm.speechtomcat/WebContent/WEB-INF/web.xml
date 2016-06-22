@@ -14,8 +14,10 @@
     <servlet-name>speechtomcat</servlet-name>
     <url-pattern>/*</url-pattern>
   </servlet-mapping>
-  <resource-env-ref>
-    <resource-env-ref-name>documentreference</resource-env-ref-name>
-    <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
-</resource-env-ref>
+  <resource-ref>
+   <description>DB Connection</description>
+      <res-ref-name>jdbc/documentreference</res-ref-name>
+      <res-type>javax.sql.DataSource</res-type>
+      <res-auth>Container</res-auth>
+</resource-ref>
 </web-app>

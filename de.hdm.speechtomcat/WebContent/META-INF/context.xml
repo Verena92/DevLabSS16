@@ -3,11 +3,12 @@
 <Context>
     <Resource
         name="jdbc/documentreference" 
+        auth="Container"
         type="javax.sql.DataSource"
         maxActive="100" 
         maxIdle="30" 
         maxWait="10000" 
-        url="jdbc:mysql://146.148.67.230/documentreference"
+        url="jdbc:mysql://localhost/documentreference"
         driverClassName="com.mysql.jdbc.Driver"
         username="speechtokenizer" 
         password="password"
