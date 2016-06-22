@@ -64,6 +64,7 @@ public class EventService {
 			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
 		} catch (ParseException e) {
 			System.out.println("A ParseException happened during creation of SpeechTokenEvents: " + e.getMessage());
+			return Response.status(400).entity(e).build();
 		} finally {
 			//kieSession.dispose();
 		}
