@@ -23,10 +23,12 @@ rule "A Token occured" dialect "mvel"
       System.out.println( "requested project: " + project);
 end
 
-//rule "Example Rule"
- //   when
-  //      $t : Token(keyword=="HighNet") from entry-point SpeechTokenEventStream
-  //      $t.projects contains
-  //  then
-  //      DocumentRepresentationRequester d = new DocumentRepresentationRequester();
-//end
+rule "A Token with related project P001 occured"
+    when
+        $t : Token( keywordInformation.projects contains "P001") from entry-point SpeechTokenEventStream   
+    then
+      resultList.add( "A Token with related project P001 occured");
+      System.out.println( "A Token wth related project P001 occured"); 
+end
+
+

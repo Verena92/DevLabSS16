@@ -35,9 +35,73 @@ public class Token implements Event {
 	@OneToOne
 	private KeywordInformation keywordInformation;
 	
-	public static Token createDummyToken() {
+	public static Token createDummyTokenWithRelatedProjectP004() {
+		List<String> projects = new ArrayList<String>();
+		projects.add("P004");
+		
+		List<String> companies = new ArrayList<String>();
+		
+		List<String> products = new ArrayList<String>();
+		
+		List<String> employees = new ArrayList<String>();
+		
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		
+		Token token = null;
+		try {
+			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
+	public static Token createDummyTokenWithRelatedProjectsP001andP002() {
 		List<String> projects = new ArrayList<String>();
 		projects.add("P001");
+		projects.add("P002");
+		
+		List<String> companies = new ArrayList<String>();
+		
+		List<String> products = new ArrayList<String>();
+		
+		List<String> employees = new ArrayList<String>();
+		
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		
+		Token token = null;
+		try {
+			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
+	public static Token createDummyTokenWithExactly1RelatedProjectP001() {
+		List<String> projects = new ArrayList<String>();
+		projects.add("P001");
+		
+		List<String> companies = new ArrayList<String>();
+		
+		List<String> products = new ArrayList<String>();
+		
+		List<String> employees = new ArrayList<String>();
+		
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		
+		Token token = null;
+		try {
+			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
+	public static Token createDummyToken() {
+		List<String> projects = new ArrayList<String>();
+		projects.add("P002");
 		projects.add("P003");
 		
 		List<String> companies = new ArrayList<String>();
