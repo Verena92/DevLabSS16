@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
     <!-- /*
-* SPEECH TOKENIZER
-* HANGOUTS PLUGIN
- */ -->
+			* SPEECH TOKENIZER
+			* HANGOUTS PLUGIN
+		 */ -->
   <ModulePrefs title="Speech Tokenizer">
     <Require feature="rpc"/>
   </ModulePrefs>

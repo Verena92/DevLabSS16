@@ -1,3 +1,7 @@
+/**
+ * Autor: Benjamin Mecheels
+ */
+
 var serverPath = '//speech-tokenizer-1282.appspot.com/';
 
 function initUi(){

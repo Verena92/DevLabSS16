@@ -1,5 +1,5 @@
 /**
- * Autor: Benjamin Mateja
+ * Autor: Benjamin Mateja, Verena Hofmann
  */
 
 var displayText = "<ul>";
