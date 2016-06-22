@@ -20,8 +20,8 @@ import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.EntryPoint;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.hdm.wim.events.interceptor.EventStorageInterceptor;
 import de.hdm.wim.events.model.Event;
 import de.hdm.wim.events.model.Token;
 
@@ -35,13 +35,14 @@ public class EventService {
 	private static KieServices kieServices;
 	private static KieContainer kieContainer;
 	private static KieSession kieSession;
+	static private List<String> resultList;
 	
 	static {
 		//set everything up
 		kieServices = KieServices.Factory.get();
 		kieContainer = kieServices.getKieClasspathContainer();
 		kieSession = kieContainer.newKieSession();
-		List<String> resultList = new ArrayList<String>();
+		resultList = new ArrayList<String>();
 		kieSession.setGlobal( "resultList", resultList);
 	}
 	
@@ -57,7 +58,7 @@ public class EventService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
 	public Response insertToken(Token token) throws JsonProcessingException {
-		//kieSession.addEventListener( new EventStorageInterceptor()); //TODO
+		//kieSession.addEventListener( new EventStorageInterceptor());
 		try {
 			insert(kieSession, "SpeechTokenEventStream", token);
 			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.

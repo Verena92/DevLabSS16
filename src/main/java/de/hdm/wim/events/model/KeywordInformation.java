@@ -2,11 +2,28 @@ package de.hdm.wim.events.model;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class KeywordInformation {
 
+	@Id
+	@GeneratedValue
+	private long id;
+	
+	@ElementCollection
 	private List<String> projects;
+	
+	@ElementCollection
 	private List<String> companies;
+	
+	@ElementCollection
 	private List<String> products;
+	
+	@ElementCollection
 	private List<String> employees;
 	
 	
@@ -52,4 +69,6 @@ public class KeywordInformation {
 	public void setEmployees(List<String> employees) {
 		this.employees = employees;
 	}
+
+	
 }

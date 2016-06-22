@@ -29,7 +29,6 @@ public class EventStorageInterceptor implements RuleRuntimeEventListener {
 
 	@Override
 	public void objectInserted(ObjectInsertedEvent event) {
-		//TODO: die methode wird für das erste event 1x aufgerufen, für das zweite 2x, für das dritte 3x, ...
 		System.out.println("EventStorageInterceptor: try to persist event: " + event);
 		Token token = (Token) event.getObject();
 

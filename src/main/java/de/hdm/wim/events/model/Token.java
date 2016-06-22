@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -31,6 +32,7 @@ public class Token implements Event {
 	private String createdByUserId;
 	private String hangoutsId;
 	
+	@OneToOne
 	private KeywordInformation keywordInformation;
 	
 	public static Token createDummyToken() {
