@@ -54,7 +54,7 @@ function Token(){
 				hangoutsId: getHangoutId(),
 								
 		};
-		console.log(TokenNew);
+		
 		TokenArray.push(TokenNew);
 		//GetKeywordInformation ruft interface.js auf und reichert ggf. das Keyword an.
 		GetKeywordInformation(TokenNew);
