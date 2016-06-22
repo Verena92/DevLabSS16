@@ -1,11 +1,9 @@
 package de.hdm.wim.events.documentrepresentation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.core.Response;
 
 import de.hdm.wim.events.model.Company;
+import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.Product;
 import de.hdm.wim.events.model.Project;
@@ -25,12 +23,10 @@ public class DocumentRepresentationRequester {
 	public static final String DOCUMENT_REPRESENTATION_URL = "http://104.155.140.18/document/rest/";
 	
 	//FIXME: use reasonable SearchRequest and act upon it
-	public List<String> getDocuments(SearchRequest searchRequest) {
+	public Document getDocument() {
 //		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL);
-//		String result = restClient.doGet("test");
-		List<String> list = new ArrayList<String>();
-//		list.add(result);
-		return list;
+//		Document result = restClient.doGet("test");
+		return Document.createDummyDocument();
 	}	
 	
 	/**

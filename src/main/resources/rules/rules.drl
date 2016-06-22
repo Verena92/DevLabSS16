@@ -2,8 +2,11 @@
 package de.hdm.wim.events;
 
 import de.hdm.wim.events.model.Token;
-import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
 import de.hdm.wim.events.model.Project;
+import de.hdm.wim.events.model.Document
+
+import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
+import de.hdm.wim.events.speechtokenizer.SpeechTokenSender;
 
 global java.util.List resultList;
 
@@ -37,6 +40,14 @@ rule "A Token with exactly 1 related project occured"
     then
       resultList.add( "A Token with exactly 1 related project occured");
       System.out.println( "A Token with exactly 1 related project occured"); 
+      
+      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+      Project project = requester.getProject("P0001");
+      System.out.println( "requested project: " + project);
+      Document document = requester.getDocument();
+      System.out.println( "found document: " + document);
+      SpeechTokenSender sender = new SpeechTokenSender();
+      sender.sendDocument( document);
 end
 
 rule "A Token with exactly 1 related company occured"
@@ -71,3 +82,14 @@ rule "A Token with exactly 1 related employee occured"
       resultList.add( "A Token with exactly 1 related employee occured");
       System.out.println( "A Token with exactly 1 related employee occured"); 
 end
+
+//rule "Request a document"
+ //   when
+  //      $p : Project();
+   // then
+    //  resultList.add( "request a document");
+    //  System.out.println( "request a document"); 
+    // DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+//end
+
+

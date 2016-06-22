@@ -14,9 +14,10 @@ public class SpeechTokenSender {
 
 	public static final String SPEECH_TOKENIZER_URL = "http://localhost:8080/EventbaseIntegration-4/rest/events/";
 	
-	//FIXME: needs to send Document - not token
+	//FIXME: needs to send actual Document
 	public void sendDocument(Document document) {
-		BaseRestClient restClient = new BaseRestClient(SPEECH_TOKENIZER_URL);
-		restClient.doPost("document", document);
+		//BaseRestClient restClient = new BaseRestClient(SPEECH_TOKENIZER_URL);
+		//restClient.doPost("document", document);
+		System.out.println("SpeechTokenSende sending the following Document: " + document);
 	}
 }
