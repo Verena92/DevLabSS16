@@ -57,7 +57,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_token_with_only_one_related_project_occured() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedProjectP004());
+		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedProjectP0001());
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 2, amountOfRulesFired);

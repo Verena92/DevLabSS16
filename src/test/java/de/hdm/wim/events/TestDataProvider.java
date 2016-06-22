@@ -79,9 +79,9 @@ public class TestDataProvider {
 		return token;
 	}
 
-	public static Token createDummyTokenWithRelatedProjectP004() {
+	public static Token createDummyTokenWithRelatedProjectP0001() {
 		List<String> projects = new ArrayList<String>();
-		projects.add("P004");
+		projects.add("P0001");
 
 		List<String> companies = new ArrayList<String>();
 
@@ -200,7 +200,6 @@ public class TestDataProvider {
 					"Textdokument", keywords, "1.2", "Feriggestellt", "https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g",
 					"158XmEV097o9QTHiK1j7UyN5fBNvbzYVICXZgHRv3UuA");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return document;
