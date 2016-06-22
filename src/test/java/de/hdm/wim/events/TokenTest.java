@@ -56,16 +56,6 @@ public class TokenTest {
 	}
 	
 	@Test
-	public void test_token_with_related_project_P001_occured() throws Exception {
-		entryPoint.insert(Token.createDummyTokenWithRelatedProjectsP001andP002());
-        int amountOfRulesFired = kieSession.fireAllRules();
-        
-        assertEquals( 2, amountOfRulesFired);
-        assertEquals( "A Token occured", resultList.get(0));
-        assertEquals( "A Token with related project P001 occured", resultList.get(1));
-	}
-	
-	@Test
 	public void test_token_with_only_one_related_project_occured() throws Exception {
 		entryPoint.insert(Token.createDummyTokenWithRelatedProjectP004());
         int amountOfRulesFired = kieSession.fireAllRules();
