@@ -3,8 +3,10 @@ package de.hdm.wim.main;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
+import de.hdm.wim.events.documentrepresentation.SearchRequest;
 import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Document;
+import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
 import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.Product;
 import de.hdm.wim.events.model.Project;
@@ -13,8 +15,8 @@ import de.hdm.wim.events.model.Token;
 public class Main {
 
 	public static void main(String[] args) {
-		doRestCalls();
-//		printJSONStuff();
+//		doRestCalls();
+		printJSONStuff();
 	}
 
 	private static void doRestCalls() {
@@ -58,6 +60,12 @@ public class Main {
 			
 			String documentString = mapper.writeValueAsString(Document.createDummyDocument());
 			System.out.println(documentString);
+			
+			String searchRequestString = mapper.writeValueAsString(SearchRequest.createDummySearchRequest());
+			System.out.println( searchRequestString);
+			
+			String documentForSpeechString = mapper.writeValueAsString(DocumentForSpeechTokenizer.createDummyDocumentForSpeechTokenizer());
+			System.out.println( documentForSpeechString);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
