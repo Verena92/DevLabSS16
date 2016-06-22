@@ -24,7 +24,6 @@ public class EventStorageInterceptor implements RuleRuntimeEventListener {
 
 	@Override
 	public void objectUpdated(ObjectUpdatedEvent event) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -39,6 +38,5 @@ public class EventStorageInterceptor implements RuleRuntimeEventListener {
 
 	@Override
 	public void objectDeleted(ObjectDeletedEvent event) {
-		// TODO Auto-generated method stub
 	}
 }
