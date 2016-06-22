@@ -64,4 +64,44 @@ public class TokenTest {
         assertEquals( "A Token occured", resultList.get(0));
         assertEquals( "A Token with related project P001 occured", resultList.get(1));
 	}
+	
+	@Test
+	public void test_token_with_only_one_related_project_occured() throws Exception {
+		entryPoint.insert(Token.createDummyTokenWithRelatedProjectP004());
+        int amountOfRulesFired = kieSession.fireAllRules();
+        
+        assertEquals( 2, amountOfRulesFired);
+        assertEquals( "A Token occured", resultList.get(0));
+        assertEquals( "A Token with exactly 1 related project occured", resultList.get(1));
+	}
+	
+	@Test
+	public void test_token_with_only_one_related_company_occured() throws Exception {
+		entryPoint.insert(Token.createDummyTokenWithRelatedCompanyU001());
+        int amountOfRulesFired = kieSession.fireAllRules();
+        
+        assertEquals( 2, amountOfRulesFired);
+        assertEquals( "A Token occured", resultList.get(0));
+        assertEquals( "A Token with exactly 1 related company occured", resultList.get(1));
+	}
+	
+	@Test
+	public void test_token_with_only_one_related_product_occured() throws Exception {
+		entryPoint.insert(Token.createDummyTokenWithRelatedProductPR001());
+        int amountOfRulesFired = kieSession.fireAllRules();
+        
+        assertEquals( 2, amountOfRulesFired);
+        assertEquals( "A Token occured", resultList.get(0));
+        assertEquals( "A Token with exactly 1 related product occured", resultList.get(1));
+	}
+	
+	@Test
+	public void test_token_with_only_one_related_employee_occured() throws Exception {
+		entryPoint.insert(Token.createDummyTokenWithRelatedEmployeeM001());
+        int amountOfRulesFired = kieSession.fireAllRules();
+        
+        assertEquals( 2, amountOfRulesFired);
+        assertEquals( "A Token occured", resultList.get(0));
+        assertEquals( "A Token with exactly 1 related employee occured", resultList.get(1));
+	}
 }

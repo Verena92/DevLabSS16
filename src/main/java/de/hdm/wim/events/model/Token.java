@@ -35,6 +35,69 @@ public class Token implements Event {
 	@OneToOne
 	private KeywordInformation keywordInformation;
 	
+	public static Token createDummyTokenWithRelatedEmployeeM001() {
+		List<String> projects = new ArrayList<String>();
+		
+		List<String> companies = new ArrayList<String>();
+		
+		List<String> products = new ArrayList<String>();
+		
+		List<String> employees = new ArrayList<String>();
+		employees.add("M001");
+		
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		
+		Token token = null;
+		try {
+			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
+	public static Token createDummyTokenWithRelatedProductPR001() {
+		List<String> projects = new ArrayList<String>();
+		
+		List<String> companies = new ArrayList<String>();
+		
+		List<String> products = new ArrayList<String>();
+		products.add("PR001");
+		
+		List<String> employees = new ArrayList<String>();
+		
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		
+		Token token = null;
+		try {
+			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
+	public static Token createDummyTokenWithRelatedCompanyU001() {
+		List<String> projects = new ArrayList<String>();
+		
+		List<String> companies = new ArrayList<String>();
+		companies.add("U001");
+		
+		List<String> products = new ArrayList<String>();
+		
+		List<String> employees = new ArrayList<String>();
+		
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		
+		Token token = null;
+		try {
+			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
 	public static Token createDummyTokenWithRelatedProjectP004() {
 		List<String> projects = new ArrayList<String>();
 		projects.add("P004");

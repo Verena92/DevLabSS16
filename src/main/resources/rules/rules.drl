@@ -18,9 +18,6 @@ rule "A Token occured" dialect "mvel"
   then
   	  resultList.add( "A Token occured");
       System.out.println( "A Token occured!"); 
-      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
-      Project project = requester.getProject("P0001");
-      System.out.println( "requested project: " + project);
 end
 
 rule "A Token with related project P001 occured"
@@ -31,4 +28,46 @@ rule "A Token with related project P001 occured"
       System.out.println( "A Token wth related project P001 occured"); 
 end
 
+rule "A Token with exactly 1 related project occured"
+    when
+        $t : Token( keywordInformation.projects.size() == 1, 
+        			keywordInformation.companies.empty,
+        			keywordInformation.products.empty,
+        			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream 
+    then
+      resultList.add( "A Token with exactly 1 related project occured");
+      System.out.println( "A Token with exactly 1 related project occured"); 
+end
 
+rule "A Token with exactly 1 related company occured"
+    when
+        $t : Token( keywordInformation.projects.empty, 
+        			keywordInformation.companies.size() == 1,
+        			keywordInformation.products.empty,
+        			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream 
+    then
+      resultList.add( "A Token with exactly 1 related company occured");
+      System.out.println( "A Token with exactly 1 related company occured"); 
+end
+
+rule "A Token with exactly 1 related product occured"
+    when
+        $t : Token( keywordInformation.projects.empty, 
+        			keywordInformation.companies.empty,
+        			keywordInformation.products.size() == 1,
+        			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream 
+    then
+      resultList.add( "A Token with exactly 1 related product occured");
+      System.out.println( "A Token with exactly 1 related product occured"); 
+end
+
+rule "A Token with exactly 1 related employee occured"
+    when
+        $t : Token( keywordInformation.projects.empty, 
+        			keywordInformation.companies.empty,
+        			keywordInformation.products.empty,
+        			keywordInformation.employees.size() == 1) from entry-point SpeechTokenEventStream 
+    then
+      resultList.add( "A Token with exactly 1 related employee occured");
+      System.out.println( "A Token with exactly 1 related employee occured"); 
+end
