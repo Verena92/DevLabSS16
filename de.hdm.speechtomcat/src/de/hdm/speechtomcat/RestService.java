@@ -86,10 +86,11 @@ package de.hdm.speechtomcat;
 					// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					 @GET
 					 //@Path("/GetDocuments/{hangoutsId}")
-					 @Path("/GetDocuments")
+					 @Path("/GetDocuments/45678")
 					 @Produces("application/json")
-					 public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
-							jsonObject = new JSONObject();
+					//public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
+					public Response getDocuments() {		
+					 jsonObject = new JSONObject();
 							
 							DataSource ds = null;
 
