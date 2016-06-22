@@ -6,7 +6,7 @@
 function SendTokenToEvent(TokenNew){
 //Asynchroner Post Request auf die Event Gruppe
 $.ajax({ type:'POST', 
-	url: 'http:130.211.110.54/EventbaseIntegration-4/rest/events/insert',  
+	url: 'http:130.211.110.54/EventbaseIntegration-5/rest/events/insert',  
 	data: JSON.stringify(TokenNew),
 	contentType: 'application/json',
 	datatyp: 'json',
@@ -28,12 +28,6 @@ $.ajax({ type:'POST',
 });
 
 }
-
-
-
-
-
-
 
 
 /*$.ajax({ method: "POST", url: "IP-Adresse-zur-Schnittstelle/nameSchnittstelle", data: { name: "John", location: "Boston" }
