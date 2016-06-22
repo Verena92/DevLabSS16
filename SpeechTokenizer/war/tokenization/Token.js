@@ -1,6 +1,6 @@
 /**
  * 
- * Autor: Benjamin Mateja
+ * Autor: Benjamin Mateja, Mona Brunner
  * 
  */
 
