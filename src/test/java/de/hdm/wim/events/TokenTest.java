@@ -60,9 +60,11 @@ public class TokenTest {
 		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedProjectP0001());
         int amountOfRulesFired = kieSession.fireAllRules();
         
-        assertEquals( 2, amountOfRulesFired);
+        assertEquals( 4, amountOfRulesFired);
         assertEquals( "A Token occured", resultList.get(0));
         assertEquals( "A Token with exactly 1 related project occured", resultList.get(1));
+        assertEquals( "Request a document for a project", resultList.get(2));
+        assertEquals( "send Document to SpeechToken", resultList.get(3));
 	}
 	
 	@Test

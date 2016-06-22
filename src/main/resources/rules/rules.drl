@@ -1,10 +1,11 @@
-//created on: 06.05.2016
 package de.hdm.wim.events;
 
 import de.hdm.wim.events.model.Token;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
+import de.hdm.wim.events.model.ProjectReceivedEvent;
+import de.hdm.wim.events.model.DocumentReceivedEvent;
 
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
 import de.hdm.wim.events.documentrepresentation.SearchRequest;
@@ -32,19 +33,12 @@ rule "A Token with exactly 1 related project occured"
         			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream 
     then
       resultList.add( "A Token with exactly 1 related project occured");
-      System.out.println( "A Token with exactly 1 related project occured"); 
+      System.out.println( "A Token with exactly 1 related project occured");
       
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
-      Project project = requester.getProject("P0001");
+      Project project = requester.getProject($t.getKeywordInformation().getProjects().get(0));
       System.out.println( "requested project: " + project);
-      
-      SearchRequest searchRequest = new SearchRequest();
-      Document document = requester.getDocument(searchRequest);
-      System.out.println( "found document: " + document);
-
-      SpeechTokenSender sender = new SpeechTokenSender();
-      DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("userId", "hangoutsId", document); //TODO
-      sender.sendDocument( documentForSpeechTokenizer); 
+      insert( new ProjectReceivedEvent( project));
 end
 
 rule "A Token with exactly 1 related company occured"
@@ -80,13 +74,25 @@ rule "A Token with exactly 1 related employee occured"
       System.out.println( "A Token with exactly 1 related employee occured"); 
 end
 
-//rule "Request a document"
- //   when
-  //      $p : Project();
-   // then
-    //  resultList.add( "request a document");
-    //  System.out.println( "request a document"); 
-    // DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
-//end
+rule "Request a document for a project"
+    when
+      $pre : ProjectReceivedEvent();
+    then
+      resultList.add( "Request a document for a project");
+      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+      SearchRequest searchRequest = new SearchRequest();
+      Document document = requester.getDocument(searchRequest);
+      System.out.println( "found document: " + document);
+      insert( new DocumentReceivedEvent( document));
+end
 
+rule "send Document to SpeechToken"
+    when
+      $dre : DocumentReceivedEvent();
+    then
+      resultList.add( "send Document to SpeechToken");
+      SpeechTokenSender sender = new SpeechTokenSender();
+      DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("userId", "hangoutsId", $dre.getDocument()); //TODO
+      sender.sendDocument( documentForSpeechTokenizer); 
+end
 
