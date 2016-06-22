@@ -30,7 +30,6 @@ package de.hdm.speechtomcat;
 	import javax.ws.rs.core.MediaType;
 	import javax.ws.rs.core.Response;
 
-
 	import org.json.JSONException;
 	import org.json.JSONObject;
 
@@ -45,16 +44,18 @@ package de.hdm.speechtomcat;
 
 	@Path("/rest") 
 	public class RestService {
+		
+		
 		// This method is called if TEXT_PLAIN is request
 		  @GET
-		  @Path("/GetDocuments") 
+		  @Path("/hello") 
 		  @Produces(MediaType.TEXT_PLAIN)
 		  public String sayPlainTextHello() {
 		    return "Hello Jersey";
 		  }
 
 		  // This method is called if XML is request
-		  @GET
+		 /* @GET
 		  @Path("/GetDocuments") 
 		  @Produces(MediaType.TEXT_XML)
 		  public String sayXMLHello() {
@@ -68,16 +69,95 @@ package de.hdm.speechtomcat;
 		  public String sayHtmlHello() {
 		    return "<html> " + "<title>" + "Hello Jersey" + "</title>"
 		        + "<body><h1>" + "Hello Jersey" + "</body></h1>" + "</html> ";
-		  }
-		
-		
-		
-	}
-		 /*Zeile 49-50 wieder einfügen
-		  *  private static JSONObject jsonObject;	 
+		  }*/
+		  
+	
+		 
+		  private static JSONObject jsonObject;	 
 		  private static Logger log = Logger.getLogger(RestService.class.getName());
-		  */
 
+			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// Speech Token Interface
+			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						 		
+					// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					// GET Statements
+					// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					 @GET
+					 //@Path("/GetDocuments/{hangoutsId}")
+					 @Path("/GetDocuments")
+					 @Produces("application/json")
+					 public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
+							jsonObject = new JSONObject();
+							
+							DataSource ds = null;
+
+							
+							Connection con = null;
+							Statement st = null;
+							ResultSet rs = null;
+							
+							try {
+							    // create our mysql database connection
+							    /* String myDriver = "org.gjt.mm.mysql.Driver";
+							    String myUrl = "jdbc:mysql://146.148.67.230/documentreference";
+							    Class.forName(myDriver).newInstance();
+								Connection con = DriverManager.getConnection(myUrl, "speechtokenizer", "password");*/
+								con = ds.getConnection();
+								st = con.createStatement();
+								rs = st.executeQuery("SELECT * FROM reference");
+							       
+							      // our SQL SELECT query. 
+							      // if you only need a few columns, specify them by name instead of using "*"
+							     // String query = "SELECT * FROM reference";
+							 
+							      // create the java statement
+							      //Statement st = con.createStatement();
+							       
+							      // execute the query, and get a java resultset
+							      //ResultSet rs = st.executeQuery(query);
+							       
+							      // iterate through the java resultset
+							      while (rs.next())
+							      {
+							    	System.out.println("Id="+rs.getInt("id")+
+							    						", UserId="+rs.getString("userId")+
+							    						", HangoutsId="+rs.getString("hangoutsId")+
+							    						", DocumentName="+rs.getString("documentName")+
+							    						", drivePath="+rs.getString("drivePath")+
+							    						", timestamp="+rs.getDate("timestamp"));
+							    	/*int id = rs.getInt("id");
+							        String userId = rs.getString("userId");
+							        String hangoutId = rs.getString("hangoutsId");
+							        String documentName = rs.getString("documentName");
+							        String drivePath = rs.getString("drivePath");
+							        Date timestamp = rs.getDate("timestamp");*/
+							        
+							         
+							        // print the results
+							       // System.out.format("%s, %s, %s, %s, %s, %s\n", id, userId, hangoutId, documentName, drivePath, timestamp);
+							      }
+							      st.close();
+							      jsonObject.put("data", rs);
+							} catch (SQLException e){
+								e.printStackTrace();
+								//log.error( "GetWordInformation: Can't get word information "+e);
+							}
+							
+							return Response.status(200).entity(jsonObject.toString()).build();
+					 	}
+					
+					}
+					 
+					 
+			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// END-----------------------Speech Token Interface
+			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			
+		  
+		  
+		  
 	// Event Interface
 
 			 
@@ -171,68 +251,7 @@ package de.hdm.speechtomcat;
 			
 		   */
 			 
-	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Speech Token Interface WIEDER EINFÜGEN
-	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				 		
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// GET Statements
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			 /* Zeile 153-201 wieder einfügen
-			 @GET
-			 @Path("/GetDocuments/{hangoutsId}")
-			 @Produces("application/json")
-			 public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
-					jsonObject = new JSONObject();
-					System.out.println("Hello");	
-					
-					try {
-					     // create our mysql database connection
-					      String myDriver = "org.gjt.mm.mysql.Driver";
-					      String myUrl = "jdbc:mysql://146.148.67.230/documentreference";
-					      Class.forName(myDriver).newInstance();
-					      Connection conn = DriverManager.getConnection(myUrl, "speechtokenizer", "password");
-					       
-					      // our SQL SELECT query. 
-					      // if you only need a few columns, specify them by name instead of using "*"
-					      String query = "SELECT * FROM reference";
-					 
-					      // create the java statement
-					      Statement st = conn.createStatement();
-					       
-					      // execute the query, and get a java resultset
-					      ResultSet rs = st.executeQuery(query);
-					       
-					      // iterate through the java resultset
-					      while (rs.next())
-					      {
-					        int id = rs.getInt("id");
-					        String userId = rs.getString("userId");
-					        //String hangoutId = rs.getString("hangoutsId");
-					        String documentName = rs.getString("documentName");
-					        String drivePath = rs.getString("drivePath");
-					        Date timestamp = rs.getDate("timestamp");
-					         
-					        // print the results
-					        System.out.format("%s, %s, %s, %s, %s, %s\n", id, userId, hangoutId, documentName, drivePath, timestamp);
-					      }
-					      st.close();
-					      jsonObject.put("data", rs);
-					} catch(Exception e){
-						log.error( "GetWordInformation: Can't get word information "+e);
-					}
-					
-					return Response.status(200).entity(jsonObject.toString()).build();
-			 	}
-			
-			}
-			 */
-			 
-	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// END-----------------------Speech Token Interface
-	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	
 	
 	
 
