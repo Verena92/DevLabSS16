@@ -44,7 +44,15 @@ function Token(){
 				previousKeyword: uncommonArr[i-1],
 				nextKeyword: uncommonArr[i+1],
 				timestamp: dateCombined,
-				keywordInformation: [],
+				
+				//auskommentiert, um POST schnittstelle event zu testen, da aktuelle sturktur noch nicht online
+				//keywordInformation: [],
+				
+				//dummy daten
+				projects: "",
+				companies: "",
+				employees: "Jens Lindner",
+				products: "",
 				
 				//Geht nur in Hangouts
 				createdByFirstName: getUserData('firstName'),
