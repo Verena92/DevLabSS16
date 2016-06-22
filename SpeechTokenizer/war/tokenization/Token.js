@@ -45,7 +45,7 @@ function Token(){
 				nextKeyword: uncommonArr[i+1],
 				timestamp: dateCombined,
 				
-				keywordInformation: [projects:"", companies:"", employees:"Jens Lindner", products:""],
+				keywordInformation: ["projects:"a"", "companies:"a"", "employees:"Jens Lindner"", "products:"a""],
 				
 				//Geht nur in Hangouts
 				createdByFirstName: getUserData('firstName'),
