@@ -27,8 +27,14 @@ public class DocumentRepresentationRequester {
 	public Document getDocument(SearchRequest searchRequest) {
 		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL);
 		//Response result = restClient.doPostSearchRequest("document", searchRequest); //TODO: use correct path
-		Response result = restClient.doGet("GetDocumentMetadata");
-		Document document = result.readEntity(Document.class);
+		
+		//Waldis Dummy Schnittstelle
+//		Response result = restClient.doGet("GetDocumentMetadata");
+//		Document document = result.readEntity(Document.class);
+		
+		// Super Dummy
+		Document document = TestDataProvider.createDummyDocument(); //FIXME: use real call
+		
 		return document;
 	}	
 	

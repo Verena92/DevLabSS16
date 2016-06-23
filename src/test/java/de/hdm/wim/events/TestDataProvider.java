@@ -30,7 +30,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("id1", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +51,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("id2", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +72,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("id3", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -93,7 +93,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("id4", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -115,7 +115,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("id5", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -136,7 +136,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("id6", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -160,7 +160,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("id7", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -198,7 +198,7 @@ public class TestDataProvider {
 		projects.add("P001");
 		Document document = null;
 		try {
-			document = new Document("D0002", "Besprechungsprotokoll_HighNet_15-01-2016", "Textdokument", "15-01-2016", "https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g",
+			document = new Document("D0002", "Besprechungsprotokoll_HighNet_15-01-2016", "Textdokument", "15-01-2016T12:00:00", "https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g",
 					"M0001", "Fertiggestellt", "1.0", keywords, projects, "1onKOGZFLOKReA1unsstajHHy6eBK-C6rn52i1Ra4A78");
 		} catch (ParseException e) {
 			e.printStackTrace();

@@ -28,12 +28,16 @@ public class EventStorageInterceptor implements RuleRuntimeEventListener {
 
 	@Override
 	public void objectInserted(ObjectInsertedEvent event) {
-		System.out.println("EventStorageInterceptor: try to persist event: " + event);
-		Token token = (Token) event.getObject();
-
-		em.getTransaction().begin();
-		em.persist(token);
-		em.getTransaction().commit();
+		if( event.getObject() instanceof Token) {
+			System.out.println("EventStorageInterceptor: try to persist event: " + event);
+			Token token = (Token) event.getObject();
+			
+			em.getTransaction().begin();
+			em.persist(token);
+			em.getTransaction().commit();
+		} else {
+			System.out.println( "Can't persist yet: " + event.getObject());
+		}
 	}
 
 	@Override

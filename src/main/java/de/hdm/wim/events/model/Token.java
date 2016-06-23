@@ -2,10 +2,9 @@ package de.hdm.wim.events.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -32,7 +31,7 @@ public class Token implements Event {
 	private String createdByUserId;
 	private String hangoutsId;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	private KeywordInformation keywordInformation;
 	
 	/**
