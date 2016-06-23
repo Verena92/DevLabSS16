@@ -1,10 +1,17 @@
 package de.hdm.wim.events;
 
 import de.hdm.wim.events.model.Token;
+import de.hdm.wim.events.model.KeywordInformation;
 import de.hdm.wim.events.model.Project;
+import de.hdm.wim.events.model.Product;
+import de.hdm.wim.events.model.Company;
+import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
 import de.hdm.wim.events.model.ProjectReceivedEvent;
+import de.hdm.wim.events.model.CompanyReceivedEvent;
+import de.hdm.wim.events.model.ProductReceivedEvent;
+import de.hdm.wim.events.model.EmployeeReceivedEvent;
 import de.hdm.wim.events.model.DocumentReceivedEvent;
 
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
@@ -18,6 +25,10 @@ declare Token
     @timestamp( timestamp.getTime() ) //long
 end
 
+
+//////////////////////////////////////////////////////
+///////////// SpeechToken -> Events //////////////////
+//////////////////////////////////////////////////////
 rule "A Token occured" dialect "mvel"
   when
       $t : Token() from entry-point SpeechTokenEventStream
@@ -50,6 +61,11 @@ rule "A Token with exactly 1 related company occured"
     then
       resultList.add( "A Token with exactly 1 related company occured");
       System.out.println( "A Token with exactly 1 related company occured"); 
+      
+      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+      Company company = requester.getCompany($t.getKeywordInformation().getCompanies().get(0));
+      System.out.println( "requested company: " + company);
+      insert( new CompanyReceivedEvent( company));
 end
 
 rule "A Token with exactly 1 related product occured"
@@ -61,6 +77,11 @@ rule "A Token with exactly 1 related product occured"
     then
       resultList.add( "A Token with exactly 1 related product occured");
       System.out.println( "A Token with exactly 1 related product occured"); 
+      
+      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+      Product product = requester.getProduct($t.getKeywordInformation().getProducts().get(0));
+      System.out.println( "requested product: " + product);
+      insert( new ProductReceivedEvent( product));
 end
 
 rule "A Token with exactly 1 related employee occured"
@@ -71,8 +92,17 @@ rule "A Token with exactly 1 related employee occured"
         			keywordInformation.employees.size() == 1) from entry-point SpeechTokenEventStream 
     then
       resultList.add( "A Token with exactly 1 related employee occured");
-      System.out.println( "A Token with exactly 1 related employee occured"); 
+      System.out.println( "A Token with exactly 1 related employee occured");
+      
+      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+      Employee employee = requester.getEmployee($t.getKeywordInformation().getEmployees().get(0));
+      System.out.println( "requested employee: " + employee);
+      insert( new EmployeeReceivedEvent( employee)); 
 end
+
+//////////////////////////////////////////////////////
+////////// Events -> DocumentRepresentation //////////
+//////////////////////////////////////////////////////
 
 rule "Request a document for a project"
     when
@@ -80,11 +110,51 @@ rule "Request a document for a project"
     then
       resultList.add( "Request a document for a project");
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
-      SearchRequest searchRequest = new SearchRequest();
+      SearchRequest searchRequest = new SearchRequest(); //TODO: crate meaningful SearchRequest
       Document document = requester.getDocument(searchRequest);
       System.out.println( "found document: " + document);
       insert( new DocumentReceivedEvent( document));
 end
+
+rule "Request a document for a product"
+    when
+      $pre : ProductReceivedEvent();
+    then
+      resultList.add( "Request a document for a product");
+      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+      SearchRequest searchRequest = new SearchRequest(); //TODO: crate meaningful SearchRequest
+      Document document = requester.getDocument(searchRequest);
+      System.out.println( "found document: " + document);
+      insert( new DocumentReceivedEvent( document));
+end
+
+rule "Request a document for a company"
+    when
+      $cre : CompanyReceivedEvent();
+    then
+      resultList.add( "Request a document for a company");
+      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+      SearchRequest searchRequest = new SearchRequest(); //TODO: crate meaningful SearchRequest
+      Document document = requester.getDocument(searchRequest);
+      System.out.println( "found document: " + document);
+      insert( new DocumentReceivedEvent( document));
+end
+
+rule "Request a document for an employee"
+    when
+      $ere : EmployeeReceivedEvent();
+    then
+      resultList.add( "Request a document for an employee");
+      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+      SearchRequest searchRequest = new SearchRequest(); //TODO: crate meaningful SearchRequest
+      Document document = requester.getDocument(searchRequest);
+      System.out.println( "found document: " + document);
+      insert( new DocumentReceivedEvent( document));
+end
+
+//////////////////////////////////////////////////////
+////////////// Events -> SpeechToken /////////////////
+//////////////////////////////////////////////////////
 
 rule "send Document to SpeechToken"
     when

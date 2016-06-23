@@ -16,7 +16,7 @@ import de.hdm.wim.events.model.Token;
 
 public class TestDataProvider {
 
-	public static Token createDummyTokenWithRelatedEmployeeM001() {
+	public static Token createDummyTokenWithRelatedEmployeeM0001() {
 		List<String> projects = new ArrayList<String>();
 
 		List<String> companies = new ArrayList<String>();
@@ -24,7 +24,7 @@ public class TestDataProvider {
 		List<String> products = new ArrayList<String>();
 
 		List<String> employees = new ArrayList<String>();
-		employees.add("M001");
+		employees.add("M0001");
 
 		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
 
@@ -58,11 +58,11 @@ public class TestDataProvider {
 		return token;
 	}
 
-	public static Token createDummyTokenWithRelatedCompanyU001() {
+	public static Token createDummyTokenWithRelatedCompanyU0001() {
 		List<String> projects = new ArrayList<String>();
 
 		List<String> companies = new ArrayList<String>();
-		companies.add("U001");
+		companies.add("U0001");
 
 		List<String> products = new ArrayList<String>();
 

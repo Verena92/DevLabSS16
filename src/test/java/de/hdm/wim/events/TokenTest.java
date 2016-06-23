@@ -69,12 +69,14 @@ public class TokenTest {
 	
 	@Test
 	public void test_token_with_only_one_related_company_occured() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedCompanyU001());
+		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedCompanyU0001());
         int amountOfRulesFired = kieSession.fireAllRules();
         
-        assertEquals( 2, amountOfRulesFired);
+        assertEquals( 4, amountOfRulesFired);
         assertEquals( "A Token occured", resultList.get(0));
         assertEquals( "A Token with exactly 1 related company occured", resultList.get(1));
+        assertEquals( "Request a document for a company", resultList.get(2));
+        assertEquals( "send Document to SpeechToken", resultList.get(3));
 	}
 	
 	@Test
@@ -82,18 +84,22 @@ public class TokenTest {
 		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedProductPR001());
         int amountOfRulesFired = kieSession.fireAllRules();
         
-        assertEquals( 2, amountOfRulesFired);
+        assertEquals( 4, amountOfRulesFired);
         assertEquals( "A Token occured", resultList.get(0));
         assertEquals( "A Token with exactly 1 related product occured", resultList.get(1));
+        assertEquals( "Request a document for a product", resultList.get(2));
+        assertEquals( "send Document to SpeechToken", resultList.get(3));
 	}
 	
 	@Test
 	public void test_token_with_only_one_related_employee_occured() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedEmployeeM001());
+		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedEmployeeM0001());
         int amountOfRulesFired = kieSession.fireAllRules();
         
-        assertEquals( 2, amountOfRulesFired);
+        assertEquals( 4, amountOfRulesFired);
         assertEquals( "A Token occured", resultList.get(0));
         assertEquals( "A Token with exactly 1 related employee occured", resultList.get(1));
+        assertEquals( "Request a document for an employee", resultList.get(2));
+        assertEquals( "send Document to SpeechToken", resultList.get(3));
 	}
 }
