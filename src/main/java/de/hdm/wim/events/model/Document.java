@@ -2,7 +2,6 @@ package de.hdm.wim.events.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,19 +13,17 @@ import java.util.List;
  */
 public class Document {
 
-	private String type;
 	private String documentID;
 	private String documentName;
-	private Date creationDate;
-	private Date lastEditDate;
-	private String project;
-	private String author;
 	private String documentType;
-	private List<String> keywords;
-	private String version;
+	private Date creationDate;
+	private String drivePath;
+	private String createdBy;
 	private String status;
-	private String googleDrivePath;
-	private String googleDriveID;
+	private String version;
+	private List<String> keywords;
+	private List<String> projects;
+	private String driveID;
 	
 	/**
 	 * 
@@ -34,33 +31,23 @@ public class Document {
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	
 
-	public Document(String type, String documentID, String documentName, String creationDate, String lastEditDate, String project, String author, String documentType,
-			List<String> keywords, String version, String status, String googleDrivePath, String googleDriveID) throws ParseException {
-		this.type = type;
+	public Document(String documentID, String documentName, String documentType, String creationDate, String drivePath, String createdBy, String status, String version,
+			List<String> keywords, List<String> projects, String driveID) throws ParseException {
 		this.documentID = documentID;
 		this.documentName = documentName;
-		this.creationDate = DATE_FORMAT.parse(creationDate);
-		this.lastEditDate = DATE_FORMAT.parse(lastEditDate);
-		this.project = project;
-		this.author = author;
 		this.documentType = documentType;
-		this.keywords = keywords;
-		this.version = version;
+		this.creationDate = DATE_FORMAT.parse(creationDate);
+		this.drivePath = drivePath;
+		this.createdBy = createdBy;
 		this.status = status;
-		this.googleDrivePath = googleDrivePath;
-		this.googleDriveID = googleDriveID;
+		this.version = version;
+		this.keywords = keywords;
+		this.projects = projects;
+		this.driveID = driveID;
 	}
 
 	public Document() {
 
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public String getDocumentID() {
@@ -87,28 +74,45 @@ public class Document {
 		this.creationDate = DATE_FORMAT.parse(creationDate);
 	}
 
-	public Date getLastEditDate() {
-		return lastEditDate;
+
+	public String getDrivePath() {
+		return drivePath;
 	}
 
-	public void setLastEditDate(String lastEditDate) throws ParseException {
-		this.lastEditDate = DATE_FORMAT.parse( lastEditDate);
+	public void setDrivePath(String drivePath) {
+		this.drivePath = drivePath;
 	}
 
-	public String getProject() {
-		return project;
+	public String getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setProject(String project) {
-		this.project = project;
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public List<String> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<String> projects) {
+		this.projects = projects;
+	}
+
+	public String getDriveID() {
+		return driveID;
+	}
+
+	public void setDriveID(String driveID) {
+		this.driveID = driveID;
 	}
 
 	public String getAuthor() {
-		return author;
+		return createdBy;
 	}
 
 	public void setAuthor(String author) {
-		this.author = author;
+		this.createdBy = author;
 	}
 
 	public String getDocumentType() {
@@ -144,28 +148,25 @@ public class Document {
 	}
 
 	public String getGoogleDrivePath() {
-		return googleDrivePath;
+		return drivePath;
 	}
 
 	public void setGoogleDrivePath(String googleDrivePath) {
-		this.googleDrivePath = googleDrivePath;
+		this.drivePath = googleDrivePath;
 	}
 
 	public String getGoogleDriveID() {
-		return googleDriveID;
+		return driveID;
 	}
 
 	public void setGoogleDriveID(String googleDriveID) {
-		this.googleDriveID = googleDriveID;
+		this.driveID = googleDriveID;
 	}
 
 	@Override
 	public String toString() {
-		return "Document [type=" + type + ", documentID=" + documentID + ", documentName=" + documentName + ", creationDate=" + creationDate + ", lastEditDate=" + lastEditDate
-				+ ", project=" + project + ", author=" + author + ", documentType=" + documentType + ", keywords=" + keywords + ", version=" + version + ", status=" + status
-				+ ", googleDrivePath=" + googleDrivePath + ", googleDriveID=" + googleDriveID + "]";
+		return "Document [documentID=" + documentID + ", documentName=" + documentName + ", documentType=" + documentType + ", creationDate=" + creationDate + ", drivePath="
+				+ drivePath + ", createdBy=" + createdBy + ", status=" + status + ", version=" + version + ", keywords=" + keywords + ", projects=" + projects + ", driveID="
+				+ driveID + "]";
 	}
-	
-	
-
 }

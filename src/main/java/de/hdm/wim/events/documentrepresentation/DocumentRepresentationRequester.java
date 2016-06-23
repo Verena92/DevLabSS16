@@ -23,13 +23,13 @@ public class DocumentRepresentationRequester {
 
 	public static final String DOCUMENT_REPRESENTATION_URL = "http://104.155.140.18/document/rest/";
 	
-	//FIXME: use reasonable SearchRequest and act upon it instead of the Dummy
+	//FIXME: use reasonable SearchRequest and act upon it instead of calling the 'dummy' GET GetDocumentMetadata 
 	public Document getDocument(SearchRequest searchRequest) {
 		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL);
-		Response result = restClient.doPostSearchRequest("document", searchRequest); //TODO: use correct path
+		//Response result = restClient.doPostSearchRequest("document", searchRequest); //TODO: use correct path
+		Response result = restClient.doGet("GetDocumentMetadata");
 		Document document = result.readEntity(Document.class);
-//		return document;
-		return TestDataProvider.createDummyDocument();
+		return document;
 	}	
 	
 	/**

@@ -194,11 +194,12 @@ public class TestDataProvider {
 		keywords.add("Ideensammlung");
 		keywords.add("Aufgabenverteilung");
 		keywords.add("Vorgehensmodell");
+		List<String> projects = new ArrayList<String>();
+		projects.add("P001");
 		Document document = null;
 		try {
-			document = new Document("Besprechungsprotokoll", "D0002", "Besprechungsprotokoll_HighNet_15-01-2016", "2008-02-01T09:00:22", "2009-03-01T09:00:22", "P001", "M0001",
-					"Textdokument", keywords, "1.2", "Feriggestellt", "https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g",
-					"158XmEV097o9QTHiK1j7UyN5fBNvbzYVICXZgHRv3UuA");
+			document = new Document("D0002", "Besprechungsprotokoll_HighNet_15-01-2016", "Textdokument", "15-01-2016", "https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g",
+					"M0001", "Fertiggestellt", "1.0", keywords, projects, "1onKOGZFLOKReA1unsstajHHy6eBK-C6rn52i1Ra4A78");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

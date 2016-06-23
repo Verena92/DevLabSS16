@@ -15,8 +15,8 @@ import de.hdm.wim.events.model.Project;
 public class Main {
 
 	public static void main(String[] args) {
-//		doRestCalls();
-		printJSONStuff();
+		doRestCalls();
+//		printJSONStuff();
 	}
 
 	private static void doRestCalls() {
@@ -40,6 +40,9 @@ public class Main {
 		
 		Product product = documentRepresentationRequester.getProduct("PR0001");
 		System.out.println( product);
+		
+		Document document = documentRepresentationRequester.getDocument(null);
+		System.out.println( document);
 	}
 
 	private static void printJSONStuff() {
