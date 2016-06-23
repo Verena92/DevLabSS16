@@ -10,6 +10,22 @@ function initUi(){
 	hangoutsidelement.innerHTML=hangoutsid;
 }
 
+function registerClient(){
+	  $.ajax({type:'GET', 
+		  url:'http://146.148.67.230/rest/register',
+		  dataType: 'http',
+		 
+		//Fehler loggen 
+		error: function(){
+	    	console.log("Error");
+		},
+		
+		// Anfrage erfolgreich
+		success: function(responseData){
+			console.log('ERFOLGREICH');
+		}
+}
+
 // A function to be run at app initialization time which registers the callbacks
 function init() {
   console.log('Init app.');

@@ -59,6 +59,7 @@ function GetKeywordInformation(TokenNew){
 				delete TokenNew.nextKeyword;
 				//auskommentiert für testen POST Schnittstelle
 				//TokenNew.keywordInformation = responseData.data;
+				console.log(TokenNew);
 				SendTokenToEvent(TokenNew);
 				
 				/**for (i = 0; i < size; i++) {
