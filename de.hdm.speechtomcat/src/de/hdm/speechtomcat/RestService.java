@@ -42,7 +42,6 @@ package de.hdm.speechtomcat;
 	//import com.mysql.jdbc.Statement;
 
 
-
 	@Path("/rest") 
 	public class RestService {
 		
@@ -54,36 +53,43 @@ package de.hdm.speechtomcat;
 		  public String sayPlainTextHello() {
 		    return "Hello Jersey";
 		  }
-
-		  // This method is called if XML is request
-		 /* @GET
-		  @Path("/GetDocuments") 
-		  @Produces(MediaType.TEXT_XML)
-		  public String sayXMLHello() {
-		    return "<?xml version=\"1.0\"?>" + "<hello> Hello Jersey" + "</hello>";
-		  }
-
-		  // This method is called if HTML is request
-		  @GET
-		  @Path("/GetDocuments") 
-		  @Produces(MediaType.TEXT_HTML)
-		  public String sayHtmlHello() {
-		    return "<html> " + "<title>" + "Hello Jersey" + "</title>"
-		        + "<body><h1>" + "Hello Jersey" + "</body></h1>" + "</html> ";
-		  }*/
-		  
 	
-		 
 		  private static JSONObject jsonObject;	 
 		  private static Logger log = Logger.getLogger(RestService.class.getName());
+		  
+		  @GET
+		  @Path("/register") 
+		  @Produces("application/x-www-form-urlencoded")
+		  public String registerClient(){
+			  String ip="10.10.10.10";
+			  return ip;
+			  
+		  }
+		  
+		  // Interface to be called from Event Group
+			
+		  // POST Statements to post relevant tokens and save them in mysql database
+		  /*
+		  
+		   		@POST
+		   		@Path("/PostDocuments/{data}")
+		   		@Consumes("application/x-www-form-urlencoded")
+		   public void postDocuments(){
+		   			
+		   			
+		   			
+		   			
+		   			
+		   		}
+		  */
+		  
+		  // End of POST Statement
 
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// Speech Token Interface
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-						 		
-					// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-					// GET Statements
-					// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			// Interface to be called from Interface.js
+			
+			// GET Statements to get the relevant entries of mysql database with drivePath for a hangpoutsId
+					
 					 @GET
 					 //@Path("/GetDocuments/{hangoutsId}")
 					 @Path("/GetDocuments")
@@ -148,111 +154,17 @@ package de.hdm.speechtomcat;
 							return Response.status(200).entity(jsonObject.toString()).build();
 					 	}
 					
-					}
+					}	 
 					 
-					 
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// END-----------------------Speech Token Interface
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-			
-		  
-		  
-		  
-	// Event Interface
-
-			 
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// INSERT Statements
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		  
-		  /*
-			@POST
-			@Path( "/AddDocumentInformation" )
-			@Consumes("application/json")
-		    
-			public void addDocumentInformation(@FormParam("userId") String userId, @FormParam("hangoutsId") String hangoutsId , 
-			@FormParam("documentName") String documentName, @FormParam("drivePath") String drivePath) 
-							throws IOException, ParseException, org.codehaus.jettison.json.JSONException {
-				
-					log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
-					try{
-						String UPDATE_TEMPLATE =  "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-				 		+ "INSERT DATA"
-				 		+ "{ "
-				 		+ "<http://www.semanticweb.org/alinasiebert/ontologies/2016/0/A-BOX_Cloud_Dokumente#"+name+"> "
-				 		+ "Cloud_Dokumente:Name '"+name+"';"
-				 		+ "Cloud_Dokumente:DriveDocumentID '"+driveDocumentID+"';"
-				 		+ "Cloud_Dokumente:Schlagwort "+keyword+";"
-				 		+ "Cloud_Dokumente:Dokumenttyp '"+documentType+"';"
-				 		+ "Cloud_Dokumente:Speicherort '"+documentPath+"';"
-				 		+ "Cloud_Dokumente:Status '"+status+"';"
-				 		+ "Cloud_Dokumente:Version '"+version+"^^http://www.w3.org/2001/XMLSchema#int';"
-				 		+ "Cloud_Dokumente:Erstellungsdatum '"+creationDate+"^^http://www.w3.org/2001/XMLSchema#dateTime';"
-				 		+ "Cloud_Dokumente:Dokument_gehoert_zu_Projekt <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/A-BOX_Cloud_Dokumente#"+project+">;"
-				 		+ "Cloud_Dokumente:Dokument_hat_Verfasser  <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Lisa_Maier> ."
-				 		+ "}";
-						
-						String id = UUID.randomUUID().toString();
-						UpdateProcessor upp = UpdateExecutionFactory.createRemote(
-			            UpdateFactory.create(String.format(UPDATE_TEMPLATE, id)), 
-			            "http://localhost:3030/ds/update");
-						upp.execute();
-					} catch (Exception e){
-						log.error( "AddDocumentInformation: Can��t add document information "+e);
-					}
-			}
-			*/
-			
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// EDIT Statements
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-					
-/*
-		  
-		  				@POST
-						@Path( "/EditDocumentMetadata" )
-						@Consumes("application/x-www-form-urlencoded")
-						
-						public void editDocumentMetadata(@FormParam("name") String name, @FormParam("documentType") String documentType , 
-						@FormParam("status") String status, @FormParam("documentPath") String documentPath, @FormParam("keyword") String keyword) 
-						throws IOException, ParseException, org.codehaus.jettison.json.JSONException 
-						{
-							try{		
-								String UPDATE_TEMPLATE =  "PREFIX foaf:  <http://xmlns.com/foaf/0.1/>"
-									+ "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-									+ "DELETE { "
-									+ "		?Document Cloud_Dokumente:Name         	'Besprechungsprotokoll_HighNet_15-01-2016' ."
-									+ "		?Document Cloud_Dokumente:Status 		'Fertiggestellt' ."
-									+ "		?Document Cloud_Dokumente:Schlagwort    'Ideensammlung' , 'Aufgabenverteilung' ."
-									+ "		?Document Cloud_Dokumente:Dokumenttyp 	'Textdokument' . "
-									+ "		?Document Cloud_Dokumente:Speicherort  	'https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8k' ;}"
-									+ "}"
-									+ "INSERT { "
-									+ "		?Document Cloud_Dokumente:Name         	'"+name+"' ."
-									+ "		?Document Cloud_Dokumente:Status 		'"+status+"' ."
-									+ "		?Document Cloud_Dokumente:Schlagwort    '"+keyword+"' ."
-									+ "		?Document Cloud_Dokumente:Dokumenttyp 	'"+documentType+"' ."
-									+ "		?Document Cloud_Dokumente:Speicherort  	'"+documentPath+"' ;"
-									+ "WHERE"
-									+ "{ "
-									+ "		?Document Cloud_Dokumente:DriveDocumentID '1K4_pQgxm9dEx4HK5s5ghw740hkcOu8IrbpMFZ4RNuX0'"
-									+ "}"; 
-						
-								String id = UUID.randomUUID().toString();
-								UpdateProcessor upp = UpdateExecutionFactory.createRemote(
-						        UpdateFactory.create(String.format(UPDATE_TEMPLATE, id)), 
-						        "http://localhost:3030/ds/update");
-								upp.execute();
-							}catch (Exception e){
-								log.error( "EditDocumentMetadata: Can��t edit document metadata "+e);
-							}
-						}}
-
-			
-		   */
-			 
-
+			//End of Get Statement
 	
 	
-
+	
+			
+	
+	
+	
+	
+	
+	
+	
