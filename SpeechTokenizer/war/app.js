@@ -13,8 +13,8 @@ function initUi(){
 
 function registerClient(){
 	  $.ajax({type:'GET', 
-		  url:'http://146.148.67.230/rest/register',
-		  dataType: 'http',
+		  url:'http://146.148.67.230/de.hdm.speechtomcat/rest/register',
+		  dataType: 'text',
 		 
 		//Fehler loggen 
 		error: function(){
