@@ -8,6 +8,9 @@ function initUi(){
 	var hangoutsid = getUserData('id');
 	var hangoutsidelement = document.getElementById('hangoutsid');
 	hangoutsidelement.innerHTML=hangoutsid;
+	console.log(hangoutsid);
+	var marenid = getHangoutId(),
+	console.log(marenid);
 }
 
 function registerClient(){
@@ -23,7 +26,9 @@ function registerClient(){
 		// Anfrage erfolgreich
 		success: function(responseData){
 			console.log('ERFOLGREICH');
+			console.log(responseData);
 		}
+	  });
 }
 
 // A function to be run at app initialization time which registers the callbacks

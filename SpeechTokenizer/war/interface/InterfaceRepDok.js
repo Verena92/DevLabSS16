@@ -3,13 +3,7 @@
  */
 
 
-//Funktionierende GET Methode mit JQuery
-
-//ToDO: Anstelle von des festen Keyword muss hier das Keyword aus dem PreToken übergeben werden TokenNew.keyword
-//$.getScript("../tokenization/Token.js", function (){
-	//Token();
-	//var keyword = TokenNew.keyword;	
-//});
+//Funktionierende POST Methode mit JQuery
 
 function GetKeywordInformation(TokenNew){
 	
@@ -31,14 +25,16 @@ function GetKeywordInformation(TokenNew){
 	
 	//console.log(queryWords);
 
-//Asynchroner Get Request auf die Schnittstelle der RepDok Gruppe
-	  $.ajax({type:'GET', 
-		  url:'https://104.155.140.18/document/rest/GetWordinformation/'+keyword,
+//Asynchroner POST Request auf die Schnittstelle der RepDok Gruppe
+	  $.ajax({type:'POST', 
+		  url:'https://104.155.140.18/document/rest/GetWordinformation',
+		  data: JSON.stringify(queryWords),
+		  contentType: 'application/json',
 		  dataType: 'json',
 		 
 		//Fehler loggen 
 		error: function(){
-	    	console.log("Error");
+	    	console.log("not found");
 		},
 		//Bei erfolgreichem Request Objekt in der Console ausgeben
 		success: function(responseData){
