@@ -7,6 +7,7 @@ package de.hdm.speechtomcat;
 
 	import java.sql.*;	
 
+
 	import org.apache.log4j.Logger;
 	import org.codehaus.jettison.json.JSONArray;
 
@@ -53,8 +54,9 @@ package de.hdm.speechtomcat;
 		  public String sayPlainTextHello() {
 		    return "Hello Jersey";
 		  }
+	}
 	
-		  private static JSONObject jsonObject;	 
+		 private static JSONObject jsonObject;	 
 		  private static Logger log = Logger.getLogger(RestService.class.getName());
 		  
 		  @GET
@@ -82,67 +84,71 @@ package de.hdm.speechtomcat;
 		   			
 		   		}
 		  */
+		  	/*@POST
+		    @Path("/uploadDocuments")
+		    @Consumes(MediaType.MULTIPART_FORM_DATA)
+		    public Response uploadFile( @FormDataParam("file") InputStream uploadedInputStream,
+		        @FormDataParam("file") FormDataContentDisposition fileDetail) {
+
+		        System.out.println("ok");
+		        String uploadedFileLocation = "d://upload/" + "abc.pdf";
+
+		            writeToFile(uploadedInputStream, uploadedFileLocation);
+
+		            String output = "File uploaded to : " + uploadedFileLocation;
+
+		            return Response.status(200).entity(output).build();
+
+		            }
+
+		    private void writeToFile(InputStream uploadedInputStream, String uploadedFileLocation) {
+		        try {
+		                OutputStream out = new FileOutputStream(new File(uploadedFileLocation));
+		                int read = 0;
+		                byte[] bytes = new byte[1024];
+
+		                out = new FileOutputStream(new File(uploadedFileLocation));
+		                while ((read = uploadedInputStream.read(bytes)) != -1) 
+		                {
+		                  out.write(bytes, 0, read);
+		                }
+		                out.flush();
+		                out.close();
+		            } catch (IOException e) {
+
+		               e.printStackTrace();
+		            }
+		    }*/
 		  
-		  // End of POST Statement
+		    
+		    // End of POST Statement
 
+		    
+		    
+		    
 
-			// Interface to be called from Interface.js
-			
+		    // Interface to be called from InterfaceEvent.js
 			// GET Statements to get the relevant entries of mysql database with drivePath for a hangpoutsId
 					
-					 @GET
+					/* @GET
 					 //@Path("/GetDocuments/{hangoutsId}")
 					 @Path("/GetDocuments")
 					 @Produces("application/json")
-					//public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
-					public Response getDocuments() {		
+					 //public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
+					 public Response getDocuments() {		
 					 jsonObject = new JSONObject();
 							
-							//DataSource ds = "jdbc/documentreference";
-							
-							//Connection con = null;
-							//Statement st = null;
-							//ResultSet rs = null;
+
 							
 							try {
-							    // create our mysql database connection
-							    String myDriver = "com.mysql.jdbc.Driver";
-							    String myUrl = "jdbc:mysql://146.148.67.230/documentreference";
-							    //Class.forName(myDriver).newInstance();
-								Connection con = DriverManager.getConnection(myUrl, "speechtokenizer", "password");
-								//con = ds.getConnection();
-								//st = con.createStatement();
-								//rs = st.executeQuery("SELECT * FROM reference");
-							       
-							 
-							      // create the java statement
-							      Statement st = con.createStatement();
-							      
 							      // SQL SELECT query
 							      //String query = "SELECT * FROM reference";
-							       
-							      // execute the query, and get a java resultset
-							      ResultSet rs = st.executeQuery("SELECT * FROM reference");
+
 							       
 							      // iterate through the java resultset
 							      while (rs.next())
 							      {
-							    	System.out.println("Id="+rs.getInt("id")+
-							    						", UserId="+rs.getString("userId")+
-							    						", HangoutsId="+rs.getString("hangoutsId")+
-							    						", DocumentName="+rs.getString("documentName")+
-							    						", drivePath="+rs.getString("drivePath")+
-							    						", timestamp="+rs.getDate("timestamp"));
-							    	/*int id = rs.getInt("id");
-							        String userId = rs.getString("userId");
-							        String hangoutId = rs.getString("hangoutsId");
-							        String documentName = rs.getString("documentName");
-							        String drivePath = rs.getString("drivePath");
-							        Date timestamp = rs.getDate("timestamp");*/
-							        
-							         
-							        // print the results
-							       // System.out.format("%s, %s, %s, %s, %s, %s\n", id, userId, hangoutId, documentName, drivePath, timestamp);
+							    	System.out.println("Id="+rs.getInt("id")
 							      }
 							      st.close();
 							      jsonObject.put("data", rs);
@@ -158,7 +164,7 @@ package de.hdm.speechtomcat;
 					 
 			//End of Get Statement
 	
-	
+	*/
 	
 			
 	
