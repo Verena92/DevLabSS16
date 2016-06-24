@@ -9,8 +9,6 @@ function initUi(){
 	var hangoutsidelement = document.getElementById('hangoutsid');
 	hangoutsidelement.innerHTML=hangoutsid;
 	console.log(hangoutsid);
-	var marenid = getHangoutId(),
-	console.log(marenid);
 }
 
 function registerClient(){
