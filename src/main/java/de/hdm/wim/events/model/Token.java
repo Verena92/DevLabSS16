@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -21,7 +22,8 @@ public class Token implements Event {
 	public static final SimpleDateFormat DATE_FORMAT_yyyy_M_d_H_m_s = new SimpleDateFormat("yyyy M d H m s");
 
 	@Id
-	private String id;
+	@GeneratedValue
+	private long id;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 	private String keyword;
@@ -41,9 +43,8 @@ public class Token implements Event {
 		
 	}
 	
-	public Token(String id, String timeString, String keyword, String createdByFirstName, String createdByLastName, String createdByUserId, String hangoutsId,
+	public Token(String timeString, String keyword, String createdByFirstName, String createdByLastName, String createdByUserId, String hangoutsId,
 			KeywordInformation keywordInformation) throws ParseException {
-		this.id = id;
 		this.timestamp = DATE_FORMAT_yyyy_M_d_H_m_s.parse(timeString);
 		this.keyword = keyword;
 		this.createdByFirstName = createdByFirstName;
@@ -93,12 +94,9 @@ public class Token implements Event {
 		this.keywordInformation = keywordInformation;
 	}
 
+	@Override
 	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+		return ""+this.id;
 	}
 
 	public String getKeyword() {

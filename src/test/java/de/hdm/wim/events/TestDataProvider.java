@@ -31,7 +31,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id1", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -52,7 +52,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id2", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -73,7 +73,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id3", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -94,7 +94,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id4", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -116,7 +116,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id5", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -137,7 +137,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id6", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -161,7 +161,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("id7", "2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

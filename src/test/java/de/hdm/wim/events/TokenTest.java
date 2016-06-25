@@ -1,6 +1,6 @@
 package de.hdm.wim.events;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +13,6 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.EntryPoint;
-
-import de.hdm.wim.events.interceptor.EventStorageInterceptor;
-import de.hdm.wim.events.model.Token;
 
 public class TokenTest {
 	
@@ -31,7 +28,6 @@ public class TokenTest {
     	resultList = new ArrayList<>();
     	kieSession.setGlobal( "resultList", resultList);
     	entryPoint = kieSession.getEntryPoint("SpeechTokenEventStream");
-    	kieSession.addEventListener( new EventStorageInterceptor());
 	}
 	
 	@After
