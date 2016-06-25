@@ -1,12 +1,10 @@
 /**
- * @author Waldemar Jaufmann
- * @author Kristina Baketaric
- * @author Alina Siebert
- * @author Tugce Yazici
+ * @author Waldemar Jaufmann, @author Kristina Baketaric, @author Alina Siebert, @author Tugce Yazici
  */
 
 package controller;
 
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.apache.jena.atlas.lib.cache.Cache0;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -19,14 +17,25 @@ import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONArray;
+import org.eclipse.jetty.io.NetworkTrafficListener;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -37,13 +46,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.soap.Node;
 
 import models.Company;
 import models.Document;
 import models.Employee;
 import models.ObjectRelation;
 import models.Project;
-import models.Word;
+import models.WordInformation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,6 +61,8 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hp.hpl.jena.tdb.store.Hash;
+import com.sun.jersey.api.client.ClientResponse.Status;
 
 
 
@@ -65,7 +77,491 @@ public class RestService {
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// GET Statements
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	    /**
+	 /* @GET
+		 @Path("/GetDocumentMetadata2/")
+		 @Produces("application/json")
+		 public Response getDocumentMetadata2() throws JSONException, JsonProcessingException {
+			String jsonData = "";
+			BufferedReader br = null;
+			try {
+				String line;
+				br = new BufferedReader(new FileReader("data/Crunchify_JSON"));
+				while ((line = br.readLine()) != null) {
+					jsonData += line + "\n";
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (br != null)
+						br.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+			System.out.println("File Content: \n" + jsonData);
+			JSONObject obj = new JSONObject(jsonData);
+		
+			
+		  
+		  
+
+		  ArrayList<String> listDocuments = new ArrayList<>();
+	      ArrayList<String> newArrayList = new ArrayList<>();
+	      ArrayList<String> listProjectURIS = new ArrayList<>();
+	      ArrayList<String> listProjectDocuments = new ArrayList<>();
+	      
+	      ArrayList<String> listEmployees = new ArrayList<>();
+	      
+		  JSONObject jsonObject = new JSONObject();
+	      int countIteration = 0;
+		  boolean boolProjectFound = false;
+		  boolean boolEmployeeFound = false;
+		  String projectURI = getIDByURI(obj.getJSONArray("projects").get(0).toString());
+		  String employeeURI = getIDByURI(obj.getJSONArray("employees").get(0).toString());
+		  
+		  HashMap<String, ArrayList<String>> mapProjects = new HashMap<>();
+		  HashMap<String, ArrayList<String>> mapEmployees = new HashMap<>();
+		  
+		  for(int i=0; i<obj.getJSONArray("projects").length();i++){
+			  listProjectURIS.add(getIDByURI((String) obj.getJSONArray("projects").get(i)));
+		  }
+		  
+		  System.out.println("lll"+listProjectURIS);
+
+			try {
+				String sparQuery = "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						+ " SELECT DISTINCT ?Projekt ?Verfasser  ?Klasse"
+						+ " WHERE {"
+						+ " ?Klasse ?y ?z ."
+						+ " ?Klasse Cloud_Dokumente:Dokument_gehoert_zu_Projekt ?Projekt ."
+						+ " ?Klasse Cloud_Dokumente:Dokument_hat_Verfasser ?Verfasser ."
+						+ " }";
+						  
+	
+				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+		        ResultSet results = qe.execSelect();
+		        List var = results.getResultVars(); 
+		        
+		        while (results.hasNext()){
+					QuerySolution qs = results.nextSolution();
+					for(int i=0; i<var.size();i++){
+						String va = var.get(i).toString();
+						RDFNode node = qs.get(va);
+						
+						if(countIteration==0){
+							if(node.toString().equals(projectURI) && projectURI!=""){
+								boolProjectFound = true;
+							}
+						}
+						if(countIteration==1){
+							if(node.toString().equals(employeeURI) && employeeURI!=""){
+								boolEmployeeFound =true;
+							}
+						}
+						if(countIteration==2){
+							if(boolEmployeeFound==true){
+								boolEmployeeFound = false;
+								listEmployees.add(getDocumentByURI(node.toString()));
+								listDocuments.add(getDocumentByURI(node.toString()));
+							}
+							if(boolProjectFound==true){
+								boolProjectFound = false;
+								listProjectDocuments.add(getDocumentByURI(node.toString()));
+								listDocuments.add(getDocumentByURI(node.toString()));
+							}
+						}
+						
+						countIteration++;
+						if(countIteration>2){
+							countIteration=0;
+						} 
+					}
+					for(String projectURIs : listProjectURIS){
+						mapProjects.put(projectURIs, listProjectDocuments);
+					}
+			        
+			        mapEmployees.put(employeeURI, listEmployees);
+				}
+
+		        
+		        System.out.println(mapProjects);
+		        System.out.println(mapEmployees);
+		        if(projectURI != "" && employeeURI!=""){
+			        Set<String> uniqueSet = new HashSet<String>(listDocuments);
+					 for (String temp : uniqueSet) {
+					   		if(Collections.frequency(listDocuments, temp)>1){
+					   			newArrayList.add(temp);
+					   		}
+					}
+		        } else {
+		        	newArrayList = new ArrayList<>(listDocuments);
+		        }
+		        
+		        qe.close();
+			} catch(Exception e){
+				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
+			}
+			jsonObject.put("documents", newArrayList);
+			return Response.status(200).entity(jsonObject.toString()).build();
+		 }*/
+	  
+	  
+	  	 @POST
+		 @Path("/GetDocumentMetadata/")
+		 @Consumes("application/json")
+		 @Produces("application/json")
+		 public Response getDocumentMetadata(Object objKeyword) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+			/*String jsonData = "";
+			BufferedReader br = null;
+			try {
+				String line;
+				br = new BufferedReader(new FileReader("data/Crunchify_JSON"));
+				while ((line = br.readLine()) != null) {
+					jsonData += line + "\n";
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (br != null)
+						br.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+			System.out.println("File Content: \n" + jsonData);
+			*/
+			org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objKeyword.toString());
+			/*JSONObject obj = new JSONObject(jsonData);
+		*/
+			JSONObject jsonObject = new JSONObject();
+			
+			ArrayList<String> listProjectURIs = new ArrayList<>();
+			ArrayList<String> listEmployeeURIs = new ArrayList<>();
+			ArrayList<String> listProjectDocumentIDs = new ArrayList<>();
+			ArrayList<String> listEmployeeDocumentIDs = new ArrayList<>();
+			ArrayList<String> listFoundDocumentIDs = new ArrayList<>();
+			ArrayList<ArrayList<String>> listCompanies = new ArrayList<>();
+			ArrayList<String> listCompanyIDs = new ArrayList<>();
+			
+			HashMap<String, String> mapProjectDocuments = new HashMap<>();
+			HashMap<String, String> mapEmployeeDocuments = new HashMap<>();
+			
+			String ProjectURI = "";
+			String EmployeeURI = "";
+			
+			
+			
+			//Transfer the ids from JSON-Array to a ArrayList with the ids
+			for(int i=0; i<obj.getJSONArray("companies").length();i++){
+				listCompanies.add(getProjectOfCompany((String) obj.getJSONArray("companies").get(i)));
+			}
+			
+			for(int i=0; i<obj.getJSONArray("projects").length();i++){
+				listProjectURIs.add(getIDByURI((String) obj.getJSONArray("projects").get(i)));
+			}
+			
+			for(int i=0; i<obj.getJSONArray("employees").length();i++){
+				listEmployeeURIs.add(getIDByURI((String) obj.getJSONArray("employees").get(i)));
+			}
+			
+			try {
+				String sparQuery = "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						+ " SELECT DISTINCT ?Projekt ?Verfasser  ?Klasse"
+						+ " WHERE {"
+						+ " ?Klasse ?y ?z ."
+						+ " ?Klasse Cloud_Dokumente:Dokument_gehoert_zu_Projekt ?Projekt ."
+						+ " ?Klasse Cloud_Dokumente:Dokument_hat_Verfasser ?Verfasser ."
+						+ " }";
+						  
+	
+				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+		        ResultSet results = qe.execSelect();
+		        List var = results.getResultVars(); 
+		        
+		        while (results.hasNext()){
+					QuerySolution qs = results.nextSolution();
+					for(int i=0; i<var.size();i++){
+						String va = var.get(i).toString();
+						RDFNode node = qs.get(va);
+						switch(va){
+							case "Projekt" :
+								ProjectURI= node.toString();
+								break;
+							case "Verfasser" :
+								EmployeeURI = node.toString();
+								break;
+							case "Klasse" :
+								mapProjectDocuments.put(node.toString(), ProjectURI);
+								mapEmployeeDocuments.put(node.toString(), EmployeeURI);
+								break;
+						}
+					}
+		        }
+		        for (Entry<String, String> value : mapProjectDocuments.entrySet()) {
+		        	for(int i=0; i<listProjectURIs.size();i++){
+		        		if(listProjectURIs.get(i).equals(value.getValue())){
+		        			listProjectDocumentIDs.add(getDocumentByURI(value.getKey()));
+		        		}
+		        	}
+		        }
+		        for (Entry<String, String> value : mapProjectDocuments.entrySet()) {
+		        	for(int i=0;i<listCompanies.size();i++){
+						for(int k=0;k<listCompanies.get(i).size();k++){
+							if(listCompanies.get(i).get(k).equals(value.getValue())){
+								listCompanyIDs.add(getDocumentByURI(value.getKey()));
+							}	
+						}
+					}
+		        }
+		        
+		        for (Entry<String, String> value : mapEmployeeDocuments.entrySet()) {
+		        	for(int i=0; i<listEmployeeURIs.size();i++){
+		        		if(listEmployeeURIs.get(i).equals(value.getValue())){
+		        			listEmployeeDocumentIDs.add(getDocumentByURI(value.getKey()));
+		        		}
+		        	}
+		        }
+		        if(!listCompanyIDs.isEmpty()){
+		        	for(int i=0;i<listCompanyIDs.size();i++){
+		        		if(!listFoundDocumentIDs.contains(listCompanyIDs.get(i))){
+		        			listFoundDocumentIDs.add(listCompanyIDs.get(i));
+		        		}
+					}
+		        } else if(!listProjectDocumentIDs.isEmpty() && !listEmployeeDocumentIDs.isEmpty()){
+			        for(int i=0;i<listEmployeeDocumentIDs.size();i++){
+			        	for(int k=0;k<listProjectDocumentIDs.size();k++){
+			        		if(listProjectDocumentIDs.get(k).contains(listEmployeeDocumentIDs.get(i))){
+				        		listFoundDocumentIDs.add(listEmployeeDocumentIDs.get(i));
+			        		}		        		
+			        	}
+			        }
+		        } else if(!listProjectDocumentIDs.isEmpty() && listEmployeeDocumentIDs.isEmpty()){
+		        	for(int k=0;k<listProjectDocumentIDs.size();k++){
+			        	listFoundDocumentIDs.add(listProjectDocumentIDs.get(k));
+		        	}
+		        } else if(listProjectDocumentIDs.isEmpty() && !listEmployeeDocumentIDs.isEmpty()){
+		        	for(int k=0;k<listEmployeeDocumentIDs.size();k++){
+			        	listFoundDocumentIDs.add(listEmployeeDocumentIDs.get(k));
+		        	}
+		        }
+		        qe.close();
+			} catch(Exception e){
+				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
+			}
+			jsonObject.put("documents", listFoundDocumentIDs);
+			return Response.status(200).entity(jsonObject.toString()).build();
+		 }
+	  
+	  /*
+	  	 @GET
+		 @Path("/GetDocumentMetadata/")
+		 @Produces("application/json")
+		 public Response getDocumentMetadata() throws JSONException, JsonProcessingException {
+	  		Document document = null;
+	  		ObjectMapper mapper = new ObjectMapper();
+	  		
+	  		String jsonInString = "";
+
+			try {
+				String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+						+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+						+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						+ " SELECT ?DokumentenID ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser "
+						+ " (group_concat(?Schlagwort;separator=',')  as ?Schlagwörter) (group_concat(?Projekt;separator=',')  as ?Projekte) WHERE {"
+						+ " ?x ?y ?DokumentenID "
+						+ " Filter (?DokumentenID = 'D0002') "
+						+ " ?x Cloud_Dokumente:Dokumentenname ?Dokumentenname ."
+						+ " ?x Cloud_Dokumente_old:Status ?Status ."
+						+ " ?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum ."
+						+ " ?x Cloud_Dokumente_old:Dokumenttyp ?Dokumenttyp ."
+						+ " ?x Cloud_Dokumente_old:Speicherort ?Speicherort ."
+						+ " ?x Cloud_Dokumente_old:Version ?Version ."
+						+ " ?x Cloud_Dokumente_old:Dokument_hat_Verfasser ?Verfasser ."
+						+ " ?x Cloud_Dokumente_old:Schlagwort ?Schlagwort . "
+						+ " ?x Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt ?Projekt ."
+						+ " } group by ?DokumentenID ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser ";
+	
+				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+		        ResultSet results = qe.execSelect();
+		        List var = results.getResultVars();    
+		        
+		        while (results.hasNext()){
+					QuerySolution qs = results.nextSolution();
+					document = new Document();
+					for(int i=0; i<var.size();i++){
+						String va = var.get(i).toString();
+						RDFNode node = qs.get(va);
+						document.setDriveID("1onKOGZFLOKReA1unsstajHHy6eBK-C6rn52i1Ra4A78");
+						switch(va){
+							case "DokumentenID" : 
+								document.setDocumentID(node.toString());
+								break;
+							case "Dokumentenname" : 
+								document.setDocumentName(node.toString());
+								break;
+							case "Dokumenttyp" :
+								document.setDocumentType(node.toString());
+								break;
+							case "Speicherort" :
+								document.setDrivePath(node.toString());
+								break;
+							case "Erstellungsdatum" :
+								String creationDate = node.toString().substring(0, node.toString().indexOf("^^"));
+								document.setCreationDate(creationDate);
+								break;
+							case "Version" :
+								Double version = Double.parseDouble(node.toString().substring(0, node.toString().indexOf("^^")));
+								document.setVersion(version);
+								break;
+							case "Status" :
+								document.setStatus(node.toString());
+								break;
+							case "Verfasser" :
+								document.setCreatedBy(getEmployeeByURI(node.toString()));
+								break;
+							case "Schlagwörter" :
+								ArrayList<String> listKeywords = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+								document.setKeywords(listKeywords);
+								break;
+							case "Projekte" :
+								ArrayList<String> listProjects = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+								ArrayList<String> newListProjects = new ArrayList<>();
+								int count = 0;
+								for(String getProjects : listProjects){
+									if(count==0){
+										newListProjects.add(getProjectByURI(getProjects));
+									}
+									count++;	
+								}
+								document.setProjects(newListProjects);
+								break;
+						}
+					
+					}
+				}
+		        qe.close();
+			} catch(Exception e){
+				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
+			}
+			
+			if(document!=null){
+				jsonInString = mapper.writeValueAsString(document);
+			}
+
+			return Response.status(200).entity(jsonInString).build();
+		 }
+	  	 
+	  	*/ 
+	  	 
+	  	@GET
+		 @Path("/GetDocumentByID/{documentID}")
+		 @Produces("application/json")
+		 public Response getDocumentByDocumentID(@PathParam("documentID") String documentID) throws JSONException, JsonProcessingException {
+	  		Document document = null;
+	  		ObjectMapper mapper = new ObjectMapper();
+	  		
+	  		String jsonInString = "";
+
+			try {
+				String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+						+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+						+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						+ " SELECT ?DokumentenID ?Dokumentenklasse ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser "
+						+ " (group_concat(?Schlagwort;separator=',')  as ?Schlagwörter) (group_concat(?Projekt;separator=',')  as ?Projekte) WHERE {"
+						+ " ?x ?y ?DokumentenID "
+						+ " Filter (?DokumentenID = '"+documentID+"') "
+						+ " ?x Cloud_Dokumente:Dokumentenname ?Dokumentenname ."
+						+ " ?x Cloud_Dokumente_old:Status ?Status ."
+						+ " ?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum ."
+						+ " ?x Cloud_Dokumente_old:Dokumenttyp ?Dokumenttyp ."
+						+ " ?x Cloud_Dokumente_old:Speicherort ?Speicherort ."
+						+ " ?x Cloud_Dokumente_old:Version ?Version ."
+						+ " ?x Cloud_Dokumente_old:Dokument_hat_Verfasser ?Verfasser ."
+						+ " ?x Cloud_Dokumente_old:Schlagwort ?Schlagwort . "
+						+ " ?x Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt ?Projekt ."
+						+ "	?x rdf:type ?Dokumentenklasse ."
+						+ " } group by ?DokumentenID ?Dokumentenklasse ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser ";
+	
+				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+		        ResultSet results = qe.execSelect();
+		        List var = results.getResultVars();    
+		        
+		        while (results.hasNext()){
+					QuerySolution qs = results.nextSolution();
+					document = new Document();
+					for(int i=0; i<var.size();i++){
+						String va = var.get(i).toString();
+						RDFNode node = qs.get(va);
+						document.setDriveID("1onKOGZFLOKReA1unsstajHHy6eBK-C6rn52i1Ra4A78");
+						switch(va){
+							case "DokumentenID" : 
+								document.setDocumentID(node.toString());
+								break;
+							case "Dokumentenname" : 
+								document.setDocumentName(node.toString());
+								break;
+							case "Dokumenttyp" :
+								document.setDocumentType(node.toString());
+								break;
+							case "Speicherort" :
+								document.setDrivePath(node.toString());
+								break;
+							case "Erstellungsdatum" :
+								String creationDate = node.toString().substring(0, node.toString().indexOf("^^"));
+								document.setCreationDate(creationDate);
+								break;
+							case "Version" :
+								Double version = Double.parseDouble(node.toString().substring(0, node.toString().indexOf("^^")));
+								document.setVersion(version);
+								break;
+							case "Status" :
+								document.setStatus(node.toString());
+								break;
+							case "Verfasser" :
+								document.setCreatedBy(getEmployeeByURI(node.toString()));
+								break;
+							case "Schlagwörter" :
+								ArrayList<String> listKeywords = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+								document.setKeywords(listKeywords);
+								break;
+							case "Projekte" :
+								ArrayList<String> listProjects = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+								ArrayList<String> newListProjects = new ArrayList<>();
+								int count = 0;
+								for(String getProjects : listProjects){
+									if(count==0){
+										newListProjects.add(getProjectByURI(getProjects));
+									}
+									count++;
+								}
+								document.setProjects(newListProjects);
+								break;
+							case "Dokumentenklasse" :
+								document.setDocumentClass(node.asResource().getLocalName());
+								break;
+						}
+					
+					}
+				}
+		        qe.close();
+			} catch(Exception e){
+				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
+			}
+			
+			if(document!=null){
+				jsonInString = mapper.writeValueAsString(document);
+			}
+
+			return Response.status(200).entity(jsonInString).build();
+		 }
+	  
+	  
+	  
+	  /**
 	     * 
 	     * GetProjectByID
 	     * 
@@ -86,24 +582,30 @@ public class RestService {
 		 public Response getProjectByID(@PathParam("projectID") String projectID) throws JSONException, JsonProcessingException {
 	  		Project project = null;
 	  		Employee employee = null;
+	  		Project newProject = null;
+	  		
 	  		ArrayList<String> listEmployees = new ArrayList<>();
+	  		ArrayList<Project> listProjects = new ArrayList<>();
+	  		ArrayList<String> listCompany = new ArrayList<>();
+	  		
 	  		
 	  		ObjectMapper mapper = new ObjectMapper();
 	  		
-	  		ArrayList<Project> listProjects = new ArrayList<>();
+	  		
 			try {
-				String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-						+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-						+ " SELECT  ?ProjektID ?ProjektName ?Status ?Projektmitglied ?Projektleiter"
-						+ " WHERE   { "
+				String sparQuery = "prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+						+ " prefix Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						+ " Select ?ProjektID ?ProjektName ?Projektleiter ?Status (group_concat(?Unternehmen;separator=',')  as ?GroupUnternehmen) (group_concat(?Projektmitglied;separator=',') as ?Projektmitglieder) where"
+						+ " {"
 						+ " ?x ?y ?ProjektID ."
-						+ " Filter (?ProjektID='P003') ."
-						+ " ?x Cloud_Dokumente:ProjektName ?ProjektName ."
-						+ " ?x Cloud_Dokumente:Status ?Status ."
-						+ " ?x Cloud_Dokumente:Projekt_hat_Projektmitglied ?Projektmitglied ."
-						+ " ?x Cloud_Dokumente:Projekt_hat_Projektleiter ?Projektleiter}"; 
+						+ " Filter (?ProjektID='"+projectID+"') ."
+						+ " ?x Cloud_Dokumente:ProjektID ?ProjektID ."
+						+ " ?x Cloud_Dokumente:Projektname ?ProjektName ."
+						+ " ?x Cloud_Dokumente_old:Status ?Status ."
+						+ " ?x Cloud_Dokumente_old:Projekt_hat_Projektmitglied ?Projektmitglied ."
+						+ " ?x Cloud_Dokumente_old:Projekt_hat_Projektleiter ?Projektleiter ."
+						+ " ?x Cloud_Dokumente:Projekt_gehoert_zu_Unternehmen ?Unternehmen ."
+						+ " } group by ?ProjektID ?ProjektName ?Status ?Projektleiter ?Unternehmen";
 	
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 		        ResultSet results = qe.execSelect();
@@ -113,30 +615,102 @@ public class RestService {
 					QuerySolution qs = results.nextSolution();
 					project = new Project();
 					employee = new Employee();
+					
 					for(int i=0; i<var.size();i++){
 						String va = var.get(i).toString();
 						RDFNode node = qs.get(va);
 						switch(va){
 						  case "ProjektID" : project.setProjectID(node.toString()); break;
 						  case "ProjektName" : project.setProjectName(node.toString()); break;
-						  case "Projektmitglied" :
-						  		listEmployees.add(getEmployee(node.toString()));
-						  		project.setListProjectMember(listEmployees);
-						  		break;
+						  case "Projektmitglieder" :
+
+							  ArrayList<String> listProjectMember = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+
+							  for(String projectMember : listProjectMember){
+									  listEmployees.add(getEmployeeByURI(projectMember));
+							  }
+								  project.setProjectMembers(listEmployees);
+
+						  	  
+						  	  break;
 						  case "Status" : project.setStatus(node.toString()); break;
-						  case "Projektleiter" : project.setProjectManager(getEmployee(node.toString()));
+						  case "Projektleiter" : project.setProjectManager(getEmployeeByURI(node.toString())); break;
+						  case "GroupUnternehmen" : 
+							  if(node.toString().contains("#")){
+								  ArrayList<String> listCompanies = new ArrayList<>(Arrays.asList(node.toString().split(",")));
+								  for(String companies : listCompanies){
+									  listCompany.add(getCompanyByURI(companies));
+								  }
+								  project.setInvolvedCompanies(listCompany);
+							  } 
 						}
 					}
-					
 				}
 		        qe.close();
+				newProject = new Project();
+				newProject.setProjectID(project.getProjectID());
+				newProject.setProjectName(project.getProjectName());
+				newProject.setProjectManager(project.getProjectManager());
+				newProject.setStatus(project.getStatus());
+				List<String> newProjectMembers = project.getProjectMembers().stream().distinct().collect(Collectors.toList());
+				List<String> newCompanies = project.getInvolvedCompanies().stream().distinct().collect(Collectors.toList());
+				newProject.setProjectMembers((ArrayList) newProjectMembers);
+				newProject.setInvolvedCompanies((ArrayList)newCompanies);
 			} catch(Exception e){
-				log.error( "GetWordInformation: Can´t get word information "+e);
+				log.error( "GetProject: Can´t get project information "+e);
 			}
-			String jsonInString = mapper.writeValueAsString(project);
+
+			String jsonInString = mapper.writeValueAsString(newProject);
 	  		
+			if(!jsonInString.contains("P")){
+				return Response.status(Response.Status.NOT_FOUND).entity("Project not found for ID: "+projectID).build(); 
+			}
+			
 			return Response.status(200).entity(jsonInString).build();
 		 }
+	  	 
+	  	 @GET
+		 @Path("/GetDocumentClasses/")
+		 @Produces("application/json")
+		 public Response getDocumentClasses() throws JSONException, JsonProcessingException {
+	  		JSONObject jsonObject = new JSONObject();
+	  		ArrayList<String> listDocumentClasses = new ArrayList<>();
+			try {
+				String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+						+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+						+ " prefix Clou_Dokumente_Old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						+ " SELECT  ?Dokumentenklasse"
+						+ " WHERE   { "
+						+ " ?x ?y ?z ."
+						+ " Filter regex (?z, 'D') ."
+						+ " ?x rdf:type ?Dokumentenklasse }";
+	
+				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+		        ResultSet results = qe.execSelect();
+		        List var = results.getResultVars();    
+		        
+		        while (results.hasNext()){
+					QuerySolution qs = results.nextSolution();
+					
+					for(int i=0; i<var.size();i++){
+						String va = var.get(i).toString();
+						RDFNode node = qs.get(va);
+						if(node.toString().contains("Cloud_Dokumente")){
+							if(!listDocumentClasses.contains(node.asResource().getLocalName())){
+								listDocumentClasses.add(node.asResource().getLocalName());
+							}
+							
+						}
+					}
+				}
+		        qe.close();
+
+			} catch(Exception e){
+				log.error( "GetProject: Can´t get project information "+e);
+			}
+			jsonObject.put("documentClasses", listDocumentClasses);
+			return Response.status(200).entity(jsonObject.toString()).build();
+		 }	  	 
 	  	 
 		 /**
 		 * 
@@ -157,23 +731,26 @@ public class RestService {
 		 @Produces("application/json")
 		 public Response getCompanyID(@PathParam("companyID") String companyID) throws JsonProcessingException  {
 	  		Company company = null;
+	  		Company newCompany = null;
 	  		ObjectMapper mapper = new ObjectMapper();
 	  		
-	  		ArrayList<String> listProjects = new ArrayList<>();
-	  		ArrayList<String> listEmployees = new ArrayList<>();
+	  		ArrayList<String> newListProjects = new ArrayList<>();
+	  		ArrayList<String> newListEmployees = new ArrayList<>();
 			try {
-				String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-						+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-						+ " SELECT  ?UnternehmensID ?Unternehmensname ?Mitarbeiteranzahl ?Projekt ?Mitarbeiter"
+				String sparQuery = "prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+						+ " prefix Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						+ " SELECT  ?UnternehmensID ?Mitarbeiteranzahl ?Hauptsitz ?Unternehmensname ?Branche (group_concat(?Projekt;separator=',') as ?Projekte) (group_concat(?Mitarbeiter;separator=',') as ?GroupMitarbeiter) "
 						+ " WHERE   { "
 						+ " ?x ?y ?UnternehmensID ."
 						+ " Filter (?UnternehmensID='"+companyID+"') ."
+						+ " ?x Cloud_Dokumente:UnternehmensID ?UnternehmensID ."
+						+ " ?x Cloud_Dokumente_old:Mitarbeiteranzahl ?Mitarbeiteranzahl ."
+						+ " ?x Cloud_Dokumente_old:Unternehmen_hat_Mitarbeiter ?Mitarbeiter ."
+						+ " ?x Cloud_Dokumente_old:Unternehmen_hat_Projekt ?Projekt ."
+						+ " ?x Cloud_Dokumente_old:Unternehmen_hat_Hauptsitz_in ?Hauptsitz ."
+						+ " ?x Cloud_Dokumente:Branche ?Branche ."
 						+ " ?x Cloud_Dokumente:Unternehmensname ?Unternehmensname ."
-						+ " ?x Cloud_Dokumente:Mitarbeiteranzahl ?Mitarbeiteranzahl ."
-						+ " ?x Cloud_Dokumente:Unternehmen_hat_Mitarbeiter ?Mitarbeiter ."
-						+ " ?x Cloud_Dokumente:Unternehmen_hat_Projekt ?Projekt} "; 
+						+ " } group by ?UnternehmensID ?Mitarbeiteranzahl ?Hauptsitz ?Branche ?Unternehmensname"; 
 				
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
@@ -186,29 +763,59 @@ public class RestService {
 					for(int i=0; i<var.size();i++){			
 						String va = var.get(i).toString();
 						RDFNode node = qs.get(va);
+						
 						switch(va){
 						  case "UnternehmensID" :  company.setCompanyID(node.toString()); break;
 						  case "Unternehmensname" : company.setCompanyName(node.toString()); break;
 						  case "Mitarbeiteranzahl" : 
 							  int numberEmployee = Integer.parseInt(node.toString().substring(0, node.toString().indexOf("^^")));
 							  company.setNumberEmployee(numberEmployee); break;
-						  case "Mitarbeiter" : 
-							  listEmployees.add(getEmployee(node.toString()));
-							  company.setListEmployees(listEmployees);
+						  case "GroupMitarbeiter" : 
+							  ArrayList<String> listEmployee = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+
+							  for(String employee : listEmployee){
+									  newListEmployees.add(getEmployeeByURI(employee));
+							  }
+							  
+							  company.setEmployees(newListEmployees);
 							  break;
-						  case "Projekt" : 
-							  listProjects.add(getProject(node.toString()));
-							  company.setListProjects(listProjects); 
+						  case "Branche" : company.setIndustrialSector(node.toString());break;
+						  
+						  case "Projekte" : 
+							  ArrayList<String> listProjects = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+
+							  for(String projects : listProjects){
+									  newListProjects.add(getProjectByURI(projects));
+							  }
+
+							  company.setProjects(newListProjects);
 							  break;
+						  case "Hauptsitz": company.setHeadquarter(node.asResource().getLocalName());
 						}
 					}
 				}
 		        qe.close();
+				newCompany = new Company();
+				newCompany.setCompanyID(company.getCompanyID());
+				newCompany.setNumberEmployee(company.getNumberEmployee());
+				
+				List<String> newProjects = company.getProjects().stream().distinct().collect(Collectors.toList());
+				newCompany.setProjects((ArrayList) newProjects);
+				
+				List<String> newEmployees = company.getEmployees().stream().distinct().collect(Collectors.toList());
+				newCompany.setEmployees((ArrayList) newEmployees);
+				newCompany.setHeadquarter(company.getHeadquarter());
+				newCompany.setIndustrialSector(company.getIndustrialSector());
+				newCompany.setCompanyName(company.getCompanyName());
 			} catch(Exception e){
 				log.error( "GetCompanyByID: Can´t get company information "+e);
 			}
 			
-			String jsonInString = mapper.writeValueAsString(company);
+			
+			String jsonInString = mapper.writeValueAsString(newCompany);
+			if(!jsonInString.contains("U")){
+				return Response.status(Response.Status.NOT_FOUND).entity("Company not found for ID: "+companyID).build(); 
+			}
 			return Response.status(200).entity(jsonInString).build();
 		 }
 	  	 
@@ -237,18 +844,21 @@ public class RestService {
 		  		ArrayList<String> listProjects = new ArrayList<>();
 		  		
 				try {
-					String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ " prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-							+ " SELECT  ?MitarbeiterID ?Unternehmen ?Name ?Vorname ?Projekt"
+					String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+							+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+							+ " prefix Clou_Dokumente_Old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+							+ " SELECT  ?MitarbeiterID ?DriveUserID ?Personenname ?Vorname ?Unternehmen ?HangoutUserID (group_concat(?Projekt;separator=',') as ?Projekte) ?Jobtitel"
 							+ " WHERE   { "
 							+ " ?x ?y ?MitarbeiterID ."
 							+ " Filter (?MitarbeiterID='"+employeeID+"') ."
-							+ " ?x Cloud_Dokumente:ist_Mitarbeiter_von_Unternehmen ?Unternehmen ."
-							+ " ?x Cloud_Dokumente:Vorname ?Vorname ."
-							+ " ?x Cloud_Dokumente:Name ?Name ."
-							+ " ?x Cloud_Dokumente:Mitarbeiter_ist_Projektmitglied_von ?Projekt} "; 
+							+ " ?x Clou_Dokumente_Old:Vorname ?Vorname ."
+							+ " ?x Cloud_Dokumente:Personenname ?Personenname ."
+							+ " ?x Cloud_Dokumente:Jobtitel ?Jobtitel ."
+							+ " ?x Clou_Dokumente_Old:ist_Mitarbeiter_von_Unternehmen ?Unternehmen ."
+							+ " ?x Clou_Dokumente_Old:Mitarbeiter_ist_Projektmitglied_von ?Projekt ."
+							+ " ?x Cloud_Dokumente:HangoutUserID ?HangoutUserID ."
+							+ " ?x Cloud_Dokumente:DriveUserID ?DriveUserID ."
+							+ "}group by ?MitarbeiterID ?Personenname ?Vorname ?Unternehmen ?Jobtitel ?HangoutUserID ?DriveUserID"; 
 					
 					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
@@ -265,44 +875,58 @@ public class RestService {
 								case "MitarbeiterID" :  
 									employee.setEmployeeID(node.toString());
 									break;
+								case "Jobtitel" :employee.setJobTitle(node.toString());
 								case "Unternehmen" :  
-									employee.setEmployeeOf(getCompanyByURI(node.toString()));
+									if(node.toString().contains("#")){
+										employee.setEmployeeOf(getCompanyByURI("http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"));
+										
+									}
 									break;
-								case "Name" : 
+								case "Personenname" : 
 									employee.setEmployeeName(node.toString());
 									break;
 								case "Vorname" :
 									employee.setEmployeeSurname(node.toString());
 									break;
-								case "Projekt" :
-									listProjects.add(getProject(node.toString()));
-									employee.setListProjects(listProjects);
+								case "Projekte" :
+									ArrayList<String> newListProjecs = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+									
+									for(String projects : newListProjecs){
+										listProjects.add(getProjectByURI(projects));
+									}
+									employee.setProjects(listProjects);
+									break;
+								case "HangoutUserID" : 
+									employee.setHangoutUserID(node.toString());
+									break;
+								case "DriveUserID":
+									employee.setDriveUserID(node.toString());
 									break;
 							}
 						}
 					}
 			        qe.close();
 				} catch(Exception e){
-					log.error( "GetEmpoloyeeByID: Can´t get employee information "+e);
+					log.error( "GetEmpoloyeeByID: Can´t get the employee information "+e);
 				}
 				
 				String jsonInString = mapper.writeValueAsString(employee);
+				if(!jsonInString.contains("M")){
+					return Response.status(Response.Status.NOT_FOUND).entity("Employee not found for ID: "+employeeID).build(); 
+				}
 				return Response.status(200).entity(jsonInString).build();
 			 }
 	  	 
 	  	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Methods to get further information
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		  	public String getCompanyByURI(String companyURI) {	
+		  	 public static String getCompanyByURI(String companyURI) {	
 				String companyID = null;
 				try {
-					String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ " prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-							+ " select ?UnternehmensID where {"
-							+ " <"+companyURI+"> Cloud_Dokumente:UnternehmensID ?UnternehmensID ."
-							+ " }"; 
+					String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+							+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
+							+ "	Select ?Unternehmen where "
+							+ " {<"+companyURI+"> Cloud_Dokumente:UnternehmensID ?Unternehmen }";
 						
 					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
@@ -318,21 +942,16 @@ public class RestService {
 					}
 			        qe.close();
 				} catch(Exception e){
-					log.error( "GetWordInformation: Can´t get word information "+e);
+					log.error( "getCompanyByURI: Can´t get company by uri "+e);
 				}
 					return companyID;
 			}
-		 
-		 public String getEmployee(String employeeURI) {	
+		  	 
+		 public static String getEmployeeByURI(String employeeURI) {	
 			String employeeID = null;
 			try {
-				String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-						+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-						+ " select ?MitarbeiterID where {"
-						+ " <"+employeeURI+"> Cloud_Dokumente:ID ?MitarbeiterID ."
-						+ " }"; 
+				String sparQuery = " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>select ?HangoutUserID where {"
+						+ " <"+employeeURI+"> Cloud_Dokumente:HangoutUserID ?HangoutUserID }";  
 				
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
@@ -348,21 +967,110 @@ public class RestService {
 				}
 		        qe.close();
 			} catch(Exception e){
-				log.error( "GetWordInformation: Can´t get word information "+e);
+				log.error( "getEmployeeByURI: Can´t get employee by uri "+e);
 			}
 				return employeeID;
 		 }
 		 
-		 public String getProject(String projectURI) {	
+		 
+
+		 public static String getProjectURIByID(String projectID) {	
+				String projectURI = null;
+				try {
+					String sparQuery = "prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+							+ " SELECT ?x"
+							+ " WHERE {"
+							+ " ?x Cloud_Dokumente:ProjektID '"+projectID+"' }";
+					
+					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+
+			        ResultSet results = qe.execSelect();
+			        List var = results.getResultVars();
+			        while (results.hasNext()){
+						QuerySolution qs = results.nextSolution();
+						for(int i=0; i<var.size();i++){			
+							String va = var.get(i).toString();
+							RDFNode node = qs.get(va);
+							projectURI = node.toString();
+						}
+					}
+			        qe.close();
+				} catch(Exception e){
+					log.error( "getEmployeeByURI: Can´t get employee by uri "+e);
+				}
+					return projectURI;
+			 }
+		 
+		 
+		 public static ArrayList<String> getProjectOfCompany(String companyID) {	
+			 ArrayList<String> listProjects = null;	
+			 try {
+					String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+							+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
+							+ " prefix Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+							+ " select (group_concat(?Projekt;separator=',')  as ?Projekte) where {"
+							+ " ?x ?y ?z ."
+							+ " Filter (?z = '"+companyID+"')"
+							+ " ?x Cloud_Dokumente_old:Unternehmen_hat_Projekt ?Projekt}";
+					
+					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+
+			        ResultSet results = qe.execSelect();
+			        List var = results.getResultVars();
+			        while (results.hasNext()){
+						QuerySolution qs = results.nextSolution();
+						for(int i=0; i<var.size();i++){			
+							String va = var.get(i).toString();
+							RDFNode node = qs.get(va);
+							listProjects = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+						}
+					}
+			        qe.close();
+				} catch(Exception e){
+					log.error( "getEmployeeByURI: Can´t get employee by uri "+e);
+				}
+					return listProjects;
+			 }
+		 
+		 
+		 public static void main(String[] args) {
+		}
+		 public static String getIDByURI(String uri) {	
+				String id = null;
+				try {
+					String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+							+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
+							+ " select ?x where {"
+							+ " ?x ?y ?z ."
+							+ " Filter (?z = '"+uri+"')}";
+					
+					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+
+			        ResultSet results = qe.execSelect();
+			        List var = results.getResultVars();
+			        while (results.hasNext()){
+						QuerySolution qs = results.nextSolution();
+						for(int i=0; i<var.size();i++){			
+							String va = var.get(i).toString();
+							RDFNode node = qs.get(va);
+							id = node.toString();
+						}
+					}
+			        qe.close();
+				} catch(Exception e){
+					log.error( "getEmployeeByURI: Can´t get employee by uri "+e);
+				}
+					return id;
+			 }
+		 
+		 
+		 public static String getProjectByURI(String projectURI) {	
 				String projectID = null;
 				try {
-					String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ " prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-							+ " select ?ProjektID where {"
-							+ " <"+projectURI+"> Cloud_Dokumente:ProjktID ?ProjektID ."
-							+ " }"; 
+						String sparQuery = " PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+							+	" prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
+							+   " select ?ProjektID where {"
+							+   " <"+projectURI+"> Cloud_Dokumente:ProjektID ?ProjektID }"; 
 					
 					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
@@ -378,9 +1086,36 @@ public class RestService {
 					}
 			        qe.close();
 				} catch(Exception e){
-					log.error( "GetWordInformation: Can´t get word information "+e);
+					log.error( "getProjectByURI: Can´t get project by uri "+e);
 				}
 					return projectID;
+			 }
+		 
+		 public static String getDocumentByURI(String documentURI) {	
+				String documentID = null;
+				try {
+						String sparQuery = " PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+							+	" prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
+							+   " select ?DokumentenID where {"
+							+   " <"+documentURI+"> Cloud_Dokumente:DokumentenID ?DokumentenID }"; 
+					
+					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+
+			        ResultSet results = qe.execSelect();
+			        List var = results.getResultVars();
+			        while (results.hasNext()){
+						QuerySolution qs = results.nextSolution();
+						for(int i=0; i<var.size();i++){			
+							String va = var.get(i).toString();
+							RDFNode node = qs.get(va);
+							documentID = node.toString();
+						}
+					}
+			        qe.close();
+				} catch(Exception e){
+					log.error( "getDocumentID: Can´t get document by uri "+e);
+				}
+					return documentID;
 			 }
 		 
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -390,112 +1125,319 @@ public class RestService {
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// GET Statements
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		 
-		 @GET
-		 @Path("/GetWordinformation/{word}")
-		 @Produces("application/json")
-		 public Response getWordinformation(@PathParam("word") String word) throws JSONException {
-				jsonObject = new JSONObject();
-				Word wordInformation;
-				ArrayList<Word> listWord = new ArrayList<Word>();				
+/*
+		 public static void main(String[] args) throws FileNotFoundException, JSONException, JsonProcessingException {
+				String jsonData = "";
+				BufferedReader br = null;
 				try {
-					String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ " SELECT  * "
-							+ " WHERE   { ?Dokument ?Typ ?Ausgabe ."
-							+ " FILTER regex(?Ausgabe, '"+word+"') . "
-							+ "?Typ <http://www.w3.org/2000/01/rdf-schema#domain> ?Klassentyp ."
-							+ "?Typ <http://www.w3.org/2000/01/rdf-schema#range> ?Datentyp}";
+					String line;
+					br = new BufferedReader(new FileReader("data/Crunchify_JSON"));
+					while ((line = br.readLine()) != null) {
+						jsonData += line + "\n";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (br != null)
+							br.close();
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}
+				// System.out.println("File Content: \n" + jsonData);
+				JSONObject obj = new JSONObject(jsonData);
+
+				
+				getWordinformation(jsonData);
+			}
+		 */
+		 
+		 @POST
+		 @Path("/GetWordinformation/")
+		 @Consumes("application/json")
+		 @Produces("application/json")
+		 public static Response getWordinformation(Object objKeyword) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+			org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objKeyword.toString());
+			
+			
+			/*
+				String jsonData = "";
+				BufferedReader br = null;
+				try {
+					String line;
+					br = new BufferedReader(new FileReader("data/Crunchify_JSON"));
+					while ((line = br.readLine()) != null) {
+						jsonData += line + "\n";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (br != null)
+							br.close();
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}
+				System.out.println("File Content: \n" + jsonData);
+				JSONObject obj = new JSONObject(jsonData);*/
+				String keyword = obj.getString("keyword");
+				String priviousKeyword = obj.getString("previousKeyword");
+				String nextKeyword = obj.getString("nextKeyword");
+				System.out.println(keyword+ " "+priviousKeyword+" "+nextKeyword);
+
+			 	ArrayList<WordInformation> listWordInformation = new ArrayList<>();
+			 	System.out.println(nextKeyword.replace(" ", "").trim());
+			 	for(int i=0; i<5; i++){
+			 		switch(i){
+			 			case 0 : 
+			 				if(parseKeywords(priviousKeyword)!=null){
+			 					
+			 					listWordInformation.add(parseKeywords(priviousKeyword));
+			 				}
+			 				break;
+			 			case 1 :
+			 				if(parseKeywords(keyword)!=null){
+			 					System.out.println(parseKeywords(keyword));
+			 					listWordInformation.add(parseKeywords(keyword));
+			 				}
+			 				break;
+			 			case 2 :
+			 				if(parseKeywords(nextKeyword)!=null){
+			 					listWordInformation.add(parseKeywords(nextKeyword));
+			 				}
+			 				break;
+			 			case 3 : 
+			 				if(parseKeywords(priviousKeyword+" "+keyword)!=null){
+			 					listWordInformation.add(parseKeywords(priviousKeyword+" "+keyword));
+			 				}
+			 				break;
+			 			case 4:
+			 				if(parseKeywords(keyword+" "+nextKeyword)!=null){
+			 					listWordInformation.add(parseKeywords(keyword+" "+nextKeyword));
+			 				}
+			 				break;
+			 			case 5:
+			 				if(parseKeywords(priviousKeyword+" "+keyword+" "+nextKeyword)!=null){
+			 					listWordInformation.add(parseKeywords(priviousKeyword+" "+keyword+" "+nextKeyword));
+			 				}
+			 				break;
+			 		}
+			 	}
+			 	
+			 	WordInformation newWordInformation = new WordInformation();
+			 	ArrayList<String> newListCompanies = new ArrayList<>();
+			 	ArrayList<String> newListProjects = new ArrayList<>();
+			 	ArrayList<String> newListPerseons = new ArrayList<>();
+			 	
+	
+			 		for(WordInformation ausgabe : listWordInformation){
+			 			newListPerseons = new ArrayList<>(ausgabe.getPersons());
+			 			newListProjects = new ArrayList<>(ausgabe.getProjects());
+			 			newListCompanies = new ArrayList<>(ausgabe.getCompanies());
+			 			newWordInformation.setCompanies(newListCompanies);
+			 			newWordInformation.setPersons(newListPerseons);
+			 			newWordInformation.setProjects(newListProjects);
+			 		}
+			 
+			 	
+			 	for(WordInformation ausgabe : listWordInformation){
+			 		System.out.println("f "+ausgabe.getPersons()+" "+ausgabe.getProjects() + " "+ausgabe.getCompanies());
+			 	}
+			 	ObjectMapper mapper = new ObjectMapper();
+				String jsonInString = mapper.writeValueAsString(newWordInformation);
+				
+				return Response.status(200).entity(jsonInString).build();
+					
+		 	}
+		 
+		 /*
+		 @GET
+		 @Path("/GetWordinformation/")
+		 @Produces("application/json")
+		 public Response getDocume() throws JSONException {
+				jsonObject = new JSONObject();
+				Document document;
+				ArrayList<Document> listDocument = new ArrayList<Document>();
+				ArrayList<String> listKeywort = new ArrayList<String>();				
+				try {
+						
+					
+				} catch(Exception e){
+					log.error( "GetDocumentByTitle: Can´t get document by title "+e);
+				}
+				return Response.status(200).entity("halloo").build();
+		 	}*/
+		 
+		
+		 public static WordInformation parseKeywords(String keyword) throws JsonProcessingException {
+				ArrayList<String> listProjects = new ArrayList<>();
+				ArrayList<String> listEmployees = new ArrayList<>();
+				ArrayList<String> listCompanies = new ArrayList<>();
+				ObjectRelation objectRelation;
+				
+				ArrayList<ObjectRelation> listObjectRelation = new ArrayList<>();
+				try {
+					String sparQuery = "prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
+							+ " SELECT  ?Klassentyp ?Wert"
+							+ " WHERE   { ?Wert ?Typ ?Ausgabe ."
+							+ " FILTER (?Ausgabe = '"+keyword+"') . "
+							+ " ?Typ <http://www.w3.org/2000/01/rdf-schema#domain> ?Klassentyp "
+							+ " } group by ?Klassentyp ?Wert";
 					
 					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
 			        ResultSet results = qe.execSelect();
 			        List var = results.getResultVars();
-			        String documentMetadata="";
-			        String documentName="";
+			        String classType = "";
+			        int countIteration = -1;
 			        while (results.hasNext()){
-			        	wordInformation = new Word();
+
+			        	objectRelation = new ObjectRelation();
 						QuerySolution qs = results.nextSolution();
 						for(int i=0; i<var.size();i++){			
 							String va = var.get(i).toString();
 							RDFNode node = qs.get(va);
-							String value = node.toString().substring(node.toString().indexOf("#")+1, node.toString().length());
-							switch(i){
-								case 0: wordInformation.setObjectRelation(getGraphInformatoin("<"+node.toString()+">"));
-									documentName = node.toString().substring(node.toString().indexOf("#")+1, node.toString().length());
+							
+							switch(va){
+								case "Klassentyp" :
+									objectRelation.setType(node.asResource().getLocalName());
 									break;
-								case 1: wordInformation.setValueType(value);
-									documentMetadata=value;
-								break;
-									case 2: wordInformation.setValue(node.toString());
-								break;
-									case 3: wordInformation.setClassName(value);
-								
-								if(value.equals("Dokument")){
-									System.out.println(documentMetadata+"_von: "+documentName);
-								}
-								break;
-									case 4: wordInformation.setDataType(value);
-								break;
+								case "Wert" : 
+									objectRelation.setValue(node.toString());
+									break;
 							}
 						}
-						listWord.add(wordInformation);
+						listObjectRelation.add(objectRelation);
 					}
 			        qe.close();
 				} catch(Exception e){
 					log.error( "GetWordInformation: Can´t get word information "+e);
 				}
-				jsonObject.put("data", listWord);
-				return Response.status(200).entity(jsonObject.toString()).build();
+				WordInformation wordInformation = null;
+				ArrayList<WordInformation> listWordInformation = new ArrayList<WordInformation>();
+				for(ObjectRelation ausgabe : listObjectRelation){
+					wordInformation = new WordInformation();
+					
+					if(ausgabe.getType().equals("Projekt")){
+						String projectID = getProjectByURI(ausgabe.getValue());
+						if(projectID != null){
+							listProjects.add(projectID);
+						}
+					}
+					if(ausgabe.getType().equals("Person")){
+						String employeeID = getEmployeeByURI(ausgabe.getValue());
+						if(employeeID!=null){
+							listEmployees.add(employeeID);
+						}
+					}	
+					if(ausgabe.getType().equals("Unternehmen")){
+						String companyID = getCompanyByURI(ausgabe.getValue());
+						if(companyID!=null){
+							listCompanies.add(companyID);
+						}
+					}	
+				}	
+				
+				if(wordInformation!=null){
+					wordInformation.setProjects(listProjects);
+					wordInformation.setPersons(listEmployees);
+					wordInformation.setCompanies(listCompanies);
+				}
+				
+				return wordInformation;
 		 	}
 		 
-		 public ArrayList<ObjectRelation>  getGraphInformatoin(String GrapfInformation) {
+		 /*
+		 @GET
+		 @Path("/GetWordinformation/")
+		 @Produces("application/json")
+		 public static Response getWordinformation(Object objKeyword) throws JSONException, JsonProcessingException {
+			 	JSONObject jsonObjectKeywords = new JSONObject(objKeyword.toString());
+			 	
+			 	String keyword = jsonObjectKeywords.getString("keyword");
+			 	String priviousKeyword = jsonObjectKeywords.getString("priviousKeyword");
+			 	String nextKeyword = jsonObjectKeywords.getString("nextKeyword");
+			 	System.out.println(priviousKeyword);
 				jsonObject = new JSONObject();
+		        String Klassentyp = "";
+				ArrayList<String> listProjects = new ArrayList<>();
+				ArrayList<String> listEmployees = new ArrayList<>();
 				ObjectRelation objectRelation;
-				ArrayList<ObjectRelation> listObjectRelation = new ArrayList<ObjectRelation>();
 				
+				ArrayList<ObjectRelation> listObjectRelation = new ArrayList<>();
 				try {
-					String sparQuery = "PREFIX foaf: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ "	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ " PREFIX mebase: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ " SELECT  * "
-							+ " WHERE   { "+GrapfInformation+" ?Typ ?Ausgabe }";
+					String sparQuery = "prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
+							+ " SELECT  ?Klassentyp ?Wert"
+							+ " WHERE   { ?Wert ?Typ ?Ausgabe ."
+							+ " FILTER regex (?Ausgabe, '"+nextKeyword+"') . "
+							+ " ?Typ <http://www.w3.org/2000/01/rdf-schema#domain> ?Klassentyp "
+							+ " } group by ?Klassentyp ?Wert";
 					
 					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
 			        ResultSet results = qe.execSelect();
 			        List var = results.getResultVars();
+			        String classType = "";
+			        int countIteration = -1;
 			        while (results.hasNext()){
+
+			        	objectRelation = new ObjectRelation();
 						QuerySolution qs = results.nextSolution();
-						for(int i=0; i<var.size();i++){
+						for(int i=0; i<var.size();i++){			
 							String va = var.get(i).toString();
 							RDFNode node = qs.get(va);
-							System.out.println(node.toString());
-							if(va.equals("Typ")&&node.toString().contains("#")){
-								RDFNode ausgabe = qs.get(var.get(i+1).toString());
-								String type = node.toString().substring(node.toString().indexOf("#")+1, node.toString().length());
-								String value = ausgabe.toString().substring(ausgabe.toString().indexOf("#")+1, ausgabe.toString().length());
-								if(type.contains("_")){
-									if(ausgabe.toString().contains("#")){
-										objectRelation = new ObjectRelation();
-										objectRelation.setType(type);
-										objectRelation.setValue(value);
-										listObjectRelation.add(objectRelation);
-									}
-								}
+							
+							switch(va){
+								case "Klassentyp" :
+									objectRelation.setType(node.asResource().getLocalName());
+									System.out.println(node.toString());
+									break;
+								case "Wert" : 
+									objectRelation.setValue(node.toString());
+									break;
 							}
 						}
+						listObjectRelation.add(objectRelation);
 					}
 			        qe.close();
-					
 				} catch(Exception e){
-					log.error( "GetGraphInformation: Can´t get Graph information document metadata "+e);
+					log.error( "GetWordInformation: Can´t get word information "+e);
 				}
-				return listObjectRelation;
-		}
+				WordInformation wordInformation = null;
+				ArrayList<WordInformation> listWordInformation = new ArrayList<WordInformation>();
+				for(ObjectRelation ausgabe : listObjectRelation){
+					wordInformation = new WordInformation();
+					
+					if(ausgabe.getType().equals("Projekt")){
+						String projectID = getProjectByURI(ausgabe.getValue());
+						if(projectID != null){
+							listProjects.add(projectID);
+						}
+					}
+					if(ausgabe.getType().equals("Person")){
+						String employeeID = getEmployeeByURI(ausgabe.getValue());
+						if(employeeID!=null){
+							listEmployees.add(employeeID);
+						}
+					}
+					
+				}
+				String jsonInString = "";
+				ObjectMapper mapper = new ObjectMapper();
+				if(wordInformation!=null){
+					wordInformation.setProjects(listProjects);
+					wordInformation.setPersons(listEmployees);
+					jsonInString = mapper.writeValueAsString(wordInformation);
+				}
+				
+				
+				
+				return Response.status(200).entity(jsonInString).build();
+		 	}
 		 
-		 
+		 */
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // END-----------------------Speech Token Interface
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -542,20 +1484,20 @@ public class RestService {
 							countIteration++;
 							switch(countIteration){
 							case 1: 
-								document.setName(node.toString());
+								document.setDocumentName(node.toString());
 								break;
 							case 2: 					
 								ArrayList<String> listKeywords = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
-								document.setListKeyword(listKeywords);
+								document.setKeywords(listKeywords);
 								break;
 							case 3: 
-								document.setType(node.toString());				
+								document.setDocumentType(node.toString());				
 								break;
 							case 4: 
 								document.setCreationDate(node.toString().substring(0, node.toString().indexOf("^^")));
 								break;
 							case 5: 
-								document.setPath(node.toString());
+								document.setDrivePath(node.toString());
 								break;
 							case 6: 
 								document.setStatus(node.toString());
@@ -621,20 +1563,21 @@ public class RestService {
 							countIteration++;
 							switch(countIteration){
 							case 1: 
-								document.setName(node.toString());
+								document.setDocumentName(node.toString());
 								break;
 							case 2: 					
 								ArrayList<String> listKeywords = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
-								document.setListKeyword(listKeywords);
+								document.setKeywords(listKeywords);
 								break;
 							case 3: 
-								document.setType(node.toString());				
+								document.setDocumentType(node.toString());				
 								break;
 							case 4: 
+								
 								document.setCreationDate(node.toString().substring(0, node.toString().indexOf("^^")));
 								break;
 							case 5: 
-								document.setPath(node.toString());
+								document.setDocumentID(node.toString());
 								break;
 							case 6: 
 								document.setStatus(node.toString());
@@ -643,7 +1586,6 @@ public class RestService {
 								document.setVersion(Double.parseDouble(node.toString().substring(0, node.toString().indexOf("^^"))));
 								break;
 							case 8: 
-								System.out.println("Version"+node.toString());
 								/*document.setVersion(Double.parseDouble(node.toString().substring(0, node.toString().indexOf("^^"))));
 								*/break;
 						}

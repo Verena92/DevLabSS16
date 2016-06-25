@@ -15,6 +15,4 @@ public class ObjectRelation {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
-	
 }

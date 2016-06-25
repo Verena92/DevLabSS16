@@ -7,7 +7,8 @@ public class Project {
 	private String projectName;
 	private String Status;
 	private String projectManager;
-	private ArrayList<String> listProjectMember;
+	private ArrayList<String> projectMembers;
+	private ArrayList<String> involvedCompanies;
 	
 	public String getProjectID() {
 		return projectID;
@@ -27,17 +28,24 @@ public class Project {
 	public void setStatus(String status) {
 		Status = status;
 	}
-	public ArrayList<String> getListProjectMember() {
-		return listProjectMember;
-	}
-	public void setListProjectMember(ArrayList<String> listProjectMember) {
-		this.listProjectMember = listProjectMember;
-	}
+
 	public String getProjectManager() {
 		return projectManager;
 	}
 	public void setProjectManager(String projectManager) {
 		this.projectManager = projectManager;
+	}
+	public ArrayList<String> getProjectMembers() {
+		return projectMembers;
+	}
+	public void setProjectMembers(ArrayList<String> projectMembers) {
+		this.projectMembers = projectMembers;
+	}
+	public ArrayList<String> getInvolvedCompanies() {
+		return involvedCompanies;
+	}
+	public void setInvolvedCompanies(ArrayList<String> involvedCompanies) {
+		this.involvedCompanies = involvedCompanies;
 	}
 
 }

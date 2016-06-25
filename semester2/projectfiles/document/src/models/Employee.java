@@ -6,8 +6,11 @@ public class Employee {
 	private String employeeID;
 	private String employeeName;
 	private String employeeSurname;
-	private ArrayList<String> listProjects;
+	private ArrayList<String> projects;
+	private String jobTitle;
 	private String employeeOf;
+	private String HangoutUserID;
+	private String DriveUserID;
 	
 	public String getEmployeeID() {
 		return employeeID;
@@ -28,17 +31,36 @@ public class Employee {
 		this.employeeSurname = employeeSurname;
 	}
 
-	public ArrayList<String> getListProjects() {
-		return listProjects;
-	}
-	public void setListProjects(ArrayList<String> listProjects) {
-		this.listProjects = listProjects;
-	}
+
 	public String getEmployeeOf() {
 		return employeeOf;
 	}
 	public void setEmployeeOf(String employeeOf) {
 		this.employeeOf = employeeOf;
+	}
+	public ArrayList<String> getProjects() {
+		return projects;
+	}
+	public void setProjects(ArrayList<String> projects) {
+		this.projects = projects;
+	}
+	public String getJobTitle() {
+		return jobTitle;
+	}
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
+	}
+	public String getHangoutUserID() {
+		return HangoutUserID;
+	}
+	public void setHangoutUserID(String hangoutUserID) {
+		HangoutUserID = hangoutUserID;
+	}
+	public String getDriveUserID() {
+		return DriveUserID;
+	}
+	public void setDriveUserID(String driveUserID) {
+		DriveUserID = driveUserID;
 	}
 
 }

@@ -1,0 +1,9 @@
+controller\CrunchifyParseJSONObject.class
+models\Project.class
+models\Employee.class
+models\Company.class
+models\Document.class
+models\ObjectRelation.class
+models\WordInformation.class
+controller\RestService.class
+models\Department.class

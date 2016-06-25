@@ -6,28 +6,11 @@ public class Company {
 	private String companyID;
 	private String companyName;
 	private int numberEmployee;
-	private ArrayList<String> listDepartments;
-	private ArrayList<String> listEmployees;
-	private ArrayList<String> listProjects;
+	private ArrayList<String> employees;
+	private ArrayList<String> projects;
+	private String headquarter;
+	private String industrialSector;
 
-	public ArrayList<String> getListDepartments() {
-		return listDepartments;
-	}
-	public void setListDepartments(ArrayList<String> listDepartments) {
-		this.listDepartments = listDepartments;
-	}
-	public ArrayList<String> getListEmployees() {
-		return listEmployees;
-	}
-	public void setListEmployees(ArrayList<String> listEmployees) {
-		this.listEmployees = listEmployees;
-	}
-	public ArrayList<String> getListProjects() {
-		return listProjects;
-	}
-	public void setListProjects(ArrayList<String> listProjects) {
-		this.listProjects = listProjects;
-	}
 	public String getCompanyID() {
 		return companyID;
 	}
@@ -45,5 +28,30 @@ public class Company {
 	}
 	public void setNumberEmployee(int numberEmployee) {
 		this.numberEmployee = numberEmployee;
+	}
+
+	public ArrayList<String> getEmployees() {
+		return employees;
+	}
+	public void setEmployees(ArrayList<String> employees) {
+		this.employees = employees;
+	}
+	public ArrayList<String> getProjects() {
+		return projects;
+	}
+	public void setProjects(ArrayList<String> projects) {
+		this.projects = projects;
+	}
+	public String getHeadquarter() {
+		return headquarter;
+	}
+	public void setHeadquarter(String headquarter) {
+		this.headquarter = headquarter;
+	}
+	public String getIndustrialSector() {
+		return industrialSector;
+	}
+	public void setIndustrialSector(String industrialSector) {
+		this.industrialSector = industrialSector;
 	}
 }

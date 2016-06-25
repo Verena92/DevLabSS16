@@ -3,28 +3,20 @@ package models;
 import java.util.ArrayList;
 
 public class Document {
-	private String name;
-	private String type;
+	private String documentID;
+	private String documentName;
+	private String documentType;
 	private String creationDate;
-	private String path;
+	private String drivePath;
 	private String createdBy;
 	private String status;
 	private double version;
-	private ArrayList<String> listKeyword;
-	private ArrayList<Project> listProjects;
+	private ArrayList<String> keywords;
+	private ArrayList<String> projects;
+	private String driveID;
+	private String documentClass;
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
+	
 	public String getCreationDate() {
 		return creationDate;
 	}
@@ -37,34 +29,66 @@ public class Document {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
 	public String getStatus() {
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public ArrayList<String> getListKeyword() {
-		return listKeyword;
-	}
-	public void setListKeyword(ArrayList<String> listKeyword) {
-		this.listKeyword = listKeyword;
-	}
+
 	public double getVersion() {
 		return version;
 	}
 	public void setVersion(double version) {
 		this.version = version;
 	}
-	public ArrayList<Project> getListProjects() {
-		return listProjects;
+
+	public String getDocumentID() {
+		return documentID;
 	}
-	public void setListProjects(ArrayList<Project> listProjects) {
-		this.listProjects = listProjects;
+	public void setDocumentID(String documentID) {
+		this.documentID = documentID;
+	}
+	public String getDocumentName() {
+		return documentName;
+	}
+	public void setDocumentName(String documentName) {
+		this.documentName = documentName;
+	}
+	public String getDocumentType() {
+		return documentType;
+	}
+	public void setDocumentType(String documentType) {
+		this.documentType = documentType;
+	}
+	public String getDrivePath() {
+		return drivePath;
+	}
+	public void setDrivePath(String drivePath) {
+		this.drivePath = drivePath;
+	}
+	public ArrayList<String> getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(ArrayList<String> keywords) {
+		this.keywords = keywords;
+	}
+	public ArrayList<String> getProjects() {
+		return projects;
+	}
+	public void setProjects(ArrayList<String> projects) {
+		this.projects = projects;
+	}
+	public String getDriveID() {
+		return driveID;
+	}
+	public void setDriveID(String driveID) {
+		this.driveID = driveID;
+	}
+	public String getDocumentClass() {
+		return documentClass;
+	}
+	public void setDocumentClass(String documentClass) {
+		this.documentClass = documentClass;
 	}
 }
