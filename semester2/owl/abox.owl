@@ -488,6 +488,7 @@
     <rdf:Description rdf:about="&Cloud_Dokumente;DriveDocumentID">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:domain rdf:resource="&Cloud_Dokumente;Dokument"/>
+        <rdfs:subPropertyOf rdf:resource="&Cloud_Dokumente;ID"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </rdf:Description>
     
@@ -525,13 +526,6 @@
     <owl:Class rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Produkt">
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#ProduktID"/>
-                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
-                <owl:onDataRange rdf:resource="&xsd;string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Produkt_gehoert_zu_Unternehmen"/>
                 <owl:onClass rdf:resource="&Cloud_Dokumente;Unternehmen"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
@@ -543,6 +537,13 @@
                 <owl:someValuesFrom rdf:resource="&Cloud_Dokumente;Projekt"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#ProduktID"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -550,12 +551,6 @@
     <!-- http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Abteilung -->
 
     <rdf:Description rdf:about="&Cloud_Dokumente;Abteilung">
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&Cloud_Dokumente;Abteilung_hat_Mitarbeiter"/>
-                <owl:someValuesFrom rdf:resource="&Cloud_Dokumente;Mitarbeiter"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Abteilungsname"/>
@@ -567,6 +562,12 @@
                 <owl:onProperty rdf:resource="&Cloud_Dokumente;Abteilung_gehoert_zu_Unternehmen"/>
                 <owl:onClass rdf:resource="&Cloud_Dokumente;Unternehmen"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&Cloud_Dokumente;Abteilung_hat_Mitarbeiter"/>
+                <owl:someValuesFrom rdf:resource="&Cloud_Dokumente;Mitarbeiter"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </rdf:Description>
@@ -602,14 +603,9 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&Cloud_Dokumente;Version"/>
-                <owl:someValuesFrom rdf:resource="&xsd;double"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Dokumentenname"/>
-                <owl:someValuesFrom rdf:resource="&xsd;string"/>
+                <owl:onProperty rdf:resource="&Cloud_Dokumente;Erstellungsdatum"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;dateTime"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -621,21 +617,26 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&Cloud_Dokumente;DriveDocumentID"/>
+                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Dokumentenname"/>
+                <owl:someValuesFrom rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&Cloud_Dokumente;Dokumenttyp"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
                 <owl:onDataRange rdf:resource="&xsd;string"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&Cloud_Dokumente;Erstellungsdatum"/>
-                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
-                <owl:onDataRange rdf:resource="&xsd;dateTime"/>
+                <owl:onProperty rdf:resource="&Cloud_Dokumente;Version"/>
+                <owl:someValuesFrom rdf:resource="&xsd;double"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&Cloud_Dokumente;Dokumenttyp"/>
+                <owl:onProperty rdf:resource="&Cloud_Dokumente;DriveDocumentID"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
                 <owl:onDataRange rdf:resource="&xsd;string"/>
             </owl:Restriction>
@@ -674,15 +675,15 @@
     <rdf:Description rdf:about="&Cloud_Dokumente;Kunde">
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&Cloud_Dokumente;Kunde_von_Unternehmen"/>
-                <owl:someValuesFrom rdf:resource="&Cloud_Dokumente;Unternehmen"/>
+                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#KundenID"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#KundenID"/>
-                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
-                <owl:onDataRange rdf:resource="&xsd;string"/>
+                <owl:onProperty rdf:resource="&Cloud_Dokumente;Kunde_von_Unternehmen"/>
+                <owl:someValuesFrom rdf:resource="&Cloud_Dokumente;Unternehmen"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </rdf:Description>
@@ -732,14 +733,14 @@
     <rdf:Description rdf:about="&Cloud_Dokumente;Person">
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Personenname"/>
+                <owl:onProperty rdf:resource="&Cloud_Dokumente;Vorname"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
                 <owl:onDataRange rdf:resource="&xsd;string"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&Cloud_Dokumente;Vorname"/>
+                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Personenname"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
                 <owl:onDataRange rdf:resource="&xsd;string"/>
             </owl:Restriction>
@@ -809,15 +810,15 @@
     <rdf:Description rdf:about="&Cloud_Dokumente;Unternehmen">
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Unternehmen_hat_Produkt"/>
-                <owl:someValuesFrom rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Produkt"/>
+                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#UnternehmensID"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#UnternehmensID"/>
-                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
-                <owl:onDataRange rdf:resource="&xsd;string"/>
+                <owl:onProperty rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Unternehmen_hat_Produkt"/>
+                <owl:someValuesFrom rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Produkt"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </rdf:Description>
@@ -881,6 +882,7 @@
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Abschlussbericht_HighNet_19-01-2016">
         <rdf:type rdf:resource="&Cloud_Dokumente;Abschlussbericht"/>
         <Cloud_Dokumente:Version rdf:datatype="&xsd;double">1.2</Cloud_Dokumente:Version>
+        <Cloud_Dokumente:DriveDocumentID rdf:datatype="&xsd;string">1fauar5Y4MrJ0jfN8WKfo111O-Rj6QDSWxWQjcbia--I</Cloud_Dokumente:DriveDocumentID>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="&xsd;dateTime">2016-01-19T05:11</Cloud_Dokumente:Erstellungsdatum>
         <Dokumentenname rdf:datatype="&xsd;string">Abschlussbericht_HighNet_19-01-2016</Dokumentenname>
         <DokumentenID rdf:datatype="&xsd;string">D0001</DokumentenID>
@@ -952,6 +954,7 @@
         <rdf:type rdf:resource="&Cloud_Dokumente;Besprechungsprotokoll"/>
         <Cloud_Dokumente:Version rdf:datatype="&xsd;double">1.0</Cloud_Dokumente:Version>
         <Cloud_Dokumente:Version rdf:datatype="&xsd;double">1.2</Cloud_Dokumente:Version>
+        <Cloud_Dokumente:DriveDocumentID rdf:datatype="&xsd;string">1fauar5Y4MAEW0jfN8WKfol70O-Rj6QDSWxWQjcbia--I</Cloud_Dokumente:DriveDocumentID>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="&xsd;dateTime">2007-08-31T16:47</Cloud_Dokumente:Erstellungsdatum>
         <Cloud_Dokumente:Aenderungsdatum rdf:datatype="&xsd;dateTime">2007-09-31T16:40</Cloud_Dokumente:Aenderungsdatum>
         <Cloud_Dokumente:Schlagwort rdf:datatype="&xsd;string">Aufgabenverteilung</Cloud_Dokumente:Schlagwort>
@@ -1180,6 +1183,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Kostenplan_HighNet">
         <rdf:type rdf:resource="&Cloud_Dokumente;Kostenplan"/>
+        <Cloud_Dokumente:DriveDocumentID rdf:datatype="&xsd;string">1fauar5Y4MrJ0jfN8WKfol70O-Rj6ABCSWxWQjcbia--I</Cloud_Dokumente:DriveDocumentID>
         <Cloud_Dokumente:Version rdf:datatype="&xsd;string">2.0</Cloud_Dokumente:Version>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="&xsd;dateTime">2016-01-25T15:00</Cloud_Dokumente:Erstellungsdatum>
         <Cloud_Dokumente:Aenderungsdatum rdf:datatype="&xsd;dateTime">2016-02-02T17:00</Cloud_Dokumente:Aenderungsdatum>
@@ -1419,6 +1423,7 @@
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projektauftrag_AWG">
         <rdf:type rdf:resource="&Cloud_Dokumente;Projektauftrag"/>
         <Cloud_Dokumente:Version rdf:datatype="&xsd;double">1.0</Cloud_Dokumente:Version>
+        <Cloud_Dokumente:DriveDocumentID rdf:datatype="&xsd;string">1fauar5Y4MrJ0jfN8WKfol70O-Rj6QDSWxWQjc123--I</Cloud_Dokumente:DriveDocumentID>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="&xsd;dateTime">2016-04-10T16:47</Cloud_Dokumente:Erstellungsdatum>
         <Cloud_Dokumente:Schlagwort rdf:datatype="&xsd;string">Auftrag</Cloud_Dokumente:Schlagwort>
         <DokumentenID rdf:datatype="&xsd;string">D0004</DokumentenID>
@@ -1438,6 +1443,7 @@
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projektauftrag_HighNet">
         <rdf:type rdf:resource="&Cloud_Dokumente;Projektauftrag"/>
         <Cloud_Dokumente:Version rdf:datatype="&xsd;double">1.0</Cloud_Dokumente:Version>
+        <Cloud_Dokumente:DriveDocumentID rdf:datatype="&xsd;string">1fauar5Y4MrJ0jfN8WKfol70O-Rj6QDSWxWQjcbia--I</Cloud_Dokumente:DriveDocumentID>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="&xsd;dateTime">2016-01-15T10:47</Cloud_Dokumente:Erstellungsdatum>
         <Cloud_Dokumente:Schlagwort rdf:datatype="&xsd;string">Anforderungen</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="&xsd;string">Auftrag</Cloud_Dokumente:Schlagwort>
