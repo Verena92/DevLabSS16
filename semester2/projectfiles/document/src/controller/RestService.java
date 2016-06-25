@@ -470,7 +470,7 @@ public class RestService {
 						+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
 						+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
 						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " SELECT ?DokumentenID ?Dokumentenklasse ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser "
+						+ " SELECT ?DriveDocumentID ?DokumentenID ?Dokumentenklasse ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser "
 						+ " (group_concat(?Schlagwort;separator=',')  as ?Schlagwörter) (group_concat(?Projekt;separator=',')  as ?Projekte) WHERE {"
 						+ " ?x ?y ?DokumentenID "
 						+ " Filter (?DokumentenID = '"+documentID+"') "
@@ -482,9 +482,10 @@ public class RestService {
 						+ " ?x Cloud_Dokumente_old:Version ?Version ."
 						+ " ?x Cloud_Dokumente_old:Dokument_hat_Verfasser ?Verfasser ."
 						+ " ?x Cloud_Dokumente_old:Schlagwort ?Schlagwort . "
+						+ " ?x Cloud_Dokumente_old:DriveDocumentID ?DriveDocumentID ."
 						+ " ?x Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt ?Projekt ."
 						+ "	?x rdf:type ?Dokumentenklasse ."
-						+ " } group by ?DokumentenID ?Dokumentenklasse ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser ";
+						+ " } group by ?DriveDocumentID ?DokumentenID ?Dokumentenklasse ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser ";
 	
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 		        ResultSet results = qe.execSelect();
@@ -496,7 +497,6 @@ public class RestService {
 					for(int i=0; i<var.size();i++){
 						String va = var.get(i).toString();
 						RDFNode node = qs.get(va);
-						document.setDriveID("1onKOGZFLOKReA1unsstajHHy6eBK-C6rn52i1Ra4A78");
 						switch(va){
 							case "DokumentenID" : 
 								document.setDocumentID(node.toString());
@@ -541,7 +541,11 @@ public class RestService {
 								document.setProjects(newListProjects);
 								break;
 							case "Dokumentenklasse" :
+								System.out.println(node.toString());
 								document.setDocumentClass(node.asResource().getLocalName());
+								break;
+							case "DriveDocumentID" :
+								document.setDriveID(node.toString());
 								break;
 						}
 					
