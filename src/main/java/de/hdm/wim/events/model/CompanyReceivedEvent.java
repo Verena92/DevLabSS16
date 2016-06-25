@@ -4,14 +4,23 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
 public class CompanyReceivedEvent implements Event {
 
+	@Id
+	@GeneratedValue
+	private long id;
+	
 	@OneToOne(cascade = {CascadeType.ALL})
 	private Company company;
+	
+	public CompanyReceivedEvent() {
+		
+	}
 
 	public CompanyReceivedEvent(Company company) {
 		this.company = company;
@@ -30,9 +39,7 @@ public class CompanyReceivedEvent implements Event {
 	}
 
 	@Override
-	@Id
 	public String getId() {
-		return ""; // TODO: use meaningful id
+		return ""+this.id;
 	}
-
 }

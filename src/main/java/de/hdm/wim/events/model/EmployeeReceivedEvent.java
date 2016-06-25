@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -11,10 +12,15 @@ import javax.persistence.OneToOne;
 public class EmployeeReceivedEvent implements Event {
 
 	@Id
-	private String id;
+	@GeneratedValue
+	private long id;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
 	private Employee employee;
+	
+	public EmployeeReceivedEvent() {
+		
+	}
 
 	public EmployeeReceivedEvent(Employee employee) {
 		this.employee = employee;
@@ -33,12 +39,7 @@ public class EmployeeReceivedEvent implements Event {
 	}
 
 	@Override
-	@Id
 	public String getId() {
-		return this.id; // TODO: use meaningful id
-	}
-
-	public void setId(String id) {
-		this.id = id;
+		return ""+this.id;
 	}
 }
