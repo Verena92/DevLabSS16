@@ -13,6 +13,7 @@ import de.hdm.wim.events.model.CompanyReceivedEvent;
 import de.hdm.wim.events.model.ProductReceivedEvent;
 import de.hdm.wim.events.model.EmployeeReceivedEvent;
 import de.hdm.wim.events.model.DocumentReceivedEvent;
+import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
 
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
 import de.hdm.wim.events.documentrepresentation.SearchRequest;
@@ -98,6 +99,23 @@ rule "A Token with exactly 1 related employee occured"
       Employee employee = requester.getEmployee($t.getKeywordInformation().getEmployees().get(0));
       System.out.println( "requested employee: " + employee);
       insert( new EmployeeReceivedEvent( employee)); 
+end
+
+
+rule "A document suggestion was accepted"
+    when
+    	$r : DocumentSuggestionReactionEvent(  accepted == true) from entry-point SpeechTokenEventStream 
+    then
+      resultList.add( "A DocumentSuggestion was accepted");
+      System.out.println( "A DocumentSuggestion was accepted");
+end
+
+rule "A document suggestion was declined"
+    when
+    	$r : DocumentSuggestionReactionEvent(  accepted == false) from entry-point SpeechTokenEventStream 
+    then
+      resultList.add( "A DocumentSuggestion was declined");
+      System.out.println( "A DocumentSuggestion was declined");
 end
 
 //////////////////////////////////////////////////////

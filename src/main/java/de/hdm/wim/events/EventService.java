@@ -22,6 +22,8 @@ import org.kie.api.runtime.rule.EntryPoint;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import de.hdm.wim.events.interceptor.EventStorageInterceptor;
+import de.hdm.wim.events.model.DocumentReceivedEvent;
+import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
 import de.hdm.wim.events.model.Event;
 import de.hdm.wim.events.model.Token;
 
@@ -64,6 +66,24 @@ public class EventService {
 			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
 		} catch (ParseException e) {
 			System.out.println("A ParseException happened during creation of SpeechTokenEvents: " + e.getMessage());
+			return Response.status(400).entity(e).build();
+		} finally {
+			//kieSession.dispose();
+		}
+        return Response.status(200).build();
+	}
+	
+	@POST
+	@Path("/react")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes("application/json")
+	public Response insertReaction(DocumentSuggestionReactionEvent documentSuggestionReactionEvent) throws JsonProcessingException {
+		kieSession.addEventListener( new EventStorageInterceptor());
+		try {
+			insert(kieSession, "SpeechTokenEventStream", documentSuggestionReactionEvent);
+			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
+		} catch (ParseException e) {
+			System.out.println("A ParseException happened during creation of DocmentSuggestionReactionEvent: " + e.getMessage());
 			return Response.status(400).entity(e).build();
 		} finally {
 			//kieSession.dispose();

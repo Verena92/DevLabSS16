@@ -15,8 +15,8 @@ import de.hdm.wim.events.model.Project;
 public class Main {
 
 	public static void main(String[] args) {
-		doRestCalls();
-//		printJSONStuff();
+//		doRestCalls();
+		printJSONStuff();
 	}
 
 	private static void doRestCalls() {
@@ -69,6 +69,9 @@ public class Main {
 			
 			String documentForSpeechString = mapper.writeValueAsString(TestDataProvider.createDummyDocumentForSpeechTokenizer());
 			System.out.println( documentForSpeechString);
+			
+			String accepted = mapper.writeValueAsString(TestDataProvider.createDummyDocumentSuggestionReactionAcceptedEvent());
+			System.out.println( accepted);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

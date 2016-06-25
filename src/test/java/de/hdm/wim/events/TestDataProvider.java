@@ -8,6 +8,7 @@ import de.hdm.wim.events.documentrepresentation.SearchRequest;
 import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
+import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
 import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.KeywordInformation;
 import de.hdm.wim.events.model.Product;
@@ -264,6 +265,29 @@ public class TestDataProvider {
 
 		SearchRequest searchRequest = new SearchRequest(employees, companies, projects, products);
 		return searchRequest;
+	}
+	
+	public static DocumentSuggestionReactionEvent createDummyDocumentSuggestionReactionAcceptedEvent() {
+		DocumentSuggestionReactionEvent documentSuggestionReactionEvent = null;
+		try {
+			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", "user", "hangout", "documentNa", true);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return documentSuggestionReactionEvent;
+	}
+
+	
+	public static DocumentSuggestionReactionEvent createDummyDocumentSuggestionReactionDeclinedEvent() {
+		DocumentSuggestionReactionEvent documentSuggestionReactionEvent = null;
+		try {
+			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", "user", "hangout", "documentNa", false);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return documentSuggestionReactionEvent;
 	}
 
 }

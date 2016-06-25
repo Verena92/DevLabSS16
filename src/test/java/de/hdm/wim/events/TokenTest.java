@@ -104,4 +104,22 @@ public class TokenTest {
         assertEquals( "Request a document for an employee", resultList.get(2));
         assertEquals( "send Document to SpeechToken", resultList.get(3));
 	}
+	
+	@Test
+	public void test_document_suggestion_accepted() throws Exception {
+		entryPoint.insert(TestDataProvider.createDummyDocumentSuggestionReactionAcceptedEvent());
+        int amountOfRulesFired = kieSession.fireAllRules();
+        
+        assertEquals( 1, amountOfRulesFired);
+        assertEquals( "A DocumentSuggestion was accepted", resultList.get(0));
+	}
+	
+	@Test
+	public void test_document_suggestion_declined() throws Exception {
+		entryPoint.insert(TestDataProvider.createDummyDocumentSuggestionReactionDeclinedEvent());
+        int amountOfRulesFired = kieSession.fireAllRules();
+        
+        assertEquals( 1, amountOfRulesFired);
+        assertEquals( "A DocumentSuggestion was declined", resultList.get(0));
+	}
 }
