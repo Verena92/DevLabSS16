@@ -24,7 +24,7 @@ public class TestDataProvider {
 		List<String> products = new ArrayList<String>();
 
 		List<String> employees = new ArrayList<String>();
-		employees.add("M0001");
+		employees.add("hangout12197171_ephemeral.id.google.com^b48de1652ed790");
 
 		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
 
@@ -221,7 +221,7 @@ public class TestDataProvider {
 		projects.add("P0001");
 		projects.add("P0100");
 
-		Employee employee = new Employee("M0001", "Maier", "Lisa", "Projektleiter", "U0002", projects);
+		Employee employee = new Employee("M0001", "Maier", "Lisa", "Projektleiter", "U0002", "hangoutsUserID", "driveUserID", projects);
 		return employee;
 	}
 

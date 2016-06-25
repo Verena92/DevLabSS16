@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -21,16 +22,21 @@ public class Employee {
 	private String employeeSurname;
 	private String jobTitle;
 	private String employeeOf;
+	private String hangoutUserID;
+	private String driveUserID;
 
 	@ElementCollection
 	private List<String> projects;
-
-	public Employee(String employeeID, String employeeName, String employeeSurname, String jobTitle, String employeeOf, List<String> projects) {
+	
+	public Employee(String employeeID, String employeeName, String employeeSurname, String jobTitle, String employeeOf, String hangoutUserID, String driveUserID,
+			List<String> projects) {
 		this.employeeID = employeeID;
 		this.employeeName = employeeName;
 		this.employeeSurname = employeeSurname;
 		this.jobTitle = jobTitle;
 		this.employeeOf = employeeOf;
+		this.hangoutUserID = hangoutUserID;
+		this.driveUserID = driveUserID;
 		this.projects = projects;
 	}
 
@@ -87,6 +93,22 @@ public class Employee {
 
 	public void setProjects(List<String> projects) {
 		this.projects = projects;
+	}
+
+	public String getHangoutUserID() {
+		return hangoutUserID;
+	}
+
+	public void setHangoutUserID(String hangoutUserID) {
+		this.hangoutUserID = hangoutUserID;
+	}
+
+	public String getDriveUserID() {
+		return driveUserID;
+	}
+
+	public void setDriveUserID(String driveUserID) {
+		this.driveUserID = driveUserID;
 	}
 
 	@Override
