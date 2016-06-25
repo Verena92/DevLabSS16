@@ -3,7 +3,7 @@
  */
 
 //This class was created to test our own Post interface in RestService.java. 
-//Has to be deleted afterwards as Event group is going to use it
+//Has to be deleted afterwards as Event group is going to use it.
 
 var Document = new Object();
 	Document.userId = "1234"
