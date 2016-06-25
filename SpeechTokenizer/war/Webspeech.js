@@ -4,7 +4,7 @@
 
 
 var sttResult = '';	
-var recognizing = true;
+var recognizing = false;
 var ignore_onend;
 
 
@@ -33,7 +33,6 @@ var ignore_onend;
   			  	
   			recognition.onend = function() {
     			recognizing = false;
-    	  		recognition.stop();
     			if (ignore_onend) {
       				return;
     			}
@@ -71,6 +70,10 @@ var ignore_onend;
   			
 /*Wird nach Drücken auf den Start-Button aufgerufen*/
 function startButton(event) {	
+	if (recognizing) {
+    	recognition.stop();
+    	return;
+  	}
 	console.log("Service gestartet");
 	sttResult = '';
 	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
@@ -79,13 +82,13 @@ function startButton(event) {
 	final_span.innerHTML = '';
 }
 	
-function refreshButton(event) {	
+/*function refreshButton(event) {	
 	console.log("Service refreshed");
-	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
+	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
 	recognition.start();
 	ignore_onend = false;
 	final_span.innerHTML = '';
-}
+}*/
 /* Durch linebreak und capatilize wird Text in Box eingeblendet*/
 
 function linebreak(sttResult) {
