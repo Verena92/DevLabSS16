@@ -99,7 +99,7 @@ import java.net.InetAddress;
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
 		   			
-		   			//String uploadFileLocation = "d://upload/" + "abc.pdf";//tbd real location in tomcat!
+		   			//String uploadFileLocation = "usr/local/postdocuments";
 		   			//writeToFile(userId, hangoutsId, documentName, drivePath, uploadFileLocation);
 
 		            //String output = "File uploaded to : " + uploadFileLocation;
