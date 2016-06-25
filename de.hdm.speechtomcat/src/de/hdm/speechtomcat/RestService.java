@@ -114,7 +114,7 @@ import java.net.InetAddress;
 				                byte[] bytes = new byte[1024];
 
 				                out = new FileOutputStream(new File(uploadFileLocation));
-				                //ich habe keine ahnung wie ich das hier ersetzen soll :D
+				                //ich habe keine ahnung wie ich das hier ersetzen soll :D...
 				                //while ((read = uploadedInputStream.read(bytes)) != -1) 
 				                {
 				                  out.write(bytes, 0, read);
