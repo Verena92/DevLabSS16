@@ -1,16 +1,28 @@
 package de.hdm.wim.events.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+/**
+ * Representation of a Product as we receive it from the DocumentRepresentation
+ * 
+ * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+ *
+ */
+@Entity
 public class Product {
 
+	@Id
 	private String productID;
 	private String productName;
 	private String categorie;
 
+	@ElementCollection
 	private List<String> relatedProjects;
+	@ElementCollection
 	private List<String> relatedCompanies;
 
 	public Product(String productID, String productName, String categorie, List<String> relatedProjects, List<String> relatedCompanies) {

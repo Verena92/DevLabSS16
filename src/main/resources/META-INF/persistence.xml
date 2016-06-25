@@ -2,8 +2,20 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
+		<!-- Events -->
 		<class>de.hdm.wim.events.model.Token</class>
 		<class>de.hdm.wim.events.model.KeywordInformation</class>
+		<class>de.hdm.wim.events.model.CompanyReceivedEvent</class>
+		<class>de.hdm.wim.events.model.DocumentReceivedEvent</class>
+		<class>de.hdm.wim.events.model.EmployeeReceivedEvent</class>
+		<class>de.hdm.wim.events.model.ProductReceivedEvent</class>
+		<class>de.hdm.wim.events.model.ProjectReceivedEvent</class>
+		<!-- Objects within Events -->
+		<class>de.hdm.wim.events.model.Company</class>
+		<class>de.hdm.wim.events.model.Document</class>
+		<class>de.hdm.wim.events.model.Employee</class>
+		<class>de.hdm.wim.events.model.Product</class>
+		<class>de.hdm.wim.events.model.Project</class>
 		<properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3307/event_db" />

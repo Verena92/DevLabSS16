@@ -1,20 +1,30 @@
 package de.hdm.wim.events.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+/**
+ * Representation of an Employee as we receive it from the DocumentRepresentation
+ * 
+ * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+ *
+ */
+@Entity
 public class Employee {
 	
+	@Id
 	private String employeeID;
 	private String employeeName;
 	private String employeeSurname;
 	private String jobTitle;
 	private String employeeOf;
 
+	@ElementCollection
 	private List<String> projects;
 
-
-	
 	public Employee(String employeeID, String employeeName, String employeeSurname, String jobTitle, String employeeOf, List<String> projects) {
 		this.employeeID = employeeID;
 		this.employeeName = employeeName;

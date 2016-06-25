@@ -5,14 +5,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Representation of a Document as we receive it from the DocumentRepresentation
  * 
  * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
  *
  */
+@Entity
 public class Document {
 
+	@Id
 	private String documentID;
 	private String documentName;
 	private String documentType;
@@ -21,7 +27,10 @@ public class Document {
 	private String createdBy;
 	private String status;
 	private String version;
+	
+	@ElementCollection
 	private List<String> keywords;
+	@ElementCollection
 	private List<String> projects;
 	private String driveID;
 	

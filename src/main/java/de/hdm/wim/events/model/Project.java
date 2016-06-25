@@ -1,7 +1,10 @@
 package de.hdm.wim.events.model;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Representation of a project as it is saved by the document representation.
@@ -11,14 +14,19 @@ import java.util.List;
  * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
  *
  */
+@Entity
 public class Project {
 
+	@Id
 	private String projectID;
 	private String projectName;
 	private String projectManager;
-	private List<String> projectMembers;
-	private List<String> involvedCompanies;
 	private String status;
+	
+	@ElementCollection
+	private List<String> projectMembers;
+	@ElementCollection
+	private List<String> involvedCompanies;
 
 	/**
 	 * Default constructor needed for JSON Parsing

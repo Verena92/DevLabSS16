@@ -1,7 +1,10 @@
 package de.hdm.wim.events.model;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Representation of a company as it is saved by the document representation.
@@ -11,16 +14,21 @@ import java.util.List;
  * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
  *
  */
+@Entity
 public class Company {
 
+	@Id
 	private String companyID;
 	private String companyName;
 	private String industrialSector;
 	private String headquarter;
 	private int numberEmployee;
 
+	@ElementCollection
 	private List<String> employees;
+	@ElementCollection
 	private List<String> projects;
+	@ElementCollection
 	private List<String> products;
 	
 	public Company(String companyID, String companyName, String sector, String headquarter, List<String> employees, List<String> projects, List<String> products, int numberEmployee) {

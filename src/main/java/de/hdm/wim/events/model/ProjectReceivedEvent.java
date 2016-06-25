@@ -2,8 +2,18 @@ package de.hdm.wim.events.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class ProjectReceivedEvent implements Event {
 
+	@Id
+	private String id;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
 	private Project project;
 	
 	public ProjectReceivedEvent( Project project) {
@@ -24,7 +34,11 @@ public class ProjectReceivedEvent implements Event {
 
 	@Override
 	public String getId() {
-		return ""; //TODO: use meaningful id
+		return this.id; // TODO: use meaningful id
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }
