@@ -43,7 +43,6 @@
  					document.displayText;
  				</script>
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
-			<dt id="button"><button id="refreshbutton" onClick="refreshButton(event)">Refresh</button></dt>
 		</dl>
 	</div>
 	<p>Developer-Box</p>
