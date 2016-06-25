@@ -3,7 +3,7 @@
  */
 
 
-//Funktionierende POST Methode mit JQuery auf RepDok.
+//Funktionierende POST Methode mit JQuery auf RepDok
 
 function GetKeywordInformation(TokenNew){
 	
