@@ -13,7 +13,9 @@ package de.hdm.speechtomcat;
 
 	import java.io.File;
 	import java.io.IOException;
-	import java.sql.ResultSet;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.sql.ResultSet;
 	import java.text.ParseException;
 	import java.util.ArrayList;
 	import java.util.Arrays;
@@ -47,28 +49,35 @@ package de.hdm.speechtomcat;
 	public class RestService {
 		
 		
-		// This method is called if TEXT_PLAIN is request
+		// This method is called if TEXT_PLAIN is requested
 		  @GET
 		  @Path("/hello") 
 		  @Produces(MediaType.TEXT_PLAIN)
 		  public String sayPlainTextHello() {
 		    return "Hello Jersey";
 		  }
-	}
 	
-		 private static JSONObject jsonObject;	 
-		  private static Logger log = Logger.getLogger(RestService.class.getName());
+	
+
+		 //private static JSONObject Object;	 
+		// private static Logger log = Logger.getLogger(RestService.class.getName());
 		  
 		  @GET
 		  @Path("/register") 
 		  @Produces("application/x-www-form-urlencoded")
-		  public String registerClient(){
-			  String ip="10.10.10.10";
-			  return ip;
-			  
-		  }
 		  
+		  //Methode um die IP Adresse des zugreifenden Clients auszulesen
+		  public String registerClient() { 
+		        try { 
+		            return InetAddress.getLocalHost().getHostAddress(); 
+		        } catch (UnknownHostException e) { 
+		            e.printStackTrace(); 
+		        } 
+		        return null; 
+		    } 
+
 		  // Interface to be called from Event Group
+		  //test
 			
 		  // POST Statements to post relevant tokens and save them in mysql database
 		  /*
@@ -168,7 +177,7 @@ package de.hdm.speechtomcat;
 	
 			
 	
-	
+		  }
 	
 	
 	
