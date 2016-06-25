@@ -93,19 +93,20 @@ import java.net.InetAddress;
 		   		@POST
 		   		@Path("/PostDocuments")
 		   		@Consumes(MediaType.APPLICATION_JSON)
-		   		public Response postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
+		   		public void postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
 		   				@QueryParam("documentName") String documentName, @QueryParam ("drivePath") String drivePath) {
 		   			
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
-		   			String uploadFileLocation = "d://upload/" + "abc.pdf";//tbd real location in tomcat!
-		   			writeToFile(userId, hangoutsId, documentName, drivePath, uploadFileLocation);
-
-		            String output = "File uploaded to : " + uploadFileLocation;
-
-		            return Response.status(200).entity(output).build();
-		            }
 		   			
+		   			//String uploadFileLocation = "d://upload/" + "abc.pdf";//tbd real location in tomcat!
+		   			//writeToFile(userId, hangoutsId, documentName, drivePath, uploadFileLocation);
+
+		            //String output = "File uploaded to : " + uploadFileLocation;
+
+		           // return Response.status(200).entity(output).build();
+		            }
+		   			/*
 		            private void writeToFile(String userId, String hangoutsId, String documentName, String drivePath, String uploadFileLocation) {
 				        try {
 				                OutputStream out = new FileOutputStream(new File(uploadFileLocation));
@@ -125,7 +126,7 @@ import java.net.InetAddress;
 						log.error( "Document not posted"+e);
 					}
 		   			
-		   		}
+		   		}*/
 		  
 		   		
 		   	
