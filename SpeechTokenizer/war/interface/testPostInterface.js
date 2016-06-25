@@ -12,7 +12,7 @@ var Document = new Object();
    	Document.drivePath = "https://drive.google.com/drive/folders/0Bxmha3k4bXlgTzZFcGRjOVBZd28"
 
 function SendDocuments(Document){
-//Asynchroner Post Request auf die Event Gruppe
+//Asynchron Post Request to own interface for testing
 $.ajax({ type:'POST', 
 	url: 'http://146.148.67.230/de.hdm.speechtomcat/rest/PostDocuments',  
 	data: JSON.stringify(Document),
@@ -27,10 +27,7 @@ $.ajax({ type:'POST',
 	//Bei erfolgreichem Request Objekt in der Console ausgeben
     success: function(responsedata){
     	console.log("success")
-        // hier response_data 
-  
-
-    	    //    new_keys = response_data["new_keys"]
+    	   
     		
     	}
 });
