@@ -71,10 +71,7 @@ var ignore_onend;
   			
 /*Wird nach Drücken auf den Start-Button aufgerufen*/
 function startButton(event) {	
-	/*if (recognizing) {
-    	recognition.stop();
-    	return;
-  	}*/
+
 	console.log("Service gestartet");
 	sttResult = '';
 	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
