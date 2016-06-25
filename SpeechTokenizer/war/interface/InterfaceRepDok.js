@@ -22,6 +22,7 @@ function GetKeywordInformation(TokenNew){
 	queryWords.previousKeyword = TokenNew.previousKeyword;
 	queryWords.keyword = TokenNew.keyword;
 	queryWords.nextKeyword = TokenNew.nextKeyword;
+	queryWords.createdByUserID = TokenNew.createdByUserId;
 	
 	//console.log(queryWords);
 

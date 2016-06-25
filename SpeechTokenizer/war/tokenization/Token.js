@@ -39,7 +39,7 @@ function Token(){
 	for (i = oldIdentifier; i < uncommonArr.length; i++){
 		
 		TokenNew = {
-				id: i,
+				//id: i,
 				keyword: uncommonArr[i],
 				previousKeyword: uncommonArr[i-1],
 				nextKeyword: uncommonArr[i+1],
