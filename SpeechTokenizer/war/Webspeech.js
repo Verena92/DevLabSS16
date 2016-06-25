@@ -4,8 +4,8 @@
 
 
 var sttResult = '';	
-var recognizing = false;
-var ignore_onend;
+var recognizing = true;
+//var ignore_onend;
 
 	if (!('webkitSpeechRecognition' in window)) { 
 			//Hier wird geprüft, ob der Browser die Web Speech API unterstützt. Falls nicht wird er aufgefordert den Browser upzudaten.
@@ -19,48 +19,34 @@ var ignore_onend;
 	
 			//Listening (capturing voice from audio input) started.
 			recognition.onstart = function() {
-    			//recognition.lang = "en-US";
     			recognizing = true;
+    	  		var micstatuselement = document.getElementById('micstatus');
+    	  		
+    	  		/**
+    	  		 * Outcomment the next two lines for tests on local server.
+    	  		 * You need the two lines just for App Engine.
+    	  		 */
+    	  		micstatuselement.style.color='green';
+    	  		micstatuselement.innerHTML='Mic aktiv';
   			};
   			  	
   			recognition.onend = function() {
     			recognizing = false;
+    	  		recognition.stop();
     			if (ignore_onend) {
       				return;
     			}
-  	};
-  		
-  	
-  	recognition.onspeechstart = function(event) {
-  		var micstatuselement = document.getElementById('micstatus');
-  		
-  		/**
-  		 * Outcomment the next two lines for tests on local server.
-  		 * You need the two lines just for App Engine.
-  		 */
-  		micstatuselement.style.color='green';
-  		micstatuselement.innerHTML='Mic aktiv';
+    	  		var micstatuselement = document.getElementById('micstatus');
+    	  		
+    	  		/**
+    	  		 * Outcomment the next two lines for tests on local server.
+    	  		 * You need the two lines just for App Engine.
+    	  		 */
+    	  		micstatuselement.removeAttribute('style');
+    	  		micstatuselement.innerHTML='Mic inaktiv';
 
-  		/*sttResult = '';
-  		recognition.start();
-  		/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
-  		ignore_onend = false;
-  		final_span.innerHTML = '';*/
-  		
   	};
-  	
-  	recognition.onspeechend = function(){
-  		var micstatuselement = document.getElementById('micstatus');
   		
-  		/**
-  		 * Outcomment the next two lines for tests on local server.
-  		 * You need the two lines just for App Engine.
-  		 */
-  		micstatuselement.removeAttribute('style');
-  		micstatuselement.innerHTML='Mic inaktiv';
-  		
-  		recognition.stop();
-  	};
   	
   	recognition.onresult = function(event) {
     			for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -81,16 +67,14 @@ var ignore_onend;
   			};
   }
   				
-  	/*recognition.onspeechend = function() {
-  		recognition.stop();
-  	}*/
   			
 /*Wird nach Drücken auf den Start-Button aufgerufen*/
 function startButton(event) {	
-	if (recognizing) {
+	(recognizing) {
     	recognition.stop();
     	return;
   	}
+	console.log("Service gestartet");
 	sttResult = '';
 	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
 	recognition.start();
