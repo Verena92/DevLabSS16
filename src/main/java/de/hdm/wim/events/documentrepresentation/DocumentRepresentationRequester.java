@@ -1,8 +1,10 @@
 package de.hdm.wim.events.documentrepresentation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.core.Response;
 
-import de.hdm.wim.events.TestDataProvider;
 import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.Employee;
@@ -23,19 +25,16 @@ public class DocumentRepresentationRequester {
 
 	public static final String DOCUMENT_REPRESENTATION_URL = "http://104.154.103.216/document/rest/";
 	
-	//FIXME: use reasonable SearchRequest and act upon it instead of calling the 'dummy' GET GetDocumentMetadata 
-	public Document getDocument(SearchRequest searchRequest) {
+	/**
+	 * 
+	 * @param searchRequest
+	 * @return
+	 */
+	public DocumentIDsWrapper getDocumentIDs(SearchRequest searchRequest) {
 		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL);
-		//Response result = restClient.doPostSearchRequest("document", searchRequest); //TODO: use correct path
-		
-		//Waldis Dummy Schnittstelle
-//		Response result = restClient.doGet("GetDocumentMetadata");
-//		Document document = result.readEntity(Document.class);
-		
-		// Super Dummy
-		Document document = TestDataProvider.createDummyDocument(); //FIXME: use real call
-		
-		return document;
+		Response result = restClient.doPostSearchRequest("GetDocumentMetadata", searchRequest); //TODO: use correct path
+		DocumentIDsWrapper documentIDsWrapper = result.readEntity(DocumentIDsWrapper.class);
+		return documentIDsWrapper;
 	}	
 	
 	/**
@@ -59,6 +58,17 @@ public class DocumentRepresentationRequester {
 		Response response = restClient.doGet(companyID);
 		Company company = response.readEntity(Company.class);
 		return company;
+	}
+	/**
+	 * 
+	 * @param documentID
+	 * @return
+	 */
+	public Document getDocument(String documentID) {
+		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL + "GetDocumentByID/");
+		Response response = restClient.doGet(documentID);
+		Document document = response.readEntity(Document.class);
+		return document;
 	}
 	
 	/**

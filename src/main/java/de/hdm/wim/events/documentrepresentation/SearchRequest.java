@@ -16,15 +16,15 @@ public class SearchRequest {
 	private List<String> employees;
 	private List<String> companies;
 	private List<String> projects;
-	private List<String> products;
+	//private List<String> products;
 
 
 
-	public SearchRequest(List<String> employees, List<String> companies, List<String> projects, List<String> products) {
+	public SearchRequest(List<String> employees, List<String> companies, List<String> projects) {
 		this.employees = employees;
 		this.companies = companies;
 		this.projects = projects;
-		this.products = products;
+		//this.products = products;
 	}
 
 	public SearchRequest() {
@@ -55,11 +55,11 @@ public class SearchRequest {
 		this.projects = projects;
 	}
 
-	public List<String> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<String> products) {
-		this.products = products;
-	}
+//	public List<String> getProducts() {
+//		return products;
+//	}
+//
+//	public void setProducts(List<String> products) {
+//		this.products = products;
+//	}
 }

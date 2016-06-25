@@ -1,5 +1,10 @@
 package de.hdm.wim.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdm.wim.events.documentrepresentation.DocumentIDsWrapper;
+
 import de.hdm.wim.events.model.Token;
 import de.hdm.wim.events.model.KeywordInformation;
 import de.hdm.wim.events.model.Project;
@@ -127,9 +132,16 @@ rule "Request a document for a project"
       $pre : ProjectReceivedEvent();
     then
       resultList.add( "Request a document for a project");
+      
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
-      SearchRequest searchRequest = new SearchRequest(); //TODO: crate meaningful SearchRequest
-      Document document = requester.getDocument(searchRequest);
+	  List<String> employees = new ArrayList<String>();
+	  List<String> companies = new ArrayList<String>();
+	  List<String> projects = new ArrayList<String>();
+	  projects.add("P0001"); //use meaningful../variable...
+	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
+	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
+	  Document document = requester.getDocument(wrapper.getDocuments().get(0)); //TODO
+      
       System.out.println( "found document: " + document);
       insert( new DocumentReceivedEvent( document));
 end
@@ -139,11 +151,7 @@ rule "Request a document for a product"
       $pre : ProductReceivedEvent();
     then
       resultList.add( "Request a document for a product");
-      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
-      SearchRequest searchRequest = new SearchRequest(); //TODO: crate meaningful SearchRequest
-      Document document = requester.getDocument(searchRequest);
-      System.out.println( "found document: " + document);
-      insert( new DocumentReceivedEvent( document));
+      //ggf. entfernen, da SearchReuquest nicht mitmacht..
 end
 
 rule "Request a document for a company"
@@ -151,9 +159,16 @@ rule "Request a document for a company"
       $cre : CompanyReceivedEvent();
     then
       resultList.add( "Request a document for a company");
+      
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
-      SearchRequest searchRequest = new SearchRequest(); //TODO: crate meaningful SearchRequest
-      Document document = requester.getDocument(searchRequest);
+	  List<String> employees = new ArrayList<String>();
+	  List<String> companies = new ArrayList<String>();
+	  companies.add("U0003"); //use meaningful../variable...
+	  List<String> projects = new ArrayList<String>();
+	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
+	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
+	  Document document = requester.getDocument(wrapper.getDocuments().get(0)); //TODO
+      
       System.out.println( "found document: " + document);
       insert( new DocumentReceivedEvent( document));
 end
@@ -163,9 +178,16 @@ rule "Request a document for an employee"
       $ere : EmployeeReceivedEvent();
     then
       resultList.add( "Request a document for an employee");
+      
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
-      SearchRequest searchRequest = new SearchRequest(); //TODO: crate meaningful SearchRequest
-      Document document = requester.getDocument(searchRequest);
+	  List<String> employees = new ArrayList<String>();
+	  employees.add("hangout12197171_ephemeral.id.google.com^b48de1652ed790"); //use meaningful../variable...
+	  List<String> companies = new ArrayList<String>();
+	  List<String> projects = new ArrayList<String>();
+	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
+	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
+	  Document document = requester.getDocument(wrapper.getDocuments().get(0)); //TODO;
+      
       System.out.println( "found document: " + document);
       insert( new DocumentReceivedEvent( document));
 end

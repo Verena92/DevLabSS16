@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -82,6 +83,7 @@ public class TokenTest {
 	}
 	
 	@Test
+	@Ignore //products might not be searched
 	public void test_token_with_only_one_related_product_occured() throws Exception {
 		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedProductPR001());
         int amountOfRulesFired = kieSession.fireAllRules();

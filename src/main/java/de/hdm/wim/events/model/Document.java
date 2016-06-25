@@ -22,26 +22,26 @@ public class Document {
 	private String documentID;
 	private String documentName;
 	private String documentType;
+	private String documentClass;
 	private Date creationDate;
 	private String drivePath;
 	private String createdBy;
 	private String status;
 	private String version;
-	
+
 	@ElementCollection
 	private List<String> keywords;
 	@ElementCollection
 	private List<String> projects;
 	private String driveID;
-	
+
 	/**
 	 * 
 	 */
-	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-	
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
 	public Document(String documentID, String documentName, String documentType, String creationDate, String drivePath, String createdBy, String status, String version,
-			List<String> keywords, List<String> projects, String driveID) throws ParseException {
+			List<String> keywords, List<String> projects, String driveID, String documentClass) throws ParseException {
 		this.documentID = documentID;
 		this.documentName = documentName;
 		this.documentType = documentType;
@@ -53,6 +53,7 @@ public class Document {
 		this.keywords = keywords;
 		this.projects = projects;
 		this.driveID = driveID;
+		this.documentClass = documentClass;
 	}
 
 	public Document() {
@@ -82,7 +83,6 @@ public class Document {
 	public void setCreationDate(String creationDate) throws ParseException {
 		this.creationDate = DATE_FORMAT.parse(creationDate);
 	}
-
 
 	public String getDrivePath() {
 		return drivePath;
@@ -172,10 +172,19 @@ public class Document {
 		this.driveID = googleDriveID;
 	}
 
+	public String getDocumentClass() {
+		return documentClass;
+	}
+
+	public void setDocumentClass(String documentClass) {
+		this.documentClass = documentClass;
+	}
+
 	@Override
 	public String toString() {
-		return "Document [documentID=" + documentID + ", documentName=" + documentName + ", documentType=" + documentType + ", creationDate=" + creationDate + ", drivePath="
-				+ drivePath + ", createdBy=" + createdBy + ", status=" + status + ", version=" + version + ", keywords=" + keywords + ", projects=" + projects + ", driveID="
-				+ driveID + "]";
+		return "Document [documentID=" + documentID + ", documentName=" + documentName + ", documentType=" + documentType + ", documentClass=" + documentClass + ", creationDate="
+				+ creationDate + ", drivePath=" + drivePath + ", createdBy=" + createdBy + ", status=" + status + ", version=" + version + ", keywords=" + keywords + ", projects="
+				+ projects + ", driveID=" + driveID + "]";
 	}
+
 }
