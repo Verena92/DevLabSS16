@@ -27,7 +27,7 @@ function GetKeywordInformation(TokenNew){
 
 //Asynchroner POST Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'POST', 
-		  url:'http://104.154.103.216/document/rest/GetWordinformation',
+		  url:'https://104.154.103.216/document/rest/GetWordinformation',
 		  data: JSON.stringify(queryWords),
 		  contentType: 'application/json',
 		  dataType: 'json',
