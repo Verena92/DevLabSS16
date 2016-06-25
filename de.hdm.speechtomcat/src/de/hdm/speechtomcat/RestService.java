@@ -12,10 +12,12 @@ package de.hdm.speechtomcat;
 	import org.codehaus.jettison.json.JSONArray;
 
 	import java.io.File;
-	import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.sql.ResultSet;
+	import java.net.UnknownHostException;
+	import java.sql.ResultSet;
 	import java.text.ParseException;
 	import java.util.ArrayList;
 	import java.util.Arrays;
@@ -31,6 +33,7 @@ import java.sql.ResultSet;
 	import javax.ws.rs.Path;
 	import javax.ws.rs.PathParam;
 	import javax.ws.rs.Produces;
+	import javax.ws.rs.QueryParam;
 	import javax.ws.rs.core.MediaType;
 	import javax.ws.rs.core.Response;
 
@@ -41,8 +44,6 @@ import java.sql.ResultSet;
 	import com.fasterxml.jackson.core.JsonProcessingException;
 	import com.fasterxml.jackson.databind.JsonMappingException;
 	import com.fasterxml.jackson.databind.ObjectMapper;
-	//import com.mysql.jdbc.Connection;
-	//import com.mysql.jdbc.Statement;
 
 
 	@Path("/rest") 
@@ -60,7 +61,7 @@ import java.sql.ResultSet;
 	
 
 		 //private static JSONObject Object;	 
-		// private static Logger log = Logger.getLogger(RestService.class.getName());
+		 private static Logger log = Logger.getLogger(RestService.class.getName());
 		  
 		  @GET
 		  @Path("/register") 
@@ -77,22 +78,58 @@ import java.sql.ResultSet;
 		    } 
 
 		  // Interface to be called from Event Group
-		  //test
+		  
+			/*
+	   		Wir nehmen entgegen:
+	   		userId
+	   		hangoutsId
+	   		documentName
+	   		drivePath*/
+		  
 			
-		  // POST Statements to post relevant tokens and save them in mysql database
-		  /*
+		  // POST Statements to post relevant tokens and save them in filestream
+		  //Alternativ @PathParam?
 		  
 		   		@POST
-		   		@Path("/PostDocuments/{data}")
-		   		@Consumes("application/x-www-form-urlencoded")
-		   public void postDocuments(){
+		   		@Path("/PostDocuments")
+		   		@Consumes(MediaType.APPLICATION_JSON)
+		   		public Response postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
+		   				@QueryParam("documentName") String documentName, @QueryParam ("drivePath") String drivePath) {
 		   			
+		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
+		   			String uploadFileLocation = "d://upload/" + "abc.pdf";//tbd real location in tomcat!
+		   			writeToFile(userId, hangoutsId, documentName, drivePath, uploadFileLocation);
+
+		            String output = "File uploaded to : " + uploadFileLocation;
+
+		            return Response.status(200).entity(output).build();
+		            }
 		   			
-		   			
+		            private void writeToFile(String userId, String hangoutsId, String documentName, String drivePath, String uploadFileLocation) {
+				        try {
+				                OutputStream out = new FileOutputStream(new File(uploadFileLocation));
+				                int read = 0;
+				                byte[] bytes = new byte[1024];
+
+				                out = new FileOutputStream(new File(uploadFileLocation));
+				                //ich habe keine ahnung wie ich das hier ersetzen soll :D
+				                //while ((read = uploadedInputStream.read(bytes)) != -1) 
+				                {
+				                  out.write(bytes, 0, read);
+				                }
+				                out.flush();
+				                out.close();
+		   				
+		   			} catch (Exception e){
+						log.error( "Document not posted"+e);
+					}
 		   			
 		   		}
-		  */
+		  
+		   		
+		   	
+
 		  	/*@POST
 		    @Path("/uploadDocuments")
 		    @Consumes(MediaType.MULTIPART_FORM_DATA)
