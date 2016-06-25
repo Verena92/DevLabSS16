@@ -5,7 +5,8 @@
 
 var sttResult = '';	
 var recognizing = true;
-//var ignore_onend;
+var ignore_onend;
+
 
 	if (!('webkitSpeechRecognition' in window)) { 
 			//Hier wird geprüft, ob der Browser die Web Speech API unterstützt. Falls nicht wird er aufgefordert den Browser upzudaten.
@@ -70,10 +71,10 @@ var recognizing = true;
   			
 /*Wird nach Drücken auf den Start-Button aufgerufen*/
 function startButton(event) {	
-	(recognizing) {
+	/*if (recognizing) {
     	recognition.stop();
     	return;
-  	}
+  	}*/
 	console.log("Service gestartet");
 	sttResult = '';
 	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/

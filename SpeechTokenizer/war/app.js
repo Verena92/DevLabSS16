@@ -12,7 +12,7 @@ function initUi(){
 }
 
 //get ip of hangouts session
-function registerClient(){
+/*function registerClient(){
 	  $.ajax({type:'GET', 
 		  url:'http://146.148.67.230/de.hdm.speechtomcat/rest/register',
 		  dataType: 'text',
@@ -28,7 +28,7 @@ function registerClient(){
 			console.log(responseData);
 		}
 	  });
-}
+}*/
 
 // A function to be run at app initialization time which registers the callbacks
 function init() {
