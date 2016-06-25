@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -21,7 +24,6 @@ import org.kie.api.runtime.rule.EntryPoint;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import de.hdm.wim.events.interceptor.EventStorageInterceptor;
 import de.hdm.wim.events.model.DocumentReceivedEvent;
 import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
 import de.hdm.wim.events.model.Event;
@@ -39,6 +41,9 @@ public class EventService {
 	private static KieSession kieSession;
 	static private List<String> resultList;
 	
+	private static EntityManager em;
+	private static EntityManagerFactory emFactory;
+	
 	static {
 		//set everything up
 		kieServices = KieServices.Factory.get();
@@ -46,6 +51,9 @@ public class EventService {
 		kieSession = kieContainer.newKieSession();
 		resultList = new ArrayList<String>();
 		kieSession.setGlobal( "resultList", resultList);
+		
+		emFactory = Persistence.createEntityManagerFactory("test");
+		em = emFactory.createEntityManager();
 	}
 	
 	@GET
@@ -60,7 +68,6 @@ public class EventService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
 	public Response insertToken(Token token) throws JsonProcessingException {
-		kieSession.addEventListener( new EventStorageInterceptor());
 		try {
 			insert(kieSession, "SpeechTokenEventStream", token);
 			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
@@ -78,7 +85,6 @@ public class EventService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
 	public Response insertReaction(DocumentSuggestionReactionEvent documentSuggestionReactionEvent) throws JsonProcessingException {
-		kieSession.addEventListener( new EventStorageInterceptor());
 		try {
 			insert(kieSession, "SpeechTokenEventStream", documentSuggestionReactionEvent);
 			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
@@ -96,6 +102,12 @@ public class EventService {
 		SessionPseudoClock pseudoClock = kieSession.getSessionClock();
 		EntryPoint ep = kieSession.getEntryPoint(stream);
 		ep.insert(event);
+		
+		System.out.println("EventService: try to persist event: " + event);
+
+		em.getTransaction().begin();
+		em.merge(event);
+		em.getTransaction().commit();
 		
 		//advance pseudoClock(System) time to event time
 		long advanceTime = ((Event) event).getTimestamp().getTime() - pseudoClock.getCurrentTime();
