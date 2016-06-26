@@ -16,6 +16,7 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.log4j.Logger;
+import org.apache.xerces.util.SynchronizedSymbolTable;
 import org.codehaus.jettison.json.JSONArray;
 import org.eclipse.jetty.io.NetworkTrafficListener;
 
@@ -474,17 +475,17 @@ public class RestService {
 						+ " (group_concat(?Schlagwort;separator=',')  as ?Schlagwörter) (group_concat(?Projekt;separator=',')  as ?Projekte) WHERE {"
 						+ " ?x ?y ?DokumentenID "
 						+ " Filter (?DokumentenID = '"+documentID+"') "
-						+ " ?x Cloud_Dokumente:Dokumentenname ?Dokumentenname ."
-						+ " ?x Cloud_Dokumente_old:Status ?Status ."
-						+ " ?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum ."
-						+ " ?x Cloud_Dokumente_old:Dokumenttyp ?Dokumenttyp ."
-						+ " ?x Cloud_Dokumente_old:Speicherort ?Speicherort ."
-						+ " ?x Cloud_Dokumente_old:Version ?Version ."
-						+ " ?x Cloud_Dokumente_old:Dokument_hat_Verfasser ?Verfasser ."
-						+ " ?x Cloud_Dokumente_old:Schlagwort ?Schlagwort . "
-						+ " ?x Cloud_Dokumente_old:DriveDocumentID ?DriveDocumentID ."
-						+ " ?x Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt ?Projekt ."
-						+ "	?x rdf:type ?Dokumentenklasse ."
+						+ " optional{?x Cloud_Dokumente:Dokumentenname ?Dokumentenname} ."
+						+ " optional{?x Cloud_Dokumente_old:Status ?Status} ."
+						+ " optional{?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum} ."
+						+ " optional{?x Cloud_Dokumente_old:Dokumenttyp ?Dokumenttyp} ."
+						+ " optional{?x Cloud_Dokumente_old:Speicherort ?Speicherort} ."
+						+ " optional{?x Cloud_Dokumente_old:Version ?Version} ."
+						+ " optional{?x Cloud_Dokumente_old:Dokument_hat_Verfasser ?Verfasser} ."
+						+ " optional{?x Cloud_Dokumente_old:Schlagwort ?Schlagwort} . "
+						+ " optional{?x Cloud_Dokumente_old:DriveDocumentID ?DriveDocumentID} ."
+						+ " optional{?x Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt ?Projekt} ."
+						+ "	optional{?x rdf:type ?Dokumentenklasse} ."
 						+ " } group by ?DriveDocumentID ?DokumentenID ?Dokumentenklasse ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser ";
 	
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
@@ -497,6 +498,7 @@ public class RestService {
 					for(int i=0; i<var.size();i++){
 						String va = var.get(i).toString();
 						RDFNode node = qs.get(va);
+						System.out.println(va+" "+node.toString());
 						switch(va){
 							case "DokumentenID" : 
 								document.setDocumentID(node.toString());
@@ -559,6 +561,90 @@ public class RestService {
 			if(document!=null){
 				jsonInString = mapper.writeValueAsString(document);
 			}
+
+			return Response.status(200).entity(jsonInString).build();
+		 }
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	@GET
+		 @Path("/getDocumentByIDTest/{documentID}")
+		 @Produces("application/json")
+		 public Response getDocumentByIDTest(@PathParam("documentID") String documentID) throws JSONException, JsonProcessingException {
+	  		Document document = null;
+	  		ObjectMapper mapper = new ObjectMapper();
+	  		ArrayList<String> listKeywords = new ArrayList<>();
+	  		String jsonInString = "";
+
+			try {
+				String sparQuery = "PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						+ " SELECT ?DocumentName ?Status ?Schlagwort ?DriveDocumentDrive ?Speicherort ?Version ?Erstellungsdatum where {"
+						+ " ?x ?y ?DriveDocumentDrive ."
+						+ " Filter (?DriveDocumentDrive = '"+documentID+"') ."
+						+ " ?x Cloud_Dokumente:Dokumentenname ?DocumentName ."
+						+ " ?x Cloud_Dokumente_old:Status ?Status ."
+						+ " ?x Cloud_Dokumente_old:Schlagwort ?Schlagwort . "
+						+ " ?x Cloud_Dokumente_old:Speicherort ?Speicherort ."
+						+ " ?x Cloud_Dokumente_old:Version ?Version ."
+						+ " ?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum}";
+  
+	
+				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+		        ResultSet results = qe.execSelect();
+		        List var = results.getResultVars();    
+		        
+		        while (results.hasNext()){
+					QuerySolution qs = results.nextSolution();
+					document = new Document();
+					for(int i=0; i<var.size();i++){
+						String va = var.get(i).toString();
+						RDFNode node = qs.get(va);
+						System.out.println(va);
+						switch(va){
+							case "DocumentName" : 
+								log.info(node.toString());
+								document.setDocumentName(node.toString());
+								break;
+							case "Status": 
+								log.info(node.toString());
+								document.setStatus(node.toString());
+								break;
+							case "Schlagwort" : 
+								log.info(node.toString());
+								listKeywords.add(node.toString());
+								document.setKeywords(listKeywords);
+								break;
+							case "DriveDocumentDrive" : 
+								log.info(node.toString());
+								document.setDriveID(node.toString());
+								break;
+							case "Speicherort" :
+								log.info(node.toString());
+								document.setDrivePath(node.toString());
+								break;
+							case "Version" :
+								String version = node.toString().substring(0, node.toString().indexOf("^^"));
+								document.setVersion(Double.parseDouble(version));
+								break;
+							case "Erstellungsdatum" :
+								String creationDate = node.toString().substring(0, node.toString().indexOf("^^"));
+								document.setCreationDate(creationDate);
+								break;
+								
+						}
+					
+					}
+				}
+		        qe.close();
+			} catch(Exception e){
+				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
+			}
+		
+			jsonInString = mapper.writeValueAsString(document);
+			
 
 			return Response.status(200).entity(jsonInString).build();
 		 }
@@ -1035,10 +1121,7 @@ public class RestService {
 				}
 					return listProjects;
 			 }
-		 
-		 
-		 public static void main(String[] args) {
-		}
+
 		 public static String getIDByURI(String uri) {	
 				String id = null;
 				try {
@@ -1530,27 +1613,22 @@ public class RestService {
 		 @GET
 		 @Path("/GetDocumentByDriveID/{driveDocumentID}")
 		 @Produces("application/json")
-		 public Response getDocumentByDriveID(@PathParam("driveDocumentID") String driveDocumentID) throws JSONException {
+		 public Response getDocumentByDriveID(@PathParam("driveDocumentID") String driveDocumentID) throws JSONException, JsonProcessingException {
 				jsonObject = new JSONObject();
-				Document document;
+				Document document = null;
 				ArrayList<Document> listDocument = new ArrayList<Document>();
 				ArrayList<String> listKeywort = new ArrayList<String>();				
 				try {
-					String sparQuery = "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"+
-								"SELECT ?Name (group_concat(?Schlagwort;separator=',') as ?Schlagworte) ?Dokumenttyp ?Erstellungsdatum ?Speicherort ?Status ?Version ?Verfasser"+
-								" WHERE{"+
-								"  ?x ?y ?DriveDocumentID ."+
-								"  Filter (?DriveDocumentID = '"+driveDocumentID+"') ."+
-								"  ?x Cloud_Dokumente:Name ?Name ."+
-								"  ?x Cloud_Dokumente:Dokumenttyp ?Dokumenttyp ."+
-								"  ?x Cloud_Dokumente:Schlagwort ?Schlagwort ."+
-								"  ?x Cloud_Dokumente:Erstellungsdatum ?Erstellungsdatum ."+
-								"  ?x Cloud_Dokumente:Speicherort ?Speicherort ."+
-								"  ?x Cloud_Dokumente:Status ?Status ."+
-								"  ?x Cloud_Dokumente:Version ?Version ."+
-								"  ?x Cloud_Dokumente:Dokument_hat_Verfasser ?Verfasser"+
-								"}"+
-								"group by ?Name ?Dokumenttyp ?Erstellungsdatum ?Speicherort ?Status ?Version ?Verfasser";
+					String sparQuery = "prefix Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+							+ "	prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+							+ "	SELECT ?DriveDocumentID ?Status ?Dokumentenname (group_concat(?Schlagwort;separator=',') as ?Schlagworte)"
+							+ "	WHERE{"
+							+ "	?x ?y ?DriveDocumentID ."
+							+ " Filter (?DriveDocumentID = '1fauar5Y4MrJ0jfN8WKfo111O-Rj6QDSWxWQjcbia--I') ."
+							+ " ?x <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Status> ?Status ."
+							+ " ?x Cloud_Dokumente:Dokumentenname ?Dokumentenname ."
+							+ " ?x Cloud_Dokumente_old:Schlagwort ?Schlagwort"
+							+ " } group by ?DriveDocumentID ?Status ?Dokumentenname";
 
 					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
@@ -1558,53 +1636,36 @@ public class RestService {
 			        List var = results.getResultVars();
 			        int countIteration =0;
 			        
-			        while (results.hasNext()){
+			       while (results.hasNext()){
 			        	document = new Document();
 						QuerySolution qs = results.nextSolution();
 						for(int i=0; i<var.size();i++){
 							String va = var.get(i).toString();
 							RDFNode node = qs.get(va);
 							countIteration++;
-							switch(countIteration){
-							case 1: 
+							System.out.println(va);
+							switch(va){
+							case "Dokumentenname": 
 								document.setDocumentName(node.toString());
 								break;
-							case 2: 					
+							case "Schlagworte": 					
 								ArrayList<String> listKeywords = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
 								document.setKeywords(listKeywords);
 								break;
-							case 3: 
-								document.setDocumentType(node.toString());				
-								break;
-							case 4: 
-								
-								document.setCreationDate(node.toString().substring(0, node.toString().indexOf("^^")));
-								break;
-							case 5: 
-								document.setDocumentID(node.toString());
-								break;
-							case 6: 
+							case "Status": 					
 								document.setStatus(node.toString());
 								break;
-							case 7: 
-								document.setVersion(Double.parseDouble(node.toString().substring(0, node.toString().indexOf("^^"))));
-								break;
-							case 8: 
-								/*document.setVersion(Double.parseDouble(node.toString().substring(0, node.toString().indexOf("^^"))));
-								*/break;
+							}
 						}
-						if(countIteration==8){
-							countIteration=0;
-						}
-					}
-						listDocument.add(document);
 					}
 			        qe.close();
 				} catch(Exception e){
 					log.error( "GetDocumentByDriveID: Error by accessing the GetDocumentByID Interface "+e);
 				}
-				jsonObject.put("data", listDocument);
-				return Response.status(200).entity(jsonObject.toString()).build();
+			 	ObjectMapper mapper = new ObjectMapper();
+				String jsonInString = mapper.writeValueAsString(document);
+				
+				return Response.status(200).entity(jsonInString).build();
 		 	}
 		 
 		
@@ -1637,34 +1698,36 @@ public class RestService {
 			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// INSERT Statements
 			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			 
 			@POST
 			@Path( "/AddDocumentMetadata" )
 			@Consumes("application/x-www-form-urlencoded")
-		    
-			public void addDocumentMetadata(@FormParam("name") String name, @FormParam("documentType") String documentType , 
-			@FormParam("status") String status, @FormParam("documentPath") String documentPath, @FormParam("keyword") String keyword, 
-					@FormParam("driveDocumetID") String driveDocumentID, @FormParam("version") String version, 
-					@FormParam("creationDate") String creationDate, @FormParam("project") String project ) 
+		   
+			 /*
+			public static void main(String[] args) throws IOException, ParseException, org.codehaus.jettison.json.JSONException {
+				addDocumentMetadata("sdf","asd!sdfdsfss","fertig","htttp","2.0","2016-04-10T16:47");
+			}*/
+			public static void addDocumentMetadata(@FormParam("name") String name, @FormParam("driveID") String driveID, @FormParam("status") String status, 
+					@FormParam("drivePath") String drivePath, @FormParam("version") String version, @FormParam("creationDate") String creationDate ) 
 							throws IOException, ParseException, org.codehaus.jettison.json.JSONException {
 				
-					log.info(name+" "+documentType+" "+status+" "+documentPath+" "+keyword+" "+driveDocumentID);
+					log.info(name+" "+driveID+" "+status+" "+drivePath+" ");
 					try{
-						String UPDATE_TEMPLATE =  "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-				 		+ "INSERT DATA"
-				 		+ "{ "
-				 		+ "<http://www.semanticweb.org/alinasiebert/ontologies/2016/0/A-BOX_Cloud_Dokumente#"+name+"> "
-				 		+ "Cloud_Dokumente:Name '"+name+"';"
-				 		+ "Cloud_Dokumente:DriveDocumentID '"+driveDocumentID+"';"
-				 		+ "Cloud_Dokumente:Schlagwort "+keyword+";"
-				 		+ "Cloud_Dokumente:Dokumenttyp '"+documentType+"';"
-				 		+ "Cloud_Dokumente:Speicherort '"+documentPath+"';"
-				 		+ "Cloud_Dokumente:Status '"+status+"';"
-				 		+ "Cloud_Dokumente:Version '"+version+"^^http://www.w3.org/2001/XMLSchema#int';"
-				 		+ "Cloud_Dokumente:Erstellungsdatum '"+creationDate+"^^http://www.w3.org/2001/XMLSchema#dateTime';"
-				 		+ "Cloud_Dokumente:Dokument_gehoert_zu_Projekt <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/A-BOX_Cloud_Dokumente#"+project+">;"
-				 		+ "Cloud_Dokumente:Dokument_hat_Verfasser  <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Lisa_Maier> ."
-				 		+ "}";
-						
+						String UPDATE_TEMPLATE =  " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+								+ " INSERT DATA"
+								+ " { "
+								+ " <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/A-BOX_Cloud_Dokumente#"+name+"> "
+								+ " Cloud_Dokumente:Dokumentenname '"+name+"' ;"
+								+ " Cloud_Dokumente_old:Status '"+status+"' ;"
+								+ " Cloud_Dokumente_old:DriveDocumentID '"+driveID+"' ;"
+								+ " Cloud_Dokumente_old:Schlagwort 'Ideensammlung' , 'Aufgabenverteilung' ;"
+								+ " Cloud_Dokumente_old:Speicherort '"+drivePath+"' ;"
+								+ " Cloud_Dokumente_old:Version '"+version+"^^xsd:double' ;"
+								+ " Cloud_Dokumente_old:Erstellungsdatum '"+creationDate+"^^xsd:dateTime' ;"
+								+ " }";
+
 						String id = UUID.randomUUID().toString();
 						UpdateProcessor upp = UpdateExecutionFactory.createRemote(
 			            UpdateFactory.create(String.format(UPDATE_TEMPLATE, id)), 
