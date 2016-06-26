@@ -12,8 +12,10 @@ package de.hdm.speechtomcat;
 	import org.codehaus.jettison.json.JSONArray;
 
 	import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 	import java.net.UnknownHostException;
@@ -44,6 +46,7 @@ import java.net.InetAddress;
 	import com.fasterxml.jackson.core.JsonProcessingException;
 	import com.fasterxml.jackson.databind.JsonMappingException;
 	import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.core.util.Base64;
 
 
 	@Path("/rest") 
@@ -60,7 +63,7 @@ import java.net.InetAddress;
 	
 	
 
-		 //private static JSONObject Object;	 
+		 private static JSONObject Object;	 
 		 private static Logger log = Logger.getLogger(RestService.class.getName());
 		  
 		  @GET
@@ -86,6 +89,33 @@ import java.net.InetAddress;
 	   		documentName
 	   		drivePath*/
 		  
+		  /* Gescheiterter versuch
+		  @POST
+		    @Path("/PostDocuments")
+
+		    @Consumes(MediaType.APPLICATION_JSON)
+		    @Produces(MediaType.APPLICATION_JSON)
+
+		    public JSONObject receiveJSON(JSONObject json) throws JSONException, IOException {
+		        convertFile(json.getString("file"), json.getString("file_name"));
+		        //Prints my json object
+		        return json;
+		    }
+
+		    //Convert a Base64 string and create a file
+		    private void convertFile(String file_string, String file_name) throws IOException{
+		        byte[] bytes = Base64.decode(file_string);
+		        File file = new File("usr/local/postdocuments"+file_name);
+		        log.info("File saved");
+		        FileOutputStream fop = new FileOutputStream(file);
+		        fop.write(bytes);
+		        fop.flush();
+		        fop.close();
+		    }*/
+		  
+		  
+		  
+		  
 			
 		  // POST Statements to post relevant tokens and save them in filestream
 		  //Alternativ @PathParam?
@@ -93,29 +123,40 @@ import java.net.InetAddress;
 		   		@POST
 		   		@Path("/PostDocuments")
 		   		@Consumes(MediaType.APPLICATION_JSON)
-		   		public void postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
+		   		public Response postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
 		   				@QueryParam("documentName") String documentName, @QueryParam ("drivePath") String drivePath) {
 		   			
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
 		   			
-		   			//String uploadFileLocation = "usr/local/postdocuments";
-		   			//writeToFile(userId, hangoutsId, documentName, drivePath, uploadFileLocation);
+		   					
+		   			//String Data = new JSONObject{userId, hangoutsId, documentName, drivePath};
+		   			
+		   			JSONObject Data = new JSONObject();
+		   			Data.put("userId", userId);
+		   			Data.put("hangoutsId", hangoutsId);
+		   			Data.put("documentName", documentName);
+		   			Data.put("drivePath", drivePath);
+		   			
+		   			String uploadFileLocation = "usr/local/postdocuments";
+		   			//InputStream is = new FileInputStream("Data");
+		   			//saveData(is, uploadFileLocation);
 
-		            //String output = "File uploaded to : " + uploadFileLocation;
+		            String output = "File uploaded to : " + uploadFileLocation;
+		           
 
-		           // return Response.status(200).entity(output).build();
+		           return Response.status(200).entity(output).build();
 		            }
-		   			/*
-		            private void writeToFile(String userId, String hangoutsId, String documentName, String drivePath, String uploadFileLocation) {
+		   			
+		            private void saveData(InputStream is, String uploadFileLocation) {
 				        try {
 				                OutputStream out = new FileOutputStream(new File(uploadFileLocation));
 				                int read = 0;
 				                byte[] bytes = new byte[1024];
 
 				                out = new FileOutputStream(new File(uploadFileLocation));
-				                //ich habe keine ahnung wie ich das hier ersetzen soll :D...
-				                //while ((read = uploadedInputStream.read(bytes)) != -1) 
+				               
+				                while ((read = is.read(bytes)) != -1) 
 				                {
 				                  out.write(bytes, 0, read);
 				                }
@@ -126,7 +167,7 @@ import java.net.InetAddress;
 						log.error( "Document not posted"+e);
 					}
 		   			
-		   		}*/
+		   		}
 		  
 		   		
 		   	
