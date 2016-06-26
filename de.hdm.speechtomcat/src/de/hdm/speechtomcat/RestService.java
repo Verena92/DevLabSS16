@@ -141,14 +141,15 @@ package de.hdm.speechtomcat;
 		   			obj.put("drivePath", drivePath);
 		   			
 		   		// try-with-resources statement based on post comment below
+		   		/*
 		   			try (FileWriter file = new FileWriter("usr/local/postdocuments/json.txt")) {
 		   				file.write(obj.toJSONString());
 		   				System.out.println("Successfully Copied JSON Object to File...");
 		   				System.out.println("\nJSON Object: " + obj);
-		   				console.log(obj);
-		   			}
+		   				log.info(obj);
+		   			}*/
 		   			
-		   			/*String uploadFileLocation = "usr/local/postdocuments/json.txt";
+		   			String uploadFileLocation = "usr/local/postdocuments/json.txt";
 		   			InputStream is = new FileInputStream(Data.toJSONString());
 		   			saveData(is, uploadFileLocation);
 
@@ -179,7 +180,7 @@ package de.hdm.speechtomcat;
 						log.error( "Document not posted"+e);
 					}
 		   			
-		   		}*/
+		   		}
 		  
 		   		
 		   	
