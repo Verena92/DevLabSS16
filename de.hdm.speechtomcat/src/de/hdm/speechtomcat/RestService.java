@@ -10,14 +10,16 @@ package de.hdm.speechtomcat;
 
 	import org.apache.log4j.Logger;
 	import org.codehaus.jettison.json.JSONArray;
+	
 
 	import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
+	import java.io.FileWriter;
+	import java.io.FileInputStream;
+	import java.io.FileOutputStream;
+	import java.io.IOException;
+	import java.io.InputStream;
+	import java.io.OutputStream;
+	import java.net.InetAddress;
 	import java.net.UnknownHostException;
 	import java.sql.ResultSet;
 	import java.text.ParseException;
@@ -46,7 +48,7 @@ import java.net.InetAddress;
 	import com.fasterxml.jackson.core.JsonProcessingException;
 	import com.fasterxml.jackson.databind.JsonMappingException;
 	import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.jersey.core.util.Base64;
+	import com.sun.jersey.core.util.Base64;
 
 
 	@Path("/rest") 
@@ -138,9 +140,9 @@ import com.sun.jersey.core.util.Base64;
 		   			Data.put("documentName", documentName);
 		   			Data.put("drivePath", drivePath);
 		   			
-		   			String uploadFileLocation = "usr/local/postdocuments";
-		   			//InputStream is = new FileInputStream("Data");
-		   			//saveData(is, uploadFileLocation);
+		   			String uploadFileLocation = "usr/local/postdocuments/json.txt";
+		   			InputStream is = new FileInputStream(Data.toJSONString());
+		   			saveData(is, uploadFileLocation);
 
 		            String output = "File uploaded to : " + uploadFileLocation;
 		           
@@ -148,6 +150,7 @@ import com.sun.jersey.core.util.Base64;
 		           return Response.status(200).entity(output).build();
 		            }
 		   			
+		   		
 		            private void saveData(InputStream is, String uploadFileLocation) {
 				        try {
 				                OutputStream out = new FileOutputStream(new File(uploadFileLocation));
@@ -162,6 +165,7 @@ import com.sun.jersey.core.util.Base64;
 				                }
 				                out.flush();
 				                out.close();
+				                log.info( "Document  posted");
 		   				
 		   			} catch (Exception e){
 						log.error( "Document not posted"+e);
