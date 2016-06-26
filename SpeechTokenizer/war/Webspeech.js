@@ -82,13 +82,38 @@ function startButton(event) {
 	final_span.innerHTML = '';
 }
 	
-/*function refreshButton(event) {	
+function refreshButton(event) {	
 	console.log("Service refreshed");
-	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf
-	recognition.start();
-	ignore_onend = false;
-	final_span.innerHTML = '';
-}*/
+
+
+	var Document = new Object();
+		Document.userId = "1234"
+		Document.hangoutsId = "4567"
+	   	Document.documentName = "Endpoint-Speech"
+	   	Document.drivePath = "https://drive.google.com/drive/folders/0Bxmha3k4bXlgTzZFcGRjOVBZd28"
+	   		
+	
+	
+//Asynchron Post Request to own interface for testing
+$.ajax({ type:'POST', 
+	url: 'http://146.148.67.230/de.hdm.speechtomcat/rest/PostDocuments',  
+	data: JSON.stringify(Document),
+	contentType: 'application/json',
+	datatyp: 'json',
+
+	//Fehler loggen 
+    error: function(){
+        console.log("Error");
+    },
+
+	//Bei erfolgreichem Request Objekt in der Console ausgeben
+    success: function(responsedata){
+    	console.log("success")
+    	   
+    		
+    	}
+});
+}
 /* Durch linebreak und capatilize wird Text in Box eingeblendet*/
 
 function linebreak(sttResult) {

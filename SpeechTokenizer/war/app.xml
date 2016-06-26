@@ -24,6 +24,8 @@
 <script src="//speech-tokenizer-1282.appspot.com/interface/InterfaceEvent.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/documentResults/displayResults.js"></script>
 
+<script src="//speech-tokenizer-1282.appspot.com/interface/testPostInterfaace.js"></script>
+
 
 <!-- CSS Plugin -->
 <link rel="stylesheet" href="//speech-tokenizer-1282.appspot.com/app.css">
@@ -43,6 +45,8 @@
  					document.displayText;
  				</script>
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
+			<dt id="button"><button id="refreshbutton" onClick="refreshButton(event)">Refresh</button></dt>
+			
 		</dl>
 	</div>
 	<p>Developer-Box</p>
