@@ -9,15 +9,15 @@ import java.util.List;
  * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
  *
  */
-public class DocumentTypesWrapper {
+public class DocumentClassesWrapper {
 	
 	private List<String> documentClasses;
 	
-	public DocumentTypesWrapper() {
+	public DocumentClassesWrapper() {
 		
 	}
 	
-	public DocumentTypesWrapper(List<String> documentClasses) {
+	public DocumentClassesWrapper(List<String> documentClasses) {
 		this.documentClasses = documentClasses;
 	}
 

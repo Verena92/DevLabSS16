@@ -41,11 +41,11 @@ public class DocumentRepresentationRequester {
 	 * 
 	 * @return
 	 */
-	public DocumentTypesWrapper getDocumentTypes() {
+	public DocumentClassesWrapper getDocumentClasses() {
 		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL + "GetDocumentClasses/");
 		Response response = restClient.doGet("");
-		DocumentTypesWrapper documentTypesWrapper = response.readEntity(DocumentTypesWrapper.class);
-		return documentTypesWrapper;
+		DocumentClassesWrapper documentClassesWrapper = response.readEntity(DocumentClassesWrapper.class);
+		return documentClassesWrapper;
 	}
 	
 	/**
