@@ -11,7 +11,7 @@ function GetKeywordInformation(TokenNew){
 	var keyword = TokenNew.keyword;
 	
 	/**
-	 * size, sizeInside, i und j werden nur für die komplexere, alte Frage benötigt. bitte noch nicht löschen.
+	 * size, sizeInside, i und j werden nur f��r die komplexere, alte Frage ben��tigt. bitte noch nicht l��schen.
 	 */
 	//var size;
 	//var sizeInside;
@@ -54,7 +54,7 @@ function GetKeywordInformation(TokenNew){
 				
 				delete TokenNew.previousKeyword;
 				delete TokenNew.nextKeyword;
-				//auskommentiert für testen POST Schnittstelle
+				//auskommentiert f��r testen POST Schnittstelle
 				//TokenNew.keywordInformation = responseData.data;
 				console.log(TokenNew);
 				SendTokenToEvent(TokenNew);
