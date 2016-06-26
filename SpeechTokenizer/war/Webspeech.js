@@ -96,7 +96,7 @@ function refreshButton(event) {
 	
 //Asynchron Post Request to own interface for testing
 $.ajax({ type:'POST', 
-	url: 'http://146.148.67.230/de.hdm.speechtomcat/rest/PostDocuments',  
+	url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/PostDocuments',  
 	data: JSON.stringify(Document),
 	contentType: 'application/json',
 	datatyp: 'json',
@@ -108,8 +108,8 @@ $.ajax({ type:'POST',
 
 	//Bei erfolgreichem Request Objekt in der Console ausgeben
     success: function(responsedata){
-    	console.log("success")
-    	   
+    	console.log("success");
+    	console.log(Document);
     		
     	}
 });
