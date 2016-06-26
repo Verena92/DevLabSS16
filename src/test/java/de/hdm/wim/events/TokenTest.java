@@ -38,7 +38,6 @@ public class TokenTest {
 	@Test
 	public void test_no_token() throws Exception {
 		//no rule should fire, as no token has occured
-        
 		int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 0, amountOfRulesFired);
@@ -46,12 +45,23 @@ public class TokenTest {
 	
 	@Test
 	public void test_one_token_occured() throws Exception {
-		//ohne token has fired, so the 'A Token has fired' rule should fire
 		entryPoint.insert(TestDataProvider.createDummyToken());
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 1, amountOfRulesFired);
         assertEquals( "A Token occured", resultList.get(0));
+	}
+	
+	@Test
+	public void test_two_tokens_occured_within_10_seconds() throws Exception {
+		entryPoint.insert(TestDataProvider.createDummyToken_2016_06_01_12_00_00());
+		entryPoint.insert(TestDataProvider.createDummyToken_2016_06_01_12_00_06());
+        int amountOfRulesFired = kieSession.fireAllRules();
+        
+        assertEquals( 3, amountOfRulesFired);
+        assertEquals( "A Token occured", resultList.get(0));
+        assertEquals( "A Token occured", resultList.get(1));
+        assertEquals( "Two Tokens occured within 10 seconds", resultList.get(2));
 	}
 	
 	@Test

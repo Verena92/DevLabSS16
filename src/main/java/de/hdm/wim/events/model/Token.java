@@ -3,10 +3,10 @@ package de.hdm.wim.events.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -22,8 +22,7 @@ public class Token implements Event {
 	public static final SimpleDateFormat DATE_FORMAT_yyyy_M_d_H_m_s = new SimpleDateFormat("yyyy M d H m s");
 
 	@Id
-	@GeneratedValue
-	private long id;
+	private String id;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 	private String keyword;
@@ -45,6 +44,7 @@ public class Token implements Event {
 	
 	public Token(String timeString, String keyword, String createdByFirstName, String createdByLastName, String createdByUserId, String hangoutsId,
 			KeywordInformation keywordInformation) throws ParseException {
+		this.id = UUID.randomUUID().toString();
 		this.timestamp = DATE_FORMAT_yyyy_M_d_H_m_s.parse(timeString);
 		this.keyword = keyword;
 		this.createdByFirstName = createdByFirstName;
@@ -96,7 +96,7 @@ public class Token implements Event {
 
 	@Override
 	public String getId() {
-		return ""+this.id;
+		return this.id;
 	}
 
 	public String getKeyword() {

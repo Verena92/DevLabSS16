@@ -26,7 +26,41 @@ import de.hdm.wim.events.speechtokenizer.SpeechTokenSender;
 
 global java.util.List resultList;
 
+/////////////////////////////////////////////////////
+////////////// Event Declarations ///////////////////
+/////////////////////////////////////////////////////
+
 declare Token
+    @role( event )
+    @timestamp( timestamp.getTime() ) //long
+end
+
+declare DocumentSuggestionReactionEvent
+    @role( event )
+    @timestamp( timestamp.getTime() ) //long
+end
+
+declare ProjectReceivedEvent
+    @role( event )
+    @timestamp( timestamp.getTime() ) //long
+end
+
+declare ProductReceivedEvent
+    @role( event )
+    @timestamp( timestamp.getTime() ) //long
+end
+
+declare CompanyReceivedEvent
+    @role( event )
+    @timestamp( timestamp.getTime() ) //long
+end
+
+declare EmployeeReceivedEvent
+    @role( event )
+    @timestamp( timestamp.getTime() ) //long
+end
+
+declare DocumentReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
 end
@@ -41,6 +75,16 @@ rule "A Token occured" dialect "mvel"
   then
   	  resultList.add( "A Token occured");
 end
+
+rule "Two Tokens occured within 10 seconds" dialect "mvel"
+  when
+      $t : Token() from entry-point SpeechTokenEventStream
+      Token( $t.id != id, this after[0s,10s] $t) from entry-point SpeechTokenEventStream      
+  then
+  	  resultList.add( "Two Tokens occured within 10 seconds");
+end
+
+
 
 rule "A Token with exactly 1 related project occured"
     when
@@ -109,7 +153,7 @@ end
 
 rule "A document suggestion was accepted"
     when
-    	$r : DocumentSuggestionReactionEvent(  accepted == true) from entry-point SpeechTokenEventStream 
+    	$dsre : DocumentSuggestionReactionEvent(  accepted == true) from entry-point SpeechTokenEventStream 
     then
       resultList.add( "A DocumentSuggestion was accepted");
       System.out.println( "A DocumentSuggestion was accepted");
@@ -117,7 +161,7 @@ end
 
 rule "A document suggestion was declined"
     when
-    	$r : DocumentSuggestionReactionEvent(  accepted == false) from entry-point SpeechTokenEventStream 
+    	$dsre : DocumentSuggestionReactionEvent(  accepted == false) from entry-point SpeechTokenEventStream 
     then
       resultList.add( "A DocumentSuggestion was declined");
       System.out.println( "A DocumentSuggestion was declined");

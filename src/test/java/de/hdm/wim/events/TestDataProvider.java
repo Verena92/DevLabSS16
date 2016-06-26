@@ -167,6 +167,54 @@ public class TestDataProvider {
 		}
 		return token;
 	}
+	
+	public static Token createDummyToken_2016_06_01_12_00_00() {
+		List<String> projects = new ArrayList<String>();
+		projects.add("P002");
+		projects.add("P003");
+
+		List<String> companies = new ArrayList<String>();
+		companies.add("C001");
+		companies.add("C007");
+
+		List<String> products = new ArrayList<String>();
+
+		List<String> employees = new ArrayList<String>();
+
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+
+		Token token = null;
+		try {
+			token = new Token("2016 6 1 12 0 0", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
+	public static Token createDummyToken_2016_06_01_12_00_06() {
+		List<String> projects = new ArrayList<String>();
+		projects.add("P002");
+		projects.add("P003");
+
+		List<String> companies = new ArrayList<String>();
+		companies.add("C001");
+		companies.add("C007");
+
+		List<String> products = new ArrayList<String>();
+
+		List<String> employees = new ArrayList<String>();
+
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+
+		Token token = null;
+		try {
+			token = new Token("2016 6 1 12 0 6", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
 
 	/**
 	 * Helper method to create a dummy Company
