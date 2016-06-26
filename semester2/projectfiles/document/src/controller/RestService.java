@@ -524,6 +524,7 @@ public class RestService {
 								document.setStatus(node.toString());
 								break;
 							case "Verfasser" :
+								System.out.println(node.toString());
 								document.setCreatedBy(getEmployeeByURI(node.toString()));
 								break;
 							case "Schlagwörter" :
@@ -579,9 +580,14 @@ public class RestService {
 	  		String jsonInString = "";
 
 			try {
-				String sparQuery = "PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+				String sparQuery = 
+						"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+						+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+						+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
 						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " SELECT ?DocumentName ?Status ?Schlagwort ?DriveDocumentDrive ?Speicherort ?Version ?Erstellungsdatum where {"
+						+ " SELECT ?DocumentName ?Dokumentenklasse ?Status ?Projekt ?Schlagwort ?DriveDocumentDrive "
+						+ " ?Speicherort ?Version ?Verfasser ?Erstellungsdatum ?Dokumenttyp "
+						+ " where {"
 						+ " ?x ?y ?DriveDocumentDrive ."
 						+ " Filter (?DriveDocumentDrive = '"+documentID+"') ."
 						+ " ?x Cloud_Dokumente:Dokumentenname ?DocumentName ."
@@ -589,7 +595,12 @@ public class RestService {
 						+ " ?x Cloud_Dokumente_old:Schlagwort ?Schlagwort . "
 						+ " ?x Cloud_Dokumente_old:Speicherort ?Speicherort ."
 						+ " ?x Cloud_Dokumente_old:Version ?Version ."
-						+ " ?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum}";
+						+ " ?x Cloud_Dokumente_old:Dokumenttyp ?Dokumenttyp ."
+						+ " ?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum ."
+						+ " ?x Cloud_Dokumente_old:Dokument_hat_Verfasser ?Verfasser ."
+						+ " ?x Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt ?Projekt ."
+						+ " ?x rdf:type ?Dokumentenklasse ."
+						+ "}";
   
 	
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
@@ -602,7 +613,7 @@ public class RestService {
 					for(int i=0; i<var.size();i++){
 						String va = var.get(i).toString();
 						RDFNode node = qs.get(va);
-						System.out.println(va);
+						System.out.println(node.toString());
 						switch(va){
 							case "DocumentName" : 
 								log.info(node.toString());
@@ -633,6 +644,22 @@ public class RestService {
 								String creationDate = node.toString().substring(0, node.toString().indexOf("^^"));
 								document.setCreationDate(creationDate);
 								break;
+							case "Verfasser" :
+								document.setCreatedBy(getEmployeeByURI(node.toString()));
+								break;
+							case "Projekt" :
+								ArrayList<String> listProjects = new ArrayList<>();
+								listProjects.add(getProjectByURI(node.toString()));
+								document.setProjects(listProjects);
+								break;
+							case "Dokumentenklasse" :
+								System.out.println("kla"+node.toString());
+								document.setDocumentClass(node.asResource().getLocalName());
+								break;
+							case "Dokumenttyp" :
+								document.setDocumentType(node.toString());
+								break;
+								
 								
 						}
 					
@@ -651,25 +678,11 @@ public class RestService {
 	  
 	  
 	  
-	  /**
-	     * 
-	     * GetProjectByID
-	     * 
-	     * Diese Methode wird als Schnittstelle extrahiert, sodass nach den Projekten mit der jeweiligen ProjektID
-	     * gesucht werden kann
-	     * 
-	     * @param productName
-		 *        Die ProjektID, die verwendet wird, um nach zusätzlichen Projektinformationen zu suchen.
-	     * 
-	     * @return Ein Response-Objekt, welches alle Informationen zu dem Projekt enthält
-	     * @throws IOException 
-	     * @throws JsonMappingException 
-	     * @throws JsonGenerationException 
-	     */
+
 	  	 @GET
 		 @Path("/GetProjectByID/{projectID}")
 		 @Produces("application/json")
-		 public Response getProjectByID(@PathParam("projectID") String projectID) throws JSONException, JsonProcessingException {
+		 public Response getProjectByID(@PathParam("projectID") String projectID) throws JsonProcessingException {
 	  		Project project = null;
 	  		Employee employee = null;
 	  		Project newProject = null;
@@ -678,10 +691,8 @@ public class RestService {
 	  		ArrayList<Project> listProjects = new ArrayList<>();
 	  		ArrayList<String> listCompany = new ArrayList<>();
 	  		
-	  		
 	  		ObjectMapper mapper = new ObjectMapper();
-	  		
-	  		
+	  			
 			try {
 				String sparQuery = "prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
 						+ " prefix Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
@@ -713,15 +724,11 @@ public class RestService {
 						  case "ProjektID" : project.setProjectID(node.toString()); break;
 						  case "ProjektName" : project.setProjectName(node.toString()); break;
 						  case "Projektmitglieder" :
-
 							  ArrayList<String> listProjectMember = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
-
 							  for(String projectMember : listProjectMember){
 									  listEmployees.add(getEmployeeByURI(projectMember));
 							  }
-								  project.setProjectMembers(listEmployees);
-
-						  	  
+								  project.setProjectMembers(listEmployees);						  	  
 						  	  break;
 						  case "Status" : project.setStatus(node.toString()); break;
 						  case "Projektleiter" : project.setProjectManager(getEmployeeByURI(node.toString())); break;
@@ -749,9 +756,8 @@ public class RestService {
 			} catch(Exception e){
 				log.error( "GetProject: Can´t get project information "+e);
 			}
-
 			String jsonInString = mapper.writeValueAsString(newProject);
-	  		
+	  	
 			if(!jsonInString.contains("P")){
 				return Response.status(Response.Status.NOT_FOUND).entity("Project not found for ID: "+projectID).build(); 
 			}
@@ -802,19 +808,7 @@ public class RestService {
 			return Response.status(200).entity(jsonObject.toString()).build();
 		 }	  	 
 	  	 
-		 /**
-		 * 
-		 * GetCompanyByID
-		 * 
-		 * Diese Methode wird als Schnittstelle extrahiert, sodass nach den Unternehmen mit der jeweiligen UnternehmensID
-		 * gesucht werden kann
-		 * 
-		 * @param companyID
-		 *         Die comapanyID wird verwendet, um nach zusätzlichen Unternehmensinformationen zu suchen.
-		 * 
-		 * @return Ein Response-Objekt, welches alle Informationen zu dem Unternehmen enthält
-		 * @throws JsonProcessingException 
-		 */
+
 	  	 	   
 	  	 @GET
 		 @Path("/GetCompanyByID/{companyID}")
@@ -1037,6 +1031,9 @@ public class RestService {
 					return companyID;
 			}
 		  	 
+		  	 
+		 
+		  	 
 		 public static String getEmployeeByURI(String employeeURI) {	
 			String employeeID = null;
 			try {
@@ -1061,6 +1058,45 @@ public class RestService {
 			}
 				return employeeID;
 		 }
+		 
+		 
+		 
+		 
+		 @GET
+		 @Path("/GetEmployeeByDriveUserID/{driveUserID}")
+		 @Produces("application/json")
+		 public Response getEmployeeByDriveUserID(@PathParam("driveUserID") String driveUserID) throws JsonProcessingException  {
+			String employeeURI = "";
+	  		
+			try {
+				String sparQuery = "prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+						+ " select ?x where {"
+						+ " ?x ?y ?DriveUserID ."
+						+ " Filter (?DriveUserID = 'haruki.murakami@gmail.com') }"; 
+				
+				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+
+		        ResultSet results = qe.execSelect();
+		        List var = results.getResultVars();
+		        
+		        while (results.hasNext()){
+					QuerySolution qs = results.nextSolution();
+					for(int i=0; i<var.size();i++){			
+						String va = var.get(i).toString();
+						RDFNode node = qs.get(va);
+						employeeURI=node.toString();
+					}
+				}
+		        qe.close();
+			} catch(Exception e){
+				log.error( "GetEmpoloyeeByID: Can´t get the employee information "+e);
+			}
+			
+			
+			return Response.status(200).entity(employeeURI).build();
+		 }
+		 
+		
 		 
 		 
 
@@ -1532,83 +1568,6 @@ public class RestService {
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // GOOGLE Apps Script Interface
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 
-		 @GET
-		 @Path("/GetDocumentByTitle/{documentTitle}")
-		 @Produces("application/json")
-		 public Response getDocumentByTitle(@PathParam("documentTitle") String documentTitle) throws JSONException {
-				jsonObject = new JSONObject();
-				Document document;
-				ArrayList<Document> listDocument = new ArrayList<Document>();
-				ArrayList<String> listKeywort = new ArrayList<String>();				
-				try {
-					String sparQuery = "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ "	SELECT ?Name (group_concat(?Schlagwort;separator=',') as ?Schlagworte) ?Dokumenttyp ?Erstellungsdatum ?Speicherort ?Status ?Version ?Verfasser"
-									+ " WHERE {"
-									+ " Filter regex (?Name, '"+documentTitle+"')"
-									+ "	  ?x Cloud_Dokumente:Name ?Name ."
-									+ "	  ?x Cloud_Dokumente:Schlagwort ?Schlagwort ."
-									+ "	  ?x Cloud_Dokumente:Dokumenttyp ?Dokumenttyp ."
-									+ "	  ?x Cloud_Dokumente:Erstellungsdatum ?Erstellungsdatum ."
-									+ "	  ?x Cloud_Dokumente:Speicherort ?Speicherort ."
-									+ "	  ?x Cloud_Dokumente:Status ?Status ."
-									+ "	  ?x Cloud_Dokumente:Version ?Version ."
-									+ "   ?x Cloud_Dokumente:Dokument_hat_Verfasser ?Verfasser}"
-									+ "	group by ?Name ?Dokumenttyp ?Erstellungsdatum ?Speicherort ?Status ?Version ?Verfasser";
-
-					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-
-			        ResultSet results = qe.execSelect();
-			        List var = results.getResultVars();
-			        int countIteration =0;
-			        
-			        while (results.hasNext()){
-			        	document = new Document();
-						QuerySolution qs = results.nextSolution();
-						for(int i=0; i<var.size();i++){
-							String va = var.get(i).toString();
-							RDFNode node = qs.get(va);
-							countIteration++;
-							switch(countIteration){
-							case 1: 
-								document.setDocumentName(node.toString());
-								break;
-							case 2: 					
-								ArrayList<String> listKeywords = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
-								document.setKeywords(listKeywords);
-								break;
-							case 3: 
-								document.setDocumentType(node.toString());				
-								break;
-							case 4: 
-								document.setCreationDate(node.toString().substring(0, node.toString().indexOf("^^")));
-								break;
-							case 5: 
-								document.setDrivePath(node.toString());
-								break;
-							case 6: 
-								document.setStatus(node.toString());
-								break;
-							case 7: 
-								document.setVersion(Double.parseDouble(node.toString().substring(0, node.toString().indexOf("^^"))));
-								break;
-							case 8: 
-								document.setCreatedBy(node.toString());
-								break;
-						}
-						if(countIteration==8){
-							countIteration=0;
-						}
-					}
-						listDocument.add(document);
-					}
-			        qe.close();
-				} catch(Exception e){
-					log.error( "GetDocumentByTitle: Can´t get document by title "+e);
-				}
-				jsonObject.put("data", listDocument);
-				return Response.status(200).entity(jsonObject.toString()).build();
-		 	}
 		 
 		 @GET
 		 @Path("/GetDocumentByDriveID/{driveDocumentID}")
@@ -1695,39 +1654,59 @@ public class RestService {
 				 return "Deleted";
 			 }
 			 
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// INSERT Statements
-			// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			
-			 
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// INSERT Statements
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			 
+			/**
+			* 
+			* AddDocumentMetadata
+			* 
+			* This Method is responsible for adding the document metadata to the abox. 
+			* The document metadata will be send by the google apps script client. 
+			* 
+			* @FormParam("name") String name 
+			* @FormParam("driveID") String driveID 
+			* @FormParam("status") String status 
+			* @FormParam("drivePath") String drivePath 
+			* @FormParam("version") String version 
+			* @FormParam("creationDate") String creationDate
+			* @FormParam("createdBy") String createdBy 
+			* @FormParam("project") String project 
+			* @FormParam("documentClass") String documentClass
+			* @FormParam("keywords") String keywords 
+			* @FormParam("documentType") String documentType
+			* 
+		    */
 			@POST
 			@Path( "/AddDocumentMetadata" )
 			@Consumes("application/x-www-form-urlencoded")
-		   
-			 /*
-			public static void main(String[] args) throws IOException, ParseException, org.codehaus.jettison.json.JSONException {
-				addDocumentMetadata("sdf","asd!sdfdsfss","fertig","htttp","2.0","2016-04-10T16:47");
-			}*/
 			public static void addDocumentMetadata(@FormParam("name") String name, @FormParam("driveID") String driveID, @FormParam("status") String status, 
-					@FormParam("drivePath") String drivePath, @FormParam("version") String version, @FormParam("creationDate") String creationDate ) 
-							throws IOException, ParseException, org.codehaus.jettison.json.JSONException {
+					@FormParam("drivePath") String drivePath, @FormParam("version") String version, @FormParam("creationDate") String creationDate,
+					@FormParam("createdBy") String createdBy, @FormParam("project") String project, @FormParam("documentClass") String documentClass,
+					@FormParam("keywords") String keywords, @FormParam("documentType") String documentType) {
 				
-					log.info(name+" "+driveID+" "+status+" "+drivePath+" ");
 					try{
-						String UPDATE_TEMPLATE =  " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
-						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						String UPDATE_TEMPLATE =  
+								"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+								+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+								+ "PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+							    + " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
 								+ " INSERT DATA"
 								+ " { "
 								+ " <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/A-BOX_Cloud_Dokumente#"+name+"> "
 								+ " Cloud_Dokumente:Dokumentenname '"+name+"' ;"
 								+ " Cloud_Dokumente_old:Status '"+status+"' ;"
 								+ " Cloud_Dokumente_old:DriveDocumentID '"+driveID+"' ;"
-								+ " Cloud_Dokumente_old:Schlagwort 'Ideensammlung' , 'Aufgabenverteilung' ;"
+								+ " Cloud_Dokumente_old:Schlagwort "+keywords+" ;"
 								+ " Cloud_Dokumente_old:Speicherort '"+drivePath+"' ;"
 								+ " Cloud_Dokumente_old:Version '"+version+"^^xsd:double' ;"
 								+ " Cloud_Dokumente_old:Erstellungsdatum '"+creationDate+"^^xsd:dateTime' ;"
+								+ " Cloud_Dokumente_old:Dokument_hat_Verfasser  <"+createdBy+"> ;"
+								+ " Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt <"+project+"> ;"
+								+ " Cloud_Dokumente_old:Dokumenttyp '"+documentType+"' ; "
+								+ " rdf:type <"+documentClass+"> ;"
 								+ " }";
-
+						
 						String id = UUID.randomUUID().toString();
 						UpdateProcessor upp = UpdateExecutionFactory.createRemote(
 			            UpdateFactory.create(String.format(UPDATE_TEMPLATE, id)), 
