@@ -11,7 +11,6 @@ import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
 import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
 import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.KeywordInformation;
-import de.hdm.wim.events.model.Product;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.model.Token;
 
@@ -22,33 +21,11 @@ public class TestDataProvider {
 
 		List<String> companies = new ArrayList<String>();
 
-		List<String> products = new ArrayList<String>();
 
 		List<String> employees = new ArrayList<String>();
 		employees.add("hangout12197171_ephemeral.id.google.com^b48de1652ed790");
 
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
-
-		Token token = null;
-		try {
-			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return token;
-	}
-
-	public static Token createDummyTokenWithRelatedProductPR001() {
-		List<String> projects = new ArrayList<String>();
-
-		List<String> companies = new ArrayList<String>();
-
-		List<String> products = new ArrayList<String>();
-		products.add("PR001");
-
-		List<String> employees = new ArrayList<String>();
-
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
 
 		Token token = null;
 		try {
@@ -65,11 +42,9 @@ public class TestDataProvider {
 		List<String> companies = new ArrayList<String>();
 		companies.add("U0001");
 
-		List<String> products = new ArrayList<String>();
-
 		List<String> employees = new ArrayList<String>();
 
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
 
 		Token token = null;
 		try {
@@ -86,11 +61,10 @@ public class TestDataProvider {
 
 		List<String> companies = new ArrayList<String>();
 
-		List<String> products = new ArrayList<String>();
 
 		List<String> employees = new ArrayList<String>();
 
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
 
 		Token token = null;
 		try {
@@ -108,11 +82,9 @@ public class TestDataProvider {
 
 		List<String> companies = new ArrayList<String>();
 
-		List<String> products = new ArrayList<String>();
-
 		List<String> employees = new ArrayList<String>();
 
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
 
 		Token token = null;
 		try {
@@ -129,11 +101,9 @@ public class TestDataProvider {
 
 		List<String> companies = new ArrayList<String>();
 
-		List<String> products = new ArrayList<String>();
-
 		List<String> employees = new ArrayList<String>();
 
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
 
 		Token token = null;
 		try {
@@ -153,11 +123,9 @@ public class TestDataProvider {
 		companies.add("C001");
 		companies.add("C007");
 
-		List<String> products = new ArrayList<String>();
-
 		List<String> employees = new ArrayList<String>();
 
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
 
 		Token token = null;
 		try {
@@ -177,11 +145,9 @@ public class TestDataProvider {
 		companies.add("C001");
 		companies.add("C007");
 
-		List<String> products = new ArrayList<String>();
-
 		List<String> employees = new ArrayList<String>();
 
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
 
 		Token token = null;
 		try {
@@ -201,11 +167,9 @@ public class TestDataProvider {
 		companies.add("C001");
 		companies.add("C007");
 
-		List<String> products = new ArrayList<String>();
-
 		List<String> employees = new ArrayList<String>();
 
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, products, employees);
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
 
 		Token token = null;
 		try {
@@ -230,11 +194,7 @@ public class TestDataProvider {
 		projects.add("P0001");
 		projects.add("P0003");
 
-		List<String> products = new ArrayList<String>();
-		projects.add("PR0001");
-		projects.add("PR0003");
-
-		Company company = new Company("U0001", "HighNet GmbH", "Finanzen", "Stuttgart", employees, projects, products, 600);
+		Company company = new Company("U0001", "HighNet GmbH", "Finanzen", "Stuttgart", employees, projects, 600);
 		return company;
 	}
 
@@ -274,15 +234,6 @@ public class TestDataProvider {
 		return employee;
 	}
 
-	public static Product createDummyProduct() {
-		List<String> relatedProjects = new ArrayList<String>();
-		relatedProjects.add("P001");
-		List<String> relatedCompanies = new ArrayList<String>();
-		relatedCompanies.add("C001");
-
-		Product product = new Product("PR001", "Mercedes Benz", "Automobile", relatedProjects, relatedCompanies);
-		return product;
-	}
 
 	/**
 	 * Helper method to create a dummy Project

@@ -21,9 +21,6 @@ public class KeywordInformation {
 	private List<String> companies;
 	
 	@ElementCollection
-	private List<String> products;
-	
-	@ElementCollection
 	private List<String> employees;
 	
 	
@@ -31,10 +28,9 @@ public class KeywordInformation {
 		
 	}
 	
-	public KeywordInformation(List<String> projects, List<String> companies, List<String> products, List<String> employees) {
+	public KeywordInformation(List<String> projects, List<String> companies, List<String> employees) {
 		this.projects = projects;
 		this.companies = companies;
-		this.products = products;
 		this.employees = employees;
 	}
 
@@ -54,14 +50,6 @@ public class KeywordInformation {
 		this.companies = companies;
 	}
 
-	public List<String> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<String> products) {
-		this.products = products;
-	}
-
 	public List<String> getEmployees() {
 		return employees;
 	}
@@ -72,7 +60,7 @@ public class KeywordInformation {
 
 	@Override
 	public String toString() {
-		return "KeywordInformation [id=" + id + ", projects=" + projects + ", companies=" + companies + ", products=" + products + ", employees=" + employees + "]";
+		return "KeywordInformation [id=" + id + ", projects=" + projects + ", companies=" + companies + ", employees=" + employees + "]";
 	}
 
 	

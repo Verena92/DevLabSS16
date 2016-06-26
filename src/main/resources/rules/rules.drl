@@ -8,14 +8,12 @@ import de.hdm.wim.events.documentrepresentation.DocumentIDsWrapper;
 import de.hdm.wim.events.model.Token;
 import de.hdm.wim.events.model.KeywordInformation;
 import de.hdm.wim.events.model.Project;
-import de.hdm.wim.events.model.Product;
 import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
 import de.hdm.wim.events.model.ProjectReceivedEvent;
 import de.hdm.wim.events.model.CompanyReceivedEvent;
-import de.hdm.wim.events.model.ProductReceivedEvent;
 import de.hdm.wim.events.model.EmployeeReceivedEvent;
 import de.hdm.wim.events.model.DocumentReceivedEvent;
 import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
@@ -41,11 +39,6 @@ declare DocumentSuggestionReactionEvent
 end
 
 declare ProjectReceivedEvent
-    @role( event )
-    @timestamp( timestamp.getTime() ) //long
-end
-
-declare ProductReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
 end
@@ -90,7 +83,6 @@ rule "A Token with exactly 1 related project occured"
     when
         $t : Token( keywordInformation.projects.size() == 1, 
         			keywordInformation.companies.empty,
-        			keywordInformation.products.empty,
         			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream 
     then
       resultList.add( "A Token with exactly 1 related project occured");
@@ -106,7 +98,6 @@ rule "A Token with exactly 1 related company occured"
     when
         $t : Token( keywordInformation.projects.empty, 
         			keywordInformation.companies.size() == 1,
-        			keywordInformation.products.empty,
         			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream 
     then
       resultList.add( "A Token with exactly 1 related company occured");
@@ -118,27 +109,10 @@ rule "A Token with exactly 1 related company occured"
       insert( new CompanyReceivedEvent( company));
 end
 
-rule "A Token with exactly 1 related product occured"
-    when
-        $t : Token( keywordInformation.projects.empty, 
-        			keywordInformation.companies.empty,
-        			keywordInformation.products.size() == 1,
-        			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream 
-    then
-      resultList.add( "A Token with exactly 1 related product occured");
-      System.out.println( "A Token with exactly 1 related product occured"); 
-      
-      DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
-      Product product = requester.getProduct($t.getKeywordInformation().getProducts().get(0));
-      System.out.println( "requested product: " + product);
-      insert( new ProductReceivedEvent( product));
-end
-
 rule "A Token with exactly 1 related employee occured"
     when
         $t : Token( keywordInformation.projects.empty, 
         			keywordInformation.companies.empty,
-        			keywordInformation.products.empty,
         			keywordInformation.employees.size() == 1) from entry-point SpeechTokenEventStream 
     then
       resultList.add( "A Token with exactly 1 related employee occured");
@@ -188,14 +162,6 @@ rule "Request a document for a project"
       
       System.out.println( "found document: " + document);
       insert( new DocumentReceivedEvent( document));
-end
-
-rule "Request a document for a product"
-    when
-      $pre : ProductReceivedEvent();
-    then
-      resultList.add( "Request a document for a product");
-      //ggf. entfernen, da SearchReuquest nicht mitmacht..
 end
 
 rule "Request a document for a company"

@@ -28,17 +28,14 @@ public class Company {
 	private List<String> employees;
 	@ElementCollection
 	private List<String> projects;
-	@ElementCollection
-	private List<String> products;
 	
-	public Company(String companyID, String companyName, String sector, String headquarter, List<String> employees, List<String> projects, List<String> products, int numberEmployee) {
+	public Company(String companyID, String companyName, String sector, String headquarter, List<String> employees, List<String> projects, int numberEmployee) {
 		this.companyID = companyID;
 		this.companyName = companyName;
 		this.industrialSector = sector;
 		this.headquarter = headquarter;
 		this.employees = employees;
 		this.projects = projects;
-		this.products = products;
 		this.numberEmployee = numberEmployee;
 	}
 
@@ -105,18 +102,10 @@ public class Company {
 		this.projects = projects;
 	}
 
-	public List<String> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<String> products) {
-		this.products = products;
-	}
-
 	@Override
 	public String toString() {
 		return "Company [companyID=" + companyID + ", companyName=" + companyName + ", industrialSector=" + industrialSector + ", headquarter=" + headquarter + ", numberEmployee="
-				+ numberEmployee + ", employees=" + employees + ", projects=" + projects + ", products=" + products + "]";
+				+ numberEmployee + ", employees=" + employees + ", projects=" + projects + "]";
 	}
 	
 	
