@@ -134,13 +134,21 @@ package de.hdm.speechtomcat;
 		   					
 		   			//String Data = new JSONObject{userId, hangoutsId, documentName, drivePath};
 		   			
-		   			JSONObject Data = new JSONObject();
-		   			Data.put("userId", userId);
-		   			Data.put("hangoutsId", hangoutsId);
-		   			Data.put("documentName", documentName);
-		   			Data.put("drivePath", drivePath);
+		   			JSONObject obj = new JSONObject();
+		   			obj.put("userId", userId);
+		   			obj.put("hangoutsId", hangoutsId);
+		   			obj.put("documentName", documentName);
+		   			obj.put("drivePath", drivePath);
 		   			
-		   			String uploadFileLocation = "usr/local/postdocuments/json.txt";
+		   		// try-with-resources statement based on post comment below
+		   			try (FileWriter file = new FileWriter("usr/local/postdocuments/json.txt")) {
+		   				file.write(obj.toJSONString());
+		   				System.out.println("Successfully Copied JSON Object to File...");
+		   				System.out.println("\nJSON Object: " + obj);
+		   				console.log(obj);
+		   			}
+		   			
+		   			/*String uploadFileLocation = "usr/local/postdocuments/json.txt";
 		   			InputStream is = new FileInputStream(Data.toJSONString());
 		   			saveData(is, uploadFileLocation);
 
@@ -171,7 +179,7 @@ package de.hdm.speechtomcat;
 						log.error( "Document not posted"+e);
 					}
 		   			
-		   		}
+		   		}*/
 		  
 		   		
 		   	
