@@ -133,12 +133,36 @@ package de.hdm.speechtomcat;
 		   			
 		   					
 		   			//String Data = new JSONObject{userId, hangoutsId, documentName, drivePath};
+		   			var DocumentArray = new Array();
+		   			var i;
+		   			var document = new Object();
+		   			document.userId = userId;
+		   			document.hangoutsId = hangoutsId;
+		   			document.documentName = documentName;
+		   			document.drivePath = drivePath;
+
+		   			//push document in documentarray
+		   			DocumentArray.push(document);
 		   			
-		   			JSONObject obj = new JSONObject();
+		   			public void save(File file) {
+		   				try {
+		   				    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		   				        for (int i = 0; i < DocumentArray.length; i++) {
+		   				                  writer.write(DocumentArray[i] + ";");   //mit Komma getrennte Werte
+		   				          
+		   				         }
+		   				         writer.close();
+		   				 
+		   				}
+		   				catch (IOException e) {
+		   				e.printStackTrace();
+		   				}
+		   			
+		   			/*JSONObject obj = new JSONObject();
 		   			obj.put("userId", userId);
 		   			obj.put("hangoutsId", hangoutsId);
 		   			obj.put("documentName", documentName);
-		   			obj.put("drivePath", drivePath);
+		   			obj.put("drivePath", drivePath);*/
 		   			
 		   		// try-with-resources statement based on post comment below
 		   		/*
@@ -149,8 +173,8 @@ package de.hdm.speechtomcat;
 		   				log.info(obj);
 		   			}*/
 		   			
-		   			String uploadFileLocation = "usr/local/postdocuments/json.txt";
-		   			InputStream is = new FileInputStream(Data.toJSONString());
+		   			/*String uploadFileLocation = "usr/local/postdocuments/json.txt";
+		   			InputStream is = new FileInputStream(DocumentArray);
 		   			saveData(is, uploadFileLocation);
 
 		            String output = "File uploaded to : " + uploadFileLocation;
@@ -180,9 +204,9 @@ package de.hdm.speechtomcat;
 						log.error( "Document not posted"+e);
 					}
 		   			
-		   		}
+		   		}*/
 		  
-		   		
+		   		}
 		   	
 
 		  	/*@POST
