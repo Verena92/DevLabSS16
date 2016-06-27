@@ -8,6 +8,8 @@ package de.hdm.speechtomcat;
 	import java.sql.*;	
 
 	import org.apache.log4j.Logger;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
+import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jettison.json.JSONArray;
 
 import java.io.BufferedWriter;
@@ -225,26 +227,37 @@ public class RestService {
 		   			
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
-		   			JSONObject obj = new JSONObject();
-		   			obj.put("userId", userId);
-		   			obj.put("hangoutsId", hangoutsId);
-		   			obj.put("documentName", documentName);
-		   			obj.put("drivePath", drivePath);
-		   			log.info(obj);
+//		   			JSONObject obj = new JSONObject();
+//		   			obj.put("userId", userId);
+//		   			obj.put("hangoutsId", hangoutsId);
+//		   			obj.put("documentName", documentName);
+//		   			obj.put("drivePath", drivePath);
+//		   			log.info(obj);
+		   			
+		   			ArrayList documentArray = new ArrayList();
+		   			
+		   			documentArray.add(userId);
+		   			documentArray.add(hangoutsId);
+		   			documentArray.add(documentName);
+		   			documentArray.add(drivePath);
+		   			
+		   			log.info(documentArray);
 		   			
 		   			try{
+			   			
+			   			ObjectMapper mapper = new ObjectMapper();
+			   			//mapper.setVisibility(JsonMethod.FIELD, Visibility.ANY);
+			   			ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+			   			writer.writeValue(new File("/usr/local/postdocument/document.json"), documentArray);
+			   			log.info("Success");
+			   			}
+			   			catch (IOException e) {
+			   				log.info("Error");
+			   				e.printStackTrace();{
+			   				
+			   			}
 		   			
-		   			ObjectMapper mapper = new ObjectMapper();
-		   			ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-		   			writer.writeValue(new File("/usr/local/postdocument/document.json"), obj);
-		   			log.info("Success");
-		   			}
-		   			catch (IOException e) {
-		   				log.info("Error");
-		   				e.printStackTrace();{
-		   				
-		   			}
-		   	
+		   			
 		   			
 		   		}
 	}
