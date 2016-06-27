@@ -16,7 +16,7 @@ import java.util.Properties;
 
 public class PropertiesHelper {
 	public static String getProperties(String key){
-		File propertiesFile = new File("./src/main/resources/config.properties");
+		File propertiesFile = new File("config.properties");
 		Properties properties = new Properties();
 		 
 		if(propertiesFile.exists())
@@ -30,8 +30,7 @@ public class PropertiesHelper {
 				e.printStackTrace();
 			}
 		}
-		String str = properties.getProperty(key);
-		return(str);
+		return(properties.getProperty(key));
 	}
 }
 
