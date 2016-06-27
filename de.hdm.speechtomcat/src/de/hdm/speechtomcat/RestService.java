@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
-//import java.text.ParseException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -47,11 +47,13 @@ import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.sun.jersey.core.util.Base64;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
 
 	@Path("/rest") 
 	public class RestService {
@@ -92,35 +94,8 @@ import org.json.simple.parser.ParseException;
 	   		hangoutsId
 	   		documentName
 	   		drivePath*/
-		  
-		  /* Gescheiterter versuch
-		  @POST
-		    @Path("/PostDocuments")
 
-		    @Consumes(MediaType.APPLICATION_JSON)
-		    @Produces(MediaType.APPLICATION_JSON)
-
-		    public JSONObject receiveJSON(JSONObject json) throws JSONException, IOException {
-		        convertFile(json.getString("file"), json.getString("file_name"));
-		        //Prints my json object
-		        return json;
-		    }
-
-		    //Convert a Base64 string and create a file
-		    private void convertFile(String file_string, String file_name) throws IOException{
-		        byte[] bytes = Base64.decode(file_string);
-		        File file = new File("usr/local/postdocuments"+file_name);
-		        log.info("File saved");
-		        FileOutputStream fop = new FileOutputStream(file);
-		        fop.write(bytes);
-		        fop.flush();
-		        fop.close();
-		    }*/
-		  
-		  
-		  
-		  
-			
+		  			
 		  // POST Statements to post relevant tokens and save them in filestream
 		  //Alternativ @PathParam?
 		  
@@ -132,11 +107,30 @@ import org.json.simple.parser.ParseException;
 		   			
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
+		   			ArrayList documentArray = new ArrayList();
 		   			
+		   			documentArray.add(userId);
+		   			documentArray.add(hangoutsId);
+		   			documentArray.add(documentName);
+		   			documentArray.add(drivePath);
 		   			
-		   			JSONObject obj = new JSONObject();
-		   			obj.put("userId", "12345");
-		   			obj.put("hangoutsId", "45678");
+		   			try{
+		   			
+		   			ObjectMapper mapper = new ObjectMapper();
+		   			ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+		   			writer.writeValue(new File("/usr/local/postdocument/document.json"), documentArray);}
+		   			catch (IOException e) {
+		   				e.printStackTrace();{
+		   				
+		   			}
+		   	
+		   			
+		   		}
+	}
+	}
+//		   			JSONObject obj = new JSONObject();
+//		   			obj.put("userId", "12345");
+//		   			obj.put("hangoutsId", "45678");
 
 //		   			JSONArray list = new JSONArray();
 //		   			list.add("msg 1");
@@ -145,7 +139,7 @@ import org.json.simple.parser.ParseException;
 //
 //		   			obj.put("messages", list);
 		   			
-		   			try {
+		   			/*		try {
 
 		   				FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
 		   				file.write(obj.toString());
@@ -163,7 +157,7 @@ import org.json.simple.parser.ParseException;
 		   		}
 		   			
 		   			
-		   			/*
+		   	
 		   			
 		   			ArrayList documentArray = new ArrayList();
 		   			
