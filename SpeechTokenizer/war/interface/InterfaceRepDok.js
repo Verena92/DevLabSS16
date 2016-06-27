@@ -6,27 +6,18 @@
 //Funktionierende POST Methode mit JQuery auf RepDok
 
 function GetKeywordInformation(TokenNew){
-	
-	//keyword wird noch ersetzt durch die komplexere Objekt Abfrage previousKeyword, keyword und nextKeyword. 
+	 
 	var keyword = TokenNew.keyword;
-	
-	/**
-	 * size, sizeInside, i und j werden nur f��r die komplexere, alte Frage ben��tigt. bitte noch nicht l��schen.
-	 */
-	//var size;
-	//var sizeInside;
-	//var i;
-	//var j;
 	
 	var queryWords = new Object();
 	if (TokenNew.previousKeyword == undefined) {
-		queryWords.previousKeyword = "";
+		queryWords.previousKeyword = null;
 	} else {
 		queryWords.previousKeyword = TokenNew.previousKeyword;
 	}
 	queryWords.keyword = TokenNew.keyword;
 	if (TokenNew.nextKeyword == undefined) {
-		queryWords.nextKeyword = "";
+		queryWords.nextKeyword = null;
 	} else {
 		queryWords.nextKeyword = TokenNew.nextKeyword;
 	}
@@ -52,12 +43,17 @@ function GetKeywordInformation(TokenNew){
 	    	
 			delete TokenNew.previousKeyword;
 			delete TokenNew.nextKeyword;
+			
+			//reicht keyword mit gefundenen informationen an
 			TokenNew.keywordInformation = responseData;
 			
+			//ausgeben des Tokens in der console
 			console.log(TokenNew);
 			
+			//ruft die funtkion auf, um den Token an die Event Gruppe zu enden
 			SendTokenToEvent(TokenNew);
 				
+			//ruft methode auf, die das objekt in JSON umwandelt und in der console ausgibt.
 			Stringify(TokenNew);
 				
 		}
