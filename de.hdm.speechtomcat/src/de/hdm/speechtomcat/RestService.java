@@ -116,10 +116,10 @@ public class RestService {
 		
 		
 		org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject();
-		String userId = obj.getString("userId");
-		String hangoutsId = obj.getString("hangoutsId");
-		String documentName = obj.getString("documentName");
-		String drivePath = obj.getString("drivePath");
+		String userId2 = obj.getString("userId");
+		String hangoutsId2 = obj.getString("hangoutsId");
+		String documentName2 = obj.getString("documentName");
+		String drivePath2 = obj.getString("drivePath");
 
 		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);
 
@@ -139,12 +139,16 @@ public class RestService {
 		  
 		/////////////////START VERSION 2///////////////////
 		 
-		JSONObject jsonobj = new JSONObject();
-		jsonobj.put(obj);
+//			JSONObject obj = new JSONObject();
+//			obj.put("userId", userId);
+//			obj.put("hangoutsId", hangoutsId);
+//			obj.put("documentName", documentName);
+//			obj.put("drivePath", drivePath);
+//			log.info(obj);
 
  		try {
  			FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
- 			file.write(jsonobj.toString());
+ 			file.write(obj.toString());
  			file.flush();
  			file.close();
  		
@@ -152,7 +156,7 @@ public class RestService {
  			e.printStackTrace();
  		}
 
- 		System.out.print(jsonobj);
+ 		System.out.print(obj);
 			
  		/////////////////ENDE VERSION 2///////////////////
 
