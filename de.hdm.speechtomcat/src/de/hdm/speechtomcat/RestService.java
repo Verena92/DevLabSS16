@@ -115,13 +115,13 @@ public class RestService {
 		log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		
 		
-		org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject();
-		String userId2 = obj.getString("userId");
-		String hangoutsId2 = obj.getString("hangoutsId");
-		String documentName2 = obj.getString("documentName");
-		String drivePath2 = obj.getString("drivePath");
+		/*org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject();
+		String userId = obj.getString("userId");
+		String hangoutsId = obj.getString("hangoutsId");
+		String documentName = obj.getString("documentName");
+		String drivePath = obj.getString("drivePath");
 
-		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);
+		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);*/
 
 		/////////////////START VERSION 1///////////////////
 					
@@ -139,12 +139,12 @@ public class RestService {
 		  
 		/////////////////START VERSION 2///////////////////
 		 
-//			JSONObject obj = new JSONObject();
-//			obj.put("userId", userId);
-//			obj.put("hangoutsId", hangoutsId);
-//			obj.put("documentName", documentName);
-//			obj.put("drivePath", drivePath);
-//			log.info(obj);
+		JSONObject obj = new JSONObject();
+			obj.put("userId", userId);
+			obj.put("hangoutsId", hangoutsId);
+			obj.put("documentName", documentName);
+			obj.put("drivePath", drivePath);
+			log.info(obj);
 
  		try {
  			FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
