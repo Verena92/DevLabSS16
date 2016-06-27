@@ -55,51 +55,161 @@ import com.sun.jersey.core.util.Base64;
 import org.json.simple.parser.JSONParser;
 
 
-	@Path("/rest") 
-	public class RestService {
+@Path("/rest") 
+public class RestService {
 		
 		
-		// This method is called if TEXT_PLAIN is requested
-		  @GET
-		  @Path("/hello") 
-		  @Produces(MediaType.TEXT_PLAIN)
-		  public String sayPlainTextHello() {
-		    return "Hello Jersey";
-		  }
+	// This method is called if TEXT_PLAIN is requested
+	@GET
+	@Path("/hello") 
+	@Produces(MediaType.TEXT_PLAIN)
+	public String sayPlainTextHello() {
+		return "Hello Jersey";
+	}
 	
 	
+	private static JSONObject Object;	 
+	private static Logger log = Logger.getLogger(RestService.class.getName());
+		  
+	@GET
+	@Path("/register") 
+	@Produces("application/x-www-form-urlencoded")
+		  
+	//Methode um die IP Adresse des zugreifenden Clients auszulesen
+	public String registerClient() { 
+		try { 
+			return InetAddress.getLocalHost().getHostAddress(); 
+		} catch (UnknownHostException e) { 
+			e.printStackTrace(); 
+			} 
+		return null; 
+	} 
 
-		 private static JSONObject Object;	 
-		 private static Logger log = Logger.getLogger(RestService.class.getName());
+	
+	
+	// Interface to be called from Event Group
 		  
-		  @GET
-		  @Path("/register") 
-		  @Produces("application/x-www-form-urlencoded")
-		  
-		  //Methode um die IP Adresse des zugreifenden Clients auszulesen
-		  public String registerClient() { 
-		        try { 
-		            return InetAddress.getLocalHost().getHostAddress(); 
-		        } catch (UnknownHostException e) { 
-		            e.printStackTrace(); 
-		        } 
-		        return null; 
-		    } 
-
-		  // Interface to be called from Event Group
-		  
-			/*
-	   		Wir nehmen entgegen:
-	   		userId
-	   		hangoutsId
-	   		documentName
-	   		drivePath*/
+	/*
+	Wir nehmen entgegen:
+	userId
+	hangoutsId
+	documentName
+	drivePath*/
 
 		  			
-		  // POST Statements to post relevant tokens and save them in filestream
-		  //Alternativ @PathParam?
+	// POST Statements to post relevant tokens and save them in filestream
 		  
-		   		@POST
+	@POST
+	@Path("/PostDocuments")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public static Response postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+				
+		org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
+		String userId = obj.getString("userId");
+		String hangoutsId = obj.getString("hangoutsId");
+		String documentName = obj.getString("documentName");
+		String drivePath = obj.getString("drivePath");
+
+		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);
+
+		/////////////////START VERSION 1///////////////////
+					
+		try{
+			java.io.FileOutputStream fos = new java.io.FileOutputStream("usr/local/postdocument/document.json");
+		   	java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
+
+		   	oos.writeObject(obj);
+		   	oos.flush();
+		   	fos.close();
+		} catch(Exception e){}
+		
+		/////////////////ENDE VERSION 1///////////////////
+
+		  
+		/////////////////START VERSION 2///////////////////
+		  
+		JSONObject jsonobj = new JSONObject();
+		jsonobj.put(obj);
+
+ 		try {
+ 			FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
+ 			file.write(jsonobj.toString());
+ 			file.flush();
+ 			file.close();
+ 		
+ 		} catch (IOException e) {
+ 			e.printStackTrace();
+ 		}
+
+ 		System.out.print(jsonobj);
+			
+ 		/////////////////ENDE VERSION 2///////////////////
+
+ 		} //Ende POST Methode
+		  
+		  
+		  
+		  
+		/////////////////VERSUCH GET-Methode zum Auslesen der .json Datei///////////////////
+
+		@GET
+		@Path("/GetDocuments")
+		@Produces("application/json")
+		//public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
+		public Response getDocuments(Object getDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {		
+
+			/////////////////START VERSION 1///////////////////
+			org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(getDocument.toString());
+
+			try{
+				java.io.FileInputStream fis = new java.io.FileInputStream("/usr/local/postdocument/document.json");
+				java.io.ObjectInputStream ois = new java.io.ObjectInputStream(fis);
+
+				obj = (org.codehaus.jettison.json.JSONObject) ois.readObject();
+				fis.close();
+				}
+				catch(Exception e){}
+			
+			/////////////////ENDE VERSION 1///////////////////
+
+			  
+			/////////////////START VERSION 2///////////////////
+			JSONParser parser = new JSONParser();
+			  
+			try {
+
+				Object obj = parser.parse(new FileReader("/usr/local/postdocument/document.json"));
+				JSONObject jsonObject = (JSONObject) obj;
+
+				String userId = (String) jsonObject.get("userId");
+				System.out.println(userId);
+				String hangoutsId = (String) jsonObject.get("hangoutsId");
+				System.out.println(hangoutsId);
+				String documentName = (String) jsonObject.get("documentName");
+				System.out.println(documentName);
+				String drivePath = (String) jsonObject.get("drivePath");
+				System.out.println(drivePath);
+
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			/////////////////ENDE VERSION 2///////////////////
+
+ 		} //Ende GET Methode
+		
+		
+} //Ende RestService Methode
+		
+		
+		
+		  
+		   		/*@POST
 		   		@Path("/PostDocuments")
 		   		@Consumes(MediaType.APPLICATION_JSON)
 		   		public void postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
@@ -126,40 +236,17 @@ import org.json.simple.parser.JSONParser;
 		   	
 		   			
 		   		}
-	}
-	}
-//		   			JSONObject obj = new JSONObject();
-//		   			obj.put("userId", "12345");
-//		   			obj.put("hangoutsId", "45678");
+	}*/
+		  
+		  
+		  
+	
 
-//		   			JSONArray list = new JSONArray();
-//		   			list.add("msg 1");
-//		   			list.add("msg 2");
-//		   			list.add("msg 3");
-//
-//		   			obj.put("messages", list);
-		   			
-		   			/*		try {
-
-		   				FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
-		   				file.write(obj.toString());
-		   				file.flush();
-		   				file.close();
-
-		   			} catch (IOException e) {
-		   				e.printStackTrace();
-		   			}
-
-		   			System.out.print(obj);
-
-		   			}
-
-		   		}
 		   			
 		   			
 		   	
 		   			
-		   			ArrayList documentArray = new ArrayList();
+		   			/*ArrayList documentArray = new ArrayList();
 		   			
 		   			documentArray.add("1234");
 		   			documentArray.add("23456");
