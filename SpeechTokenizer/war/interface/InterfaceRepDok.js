@@ -68,8 +68,6 @@ function GetKeywordInformation(TokenNew){
 		
 });
 	  
-}
-	  
 	  
 	  /*
 	  //Funktionierende  GET Methode ohne JQuery
