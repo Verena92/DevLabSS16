@@ -103,16 +103,19 @@ public class RestService {
 		  			
 	// POST Statements to post relevant tokens and save them in filestream
 		
-	/*
+	
 	@POST
 	@Path("/PostDocuments")
 	@Consumes("application/json")
 	@Produces("application/json")
-	
-	
-	public static void postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+	//public static void postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
 				
-		org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
+	public void postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, @QueryParam("documentName") String documentName, @QueryParam ("drivePath") String drivePath) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+		   			
+		log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
+		
+		
+		org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject();
 		String userId = obj.getString("userId");
 		String hangoutsId = obj.getString("hangoutsId");
 		String documentName = obj.getString("documentName");
@@ -122,7 +125,7 @@ public class RestService {
 
 		/////////////////START VERSION 1///////////////////
 					
-		try{
+		/*try{
 			java.io.FileOutputStream fos = new java.io.FileOutputStream("usr/local/postdocument/document.json");
 		   	java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
 
@@ -135,7 +138,7 @@ public class RestService {
 
 		  
 		/////////////////START VERSION 2///////////////////
-		 /* 
+		 
 		JSONObject jsonobj = new JSONObject();
 		jsonobj.put(obj);
 
@@ -149,11 +152,11 @@ public class RestService {
  			e.printStackTrace();
  		}
 
- 		System.out.print(jsonobj);*/
+ 		System.out.print(jsonobj);
 			
  		/////////////////ENDE VERSION 2///////////////////
 
- 		 //}Ende POST Methode
+ 		 }//Ende POST Methode
 		  
 		  
 		  
@@ -216,12 +219,12 @@ public class RestService {
  	//	} Ende GET Methode
 		
 		
-//}Ende RestService Methode
+}//Ende RestService Methode
 		
 		
 		
 		  
-		   		@POST
+		   		/*@POST
 		   		@Path("/PostDocuments")
 		   		@Consumes(MediaType.APPLICATION_JSON)
 		   		public void postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
