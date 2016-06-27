@@ -230,12 +230,15 @@ public class RestService {
 		   			obj.put("hangoutsId", hangoutsId);
 		   			obj.put("documentName", documentName);
 		   			obj.put("drivePath", drivePath);
+		   			log.info(obj);
 		   			
 		   			try{
 		   			
 		   			ObjectMapper mapper = new ObjectMapper();
 		   			ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-		   			writer.writeValue(new File("/usr/local/postdocument/document.json"), obj);}
+		   			writer.writeValue(new File("/usr/local/postdocument/document.json"), obj);
+		   			log.info("Success");
+		   			}
 		   			catch (IOException e) {
 		   				log.info("Error");
 		   				e.printStackTrace();{
