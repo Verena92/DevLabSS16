@@ -30,8 +30,6 @@ import de.hdm.wim.events.model.Event;
 import de.hdm.wim.events.model.Token;
 
 /**
- * Test class for JPA testing within JEE environment
- * @author Jens
  *
  */
 @Path("/events")
@@ -67,7 +65,7 @@ public class EventService {
 	@Path("/insert")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
-	public Response insertToken(Token token) throws JsonProcessingException {
+	public Response insertToken(Token token) {
 		try {
 			insert(kieSession, "SpeechTokenEventStream", token);
 			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
@@ -84,7 +82,7 @@ public class EventService {
 	@Path("/react")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
-	public Response insertReaction(DocumentSuggestionReactionEvent documentSuggestionReactionEvent) throws JsonProcessingException {
+	public Response insertReaction(DocumentSuggestionReactionEvent documentSuggestionReactionEvent) {
 		try {
 			insert(kieSession, "SpeechTokenEventStream", documentSuggestionReactionEvent);
 			kieSession.fireAllRules(); //TODO: this should run in a separate thread or something, so we check for correlation every X seconds. or after Y events got inserted.
