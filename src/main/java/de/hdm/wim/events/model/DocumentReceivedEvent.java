@@ -9,7 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+/**
+ * Representation of an Event  we create when receiving a document from the DocumentRepresentation
+ *  
+ * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+ *
+ */
 @Entity
 public class DocumentReceivedEvent implements Event {
 	
