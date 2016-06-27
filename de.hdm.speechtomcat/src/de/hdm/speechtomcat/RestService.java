@@ -131,7 +131,26 @@ import com.sun.jersey.core.util.Base64;
 		   			
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
+		   			
 		   			ArrayList documentArray = new ArrayList();
+		   			
+		   			documentArray.add(userId);
+		   			documentArray.add(hangoutsId);
+		   			documentArray.add(documentName);
+		   			documentArray.add(drivePath);
+		   			
+		   			try{
+		   				java.io.FileOutputStream fos = new java.io.FileOutputStream("usr/local/postdocument/document.txt");
+		   				java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
+
+		   				oos.writeObject(documentArray);
+		   				oos.flush();
+		   				fos.close();
+		   				}
+		   				catch(Exception e){}
+		   		}
+		   			
+		   			/*ArrayList documentArray = new ArrayList();
 		   			
 		   			documentArray.add(userId);
 		   			documentArray.add(hangoutsId);
@@ -164,7 +183,7 @@ import com.sun.jersey.core.util.Base64;
 		 		           // } catch (IOException ioe) { ioe.printStackTrace();}
 		 		        }
 		 			
-		 		}
+		 		}*/
 		   	  
 	}
 	
