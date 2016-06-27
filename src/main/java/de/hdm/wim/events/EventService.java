@@ -95,20 +95,24 @@ public class EventService {
         return Response.status(200).build();
 	}
 	
-	private static void insert(KieSession kieSession, String stream, Event event) {
+	public static void insert(KieSession kieSession, String stream, Event event) {
 		//insert event
 		SessionPseudoClock pseudoClock = kieSession.getSessionClock();
 		EntryPoint ep = kieSession.getEntryPoint(stream);
 		ep.insert(event);
 		
+		persist(event);
+		
+		//advance pseudoClock(System) time to event time
+		long advanceTime = ((Event) event).getTimestamp().getTime() - pseudoClock.getCurrentTime();
+		pseudoClock.advanceTime(advanceTime, TimeUnit.MILLISECONDS);
+	}
+
+	public static void persist(Event event) {
 		System.out.println("EventService: try to persist event: " + event);
 
 		em.getTransaction().begin();
 		em.merge(event);
 		em.getTransaction().commit();
-		
-		//advance pseudoClock(System) time to event time
-		long advanceTime = ((Event) event).getTimestamp().getTime() - pseudoClock.getCurrentTime();
-		pseudoClock.advanceTime(advanceTime, TimeUnit.MILLISECONDS);
 	}
 }
