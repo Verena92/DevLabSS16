@@ -24,6 +24,8 @@ function GetKeywordInformation(TokenNew){
 	queryWords.nextKeyword = TokenNew.nextKeyword;
 	queryWords.createdByUserID = TokenNew.createdByUserId;
 	
+	console.log(queryWords);
+	
 	//console.log(queryWords);
 
 //Asynchroner POST Request auf die Schnittstelle der RepDok Gruppe
