@@ -19,12 +19,18 @@ function GetKeywordInformation(TokenNew){
 	//var j;
 	
 	var queryWords = new Object();
-	queryWords.previousKeyword = TokenNew.previousKeyword;
+	if (TokenNew.previousKeyword == undefined) {
+		queryWords.previousKeyword = "";
+	} else {
+		queryWords.previousKeyword = TokenNew.previousKeyword;
+	}
 	queryWords.keyword = TokenNew.keyword;
-	queryWords.nextKeyword = TokenNew.nextKeyword;
+	if (TokenNew.nextKeyword == undefined) {
+		queryWords.nextKeyword = "";
+	} else {
+		queryWords.nextKeyword = TokenNew.nextKeyword;
+	}
 	queryWords.createdByUserID = TokenNew.createdByUserId;
-	
-	console.log(queryWords);
 	
 	//console.log(queryWords);
 
