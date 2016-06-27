@@ -1,5 +1,14 @@
 package de.hdm.wim.events.model;
 
+import javax.persistence.Entity;
+
+/**
+ * Representation of an User as a part of the internal token from the SpeechTokenizer
+ * 
+ * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+ *
+ */
+@Entity
 public class User {
 	private String firstname;
 	private String lastname;
