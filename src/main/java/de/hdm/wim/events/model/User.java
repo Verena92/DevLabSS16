@@ -1,6 +1,7 @@
 package de.hdm.wim.events.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Representation of an User as a part of the internal token from the SpeechTokenizer
@@ -12,8 +13,13 @@ import javax.persistence.Entity;
 public class User {
 	private String firstname;
 	private String lastname;
+	@Id
 	private String google_id;
 	private String hangouts_id;
+
+	public User() {
+
+	}
 	
 	public User(String fn, String ln, String gid, String hid){
 		this.firstname = fn;
