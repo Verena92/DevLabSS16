@@ -147,13 +147,20 @@ public class RestService {
 			log.info(obj);
 
  		try {
- 			FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
- 			file.write(obj.toString());
- 			file.flush();
- 			file.close();
+// 			FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
+// 			file.write(obj.toString());
+// 			file.flush();
+// 			file.close();
+ 			
+ 			ObjectMapper mapper = new ObjectMapper();
+ 			ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+ 			writer.writeValue(new File("/usr/local/postdocument/document.json"), obj.toString());
+ 			log.info("Success");
+ 				  
  		
  		} catch (IOException e) {
  			e.printStackTrace();
+ 			log.info("Error");
  		}
 
  		System.out.print(obj);
@@ -163,8 +170,7 @@ public class RestService {
  		 }//Ende POST Methode
 		  
 		  
-		  
-		  
+
 		/////////////////VERSUCH GET-Methode zum Auslesen der .json Datei///////////////////
 	/*
 
