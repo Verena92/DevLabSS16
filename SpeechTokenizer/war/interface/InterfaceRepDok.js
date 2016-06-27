@@ -32,7 +32,7 @@ function GetKeywordInformation(TokenNew){
 	}
 	queryWords.createdByUserID = TokenNew.createdByUserId;
 	
-	//console.log(queryWords);
+	console.log(queryWords);
 
 //Asynchroner POST Request auf die Schnittstelle der RepDok Gruppe
 	  $.ajax({type:'POST', 
@@ -47,52 +47,16 @@ function GetKeywordInformation(TokenNew){
 		},
 		//Bei erfolgreichem Request Objekt in der Console ausgeben
 		success: function(responseData){
-	    	//data = responseData["data"];
+	    	
 	    	//console.log("Success",responseData);
-	    	size = Object.keys(responseData.data).length;
-	    	//console.log(size);
-	    			
-	    	if (size == 0) {
-	    		//console.log(TokenNew);
-				//Stringify(TokenNew);
-	    		delete TokenNew;
-			} else {
-				//console.log(responseData);
-				//console.log(responseData.data[0].className);
-				
-				delete TokenNew.previousKeyword;
-				delete TokenNew.nextKeyword;
-				//auskommentiert f��r testen POST Schnittstelle
-				//TokenNew.keywordInformation = responseData.data;
-				console.log(TokenNew);
-				SendTokenToEvent(TokenNew);
-				
-				/**for (i = 0; i < size; i++) {
-					
-					var sizestring = String(i+1);
-					var keywordattribute = sizestring;
-					
-						TokenNew[keywordattribute] = {
-					}
-				
-							TokenNew[keywordattribute].keywordClassName = responseData.data[i].className,
-							TokenNew[keywordattribute].keywordDataType = responseData.data[i].dataType,
-							TokenNew[keywordattribute].keywordValueType = responseData.data[i].valueType,
-							TokenNew[keywordattribute].keywordValue = responseData.data[i].value,
+	    	
+			delete TokenNew.previousKeyword;
+			delete TokenNew.nextKeyword;
+			TokenNew.keywordInformation = responseData;
 			
-							sizeInside = Object.keys(responseData.data[i].objectRelation).length;
-									
-							TokenNew[keywordattribute].keywordRelation = {		
-							}
-				
-							for (j = 0; j < sizeInside; j++){
-								TokenNew[keywordattribute].keywordRelation[responseData.data[i].objectRelation[j].type] = responseData.data[i].objectRelation[j].value;										
-							}
-							TokenNew.keywordInformation[i] = TokenNew[keywordattribute];
-							delete TokenNew[keywordattribute];
-				}
-				*/
-				//console.log(TokenNew);
+			console.log(TokenNew);
+			
+			SendTokenToEvent(TokenNew);
 				
 			Stringify(TokenNew);
 				
