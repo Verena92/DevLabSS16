@@ -126,19 +126,20 @@ import com.sun.jersey.core.util.Base64;
 		   		@POST
 		   		@Path("/PostDocuments")
 		   		@Consumes(MediaType.APPLICATION_JSON)
-		   		public Response postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
+		   		public void postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
 		   				@QueryParam("documentName") String documentName, @QueryParam ("drivePath") String drivePath) {
 		   			
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
 		   			ArrayList documentArray = new ArrayList();
 		   			
-		   			
 		   			documentArray.add(userId);
 		   			documentArray.add(hangoutsId);
 		   			documentArray.add(documentName);
 		   			documentArray.add(drivePath);
-		   	        arrayInDatei(documentArray, new File("usr/local/postdocuments/document.txt")); 
+		   			
+		   	        arrayInDatei(documentArray, new File("usr/local/postdocument/document.txt")); 
+		   	        log.info("Funktion aufgerufen");
 	   		}
 
 		   	     private static void arrayInDatei(ArrayList documentArray, File file) {
@@ -151,17 +152,22 @@ import com.sun.jersey.core.util.Base64;
 		 		                Object o = iter.next(); 
 		 		                printWriter.println(o); 
 		 		            }
-		 		      
+		 		           log.info("try block ausgeführt");
 		 				} catch (IOException e) { 
 		 		            e.printStackTrace(); 
+		 		           log.info("Catch block ausgeführt");
 		 		        } finally { 
-		 		            try { 
+		 		            //try { 
 		 		                if(printWriter != null) printWriter.close(); 
-		 		            } catch (IOException ioe) {}
+		 		               log.info("Finally block ausgeführt");
+		 		               log.info(file);
+		 		           // } catch (IOException ioe) { ioe.printStackTrace();}
 		 		        }
 		 			
 		 		}
-		   		}
+		   	  
+	}
+	
 		   					
 		   			//String Data = new JSONObject{userId, hangoutsId, documentName, drivePath};
 		   			
@@ -303,7 +309,7 @@ import com.sun.jersey.core.util.Base64;
 	
 			
 	
-		  }
+	
 	
 	
 	
