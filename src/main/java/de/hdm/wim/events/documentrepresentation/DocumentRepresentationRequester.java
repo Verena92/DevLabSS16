@@ -7,6 +7,7 @@ import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.restclient.BaseRestClient;
+import de.hdm.wim.helper.PropertiesHelper;
 
 /**
  * Class used to request further infrmation about a given 'thing',
@@ -18,8 +19,6 @@ import de.hdm.wim.events.restclient.BaseRestClient;
  *
  */
 public class DocumentRepresentationRequester {
-
-	public static final String DOCUMENT_REPRESENTATION_URL = "http://104.154.103.216/document/rest/";
 	
 	/**
 	 * 
@@ -27,7 +26,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public DocumentIDsWrapper getDocumentIDs(SearchRequest searchRequest) {
-		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL);
+		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation"));
 		Response result = restClient.doPostSearchRequest("GetDocumentMetadata", searchRequest); //TODO: use correct path
 		DocumentIDsWrapper documentIDsWrapper = result.readEntity(DocumentIDsWrapper.class);
 		return documentIDsWrapper;
@@ -38,7 +37,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public DocumentClassesWrapper getDocumentClasses() {
-		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL + "GetDocumentClasses/");
+		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetDocumentClasses/");
 		Response response = restClient.doGet("");
 		DocumentClassesWrapper documentClassesWrapper = response.readEntity(DocumentClassesWrapper.class);
 		return documentClassesWrapper;
@@ -50,7 +49,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public Company getCompany(String companyID) {
-		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL + "GetCompanyByID/");
+		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetCompanyByID/");
 		Response response = restClient.doGet(companyID);
 		Company company = response.readEntity(Company.class);
 		return company;
@@ -61,7 +60,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public Document getDocument(String documentID) {
-		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL + "GetDocumentByID/");
+		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetDocumentByID/");
 		Response response = restClient.doGet(documentID);
 		Document document = response.readEntity(Document.class);
 		return document;
@@ -73,7 +72,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public Project getProject(String projectID) {
-		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL + "GetProjectByID/");
+		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetProjectByID/");
 		Response response = restClient.doGet(projectID);
 		Project project = response.readEntity(Project.class);
 		return project;
@@ -85,7 +84,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public Employee getEmployee(String employeeID) {
-		BaseRestClient restClient = new BaseRestClient(DOCUMENT_REPRESENTATION_URL + "GetEmployeeByID/");
+		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetEmployeeByID/");
 		Response response = restClient.doGet(employeeID);
 		Employee employee = response.readEntity(Employee.class);
 		return employee;
