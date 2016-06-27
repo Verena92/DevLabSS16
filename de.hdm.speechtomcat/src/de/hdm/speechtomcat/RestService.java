@@ -10,23 +10,25 @@ package de.hdm.speechtomcat;
 
 	import org.apache.log4j.Logger;
 	import org.codehaus.jettison.json.JSONArray;
-	
 
-	import java.io.File;
+import java.io.BufferedWriter;
+import java.io.File;
 	import java.io.FileWriter;
 	import java.io.FileInputStream;
 	import java.io.FileOutputStream;
 	import java.io.IOException;
 	import java.io.InputStream;
 	import java.io.OutputStream;
-	import java.net.InetAddress;
+import java.io.PrintWriter;
+import java.net.InetAddress;
 	import java.net.UnknownHostException;
 	import java.sql.ResultSet;
 	import java.text.ParseException;
 	import java.util.ArrayList;
 	import java.util.Arrays;
 	import java.util.Date;
-	import java.util.List;
+import java.util.Iterator;
+import java.util.List;
 	import java.util.UUID;
 
 	import javax.sql.DataSource;
@@ -130,33 +132,39 @@ package de.hdm.speechtomcat;
 		   			
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
+		   			ArrayList documentArray = new ArrayList();
 		   			
+		   			
+		   			documentArray.add(userId);
+		   			documentArray.add(hangoutsId);
+		   			documentArray.add(documentName);
+		   			documentArray.add(drivePath);
+		   	        arrayInDatei(documentArray, new File("usr/local/postdocuments/document.txt")); 
+
+
+		   			private void arrayInDatei(List list, File datei) { 
+		   			PrintWriter printWriter = null;
+		   				try {
+		   					printWriter = new PrintWriter(new FileWriter(datei));
+		   		            Iterator iter = list.iterator(); 
+		   		            while(iter.hasNext()) { 
+		   		                Object o = iter.next(); 
+		   		                printWriter.println(o); 
+		   		            }
+		   		      
+		   				} catch (IOException e) { 
+		   		            e.printStackTrace(); 
+		   		        } finally { 
+		   		            try { 
+		   		                if(printWriter != null) printWriter.close(); 
+		   		            } catch (IOException ioe) {}
+		   		        }
+		   			}
 		   					
 		   			//String Data = new JSONObject{userId, hangoutsId, documentName, drivePath};
-		   			var DocumentArray = new Array();
-		   			var i;
-		   			var document = new Object();
-		   			document.userId = userId;
-		   			document.hangoutsId = hangoutsId;
-		   			document.documentName = documentName;
-		   			document.drivePath = drivePath;
-
-		   			//push document in documentarray
-		   			DocumentArray.push(document);
 		   			
-		   			public void save(File file) {
-		   				try {
-		   				    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		   				        for (int i = 0; i < DocumentArray.length; i++) {
-		   				                  writer.write(DocumentArray[i] + ";");   //mit Komma getrennte Werte
-		   				          
-		   				         }
-		   				         writer.close();
-		   				 
-		   				}
-		   				catch (IOException e) {
-		   				e.printStackTrace();
-		   				}
+		   			
+		   			
 		   			
 		   			/*JSONObject obj = new JSONObject();
 		   			obj.put("userId", userId);
