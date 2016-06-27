@@ -19,7 +19,7 @@ import de.hdm.wim.events.restclient.BaseRestClient;
  */
 public class DocumentRepresentationRequester {
 
-	public static final String DOCUMENT_REPRESENTATION_URL = "http://104.155.140.18/document/rest/";
+	public static final String DOCUMENT_REPRESENTATION_URL = "http://104.154.103.216/document/rest/";
 	
 	/**
 	 * 
