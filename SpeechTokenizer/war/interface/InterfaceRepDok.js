@@ -63,7 +63,7 @@ function GetKeywordInformation(TokenNew){
 		}
 			
 	    	
-	}
+	})
 			
 		
 }
