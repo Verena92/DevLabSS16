@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
-import java.text.ParseException;
+//import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,7 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-	import javax.sql.DataSource;
+import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -42,15 +42,16 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-	import org.json.JSONException;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-	import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.core.util.Base64;
-
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 	@Path("/rest") 
 	public class RestService {
@@ -132,15 +133,75 @@ import com.sun.jersey.core.util.Base64;
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
 		   			
+		   			
+		   			JSONObject obj = new JSONObject();
+		   			obj.put("userId", "12345");
+		   			obj.put("hangoutsId", "45678");
+
+//		   			JSONArray list = new JSONArray();
+//		   			list.add("msg 1");
+//		   			list.add("msg 2");
+//		   			list.add("msg 3");
+//
+//		   			obj.put("messages", list);
+		   			
+		   			try {
+
+		   				FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
+		   				file.write(obj.toString());
+		   				file.flush();
+		   				file.close();
+
+		   			} catch (IOException e) {
+		   				e.printStackTrace();
+		   			}
+
+		   			System.out.print(obj);
+
+		   			}
+
+		   		}
+		   			
+		   			
+		   			/*
+		   			
 		   			ArrayList documentArray = new ArrayList();
 		   			
-		   			documentArray.add(userId);
-		   			documentArray.add(hangoutsId);
-		   			documentArray.add(documentName);
-		   			documentArray.add(drivePath);
+		   			documentArray.add("1234");
+		   			documentArray.add("23456");
+		   			documentArray.add("Beispiel");
+		   			documentArray.add("www.google.de");
 		   			
-		   			try{
-		   				java.io.FileOutputStream fos = new java.io.FileOutputStream("usr/local/postdocument/document.txt");
+		   			String uploadFileLocation = "usr/local/postdocuments/json.txt";
+		   			InputStream is = new FileInputStream(documentArray);
+		   			saveData(is, uploadFileLocation);
+
+		            String output = "File uploaded to : " + uploadFileLocation; 
+		            private void saveData(InputStream is, String uploadFileLocation) {
+		            	
+		            }
+				        try {
+				                OutputStream out = new FileOutputStream(new File(uploadFileLocation));
+				                int read = 0;
+				                byte[] bytes = new byte[1024];
+
+				                out = new FileOutputStream(new File(uploadFileLocation));
+				               
+				                while ((read = is.read(bytes)) != -1) 
+				                {
+				                  out.write(bytes, 0, read);
+				                }
+				                out.flush();
+				                out.close();
+				                log.info( "Document  posted");
+		   				
+		   			} catch (Exception e){
+						log.error( "Document not posted"+e);
+					}
+		            }}
+		   				
+				        
+				        /*java.io.FileOutputStream fos = new java.io.FileOutputStream("usr/local/postdocument/document.txt");
 		   				java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
 
 		   				oos.writeObject(documentArray);
@@ -148,7 +209,7 @@ import com.sun.jersey.core.util.Base64;
 		   				fos.close();
 		   				}
 		   				catch(Exception e){}
-		   		}
+		   		}*/
 		   			
 		   			/*ArrayList documentArray = new ArrayList();
 		   			
@@ -185,8 +246,8 @@ import com.sun.jersey.core.util.Base64;
 		 			
 		 		}*/
 		   	  
-	}
 	
+		   		
 		   					
 		   			//String Data = new JSONObject{userId, hangoutsId, documentName, drivePath};
 		   			
@@ -325,7 +386,6 @@ import com.sun.jersey.core.util.Base64;
 			//End of Get Statement
 	
 	*/
-	
 			
 	
 	
