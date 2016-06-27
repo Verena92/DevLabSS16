@@ -1,18 +1,21 @@
+function tim(){
+    ScriptApp.newTrigger("createSpreadsheetEditTrigger")
+   .timeBased()
+   .everyMinutes(1)
+   .create();   
+}
+
+
 function createSpreadsheetEditTrigger() {
- 
-  var ss =  SpreadsheetApp.openById("1onKOGZFLOKReA1unsstajHHy6eBK-C6rn52i1Ra4A78");
+  var files = DriveApp.getFoldersByName("Development Lab").next().getFoldersByName("AppsScriptProgramm").next().getFoldersByName("Excel").next().getFiles();
   
-  
-  ScriptApp.newTrigger('onOpen')
-      .forSpreadsheet(ss)
-      .onOpen()
-      .create();
-  
-  var si =  SpreadsheetApp.openById("158XmEV097o9QTHiK1j7UyN5fBNvbzYVICXZgHRv3UuA");
+  while (files.hasNext()){
+    file = files.next();  
     ScriptApp.newTrigger('onOpen')
-      .forSpreadsheet(si)
+      .forSpreadsheet(SpreadsheetApp.openById(file.getId()))
       .onOpen()
       .create();
+  }
 }
 
 function onOpen() {
@@ -26,7 +29,7 @@ function openDialog() {
   var html = HtmlService.createHtmlOutputFromFile('Index')
       .setSandboxMode(HtmlService.SandboxMode.IFRAME)
       .setWidth(900)
-      .setHeight(470);
+      .setHeight(400);
   SpreadsheetApp.getUi()
   .showModalDialog(html, 'Metadaten zum Dokument: '+ SpreadsheetApp.getActive().getName());
 }
@@ -63,40 +66,100 @@ function getDateCreated() {
  }
 }
 
-
 function getLastUpdated() {
  var files = DriveApp.getFilesByName(PropertiesService.getScriptProperties().getProperty('fileName'));
  while (files.hasNext()) {
    var file = files.next();
    return ""+file.getLastUpdated();
  }
+  
+  var folders = DriveApp.getFolders();
+ while (folders.hasNext()) {
+   var folder = folders.next();
+   Logger.log(folder.getName());
+ }
 }
 
 
 function checkAvailabilityInOWL() {
-  var driveDocumentID =  PropertiesService.getScriptProperties().getProperty('driveDocumentID');
-  var response = UrlFetchApp.fetch("http://104.155.140.18/document/rest/GetDocumentByDriveID/"+driveDocumentID);
+ var driveDocumentID =  PropertiesService.getScriptProperties().getProperty('driveDocumentID');
+  var response = UrlFetchApp.fetch("http://104.155.140.18/document/rest/getDocumentByIDTest/"+driveDocumentID);
   
   var params = JSON.parse(response.getContentText());
-    
-  if(params.data.length>0.0){
-    Logger.log(params.data);
-    var Name = params.data[0];
-    return Name;
-  } else {
-    return false;
-  }
+
+  return params;
 }
 
 
-function addDocumentMetadata(project, status, documentType, listKeywords, version) {  
+function te(te){
+ Logger.log('I was called!');
+ return "hier bin ich";
+}
+/**
+* 
+* addDocumentMetadata
+* 
+* Diese Methode ist dafür zuständig die Dokumentenmetadaten dem Jena-Fuseki Server zu übermitteln, sodass diese in der ABox neu angelegt werden
+* 
+*/
+
+function addDocumentMetadata(status, version, employeeURI, project, documentClass, listKeywords) {  
    var fileName = PropertiesService.getScriptProperties().getProperty('fileName');
    var documentPath = PropertiesService.getScriptProperties().getProperty('documentPath');
    var driveDocumentID =  PropertiesService.getScriptProperties().getProperty('driveDocumentID');
    var creationDate =  PropertiesService.getScriptProperties().getProperty('creationDate');  
    var formattedDate = Utilities.formatDate(new Date(creationDate), "CET", "yyyy-MM-dd'T'HH:mm:ss");
-  
    
+   var payload =
+   {
+     "name" : fileName,
+     "driveID" : driveDocumentID,
+     "status" : status,
+     "drivePath" : documentPath,
+     "version" : version,
+     "creationDate" : formattedDate,
+     "createdBy": employeeURI,
+     "project" : project,
+     "documentClass" : documentClass,
+     "keywords" : ""+listKeywords+"",
+     "documentType" : "Spreadsheet",
+   };
+  
+
+   // Because payload is a JavaScript object, it will be interpreted as
+   // an HTML form. (We do not need to specify contentType; it will
+   // automatically default to either 'application/x-www-form-urlencoded'
+   // or 'multipart/form-data')
+
+   var options =
+   {
+     "method" : "post",
+     "payload" : payload
+   }
+   
+   var ausgabe = UrlFetchApp.fetch("http://104.155.140.18/document/rest/AddDocumentMetadata", options);
+  
+  
+  Logger.log(ausgabe);
+}
+
+
+/**
+* 
+* editDocumentMetadata
+* 
+* Diese Methode ist dafür zuständig die bearbeiteten Metadaten dem Jena-Fuseki Server zu übermitteln
+* 
+*/
+
+function editDocumentMetadata(status) {  
+   /*var fileName = PropertiesService.getScriptProperties().getProperty('fileName');
+   var documentPath = PropertiesService.getScriptProperties().getProperty('documentPath');
+   var driveDocumentID =  PropertiesService.getScriptProperties().getProperty('driveDocumentID');
+   var creationDate =  PropertiesService.getScriptProperties().getProperty('creationDate');  
+   var formattedDate = Utilities.formatDate(new Date(creationDate), "CET", "yyyy-MM-dd'T'HH:mm:ss");
+  */
+  /* 
    var payload =
    {
      "name" : fileName,
@@ -122,4 +185,14 @@ function addDocumentMetadata(project, status, documentType, listKeywords, versio
    }
    
    var ausgabe = UrlFetchApp.fetch("http://104.155.140.18/document/rest/AddDocumentMetadata", options);
+   */
+  
+  Logger.log(status);
+}
+
+function doSomething() {
+  var response = UrlFetchApp.fetch("http://104.155.140.18/document/rest/GetEmployeeByDriveUserID/drive");
+  
+  return ""+response;
+  
 }

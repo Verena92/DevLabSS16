@@ -185,6 +185,7 @@ div .button {
     r(function(){
       var e = document.getElementById("status");
       var text = e.options[e.selectedIndex].text;
+      var available = false;
     
       function getFileName(fileName) {
         var name = document.getElementById('fileName');
@@ -211,14 +212,104 @@ div .button {
         document.getElementById('owner').innerHTML = owner;
       }
       
-      function checkAvailability(test) {
+      function checkAvail(objDocumentMetadata) {
+      
+     
+        if(objDocumentMetadata.driveID!=null){
+              document.getElementById('hiddenText').value = 'true';
+              google.script.run.withSuccessHandler(getEmployeeURIByDriveUserID).doSomething();
+                initializeFields(objDocumentMetadata);
+               /*
+               google.script.run.addDocumentMetadata("AVAILABLE");*/
+          } else {
+               google.script.run.withSuccessHandler(getEmployeeURIByDriveUserID).doSomething();
+               document.getElementById('hiddenText').value = 'false';
+               google.script.run.editDocumentMetadata("NOT");
+        }
+          
+      }
+      
+      function getEmployeeURIByDriveUserID(driveUserID){
+        document.getElementById('hiddenEmployeeURI').value = driveUserID; 
+      }
+      
+      function initializeFields(objDocumentMetadata) {
+       document.getElementById('version').value= objDocumentMetadata.version;
        var status = document.getElementById('status');
-       var project = document.getElementById("project");      
-       var documentType = document.getElementById("documentType");
-       var version = document.getElementById("version");
-       version.value=test.version;
+       var project = document.getElementById('project');
+       var documentType = document.getElementById('documentType');
        
-             
+       for (i = 0; i < status.length; i++) 
+       {
+          if(status[i].text==objDocumentMetadata.status){
+                status[i].selected = true;
+          } 
+       }
+       
+        var selKeyword = document.getElementById("selKeyword");
+        var option = document.createElement("option");
+        
+        for (var i = 0; i<objDocumentMetadata.keywords.length; i++){
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = objDocumentMetadata.keywords[i];
+            selKeyword.appendChild(opt);
+        }
+        
+        
+      
+        for (i = 1; i < selKeyword.length; i++) 
+        {
+          if(i==(selKeyword.length-1)){
+             document.getElementById("listKeywords").innerHTML += selKeyword.options[i].text;
+        } else {
+            document.getElementById("listKeywords").innerHTML += selKeyword.options[i].text+", ";
+          }
+        } 
+        
+        
+        for (i = 0; i < project.length; i++) 
+        {
+             if(project[i].id==objDocumentMetadata.projects){
+                  project[i].selected = true;
+               }
+         }
+         
+        for (i = 0; i < documentType.length; i++) 
+        {
+           if(documentType[i].text==objDocumentMetadata.documentClass){
+                  documentType[i].selected = true;
+           }
+        }
+        
+        /*for (i = 0; i < project.length; i++) 
+           {
+              if(project[i].id==objDocumentMetadata.projects){
+                  project[i].selected = true;
+               }
+             }
+        }*/
+        
+        
+       
+       /*or (i = 0; i < project.length; i++) 
+       {
+          if(project[i].text==objDocumentMetadata.projects[0]){
+                project[i].selected = true;
+          } 
+       }*/
+       
+       
+     /*  for (i = 0; i < documentType.length; i++) 
+       {
+         if(documentType[i].text==objDocumentMetadata.documentType){
+                  documentType[i].selected = true;
+            }
+         }
+       }
+      */ 
+       
+      /*       
       if(test==false){
          status[0].selected = true;
          documentType[0].selected = true;
@@ -258,9 +349,13 @@ div .button {
         } else {
             document.getElementById("listKeywords").innerHTML += selKeyword.options[i].text+", ";
           }
-        }   
+        }  */ 
       }
       
+      function te(te){
+       
+      }
+      google.script.run.withSuccessHandler(te).te();
       google.script.run.withSuccessHandler(getFileName).getFileName();
       google.script.run.withSuccessHandler(getURL).getURL();
       google.script.run.withSuccessHandler(getID).getID();
@@ -269,7 +364,7 @@ div .button {
       google.script.run.withSuccessHandler(getOwner).getOwner();
       
       //Check availability
-      google.script.run.withSuccessHandler(checkAvailability).checkAvailabilityInOWL();
+      google.script.run.withSuccessHandler(checkAvail).checkAvailabilityInOWL();
     });
     
     function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
@@ -307,6 +402,7 @@ div .button {
     
     function updateButton() {
         
+        /*
   
         var status = document.getElementById("status");
         var selectedStatus = status.options[status.selectedIndex].text;
@@ -330,10 +426,40 @@ div .button {
             listKeywords.push("'"+selKeyword.options[i].text+"'");
         } 
            
+        google.script.run.testtest();
+        alert("Metadaten erfolgreich gespeichert");*/
+        /*
         
-        google.script.run.addDocumentMetadata(selectedProject, selectedStatus, selectedDocumentType, listKeywords, version);
-        google.script.host.close();
-        alert("Metadaten erfolgreich gespeichert");
+        if(available==false){
+               alert("Available");
+               google.script.run.addDocumentMetadata("add");
+          } else {
+               alert("not available");
+               google.script.run.editDocumentMetadata("hier");
+        }*/
+        var versionInput = document.getElementById("version");
+        var version = versionInput.value;  
+        var status = document.getElementById("status");
+        var selectedStatus = status.options[status.selectedIndex].text;
+        var project = document.getElementById("project");
+        var selectedProject = project.options[project.selectedIndex].value;
+        var documentType = document.getElementById("documentType");
+        var selectedDocumentType = documentType.options[documentType.selectedIndex].value;
+       var listKeywords = [];
+        var selKeyword = document.getElementById("selKeyword");
+        for (var i = 1; i < selKeyword.length; i++) 
+        {
+            listKeywords.push("'"+selKeyword.options[i].text+"'");
+        } 
+        
+        if(document.getElementById('hiddenText').value=="false"){
+            var employeeURI = document.getElementById('hiddenEmployeeURI').value;
+            google.script.run.addDocumentMetadata(selectedStatus, version, employeeURI, selectedProject, selectedDocumentType, listKeywords);
+        } else {
+            /*
+             google.script.run.editDocumentMetadata("hier");*/
+        }
+        
      }
      
      function addKeyword() { 
@@ -468,9 +594,9 @@ div .button {
     
      <td>
       <select id="project" style="height:20px;width:200px">
-            <option value="0">--Projekt wählen--</option>
-            <option value="0">HighNet</option>
-            <option value="1">StarNet</option>
+            <option id="0" value="0">--Projekt wählen--</option>
+            <option id="P0001" value="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#HighNet">HighNet</option>
+            <option id="P0100" value="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#AWG">StarNet</option>
            </select>
     </td> 
     </tr>
@@ -480,9 +606,12 @@ div .button {
     </td>
     <td>   
       <select id="documentType" style="height:20px;width:200px">
-          <option value="0">--Dokumenttyp wählen--</option>
-          <option value="1">Textdokument</option>
-          <option value="2">Kalkulationsdokument</option>
+          <option value="0">--Dokumentenart wählen--</option>
+          <option value="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Besprechungsprotokoll">Besprechungsprotokoll</option>
+          <option value="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Abschlussbericht">Abschlussbericht</option>
+          <option value="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Kostenplan">Kostenplan</option>
+          <option value="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Projektauftrag">Projektauftrag</option>
+          
       </select>
     </td>
     </tr>
@@ -491,8 +620,6 @@ div .button {
    <td><input type="number" name="quantity" min="1" id="version"></td>
   </tr>
   </table>
-
- 
  </div>
  <hr>
  <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br>
@@ -513,7 +640,7 @@ div .button {
   </td>
   <td align="right">
       <select width="300" id="selKeyword" style="height:20px;">
-      <option>--Keyword wählen--</option>
+      <option>--Schlagwort wählen--</option>
       </select>
   </td>
   <td align="right">
@@ -535,6 +662,8 @@ div .button {
      <td></td>
    </tr>
 </table>  
+<input type="text" id="hiddenText" hidden="true">
+<input type="text" id="hiddenEmployeeURI" hidden="true">
 
 
            <table style="width:100%">
