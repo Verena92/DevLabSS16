@@ -98,12 +98,15 @@ public class RestService {
 
 		  			
 	// POST Statements to post relevant tokens and save them in filestream
-		  
+		
+	/*
 	@POST
 	@Path("/PostDocuments")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public static Response postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+	
+	
+	public static void postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
 				
 		org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
 		String userId = obj.getString("userId");
@@ -122,13 +125,13 @@ public class RestService {
 		   	oos.writeObject(obj);
 		   	oos.flush();
 		   	fos.close();
-		} catch(Exception e){}
+		} catch(Exception e){}*/
 		
 		/////////////////ENDE VERSION 1///////////////////
 
 		  
 		/////////////////START VERSION 2///////////////////
-		  
+		 /* 
 		JSONObject jsonobj = new JSONObject();
 		jsonobj.put(obj);
 
@@ -142,16 +145,17 @@ public class RestService {
  			e.printStackTrace();
  		}
 
- 		System.out.print(jsonobj);
+ 		System.out.print(jsonobj);*/
 			
  		/////////////////ENDE VERSION 2///////////////////
 
- 		} //Ende POST Methode
+ 		 //}Ende POST Methode
 		  
 		  
 		  
 		  
 		/////////////////VERSUCH GET-Methode zum Auslesen der .json Datei///////////////////
+	/*
 
 		@GET
 		@Path("/GetDocuments")
@@ -168,13 +172,16 @@ public class RestService {
 
 				obj = (org.codehaus.jettison.json.JSONObject) ois.readObject();
 				fis.close();
+				return Response.status(200).entity(jsonInString).build();
 				}
 				catch(Exception e){}
+				*/
 			
 			/////////////////ENDE VERSION 1///////////////////
 
 			  
 			/////////////////START VERSION 2///////////////////
+			/*
 			JSONParser parser = new JSONParser();
 			  
 			try {
@@ -199,17 +206,18 @@ public class RestService {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			*/
 			/////////////////ENDE VERSION 2///////////////////
 
- 		} //Ende GET Methode
+ 	//	} Ende GET Methode
 		
 		
-} //Ende RestService Methode
+//}Ende RestService Methode
 		
 		
 		
 		  
-		   		/*@POST
+		   		@POST
 		   		@Path("/PostDocuments")
 		   		@Consumes(MediaType.APPLICATION_JSON)
 		   		public void postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, 
@@ -217,27 +225,27 @@ public class RestService {
 		   			
 		   			log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		   			
-		   			ArrayList documentArray = new ArrayList();
-		   			
-		   			documentArray.add(userId);
-		   			documentArray.add(hangoutsId);
-		   			documentArray.add(documentName);
-		   			documentArray.add(drivePath);
+		   			JSONObject obj = new JSONObject();
+		   			obj.put("userId", userId);
+		   			obj.put("hangoutsId", hangoutsId);
+		   			obj.put("documentName", documentName);
+		   			obj.put("drivePath", drivePath);
 		   			
 		   			try{
 		   			
 		   			ObjectMapper mapper = new ObjectMapper();
 		   			ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-		   			writer.writeValue(new File("/usr/local/postdocument/document.json"), documentArray);}
+		   			writer.writeValue(new File("/usr/local/postdocument/document.json"), obj);}
 		   			catch (IOException e) {
+		   				log.info("Error");
 		   				e.printStackTrace();{
 		   				
 		   			}
 		   	
 		   			
 		   		}
-	}*/
-		  
+	}
+		   		}
 		  
 		  
 	
