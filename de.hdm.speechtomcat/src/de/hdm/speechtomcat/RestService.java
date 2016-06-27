@@ -16,7 +16,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -234,35 +236,40 @@ public class RestService {
 //		   			obj.put("drivePath", drivePath);
 //		   			log.info(obj);
 		   			
-		   			ArrayList documentArray = new ArrayList();
+		   			org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(obj.toString());
+		   			String userId2 = obj.getString("userId");
+		   			String hangoutsId2 = obj.getString("hangoutsId");
+		   			String documentName2 = obj.getString("documentName");
+		   			String drivePath2 = obj.getString("drivePath");
+
+		   			System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);		   			
 		   			
-		   			documentArray.add(userId);
-		   			documentArray.add(hangoutsId);
-		   			documentArray.add(documentName);
-		   			documentArray.add(drivePath);
 		   			
-		   			log.info(documentArray);
-		   			
-		   			try{
 			   			
-			   			ObjectMapper mapper = new ObjectMapper();
-			   			//mapper.setVisibility(JsonMethod.FIELD, Visibility.ANY);
-			   			ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-			   			writer.writeValue(new File("/usr/local/postdocument/document.json"), documentArray);
-			   			log.info("Success");
-			   			}
-			   			catch (IOException e) {
-			   				log.info("Error");
-			   				e.printStackTrace();{
-			   				
-			   			}
-		   			
-		   			
+		   				JSONParser parser = new JSONParser();
+		  			  
+		   				try {
+
+		   					Object obj = parser.parse(new FileReader("/usr/local/postdocument/document.json"));
+		   					JSONObject jsonObject = (JSONObject) obj;
+
+		   					String userId2 = (String) jsonObject.get("userId");
+		   					System.out.println(userId);
+		   					String hangoutsId2 = (String) jsonObject.get("hangoutsId");
+		   					System.out.println(hangoutsId);
+		   					String documentName2 = (String) jsonObject.get("documentName");
+		   					System.out.println(documentName);
+		   					String drivePath2 = (String) jsonObject.get("drivePath");
+		   					System.out.println(drivePath);
+
+
+		   				} catch (FileNotFoundException e) {
+		   					e.printStackTrace();
 		   			
 		   		}
 	}
 		   		}
-		  
+}
 		  
 	
 
