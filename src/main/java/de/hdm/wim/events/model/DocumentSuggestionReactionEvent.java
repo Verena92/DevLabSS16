@@ -3,9 +3,9 @@ package de.hdm.wim.events.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,8 +20,7 @@ public class DocumentSuggestionReactionEvent implements Event {
 	public static final SimpleDateFormat DATE_FORMAT_yyyy_M_d_H_m_s = new SimpleDateFormat("yyyy M d H m s");
 
 	@Id
-	@GeneratedValue
-	private long id;
+	private String id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
@@ -32,10 +31,12 @@ public class DocumentSuggestionReactionEvent implements Event {
 	private boolean accepted;
 
 	public DocumentSuggestionReactionEvent() {
-
+		this.id = UUID.randomUUID().toString();
+		this.timestamp = new Date();
 	}
 
 	public DocumentSuggestionReactionEvent(String timeString, String userId, String hangoutsId, String documentName, boolean accepted) throws ParseException {
+		this.id = UUID.randomUUID().toString();
 		this.timestamp = DATE_FORMAT_yyyy_M_d_H_m_s.parse(timeString);
 		this.userId = userId;
 		this.hangoutsId = hangoutsId;
@@ -54,7 +55,7 @@ public class DocumentSuggestionReactionEvent implements Event {
 
 	@Override
 	public String getId() {
-		return "" + this.id;
+		return this.id;
 	}
 
 	public String getUserId() {

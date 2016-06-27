@@ -39,7 +39,7 @@ public class Token implements Event {
 	 * Default constructor needed for JSON Parsing and JPA
 	 */
 	public Token() {
-		
+		this.id = UUID.randomUUID().toString();
 	}
 	
 	public Token(String timeString, String keyword, String createdByFirstName, String createdByLastName, String createdByUserId, String hangoutsId,
