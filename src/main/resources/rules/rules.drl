@@ -168,12 +168,15 @@ rule "Request a document for a project"
 	  projects.add( $pre.getProject().getProjectID());
 	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
-	  Document document = requester.getDocument(wrapper.getDocuments().get(0)); //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
-      
-      System.out.println( "found document: " + document);
-      DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
-      EventService.merge(documentReceivedEvent);
-      insert( documentReceivedEvent );
+	  
+	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
+	  if( documentID != null) {
+	  	Document document = requester.getDocument(documentID);
+	  	System.out.println( "found document: " + document);
+        DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
+        EventService.merge(documentReceivedEvent);
+        insert( documentReceivedEvent );
+	  }
 end
 
 rule "Request a document for a company"
@@ -189,12 +192,15 @@ rule "Request a document for a company"
 	  List<String> projects = new ArrayList<String>();
 	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
-	  Document document = requester.getDocument(wrapper.getDocuments().get(0)); //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
-      
-      System.out.println( "found document: " + document);
-      DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
-      EventService.merge(documentReceivedEvent);
-      insert( documentReceivedEvent );
+	  
+	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
+	  if( documentID != null) {
+	  	Document document = requester.getDocument(documentID);
+	  	System.out.println( "found document: " + document);
+        DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
+        EventService.merge(documentReceivedEvent);
+        insert( documentReceivedEvent );
+	  }
 end
 
 rule "Request a document for an employee"
@@ -210,12 +216,15 @@ rule "Request a document for an employee"
 	  List<String> projects = new ArrayList<String>();
 	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
-	  Document document = requester.getDocument(wrapper.getDocuments().get(0)); //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
-      
-	  System.out.println( "found document: " + document);
-      DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
-      EventService.merge(documentReceivedEvent);
-      insert( documentReceivedEvent );
+	  
+	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
+	  if( documentID != null) {
+	  	Document document = requester.getDocument(documentID);
+	  	System.out.println( "found document: " + document);
+        DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
+        EventService.merge(documentReceivedEvent);
+        insert( documentReceivedEvent );
+	  }
 end
 
 //////////////////////////////////////////////////////
