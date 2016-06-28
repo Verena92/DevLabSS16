@@ -253,17 +253,12 @@ public class TestDataProvider {
 	
 	public static SearchRequest createDummySearchRequest() {
 		List<String> employees = new ArrayList<String>();
-//		employees.add("M001");
-//		employees.add("M002");
 		List<String> companies = new ArrayList<String>();
-//		companies.add("C002");
 		List<String> projects = new ArrayList<String>();
 		projects.add("P0001");
-//		projects.add("P002");
-//		List<String> products = new ArrayList<String>();
-//		products.add("PR001");
+		String documentClass = "Calculation";
 
-		SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
+		SearchRequest searchRequest = new SearchRequest(employees, companies, projects, documentClass);
 		return searchRequest;
 	}
 	

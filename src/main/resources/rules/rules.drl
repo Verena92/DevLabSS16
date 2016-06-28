@@ -164,7 +164,7 @@ rule "Request a document for a project"
 	  List<String> companies = new ArrayList<String>();
 	  List<String> projects = new ArrayList<String>();
 	  projects.add( $pre.getProject().getProjectID());
-	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
+	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, "");
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 	  
 	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
@@ -188,7 +188,7 @@ rule "Request a document for a company"
 	  List<String> companies = new ArrayList<String>();
 	  companies.add($cre.getCompany().getCompanyID());
 	  List<String> projects = new ArrayList<String>();
-	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
+	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, "");
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 	  
 	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
@@ -212,7 +212,7 @@ rule "Request a document for an employee"
 	  employees.add($ere.getEmployee().getEmployeeID());
 	  List<String> companies = new ArrayList<String>();
 	  List<String> projects = new ArrayList<String>();
-	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects);
+	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, "");
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 	  
 	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
