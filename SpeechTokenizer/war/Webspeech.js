@@ -119,17 +119,15 @@ function erhalteDocuments(event) {
 		dataType: 'json',
 
 		//Fehler loggen 
-		error: function (xhr, ajaxOptions, thrownError) {
-	        alert(xhr.status);
-	        alert(thrownError);
-	      }
+	    error: function( ){
+	        console.log("Error");
+	    },
 
 		//Bei erfolgreichem Request Objekt in der Console ausgeben
 	    success: function(responsedata){
 	    	console.log("success");
 	    	console.log(responsedata);
 	    		
-	    	
 	    	}
 	});
 }
