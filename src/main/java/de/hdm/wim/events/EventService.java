@@ -92,7 +92,6 @@ public class EventService {
 		if (hasNoFurtherRelevance(internalToken)) {
 			return Response.status(200).build();
 		}
-		
 
 		try {
 			insert(kieSession, "SpeechTokenEventStream", internalToken);

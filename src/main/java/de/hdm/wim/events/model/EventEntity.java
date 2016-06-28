@@ -1,6 +1,7 @@
 package de.hdm.wim.events.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,14 +22,10 @@ public class EventEntity implements Event {
 	private Date timestamp;
 	
 	public EventEntity() {
-		//no param constructor needed for jpa porpuses
+		this.id = UUID.randomUUID().toString();
+		this.timestamp = new Date();
 	}
 	
-	public EventEntity(String id, Date timestamp) {
-		this.id = id;
-		this.timestamp = timestamp;
-	}
-
 	@Override
 	public Date getTimestamp() {
 		return timestamp;

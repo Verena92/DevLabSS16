@@ -1,14 +1,8 @@
 package de.hdm.wim.events.model;
 
-import java.util.Date;
-import java.util.UUID;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Representation of an Event we create when receiving an employee from the
@@ -18,25 +12,17 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-public class EmployeeReceivedEvent implements Event {
-
-	@Id
-	private String id;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date timestamp;
+public class EmployeeReceivedEvent extends EventEntity {
 
 	@OneToOne(cascade = { CascadeType.ALL })
 	private Employee employee;
 
 	public EmployeeReceivedEvent() {
-		this.id = UUID.randomUUID().toString();
-		this.timestamp = new Date();
+		super();
 	}
 
 	public EmployeeReceivedEvent(Employee employee) {
-		this.id = UUID.randomUUID().toString();
-		this.timestamp = new Date();
+		super();
 		this.employee = employee;
 	}
 
@@ -48,18 +34,10 @@ public class EmployeeReceivedEvent implements Event {
 		this.employee = employee;
 	}
 
-	public Date getTimestamp() {
-		return this.timestamp;
-	}
-
-	@Override
-	public String getId() {
-		return this.id;
-	}
-
 	@Override
 	public String toString() {
-		return "EmployeeReceivedEvent [id=" + id + ", timestamp=" + timestamp + ", employee=" + employee + "]";
+		return "EmployeeReceivedEvent [employee=" + employee + ", getTimestamp()=" + getTimestamp() + ", getId()=" + getId() + ", toString()=" + super.toString() + "]";
 	}
-
+	
+	
 }

@@ -262,7 +262,7 @@ rule "send Document to SpeechToken"
       resultList.add( "send Document to SpeechToken");
       SpeechTokenSender sender = new SpeechTokenSender();
       
-      List<User> activeUsers = EventService.getActiveUsers(); //doesn't work in unit tests.
+      List<User> activeUsers = EventService.getActiveUsers();
       for( User user: activeUsers) {
         DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer(user, $dre.getDocument()); 
         sender.sendDocument( documentForSpeechTokenizer); 

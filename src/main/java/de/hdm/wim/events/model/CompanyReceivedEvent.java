@@ -1,14 +1,8 @@
 package de.hdm.wim.events.model;
 
-import java.util.Date;
-import java.util.UUID;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Representation of an Event we create when receiving a company from the
@@ -18,25 +12,17 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-public class CompanyReceivedEvent implements Event {
-
-	@Id
-	private String id;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date timestamp;
+public class CompanyReceivedEvent extends EventEntity {
 
 	@OneToOne(cascade = { CascadeType.ALL })
 	private Company company;
 
 	public CompanyReceivedEvent() {
-		this.id = UUID.randomUUID().toString();
-		this.timestamp = new Date();
+		super();
 	}
 
 	public CompanyReceivedEvent(Company company) {
-		this.id = UUID.randomUUID().toString();
-		this.timestamp = new Date();
+		super();
 		this.company = company;
 	}
 
@@ -48,18 +34,9 @@ public class CompanyReceivedEvent implements Event {
 		this.company = company;
 	}
 
-	public Date getTimestamp() {
-		return this.timestamp;
-	}
-
-	@Override
-	public String getId() {
-		return this.id;
-	}
-
 	@Override
 	public String toString() {
-		return "CompanyReceivedEvent [id=" + id + ", timestamp=" + timestamp + ", company=" + company + "]";
+		return "CompanyReceivedEvent [company=" + company + ", getTimestamp()=" + getTimestamp() + ", getId()=" + getId() + ", toString()=" + super.toString() + "]";
 	}
-
+	
 }
