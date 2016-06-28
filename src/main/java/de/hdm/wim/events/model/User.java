@@ -41,7 +41,7 @@ public class User {
         boolean sameSame = false;
 
         if (object != null && object instanceof User) {
-            sameSame = this.google_id == ((User) object).google_id;
+            sameSame = (this.google_id == ((User) object).google_id) && (this.hangouts_id == ((User) object).hangouts_id);
         }
 
         return sameSame;

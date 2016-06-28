@@ -19,18 +19,27 @@ public class UserTest {
 	
 	@Test
 	public void test_equals() throws Exception {
-		//Same GoogleID means Equality.
+		//Same GoogleID && same HangoutsID mean Equality.
 		User user1 = new User("googleId1", "hangoutId1");
-		User user2 = new User("googleId1", "hangoutId2");
+		User user2 = new User("googleId1", "hangoutId1");
 		
 		assertEquals(true, user1.equals(user2));
 	}
 	
 	@Test
 	public void test_equals_false() throws Exception {
-		//Same GoogleID means Equality. HangoutId is not so relevant, therefore user1 and user2 are not equal.
+		//Same HangoutsID but different GoogleID --> not equal
 		User user1 = new User("googleId1", "hangoutId1");
 		User user2 = new User("googleId2", "hangoutId1");
+		
+		assertEquals(false, user1.equals(user2));
+	}
+	
+	@Test
+	public void test_equals_false2() throws Exception {
+		//Same GoogleID but different HangoutsID --> not equal
+		User user1 = new User("googleId1", "hangoutId2");
+		User user2 = new User("googleId1", "hangoutId1");
 		
 		assertEquals(false, user1.equals(user2));
 	}
