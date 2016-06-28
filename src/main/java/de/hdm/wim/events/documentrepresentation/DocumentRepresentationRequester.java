@@ -29,6 +29,7 @@ public class DocumentRepresentationRequester {
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation"));
 		Response result = restClient.doPostSearchRequest("GetDocumentMetadata", searchRequest); //TODO: use correct path
 		DocumentIDsWrapper documentIDsWrapper = result.readEntity(DocumentIDsWrapper.class);
+		System.out.println( "Received DocmentIDs: " + documentIDsWrapper);
 		return documentIDsWrapper;
 	}	
 	
@@ -40,6 +41,7 @@ public class DocumentRepresentationRequester {
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetDocumentClasses/");
 		Response response = restClient.doGet("");
 		DocumentClassesWrapper documentClassesWrapper = response.readEntity(DocumentClassesWrapper.class);
+		System.out.println( "Received DocmentClasses: " + documentClassesWrapper);
 		return documentClassesWrapper;
 	}
 	
@@ -52,6 +54,7 @@ public class DocumentRepresentationRequester {
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetCompanyByID/");
 		Response response = restClient.doGet(companyID);
 		Company company = response.readEntity(Company.class);
+		System.out.println( "Received Company: " + company);
 		return company;
 	}
 	/**
@@ -63,6 +66,7 @@ public class DocumentRepresentationRequester {
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetDocumentByID/");
 		Response response = restClient.doGet(documentID);
 		Document document = response.readEntity(Document.class);
+		System.out.println( "Received Document: " + document);
 		return document;
 	}
 	
@@ -75,6 +79,7 @@ public class DocumentRepresentationRequester {
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetProjectByID/");
 		Response response = restClient.doGet(projectID);
 		Project project = response.readEntity(Project.class);
+		System.out.println( "Received Project: " + project);
 		return project;
 	}
 	
@@ -87,6 +92,7 @@ public class DocumentRepresentationRequester {
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetEmployeeByID/");
 		Response response = restClient.doGet(employeeID);
 		Employee employee = response.readEntity(Employee.class);
+		System.out.println( "Received Employee: " + employee);
 		return employee;
 	}
 }
