@@ -34,6 +34,9 @@ function GetKeywordInformation(TokenNew){
 //Asynchroner POST Request auf die Schnittstelle der RepDok Gruppe
 	/**
 	 * Ajax Aufruf zur DokRepGruppe. Dafür wird das queryWord Objekt als JSON übergeben.
+	 * Über die URL wird die Schnittstelle aufgerufen.
+	 * Data übergibt das queryWord als JSON.
+	 * contentType und dataType signalisieren JSON.
 	 */
 	  $.ajax({type:'POST', 
 		  url:'https://104.154.103.216/document/rest/GetWordinformation',

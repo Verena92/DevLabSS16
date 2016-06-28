@@ -1,9 +1,11 @@
 /**
  * Hier wird der Token zur eventbasierten Integration gesendet
- * Autor Mona Brunner
+ * @author Mona Brunner
  */
 
-
+/**
+ * BITTE BESCHREIBEN
+ */
 function SendTokenToEvent(TokenNew){
 //Asynchroner Post Request auf die Event Gruppe
 
@@ -20,11 +22,7 @@ function SendTokenToEvent(TokenNew){
 
 	//Bei erfolgreichem Request Objekt in der Console ausgeben
     success: function(responsedata){
-    	console.log("success")
-        // hier response_data 
-  
-    	    //    new_keys = response_data["new_keys"]
-    		
+    	console.log("success")    		
     	}
 });
 
