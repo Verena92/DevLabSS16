@@ -9,9 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 /**
- * Representation of an Event  we create when receiving an employee from the DocumentRepresentation
- *  
+ * Representation of an Event we create when receiving an employee from the
+ * DocumentRepresentation
+ * 
  * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
  *
  */
@@ -20,13 +22,13 @@ public class EmployeeReceivedEvent implements Event {
 
 	@Id
 	private String id;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
-	
-	@OneToOne(cascade = {CascadeType.ALL})
+
+	@OneToOne(cascade = { CascadeType.ALL })
 	private Employee employee;
-	
+
 	public EmployeeReceivedEvent() {
 		this.id = UUID.randomUUID().toString();
 		this.timestamp = new Date();
@@ -54,4 +56,10 @@ public class EmployeeReceivedEvent implements Event {
 	public String getId() {
 		return this.id;
 	}
+
+	@Override
+	public String toString() {
+		return "EmployeeReceivedEvent [id=" + id + ", timestamp=" + timestamp + ", employee=" + employee + "]";
+	}
+
 }

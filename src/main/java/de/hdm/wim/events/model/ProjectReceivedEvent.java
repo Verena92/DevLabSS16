@@ -9,9 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 /**
- * Representation of an Event  we create when receiving a project from the DocumentRepresentation
- *  
+ * Representation of an Event we create when receiving a project from the
+ * DocumentRepresentation
+ * 
  * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
  *
  */
@@ -20,24 +22,24 @@ public class ProjectReceivedEvent implements Event {
 
 	@Id
 	private String id;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
-	
-	@OneToOne(cascade = {CascadeType.ALL})
+
+	@OneToOne(cascade = { CascadeType.ALL })
 	private Project project;
-	
+
 	public ProjectReceivedEvent() {
 		this.id = UUID.randomUUID().toString();
 		this.timestamp = new Date();
 	}
-	
-	public ProjectReceivedEvent( Project project) {
+
+	public ProjectReceivedEvent(Project project) {
 		this.id = UUID.randomUUID().toString();
 		this.timestamp = new Date();
 		this.project = project;
 	}
-	
+
 	public Project getProject() {
 		return project;
 	}
@@ -54,4 +56,10 @@ public class ProjectReceivedEvent implements Event {
 	public String getId() {
 		return this.id;
 	}
+
+	@Override
+	public String toString() {
+		return "ProjectReceivedEvent [id=" + id + ", timestamp=" + timestamp + ", project=" + project + "]";
+	}
+
 }
