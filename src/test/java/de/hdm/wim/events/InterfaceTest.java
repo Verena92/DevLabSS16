@@ -9,6 +9,7 @@ import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
 import de.hdm.wim.events.documentrepresentation.SearchRequest;
 import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Document;
+import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
 import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.speechtokenizer.SpeechTokenSender;
@@ -63,7 +64,8 @@ public class InterfaceTest {
 	@Test
 	public void test_send_document_to_speechtoken() {
 		SpeechTokenSender speechTokenSender = new SpeechTokenSender();
-		speechTokenSender.sendDocument( TestDataProvider.createDummyDocumentForSpeechTokenizer());
+		DocumentForSpeechTokenizer document = TestDataProvider.createDummyDocumentForSpeechTokenizer();
+		speechTokenSender.sendDocument( document);
 	}
 
 }

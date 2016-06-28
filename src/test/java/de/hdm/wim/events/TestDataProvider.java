@@ -207,7 +207,7 @@ public class TestDataProvider {
 		projects.add("P001");
 		Document document = null;
 		try {
-			document = new Document("D0002", "Besprechungsprotokoll_HighNet_15-01-2016", "Textdokument", "15-01-2016T12:00:00", "drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g",
+			document = new Document("D0002", "Besprechungsprotokoll_HighNet_15-01-2016", "Textdokument", "15-01-2016T12:00:00", "https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g",
 					"M0001", "Fertiggestellt", "1.0", keywords, projects, "1onKOGZFLOKReA1unsstajHHy6eBK-C6rn52i1Ra4A78", "Protokoll");
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -216,7 +216,7 @@ public class TestDataProvider {
 	}
 
 	public static DocumentForSpeechTokenizer createDummyDocumentForSpeechTokenizer() {
-		DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("asdf", "fdassHangouts", createDummyDocument());
+		DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378", "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg", createDummyDocument());
 		return documentForSpeechTokenizer;
 	}
 

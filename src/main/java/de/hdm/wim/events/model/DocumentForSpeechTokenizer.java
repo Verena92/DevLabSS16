@@ -22,7 +22,8 @@ public class DocumentForSpeechTokenizer {
 		this.userId = userId;
 		this.hangoutsId = hangoutsId;
 		this.documentName = document.getDocumentName();
-		this.drivePath = document.getGoogleDrivePath();
+		String cleansedGoogleDrive = document.getGoogleDrivePath().replaceFirst("^https://drive.google.com/open[?]id[=]", "");
+		this.drivePath = cleansedGoogleDrive;
 	}
 
 	public String getUserId() {

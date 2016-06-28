@@ -80,8 +80,6 @@ rule "Two Tokens occured within 10 seconds" dialect "mvel"
   	  System.out.println( "Two Tokens occured within 10 seconds"); 
 end
 
-
-
 rule "A Token with exactly 1 related project occured"
     when
         $t : InternalToken( keywordInformation.projects.size() == 1, 
@@ -237,7 +235,7 @@ rule "send Document to SpeechToken"
     then
       resultList.add( "send Document to SpeechToken");
       SpeechTokenSender sender = new SpeechTokenSender();
-      DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("userId", "hangoutsId", $dre.getDocument()); //TODO: userId und hangoutsId setzen
+      DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378", "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg", $dre.getDocument()); //TODO: userId und hangoutsId setzen
       sender.sendDocument( documentForSpeechTokenizer); 
 end
 
