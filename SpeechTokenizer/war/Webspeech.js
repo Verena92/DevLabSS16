@@ -87,10 +87,10 @@ function refreshButton(event) {
 
 
 	var Document = new Object();
-		Document.userId = "1234"
-		Document.hangoutsId = "4567"
-	   	Document.documentName = "Endpoint-Speech"
-	   	Document.drivePath = "https://drive.google.com/drive/folders/0Bxmha3k4bXlgTzZFcGRjOVBZd28"
+		Document.userId = "hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378"
+		Document.hangoutsId = "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg"
+	   	Document.documentName = "Endpoint"
+	   	Document.drivePath = "http://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g"
 	   		
 	
 	
@@ -110,6 +110,31 @@ $.ajax({ type:'POST',
     success: function(responsedata){
     	console.log("success");
     	console.log(Document);
+    		
+    	}
+});
+}
+
+function ipButton(event) {	
+	console.log("Service gibt ID");
+
+	   		
+	
+//Asynchron Post Request to own interface for testing
+$.ajax({ type:'GET', 
+	url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/register',  
+	contentType: 'application/x-www-form-urlencoded',
+	datatyp: 'text',
+
+	//Fehler loggen 
+    error: function(){
+        console.log("Error");
+    },
+
+	//Bei erfolgreichem Request Objekt in der Console ausgeben
+    success: function(responsedata){
+    	console.log("success");
+    	console.log(responsedata);
     		
     	}
 });
