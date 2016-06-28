@@ -114,10 +114,9 @@ function startButton(event) {
 function erhalteDocuments(event) {
 	//Asynchroner Post Request auf die Event Gruppe
 	$.ajax({ type:'GET', 
-		url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments',
-		//data: 'hangoutsId',
+		url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments/',  
 		contentType: 'application/json',
-		datatyp: 'json',
+		dataType: 'json',
 
 		//Fehler loggen 
 	    error: function( ){
@@ -126,8 +125,9 @@ function erhalteDocuments(event) {
 
 		//Bei erfolgreichem Request Objekt in der Console ausgeben
 	    success: function(responsedata){
-	    	console.log("success")
+	    	console.log("success");
 	    	console.log(reponsedata);
+	    		
 	    	}
 	});
 }

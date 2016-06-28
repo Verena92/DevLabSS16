@@ -6,9 +6,9 @@
 function getResults(){
 //Asynchroner Post Request auf die Event Gruppe
 $.ajax({ type:'GET', 
-	url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments/documentBesprechungsprotokoll_HighNet_15-01-2016.json',  
+	url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments/',  
 	contentType: 'application/json',
-	datatyp: 'json',
+	dataType: 'json',
 
 	//Fehler loggen 
     error: function( ){
