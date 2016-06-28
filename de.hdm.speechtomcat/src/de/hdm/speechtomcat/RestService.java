@@ -7,11 +7,14 @@ package de.hdm.speechtomcat;
 
 	import java.sql.*;	
 
-	import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
-import org.codehaus.jackson.annotate.JsonMethod;
-import org.codehaus.jettison.json.JSONArray;
 
+//import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
+//import org.codehaus.jackson.annotate.JsonMethod;
+//import org.codehaus.jettison.json.JSONArray;
+//import org.codehaus.jettison.json.JSONObject;
+
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -33,6 +37,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
@@ -47,7 +52,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -108,19 +114,25 @@ public class RestService {
 	@Path("/PostDocuments")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public static void postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+	public static void postDocuments(Object objDocument) throws JSONException  {
 				
+		//JsonProcessingException
+		//org.codehaus.jettison.json.JSONException
 		
+		//org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
 		
-		org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
-		String userId = obj.getString("userId");
-		String hangoutsId = obj.getString("hangoutsId");
-		String documentName = obj.getString("documentName");
-		String drivePath = obj.getString("drivePath");
+		JSONObject obj = (JSONObject) objDocument;
+		
+//		String userId = obj.getString("userId");
+//		String hangoutsId = obj.getString("hangoutsId");
+//		String documentName = obj.getString("documentName");
+//		String drivePath = obj.getString("drivePath");
+//
+//		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);
+		
+		JSONParser parser = new JSONParser();
 
-		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);
-
- 		try {
+ 		/*try {
  			String path = "/usr/local/postdocument/document";
  			String json = ".json";
  			FileWriter file = new FileWriter(path+documentName+json);
@@ -128,14 +140,38 @@ public class RestService {
  			file.flush();
  			file.close();
  			
- 				  
- 		
+ 			
+ 			JSONParser parser = new JSONParser();
+ 			
+ 			 		
  		} catch (IOException e) {
  			e.printStackTrace();
  			log.info("Error");
  		}
 
- 		System.out.print(obj);
+ 		System.out.print(obj);*/
+ 			 
+ 	        try {
+ 	 
+ 	            Object old = parser.parse(new FileReader("/usr/local/postdocument/documents.json"));
+ 	 
+ 	            JSONObject jsonObject = (JSONObject) old;
+ 	 
+ 	            JSONArray documents = (JSONArray) jsonObject.get("documents");
+ 	 
+ 	            documents.add(obj);
+ 	            
+ 	            FileWriter file = new FileWriter("/usr/local/postdocument/documents.json");
+ 	 			file.write(documents.toString()); //toJSONString()
+ 	 			file.flush();
+ 	 			file.close();
+ 	            
+ 	        } catch (Exception e) {
+ 	            e.printStackTrace();
+ 	        }
+ 			
+ 				  
+
 			
  		/////////////////ENDE VERSION 2///////////////////
 
@@ -144,64 +180,118 @@ public class RestService {
 		  
 
 		/////////////////VERSUCH GET-Methode zum Auslesen der .json Datei///////////////////
-	/*
+	
 
 		@GET
 		@Path("/GetDocuments")
+		@Consumes("application/json")
 		@Produces("application/json")
 		//public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
-		public Response getDocuments(Object getDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {		
+		public static Response getDocuments(Object getDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {		
 
 			/////////////////START VERSION 1///////////////////
-			org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(getDocument.toString());
+			
+			//org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(getDocument.toString());
+			/*
+			Object obj = null;
 
 			try{
-				java.io.FileInputStream fis = new java.io.FileInputStream("/usr/local/postdocument/document.json");
+			
+				java.io.FileInputStream fis = new java.io.FileInputStream("/usr/local/postdocument/documentBesprechungsprotokoll_HighNet_15-01-2016.json");
 				java.io.ObjectInputStream ois = new java.io.ObjectInputStream(fis);
 
 				obj = (org.codehaus.jettison.json.JSONObject) ois.readObject();
 				fis.close();
-				return Response.status(200).entity(jsonInString).build();
+				
 				}
 				catch(Exception e){}
-				*/
+			return Response.status(200).entity(obj).build();
+		}*/
 			
 			/////////////////ENDE VERSION 1///////////////////
-
-			  
+			
+			//documentBesprechungsprotokoll_HighNet_15-01-2016.json
+			
 			/////////////////START VERSION 2///////////////////
-			/*
-			JSONParser parser = new JSONParser();
+			
+			
+			
+			String jsonData = "";
+			String line ="";
+			BufferedReader br = null;
+	
+
+			
+			try{
+				
+				InputStream is = new FileInputStream("/usr/local/postdocument/documents.json");
+				InputStreamReader isr = new InputStreamReader (is);
+				br = new BufferedReader (isr);
+			
+			
+				while ((line = br.readLine())  != null){
+					jsonData += line + "\n";
+				}
+			}catch(IOException ex){
+				ex.printStackTrace();
+			}finally{
+				try{
+					if (br !=null)
+						br.close();
+				} catch (IOException ex){
+					ex.printStackTrace();
+				}
+			}
+			
+		
+				
+			return Response.status(200).entity(jsonData).build();
+
+			
+			/////////////////ENDE VERSION 1///////////////////
 			  
+			/////////////////START VERSION 3///////////////////
+			
+			/*
+			//String hangoutsId = getDocument.getString("hangoutsId");
+			
+			JSONParser parser = new JSONParser();
+			Object object = null;  
+			JSONObject jsonObject = new JSONObject();
+			
 			try {
 
-				Object obj = parser.parse(new FileReader("/usr/local/postdocument/document.json"));
-				JSONObject jsonObject = (JSONObject) obj;
+				object = new FileReader("/usr/local/postdocument/documentBesprechungsprotokoll_HighNet_15-01-2016.json");
+				//jsonObject = (JSONObject) object;
 
-				String userId = (String) jsonObject.get("userId");
-				System.out.println(userId);
-				String hangoutsId = (String) jsonObject.get("hangoutsId");
-				System.out.println(hangoutsId);
-				String documentName = (String) jsonObject.get("documentName");
-				System.out.println(documentName);
-				String drivePath = (String) jsonObject.get("drivePath");
-				System.out.println(drivePath);
+//				String userId = (String) jsonObject.get("userId");
+//				System.out.println(userId);
+//				String hangoutsId = (String) jsonObject.get("hangoutsId");
+//				System.out.println(hangoutsId);
+//				String documentName = (String) jsonObject.get("documentName");
+//				System.out.println(documentName);
+//				String drivePath = (String) jsonObject.get("drivePath");
+//				System.out.println(drivePath);
+				
+				
 
 
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
 			}
-			*/
-			/////////////////ENDE VERSION 2///////////////////
+			catch(Exception e){}
+			return Response.status(200).entity(jsonObject).build();*/
+		
+			/////////////////ENDE VERSION 3///////////////////
 
- 	//	} Ende GET Methode
+ 		} //Ende GET Methode
 		
 		
-}//Ende RestService Methode
+		}//Ende RestService Methode
+
+
 		
 		
 			
