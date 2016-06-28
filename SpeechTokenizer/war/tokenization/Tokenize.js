@@ -19,40 +19,17 @@ function Tokenize(){
 	 * PLS update the list in GoogleDrive also!
 	 */
 	
-	var filterWords = 'be, have, do, say, get, make, get, know, take, see, come, think, look, want, give, use, find, tell, ask, work, seem, feel, try, leave, call, good, new, first, last, long, great, little, own, other, old, right, big, high, different, small, large, next, early, young, important, few, public, bad, same, able, to, of, in, for, on, with, at, by, from, up, about, into, over, after, beneath, under, above, the, and, a, that, I, it, not, he, as, you, this, but, his, they, her, she, or, and, will, my, one, all, would, there, their, is, now, hi, hello, hey, up';
+	var filterWords = 'be, have, do, say, get, make, get, know, take, see, come, think, look, want, give, use, find, tell, ask, work, seem, feel, try, leave, call, good, new, first, last, long, great, little, own, other, old, right, big, high, different, okay, small, large, next, early, young, important, few, public, bad, same, able, to, of, in, for, on, with, at, by, from, up, about, into, over, after, beneath, under, above, the, and, a, that, I, it, not, he, as, you, this, but, his, they, her, she, or, and, will, my, one, all, would, there, their, is, now, hi, hello, hey, up';
 		
-	//var sttResult = "Haha this is a great test, isn't it? Hello Thomas! What's up at the Ninja Project? Talking about some figures here.";
 	var sttResult1 = sttResult.split('!').join("");
 	var sttResult2 = sttResult1.split(':').join("");
 	var sttResult3 = sttResult2.split('.').join("");
 	var sttResult4 = sttResult3.split('?').join("");
 	var sttResultFin = sttResult4.split(';').join("");
 	
-	
-	/**var sttResultLength = sttResult.length;
-	var sttResultLower = sttResult.toLowerCase();
-	var sttResultUpper = sttResult.toUpperCase();
-	var sttResultSplit = sttResult.split(/\b\s+(?!$)/);
-	var sttResultRemove = sttResult.split('.').join("");
-	var sttResultRemove1 = sttResultRemove.split('!').join("");
-	var sttResultRemove2 = sttResultRemove1.split(',').join("");
-	var sttResultRemove3 = sttResultRemove2.split(';').join("");
-	var sttResultMatch = sttResultRemove3.match(/\S+/g);*/
-		
-		/**return sttResult;
-		return sttResultLength;
-		return sttResultLower;
-		return sttResultUpper;
-		return sttResultSplit;
-		return sttResultRemove1;
-		return sttResultMatch;
-		/**return [sttResult, sttResultMatch];*/
-		
-
-	
-		/**
-		 * Function to filter common words.
-		 */
+	/**
+	* Function to filter common words.
+	*/
 	function getUncommon(){
 		var wordArr = sttResultFin.match(/\S+/g),
 			commonObj = {},
