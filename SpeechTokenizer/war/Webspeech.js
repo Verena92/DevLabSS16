@@ -119,7 +119,7 @@ function erhalteDocuments(event) {
 		dataType: 'json',
 
 		//Fehler loggen 
-	    error: function( ){
+	    error: function(){
 	        console.log("Error");
 	    },
 
@@ -139,7 +139,7 @@ function refreshButton(event) {
 		Document.userId = "hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378"
 		Document.hangoutsId = "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg"
 	   	Document.documentName = "Endpoint"
-	   	Document.drivePath = "http://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g"
+	   	Document.drivePath = "1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g"
 	   		
 	//Asynchron Post Request to own interface for testing
 	$.ajax({ type:'POST', 

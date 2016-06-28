@@ -47,7 +47,7 @@
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
 			<dt id="button"><button id="refreshbutton" onClick="refreshButton(event)">Refresh</button></dt>
 			<dt id="button"><button id="ipbutton" onClick="ipButton(event)">IP</button></dt>
-			<dt id="button"><button id="getDocument" onClick="erhalteDocuments(event)">Documents</button></dt>
+			<dt id="button"><button id="getDocument" onClick="erhalteDocuments(event)">Docs</button></dt>
 		</dl>
 	</div>
 	<p>Developer-Box</p>
