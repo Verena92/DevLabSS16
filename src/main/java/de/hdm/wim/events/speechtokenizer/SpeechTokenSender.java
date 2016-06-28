@@ -13,11 +13,10 @@ import de.hdm.wim.helper.PropertiesHelper;
  */
 public class SpeechTokenSender {
 	
-	//FIXME: needs to send actual Document instead of just printing it out
 	public void sendDocument(DocumentForSpeechTokenizer document) {
 		String url = PropertiesHelper.getProperties("url.speech_tokenizer");
-		//BaseRestClient restClient = new BaseRestClient(url);
-		//restClient.doPost("document", document);
-		System.out.println("SpeechTokenSende sending the following Document: " + document);
+		BaseRestClient restClient = new BaseRestClient(url);
+		restClient.doPostDocument("PostDocuments", document);
+		System.out.println("SpeechTokenSender sending the following Document: " + document);
 	}
 }
