@@ -24,12 +24,12 @@ import org.kie.api.runtime.rule.EntryPoint;
 
 import de.hdm.wim.events.documentrepresentation.DocumentClassesWrapper;
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
-import de.hdm.wim.events.model.KeywordInformation;
-import de.hdm.wim.events.model.User;
 import de.hdm.wim.events.model.event.DocumentSuggestionReactionEvent;
 import de.hdm.wim.events.model.event.Event;
 import de.hdm.wim.events.model.event.InternalToken;
+import de.hdm.wim.events.model.event.KeywordInformation;
 import de.hdm.wim.events.model.event.Token;
+import de.hdm.wim.events.model.event.User;
 
 /**
  *
@@ -81,12 +81,13 @@ public class EventService {
 	@Consumes("application/json")
 	public Response insertToken(Token token) {
 		InternalToken internalToken = new InternalToken(token);
-
+		merge(internalToken);
+		
 		//add User to activeUsers if he isn't present yet
 		if( !activeUsers.contains(internalToken.getUser())) {
 			activeUsers.add( internalToken.getUser());
 		}
-		
+
 		//if the token is no relevant information (no associated projects, companies, employees
 		//and is no keyword, it won't get processed
 		if (hasNoFurtherRelevance(internalToken)) {

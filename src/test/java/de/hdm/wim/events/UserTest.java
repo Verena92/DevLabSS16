@@ -3,9 +3,10 @@ package de.hdm.wim.events;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
-import de.hdm.wim.events.model.User;
+import de.hdm.wim.events.model.event.User;
+
+import static org.junit.Assert.assertEquals;
 
 public class UserTest {
 

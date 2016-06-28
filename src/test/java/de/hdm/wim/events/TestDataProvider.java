@@ -9,11 +9,11 @@ import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
 import de.hdm.wim.events.model.Employee;
-import de.hdm.wim.events.model.KeywordInformation;
 import de.hdm.wim.events.model.Project;
-import de.hdm.wim.events.model.User;
 import de.hdm.wim.events.model.event.DocumentSuggestionReactionEvent;
+import de.hdm.wim.events.model.event.KeywordInformation;
 import de.hdm.wim.events.model.event.Token;
+import de.hdm.wim.events.model.event.User;
 
 public class TestDataProvider {
 

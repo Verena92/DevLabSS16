@@ -9,9 +9,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import de.hdm.wim.events.model.KeywordInformation;
-import de.hdm.wim.events.model.User;
-
 /**
  * This class models a Token with another structure. Different to the sent Token
  * this InternalToken separates the User from the rest of the Token

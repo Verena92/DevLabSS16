@@ -14,8 +14,8 @@
 		<class>de.hdm.wim.events.model.Employee</class>
 		<class>de.hdm.wim.events.model.Project</class>
 		<!-- Futher objects -->
-		<class>de.hdm.wim.events.model.KeywordInformation</class>
-		<class>de.hdm.wim.events.model.User</class>
+		<class>de.hdm.wim.events.model.event.KeywordInformation</class>
+		<class>de.hdm.wim.events.model.event.User</class>
 		
 		<properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

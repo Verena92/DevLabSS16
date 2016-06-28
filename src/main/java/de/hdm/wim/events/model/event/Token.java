@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import de.hdm.wim.events.model.KeywordInformation;
-
 /**
  * Representation of a Token as it is sent by the SpeechTokenizer.
  * Unfortunately this Token also consists of 'User' attributes, such as 

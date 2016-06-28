@@ -1,5 +1,7 @@
 package de.hdm.wim.events.model;
 
+import de.hdm.wim.events.model.event.User;
+
 /**
  * Representation of a Document as we send it to the SpeechTokenizer
  * 

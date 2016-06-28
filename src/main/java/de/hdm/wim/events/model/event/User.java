@@ -1,4 +1,4 @@
-package de.hdm.wim.events.model;
+package de.hdm.wim.events.model.event;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
