@@ -35,6 +35,17 @@ public class User {
 		this.google_id = gid;
 		this.hangouts_id = hid;
 	}
+	
+	@Override
+    public boolean equals(Object object) {
+        boolean sameSame = false;
+
+        if (object != null && object instanceof User) {
+            sameSame = this.google_id == ((User) object).google_id;
+        }
+
+        return sameSame;
+    }
 		
 	public String getFirstname() {
 		return firstname;

@@ -29,6 +29,7 @@ import de.hdm.wim.events.model.Event;
 import de.hdm.wim.events.model.InternalToken;
 import de.hdm.wim.events.model.KeywordInformation;
 import de.hdm.wim.events.model.Token;
+import de.hdm.wim.events.model.User;
 
 /**
  *
@@ -60,23 +61,38 @@ public class EventService {
 		documentClasses = documentClassesWrapper.getDocumentClasses();
 	}
 
+	private static List<User> activeUsers = new ArrayList<User>();
+	
+	public static List<User> getActiveUsers() {
+		return activeUsers;
+	}
+
 	@GET
 	@Path("/test")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response test() {
 		return Response.status(200).entity("test successful").build();
 	}
-
+	
+	
 	@POST
 	@Path("/insert")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
 	public Response insertToken(Token token) {
-		if (hasNoFurtherRelevance(token)) {
+		InternalToken internalToken = new InternalToken(token);
+
+		//add User to activeUsers if he isn't present yet
+		if( !activeUsers.contains(internalToken.getUser())) {
+			activeUsers.add( internalToken.getUser());
+		}
+		
+		//if the token is no relevant information (no associated projects, companies, employees
+		//and is no keyword, it won't get processed
+		if (hasNoFurtherRelevance(internalToken)) {
 			return Response.status(200).build();
 		}
 		
-		InternalToken internalToken = new InternalToken(token);
 
 		try {
 			insert(kieSession, "SpeechTokenEventStream", internalToken);
@@ -127,8 +143,8 @@ public class EventService {
 		return keywordInformation.getCompanies().isEmpty() && keywordInformation.getEmployees().isEmpty() && keywordInformation.getProjects().isEmpty();
 	}
 
-	private static boolean hasNoFurtherRelevance(Token token) {
-		return hasNoRelatedEntities(token.getKeywordInformation()) && !isADocumentClass(token.getKeyword());
+	private static boolean hasNoFurtherRelevance(InternalToken internalToken) {
+		return hasNoRelatedEntities(internalToken.getKeywordInformation()) && !isADocumentClass(internalToken.getKeyword());
 	}
 
 	private static boolean isADocumentClass(String keyword) {
