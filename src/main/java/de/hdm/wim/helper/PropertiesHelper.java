@@ -1,14 +1,13 @@
 package de.hdm.wim.helper;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 
 /**
  * A helper class to read the defined properties of a properties file.
+ * The properties file is stored in the default resource package.
  * 
  * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
  *
@@ -16,21 +15,16 @@ import java.util.Properties;
 
 public class PropertiesHelper {
 	public static String getProperties(String key){
-		File propertiesFile = new File("config.properties");
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream input = classLoader.getResourceAsStream("config.properties");
 		Properties properties = new Properties();
-		 
-		if(propertiesFile.exists())
-		{
-		  BufferedInputStream bis;
-			try {
-				bis = new BufferedInputStream(new FileInputStream(propertiesFile));
-				properties.load(bis);
-				bis.close(); 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			properties.load(input);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return(properties.getProperty(key));
+		return(properties.getProperty(key));		
 	}
 }
 
