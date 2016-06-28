@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdm.wim.events.EventService;
+import de.hdm.wim.events.model.User;
 
 import de.hdm.wim.events.model.InternalToken;
 import de.hdm.wim.events.model.KeywordInformation;
@@ -235,7 +236,11 @@ rule "send Document to SpeechToken"
     then
       resultList.add( "send Document to SpeechToken");
       SpeechTokenSender sender = new SpeechTokenSender();
-      DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer("hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378", "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg", $dre.getDocument()); //TODO: userId und hangoutsId setzen
-      sender.sendDocument( documentForSpeechTokenizer); 
+      
+      List<User> activeUsers = EventService.getActiveUsers(); //doesn't work in unit tests.
+      for( User user: activeUsers) {
+        DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer(user, $dre.getDocument()); 
+        sender.sendDocument( documentForSpeechTokenizer); 
+	  }      
 end
 
