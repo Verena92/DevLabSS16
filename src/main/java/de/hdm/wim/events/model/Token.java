@@ -5,14 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
+/**
+ * Representation of a Token as it is sent by the SpeechTokenizer.
+ * Unfortunately this Token also consists of 'User' attributes, such as 
+ * 'createdByFirstName' and 'createdByLastName'.
+ * 
+ * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+ *
+ */
 public class Token implements Event {
 
 	/**
@@ -21,9 +21,7 @@ public class Token implements Event {
 	 */
 	public static final SimpleDateFormat DATE_FORMAT_yyyy_M_d_H_m_s = new SimpleDateFormat("yyyy M d H m s");
 
-	@Id
 	private String id;
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 	private String keyword;
 	
@@ -32,7 +30,6 @@ public class Token implements Event {
 	private String createdByUserId;
 	private String hangoutsId;
 	
-	@OneToOne(cascade = {CascadeType.ALL})
 	private KeywordInformation keywordInformation;
 	
 	/**

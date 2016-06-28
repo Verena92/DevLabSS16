@@ -17,6 +17,9 @@ public class User {
 	private String google_id;
 	private String hangouts_id;
 
+	/**
+	 * Default constructor for JPA
+	 */
 	public User() {
 
 	}

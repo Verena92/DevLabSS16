@@ -26,6 +26,7 @@ import de.hdm.wim.events.documentrepresentation.DocumentClassesWrapper;
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
 import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
 import de.hdm.wim.events.model.Event;
+import de.hdm.wim.events.model.InternalToken;
 import de.hdm.wim.events.model.KeywordInformation;
 import de.hdm.wim.events.model.Token;
 
@@ -71,13 +72,14 @@ public class EventService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
 	public Response insertToken(Token token) {
-
 		if (hasNoFurtherRelevance(token)) {
 			return Response.status(200).build();
 		}
+		
+		InternalToken internalToken = new InternalToken(token);
 
 		try {
-			insert(kieSession, "SpeechTokenEventStream", token);
+			insert(kieSession, "SpeechTokenEventStream", internalToken);
 			kieSession.fireAllRules();
 		} catch (ParseException e) {
 			System.out.println("A ParseException happened during creation of SpeechTokenEvents: " + e.getMessage());

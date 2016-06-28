@@ -2,19 +2,43 @@ package de.hdm.wim.events.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
- * This class models a Token with another structure. It implements the User who has created the TokenEvent.
+ * This class models a Token with another structure. Different to the sent Token
+ * this InternalToken separates the User from the rest of the Token
+ *   
+ * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+ *
  */
+@Entity
 public class InternalToken implements Event {
 
+	@Id
 	private String id;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 	private String keyword;
+	@OneToOne(cascade = {CascadeType.ALL})
 	private User user;
+	@OneToOne(cascade = {CascadeType.ALL})
 	private KeywordInformation keywordInformation;
 	
+	
 	/**
-	 * Use this mapper to map a Token to a TokenMapper.
+	 * Default constructor for JPA
+	 */
+	public InternalToken() {
+		
+	}
+	
+	/**
+	 * Constructor used to create an InternalToken out of a Token
 	 */
 	public InternalToken(Token token){
 		this.user = new User(token.getCreatedByFirstName(),token.getCreatedByLastName(),token.getCreatedByUserId(),token.getHangoutsId());
@@ -55,5 +79,10 @@ public class InternalToken implements Event {
 	}
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	@Override
+	public String toString() {
+		return "InternalToken [id=" + id + ", timestamp=" + timestamp + ", keyword=" + keyword + ", user=" + user + ", keywordInformation=" + keywordInformation + "]";
 	}
 }

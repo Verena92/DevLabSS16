@@ -3,8 +3,9 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
 		<!-- Events -->
-		<class>de.hdm.wim.events.model.Token</class>
+		<class>de.hdm.wim.events.model.InternalToken</class>
 		<class>de.hdm.wim.events.model.KeywordInformation</class>
+		<class>de.hdm.wim.events.model.User</class>
 		<class>de.hdm.wim.events.model.CompanyReceivedEvent</class>
 		<class>de.hdm.wim.events.model.DocumentReceivedEvent</class>
 		<class>de.hdm.wim.events.model.EmployeeReceivedEvent</class>
@@ -16,14 +17,13 @@
 		<class>de.hdm.wim.events.model.Project</class>
 		<properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            <!-- remote <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3307/event_db" />  -->
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/event_db" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="AnD5Qx4Q" />
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
 	</persistence-unit>
 </persistence>

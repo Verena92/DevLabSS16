@@ -13,6 +13,8 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.EntryPoint;
 
+import de.hdm.wim.events.model.InternalToken;
+
 public class TokenTest {
 	
 	private EntryPoint entryPoint;
@@ -44,7 +46,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_one_token_occured() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyToken());
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyToken()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 1, amountOfRulesFired);
@@ -53,8 +55,8 @@ public class TokenTest {
 	
 	@Test
 	public void test_two_tokens_occured_within_10_seconds() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyToken_2016_06_01_12_00_00());
-		entryPoint.insert(TestDataProvider.createDummyToken_2016_06_01_12_00_06());
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyToken_2016_06_01_12_00_00()));
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyToken_2016_06_01_12_00_06()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 3, amountOfRulesFired);
@@ -65,7 +67,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_token_with_only_one_related_project_occured() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedProjectP0001());
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedProjectP0001()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 4, amountOfRulesFired);
@@ -77,7 +79,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_token_with_only_one_related_company_occured() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedCompanyU0001());
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedCompanyU0001()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 4, amountOfRulesFired);
@@ -89,7 +91,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_token_with_only_one_related_employee_occured() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyTokenWithRelatedEmployeeM0001());
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedEmployeeM0001()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 4, amountOfRulesFired);

@@ -5,7 +5,7 @@ import java.util.List;
 
 import de.hdm.wim.events.EventService;
 
-import de.hdm.wim.events.model.Token;
+import de.hdm.wim.events.model.InternalToken;
 import de.hdm.wim.events.model.KeywordInformation;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.model.Company;
@@ -29,7 +29,7 @@ global java.util.List resultList;
 ////////////// Event Declarations ///////////////////
 /////////////////////////////////////////////////////
 
-declare Token
+declare InternalToken
     @role( event )
     @timestamp( timestamp.getTime() ) //long
 end
@@ -65,7 +65,7 @@ end
 //////////////////////////////////////////////////////
 rule "A Token occured" dialect "mvel"
   when
-      $t : Token() from entry-point SpeechTokenEventStream
+      $t : InternalToken() from entry-point SpeechTokenEventStream
   then
   	  resultList.add( "A Token occured");
   	  System.out.println( "A Token occured"); 
@@ -73,8 +73,8 @@ end
 
 rule "Two Tokens occured within 10 seconds" dialect "mvel"
   when
-      $t : Token() from entry-point SpeechTokenEventStream
-      Token( $t.id != id, this after[0s,10s] $t) from entry-point SpeechTokenEventStream      
+      $t : InternalToken() from entry-point SpeechTokenEventStream
+      InternalToken( $t.id != id, this after[0s,10s] $t) from entry-point SpeechTokenEventStream      
   then
   	  resultList.add( "Two Tokens occured within 10 seconds");
   	  System.out.println( "Two Tokens occured within 10 seconds"); 
@@ -84,7 +84,7 @@ end
 
 rule "A Token with exactly 1 related project occured"
     when
-        $t : Token( keywordInformation.projects.size() == 1, 
+        $t : InternalToken( keywordInformation.projects.size() == 1, 
         			keywordInformation.companies.empty,
         			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream 
     then
@@ -101,7 +101,7 @@ end
 
 rule "A Token with exactly 1 related company occured"
     when
-        $t : Token( keywordInformation.projects.empty, 
+        $t : InternalToken( keywordInformation.projects.empty, 
         			keywordInformation.companies.size() == 1,
         			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream 
     then
@@ -118,7 +118,7 @@ end
 
 rule "A Token with exactly 1 related employee occured"
     when
-        $t : Token( keywordInformation.projects.empty, 
+        $t : InternalToken( keywordInformation.projects.empty, 
         			keywordInformation.companies.empty,
         			keywordInformation.employees.size() == 1) from entry-point SpeechTokenEventStream 
     then
