@@ -1,4 +1,4 @@
-package de.hdm.wim.events.model;
+package de.hdm.wim.events.model.event;
 
 import java.util.Date;
 
@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import de.hdm.wim.events.model.KeywordInformation;
+import de.hdm.wim.events.model.User;
 
 /**
  * This class models a Token with another structure. Different to the sent Token

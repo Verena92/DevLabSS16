@@ -3,24 +3,25 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
 		<!-- Events -->
-		<class>de.hdm.wim.events.model.InternalToken</class>
-		<class>de.hdm.wim.events.model.KeywordInformation</class>
-		<class>de.hdm.wim.events.model.User</class>
-		<class>de.hdm.wim.events.model.CompanyReceivedEvent</class>
-		<class>de.hdm.wim.events.model.DocumentReceivedEvent</class>
-		<class>de.hdm.wim.events.model.EmployeeReceivedEvent</class>
-		<class>de.hdm.wim.events.model.ProjectReceivedEvent</class>
+		<class>de.hdm.wim.events.model.event.InternalToken</class>
+		<class>de.hdm.wim.events.model.event.CompanyReceivedEvent</class>
+		<class>de.hdm.wim.events.model.event.DocumentReceivedEvent</class>
+		<class>de.hdm.wim.events.model.event.EmployeeReceivedEvent</class>
+		<class>de.hdm.wim.events.model.event.ProjectReceivedEvent</class>
 		<!-- Objects within Events -->
 		<class>de.hdm.wim.events.model.Company</class>
 		<class>de.hdm.wim.events.model.Document</class>
 		<class>de.hdm.wim.events.model.Employee</class>
 		<class>de.hdm.wim.events.model.Project</class>
+		<!-- Futher objects -->
+		<class>de.hdm.wim.events.model.KeywordInformation</class>
+		<class>de.hdm.wim.events.model.User</class>
+		
 		<properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/event_db" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="AnD5Qx4Q" />
-
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.hbm2ddl.auto" value="update" />

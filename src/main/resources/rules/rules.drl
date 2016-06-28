@@ -6,19 +6,19 @@ import java.util.List;
 import de.hdm.wim.events.EventService;
 import de.hdm.wim.events.model.User;
 
-import de.hdm.wim.events.model.InternalToken;
+import de.hdm.wim.events.model.event.InternalToken;
 import de.hdm.wim.events.model.KeywordInformation;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Employee;
 import de.hdm.wim.events.model.Document;
 import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
-import de.hdm.wim.events.model.ProjectReceivedEvent;
-import de.hdm.wim.events.model.CompanyReceivedEvent;
-import de.hdm.wim.events.model.EmployeeReceivedEvent;
-import de.hdm.wim.events.model.DocumentReceivedEvent;
-import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
-import de.hdm.wim.events.model.DocumentClassOccuredEvent;
+import de.hdm.wim.events.model.event.ProjectReceivedEvent;
+import de.hdm.wim.events.model.event.CompanyReceivedEvent;
+import de.hdm.wim.events.model.event.EmployeeReceivedEvent;
+import de.hdm.wim.events.model.event.DocumentReceivedEvent;
+import de.hdm.wim.events.model.event.DocumentSuggestionReactionEvent;
+import de.hdm.wim.events.model.event.DocumentClassOccuredEvent;
 
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
 import de.hdm.wim.events.documentrepresentation.SearchRequest;

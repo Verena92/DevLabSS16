@@ -1,8 +1,10 @@
-package de.hdm.wim.events.model;
+package de.hdm.wim.events.model.event;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+
+import de.hdm.wim.events.model.Employee;
 
 /**
  * Representation of an Event we create when receiving an employee from the

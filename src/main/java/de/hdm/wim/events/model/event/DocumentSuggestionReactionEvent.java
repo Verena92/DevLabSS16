@@ -1,4 +1,4 @@
-package de.hdm.wim.events.model;
+package de.hdm.wim.events.model.event;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

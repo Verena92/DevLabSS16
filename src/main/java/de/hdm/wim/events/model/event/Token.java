@@ -1,9 +1,11 @@
-package de.hdm.wim.events.model;
+package de.hdm.wim.events.model.event;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+
+import de.hdm.wim.events.model.KeywordInformation;
 
 /**
  * Representation of a Token as it is sent by the SpeechTokenizer.

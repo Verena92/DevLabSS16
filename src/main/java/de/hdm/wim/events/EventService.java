@@ -24,12 +24,12 @@ import org.kie.api.runtime.rule.EntryPoint;
 
 import de.hdm.wim.events.documentrepresentation.DocumentClassesWrapper;
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
-import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
-import de.hdm.wim.events.model.Event;
-import de.hdm.wim.events.model.InternalToken;
 import de.hdm.wim.events.model.KeywordInformation;
-import de.hdm.wim.events.model.Token;
 import de.hdm.wim.events.model.User;
+import de.hdm.wim.events.model.event.DocumentSuggestionReactionEvent;
+import de.hdm.wim.events.model.event.Event;
+import de.hdm.wim.events.model.event.InternalToken;
+import de.hdm.wim.events.model.event.Token;
 
 /**
  *
