@@ -217,7 +217,7 @@ public class TestDataProvider {
 	}
 
 	public static DocumentForSpeechTokenizer createDummyDocumentForSpeechTokenizer() {
-		DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer(new User(null, null, "hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378", "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg"), createDummyDocument());
+		DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer(new User("hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378", "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg"), createDummyDocument());
 		return documentForSpeechTokenizer;
 	}
 

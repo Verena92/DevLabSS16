@@ -24,6 +24,11 @@ public class User {
 
 	}
 	
+	public User(String gid, String hid){
+		this.google_id = gid;
+		this.hangouts_id = hid;
+	}
+	
 	public User(String fn, String ln, String gid, String hid){
 		this.firstname = fn;
 		this.lastname = ln;
