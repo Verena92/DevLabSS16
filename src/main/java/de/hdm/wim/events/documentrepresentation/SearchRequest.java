@@ -15,7 +15,7 @@ public class SearchRequest {
 	private List<String> employees;
 	private List<String> companies;
 	private List<String> projects;
-	String documentClass;
+	private String documentClass;
 
 	public SearchRequest(List<String> employees, List<String> companies, List<String> projects, String documentClass) {
 		this.employees = employees;
@@ -62,6 +62,7 @@ public class SearchRequest {
 
 	@Override
 	public String toString() {
-		return "SearchRequest [employees=" + employees + ", companies=" + companies + ", projects=" + projects + "]";
+		return "SearchRequest [employees=" + employees + ", companies=" + companies + ", projects=" + projects + ", documentClass=" + documentClass + "]";
 	}
+
 }
