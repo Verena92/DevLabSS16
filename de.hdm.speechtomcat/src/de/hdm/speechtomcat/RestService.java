@@ -108,20 +108,20 @@ public class RestService {
 	@Path("/PostDocuments")
 	@Consumes("application/json")
 	@Produces("application/json")
-	//public static void postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+	public static void postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
 				
-	public void postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, @QueryParam("documentName") String documentName, @QueryParam ("drivePath") String drivePath) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+	//public void postDocuments(@QueryParam("userId") String userId, @QueryParam("hangoutsId") String hangoutsId, @QueryParam("documentName") String documentName, @QueryParam ("drivePath") String drivePath) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
 		   			
 		log.info(userId+" "+hangoutsId+" "+documentName+" "+drivePath);
 		
 		
-		/*org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject();
+		org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
 		String userId = obj.getString("userId");
 		String hangoutsId = obj.getString("hangoutsId");
 		String documentName = obj.getString("documentName");
 		String drivePath = obj.getString("drivePath");
 
-		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);*/
+		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);
 
 		/////////////////START VERSION 1///////////////////
 					
@@ -139,18 +139,18 @@ public class RestService {
 		  
 		/////////////////START VERSION 2///////////////////
 		 
-		JSONObject obj = new JSONObject();
+		/*JSONObject obj = new JSONObject();
 			obj.put("userId", userId);
 			obj.put("hangoutsId", hangoutsId);
 			obj.put("documentName", documentName);
 			obj.put("drivePath", drivePath);
-			log.info(obj);
+			log.info(obj);*/
 
  		try {
-// 			FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
-// 			file.write(obj.toString());
-// 			file.flush();
-// 			file.close();
+ 			FileWriter file = new FileWriter("/usr/local/postdocument/document.json");
+ 			file.write(obj.toString());
+ 			file.flush();
+ 			file.close();
  			
  			ObjectMapper mapper = new ObjectMapper();
  			ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
