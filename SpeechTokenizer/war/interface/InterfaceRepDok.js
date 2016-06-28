@@ -1,14 +1,22 @@
 /**
- * Autor: Maren
+ * In dieser Klasse wird die DokumentenRepräsentationsGruppe nach Informationen zu den Token gefragt.
+ * Diese werden anschließend im Token abgespeichert.
+ * @author Maren
  */
 
 
 //Funktionierende POST Methode mit JQuery auf RepDok
-
+/**
+ * Die Function <code>GetKeywordInformation</code> holt die Informationen von der DokRepGruppe.
+ * @param TokenNew 
+ */
 function GetKeywordInformation(TokenNew){
 	 
 	var keyword = TokenNew.keyword;
 	
+	/**
+	 * Das Objekt queryWords beinhaltet das gesagte Keyword und das davor/danacha gesagte Wort. Außerdem beinhaltet es die UserId.
+	 */
 	var queryWords = new Object();
 	if (TokenNew.previousKeyword == undefined) {
 		queryWords.previousKeyword = null;
@@ -22,10 +30,11 @@ function GetKeywordInformation(TokenNew){
 		queryWords.nextKeyword = TokenNew.nextKeyword;
 	}
 	queryWords.createdByUserID = TokenNew.createdByUserId;
-	
-	console.log(queryWords);
 
 //Asynchroner POST Request auf die Schnittstelle der RepDok Gruppe
+	/**
+	 * Ajax Aufruf zur DokRepGruppe. Dafür wird das queryWord Objekt als JSON übergeben.
+	 */
 	  $.ajax({type:'POST', 
 		  url:'https://104.154.103.216/document/rest/GetWordinformation',
 		  data: JSON.stringify(queryWords),
@@ -39,17 +48,12 @@ function GetKeywordInformation(TokenNew){
 		//Bei erfolgreichem Request Objekt in der Console ausgeben
 		success: function(responseData){
 	    	
-	    	//console.log("Success",responseData);
-	    	
 			delete TokenNew.previousKeyword;
 			delete TokenNew.nextKeyword;
 			
 			//reicht keyword mit gefundenen informationen an
 			TokenNew.keywordInformation = responseData;
-			
-			//ausgeben des Tokens in der console
-			console.log(TokenNew);
-			
+						
 			//ruft die funtkion auf, um den Token an die Event Gruppe zu enden
 			SendTokenToEvent(TokenNew);
 				

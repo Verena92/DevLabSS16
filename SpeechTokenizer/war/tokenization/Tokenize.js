@@ -1,6 +1,6 @@
 /**
  * Hier wird der eingegangen Audio-Stream weiterverabeitet, tokenisiert.
- * Autor: Benjamin Mateja
+ * @author Benjamin Mateja
  */
 
 	/**

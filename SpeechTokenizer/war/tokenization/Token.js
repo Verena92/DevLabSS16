@@ -1,7 +1,6 @@
 /**
  * In dieser Klasse wird der Token erstellt.
- * Autor: Benjamin Mateja, Mona Brunner
- * 
+ * @author Benjamin Mateja, Mona Brunner
  */
 
 var TokenNew = new Object();
