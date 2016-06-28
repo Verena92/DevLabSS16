@@ -1,4 +1,5 @@
 /**
+ * In dieser Klasse werden die Dokumente angezeigt
  * Autor: Benjamin Mateja, Verena Hofmann
  */
 
