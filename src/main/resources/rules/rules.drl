@@ -18,6 +18,7 @@ import de.hdm.wim.events.model.CompanyReceivedEvent;
 import de.hdm.wim.events.model.EmployeeReceivedEvent;
 import de.hdm.wim.events.model.DocumentReceivedEvent;
 import de.hdm.wim.events.model.DocumentSuggestionReactionEvent;
+import de.hdm.wim.events.model.DocumentClassOccuredEvent;
 
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
 import de.hdm.wim.events.documentrepresentation.SearchRequest;
@@ -60,6 +61,11 @@ declare DocumentReceivedEvent
     @timestamp( timestamp.getTime() ) //long
 end
 
+declare DocumentClassOccuredEvent
+    @role( event )
+    @timestamp( timestamp.getTime() ) //long
+end
+
 
 //////////////////////////////////////////////////////
 ///////////// SpeechToken -> Events //////////////////
@@ -96,6 +102,7 @@ rule "A Token with exactly 1 related project occured"
       ProjectReceivedEvent projectReceivedEvent = new ProjectReceivedEvent( project);
       EventService.merge(projectReceivedEvent);
       insert( projectReceivedEvent );
+      System.out.println( "inserted " + projectReceivedEvent);
 end
 
 rule "A Token with exactly 1 related company occured"
@@ -113,6 +120,7 @@ rule "A Token with exactly 1 related company occured"
       CompanyReceivedEvent companyReceivedEvent = new CompanyReceivedEvent( company);
       EventService.merge(companyReceivedEvent);
       insert( companyReceivedEvent );
+      System.out.println( "inserted " + companyReceivedEvent);
 end
 
 rule "A Token with exactly 1 related employee occured"
@@ -131,6 +139,22 @@ rule "A Token with exactly 1 related employee occured"
       EmployeeReceivedEvent employeeReceivedEvent = new EmployeeReceivedEvent( employee);
       EventService.merge(employeeReceivedEvent);
       insert( employeeReceivedEvent );
+      System.out.println( "inserted " + employeeReceivedEvent);
+end
+
+rule "A Token with a documentClass occured"
+    when
+        $t : InternalToken( keywordInformation.projects.size() == 0, 
+        			keywordInformation.companies.size() ==0,
+        			keywordInformation.employees.size() == 0) from entry-point SpeechTokenEventStream 
+    then
+      resultList.add( "A Token with a documentClass occured");
+      System.out.println( "A Token with a documentClass occured");
+      
+      DocumentClassOccuredEvent documentClassOccuredEvent = new DocumentClassOccuredEvent( $t.getKeyword());
+      EventService.merge(documentClassOccuredEvent);
+      insert( documentClassOccuredEvent );
+      System.out.println( "inserted " + documentClassOccuredEvent);
 end
 
 
@@ -171,10 +195,10 @@ rule "Request a document for a project"
 	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
 	  if( documentID != null) {
 	  	Document document = requester.getDocument(documentID);
-	  	System.out.println( "found document: " + document);
         DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
         EventService.merge(documentReceivedEvent);
         insert( documentReceivedEvent );
+        System.out.println( "inserted " + documentReceivedEvent);
 	  }
 end
 
@@ -195,10 +219,10 @@ rule "Request a document for a company"
 	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
 	  if( documentID != null) {
 	  	Document document = requester.getDocument(documentID);
-	  	System.out.println( "found document: " + document);
         DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
         EventService.merge(documentReceivedEvent);
         insert( documentReceivedEvent );
+        System.out.println( "inserted " + documentReceivedEvent);
 	  }
 end
 
@@ -219,12 +243,13 @@ rule "Request a document for an employee"
 	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
 	  if( documentID != null) {
 	  	Document document = requester.getDocument(documentID);
-	  	System.out.println( "found document: " + document);
         DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
         EventService.merge(documentReceivedEvent);
         insert( documentReceivedEvent );
+        System.out.println( "inserted " + documentReceivedEvent);
 	  }
 end
+
 
 //////////////////////////////////////////////////////
 ////////////// Events -> SpeechToken /////////////////
@@ -243,4 +268,3 @@ rule "send Document to SpeechToken"
         sender.sendDocument( documentForSpeechTokenizer); 
 	  }      
 end
-

@@ -95,47 +95,6 @@ public class TestDataProvider {
 		}
 		return token;
 	}
-
-	public static Token createDummyTokenWithExactly1RelatedProjectP001() {
-		List<String> projects = new ArrayList<String>();
-		projects.add("P001");
-
-		List<String> companies = new ArrayList<String>();
-
-		List<String> employees = new ArrayList<String>();
-
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
-
-		Token token = null;
-		try {
-			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return token;
-	}
-
-	public static Token createDummyToken() {
-		List<String> projects = new ArrayList<String>();
-		projects.add("P002");
-		projects.add("P003");
-
-		List<String> companies = new ArrayList<String>();
-		companies.add("C001");
-		companies.add("C007");
-
-		List<String> employees = new ArrayList<String>();
-
-		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
-
-		Token token = null;
-		try {
-			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return token;
-	}
 	
 	public static Token createDummyToken_2016_06_01_12_00_00() {
 		List<String> projects = new ArrayList<String>();
@@ -283,6 +242,22 @@ public class TestDataProvider {
 			e.printStackTrace();
 		}
 		return documentSuggestionReactionEvent;
+	}
+
+	public static Token createDummyTokenWithDocumentClassKeyword() {
+		List<String> projects = new ArrayList<String>();
+		List<String> companies = new ArrayList<String>();
+		List<String> employees = new ArrayList<String>();
+
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
+
+		Token token = null;
+		try {
+			token = new Token("2016 6 20 22 9 17", "Calculation", "jens", "lindner", "userId", "hangoutId", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
 	}
 
 }

@@ -26,8 +26,9 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public DocumentIDsWrapper getDocumentIDs(SearchRequest searchRequest) {
+		System.out.println( "Send SearchRequest: " + searchRequest);
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation"));
-		Response result = restClient.doPostSearchRequest("GetDocumentMetadata", searchRequest); //TODO: use correct path
+		Response result = restClient.doPostSearchRequest("GetDocumentMetadata", searchRequest); 
 		DocumentIDsWrapper documentIDsWrapper = result.readEntity(DocumentIDsWrapper.class);
 		System.out.println( "Received DocmentIDs: " + documentIDsWrapper);
 		return documentIDsWrapper;

@@ -46,7 +46,7 @@ public class TokenTest {
 	
 	@Test
 	public void test_one_token_occured() throws Exception {
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyToken()));
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedProjectsP001andP002()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
         assertEquals( 1, amountOfRulesFired);
@@ -118,4 +118,25 @@ public class TokenTest {
         assertEquals( 1, amountOfRulesFired);
         assertEquals( "A DocumentSuggestion was declined", resultList.get(0));
 	}
+	
+	@Test
+	public void test_token_with_document_class_occured() throws Exception {
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword()));
+        int amountOfRulesFired = kieSession.fireAllRules();
+        
+        assertEquals( 2, amountOfRulesFired);
+        assertEquals( "A Token occured", resultList.get(0));
+        assertEquals( "A Token with a documentClass occured", resultList.get(1));
+	}	
+	
+	@Test
+	public void test_token_with_only_one_realted_project_and_token_with_document_class_occured() throws Exception {
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedProjectP0001()));
+		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword()));
+        int amountOfRulesFired = kieSession.fireAllRules();
+        
+        assertEquals( 2, amountOfRulesFired);
+        assertEquals( "A Token occured", resultList.get(0));
+        assertEquals( "A Token with a documentClass occured", resultList.get(1));
+	}	
 }
