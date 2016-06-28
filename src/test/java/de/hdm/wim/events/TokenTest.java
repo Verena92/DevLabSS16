@@ -13,7 +13,8 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.EntryPoint;
 
-import de.hdm.wim.events.model.InternalToken;
+import de.hdm.wim.events.model.User;
+import de.hdm.wim.events.model.event.InternalToken;
 
 public class TokenTest {
 	
@@ -29,6 +30,8 @@ public class TokenTest {
     	resultList = new ArrayList<>();
     	kieSession.setGlobal( "resultList", resultList);
     	entryPoint = kieSession.getEntryPoint("SpeechTokenEventStream");
+    	User user1 = new User("hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378", "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg");
+    	EventService.getActiveUsers().add(user1);
 	}
 	
 	@After
