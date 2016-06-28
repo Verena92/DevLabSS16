@@ -7,60 +7,37 @@ package de.hdm.wim.events.model;
  *
  */
 public class DocumentForSpeechTokenizer {
-	
-	private String userId;
-	private String hangoutsId;
-	private String documentName;
-	private String drivePath;
-	
+	private User user;
+	private InternalDocument internalDoc;
 
 	public DocumentForSpeechTokenizer() {
 		
 	}
 	
-	public DocumentForSpeechTokenizer( String userId, String hangoutsId, Document document) {
-		this.userId = userId;
-		this.hangoutsId = hangoutsId;
-		this.documentName = document.getDocumentName();
-		String cleansedGoogleDrive = document.getGoogleDrivePath().replaceFirst("^https://drive.google.com/open[?]id[=]", "");
-		this.drivePath = cleansedGoogleDrive;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getHangoutsId() {
-		return hangoutsId;
-	}
-
-	public void setHangoutsId(String hangoutsId) {
-		this.hangoutsId = hangoutsId;
-	}
-
-	public String getDocumentName() {
-		return documentName;
-	}
-
-	public void setDocumentName(String documentName) {
-		this.documentName = documentName;
-	}
-
-	public String getDrivePath() {
-		return drivePath;
-	}
-
-	public void setDrivePath(String drivePath) {
-		this.drivePath = drivePath;
+	public DocumentForSpeechTokenizer( User user, Document document) {
+		this.user = user;
+		this.internalDoc = new InternalDocument(document);
 	}
 
 	@Override
 	public String toString() {
-		return "DocumentForSpeechTokenizer [userId=" + userId + ", hangoutsId=" + hangoutsId + ", documentName=" + documentName + ", drivePath=" + drivePath + "]";
+		return "DocumentForSpeechTokenizer [userId=" + user.getGoogle_id() + ", hangoutsId=" + user.getHangouts_id() + ", documentName=" + internalDoc.getDocumentName() + ", drivePath=" + internalDoc.getDrivePath() + "]";
+	}
+
+	public InternalDocument getInternalDoc() {
+		return internalDoc;
+	}
+
+	public void setInternalDoc(InternalDocument internalDoc) {
+		this.internalDoc = internalDoc;
+	}
+	
+	public User getUser(){
+		return user;
+	}
+	
+	public void setUser(User user){
+		this.user = user;
 	}
 	
 }
