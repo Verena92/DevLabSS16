@@ -22,7 +22,6 @@
 <script src="//speech-tokenizer-1282.appspot.com/user/user.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/interface/InterfaceRepDok.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/interface/InterfaceEvent.js"></script>
-<script src="//speech-tokenizer-1282.appspot.com/interface/WebSocket.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/documentResults/displayResults.js"></script>
 
 <script src="//speech-tokenizer-1282.appspot.com/interface/testPostInterfaace.js"></script>
@@ -48,9 +47,7 @@
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
 			<dt id="button"><button id="refreshbutton" onClick="refreshButton(event)">Refresh</button></dt>
 			<dt id="button"><button id="ipbutton" onClick="ipButton(event)">IP</button></dt>
-			<dt id="button"><button id="open" onClick="openSocket()">OpenSocket</button></dt>
-			<dt id="button"><button id="send" onClick="send()">SendToSocket</button></dt>
-			<dt id="button"><button id="close" onClick="closeSocket()">CloseSocket</button></dt>
+			<dt id="button"><button id="getDocument" onClick="erhalteDocuments(event)">Documents</button></dt>
 		</dl>
 	</div>
 	<p>Developer-Box</p>
