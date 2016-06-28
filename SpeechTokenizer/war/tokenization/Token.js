@@ -1,12 +1,6 @@
 /**
- * 
- * Autor: Benjamin Mateja, Mona Brunner
- * 
- */
-
-/**
- * This function handles Tokens.
- * Input Keywords / User Data -> Token 
+ * In dieser Klasse wird der Token erstellt.
+ * @author Benjamin Mateja, Mona Brunner
  */
 
 var TokenNew = new Object();
@@ -16,13 +10,16 @@ var oldIdentifier = 0;
 function Token(){
 	
 	/**
-	 * Call Tokenize JS
+	 * Call Tokenize JS, um mit Tokenisierung zu starten.
 	 */
 	Tokenize();
 	
 	//vorname = getUserData('firstName');
 	//console.log(vorname);
 	
+	/**
+	 * Hier wird das Datum für den Timestamp erstellt.
+	 */
 	var date = new Date();
 	var year = date.getFullYear();
 	var month = date.getMonth();
@@ -34,7 +31,7 @@ function Token(){
 	var dateCombined = year + " " + modifiedMonth + " " + day + " " + hour + " " + minute + " " + second;
 		
 	/**
-	 * Create Tokens with the keywords
+	 * Erstellen des Tokens mit verschiedenen Eigenschaften wie den keywords oder den User-Daten von Hangouts.
 	 */
 	for (i = oldIdentifier; i < uncommonArr.length; i++){
 		
