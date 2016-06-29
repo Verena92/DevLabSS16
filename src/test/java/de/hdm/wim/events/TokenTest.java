@@ -13,8 +13,8 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.EntryPoint;
 
-import de.hdm.wim.events.model.event.User;
 import de.hdm.wim.events.model.event.InternalToken;
+import de.hdm.wim.events.model.event.User;
 
 public class TokenTest {
 	
@@ -48,36 +48,14 @@ public class TokenTest {
 	}
 	
 	@Test
-	public void test_one_token_occured() throws Exception {
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedProjectsP001andP002()));
-        int amountOfRulesFired = kieSession.fireAllRules();
-        
-        assertEquals( 1, amountOfRulesFired);
-        assertEquals( "A Token occured", resultList.get(0));
-	}
-	
-	@Test
-	public void test_two_tokens_occured_within_10_seconds() throws Exception {
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyToken_2016_06_01_12_00_00()));
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyToken_2016_06_01_12_00_06()));
-        int amountOfRulesFired = kieSession.fireAllRules();
-        
-        assertEquals( 3, amountOfRulesFired);
-        assertEquals( "A Token occured", resultList.get(0));
-        assertEquals( "A Token occured", resultList.get(1));
-        assertEquals( "Two Tokens occured within 10 seconds", resultList.get(2));
-	}
-	
-	@Test
 	public void test_token_with_only_one_related_project_occured() throws Exception {
 		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedProjectP0001()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
-        assertEquals( 4, amountOfRulesFired);
-        assertEquals( "A Token occured", resultList.get(0));
-        assertEquals( "A Token with exactly 1 related project occured", resultList.get(1));
-        assertEquals( "Request a document for a project", resultList.get(2));
-        assertEquals( "send Document to SpeechToken", resultList.get(3));
+        assertEquals( 3, amountOfRulesFired);
+        assertEquals( "A Token with exactly 1 related project occured", resultList.get(0));
+        assertEquals( "Request a document for a project", resultList.get(1));
+        assertEquals( "send Document to SpeechToken", resultList.get(2));
 	}
 	
 	@Test
@@ -85,11 +63,10 @@ public class TokenTest {
 		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedCompanyU0001()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
-        assertEquals( 4, amountOfRulesFired);
-        assertEquals( "A Token occured", resultList.get(0));
-        assertEquals( "A Token with exactly 1 related company occured", resultList.get(1));
-        assertEquals( "Request a document for a company", resultList.get(2));
-        assertEquals( "send Document to SpeechToken", resultList.get(3));
+        assertEquals( 3, amountOfRulesFired);
+        assertEquals( "A Token with exactly 1 related company occured", resultList.get(0));
+        assertEquals( "Request a document for a company", resultList.get(1));
+        assertEquals( "send Document to SpeechToken", resultList.get(2));
 	}
 	
 	@Test
@@ -97,11 +74,10 @@ public class TokenTest {
 		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedEmployeeM0001()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
-        assertEquals( 4, amountOfRulesFired);
-        assertEquals( "A Token occured", resultList.get(0));
-        assertEquals( "A Token with exactly 1 related employee occured", resultList.get(1));
-        assertEquals( "Request a document for an employee", resultList.get(2));
-        assertEquals( "send Document to SpeechToken", resultList.get(3));
+        assertEquals( 3, amountOfRulesFired);
+        assertEquals( "A Token with exactly 1 related employee occured", resultList.get(0));
+        assertEquals( "Request a document for an employee", resultList.get(1));
+        assertEquals( "send Document to SpeechToken", resultList.get(2));
 	}
 	
 	@Test
@@ -127,9 +103,8 @@ public class TokenTest {
 		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
-        assertEquals( 2, amountOfRulesFired);
-        assertEquals( "A Token occured", resultList.get(0));
-        assertEquals( "A Token with a documentClass occured", resultList.get(1));
+        assertEquals( 1, amountOfRulesFired);
+        assertEquals( "A Token with a documentClass occured", resultList.get(0));
 	}	
 	
 	@Test
@@ -138,8 +113,7 @@ public class TokenTest {
 		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword()));
         int amountOfRulesFired = kieSession.fireAllRules();
         
-        assertEquals( 2, amountOfRulesFired);
-        assertEquals( "A Token occured", resultList.get(0));
-        assertEquals( "A Token with a documentClass occured", resultList.get(1));
+        assertEquals( 1, amountOfRulesFired);
+        assertEquals( "A Token with a documentClass occured", resultList.get(0));
 	}	
 }

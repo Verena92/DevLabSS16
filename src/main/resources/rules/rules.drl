@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdm.wim.events.EventService;
-import de.hdm.wim.events.model.User;
+import de.hdm.wim.events.model.event.User;
 
 import de.hdm.wim.events.model.event.InternalToken;
-import de.hdm.wim.events.model.KeywordInformation;
+import de.hdm.wim.events.model.event.KeywordInformation;
 import de.hdm.wim.events.model.Project;
 import de.hdm.wim.events.model.Company;
 import de.hdm.wim.events.model.Employee;
@@ -70,23 +70,6 @@ end
 //////////////////////////////////////////////////////
 ///////////// SpeechToken -> Events //////////////////
 //////////////////////////////////////////////////////
-rule "A Token occured" dialect "mvel"
-  when
-      $t : InternalToken() from entry-point SpeechTokenEventStream
-  then
-  	  resultList.add( "A Token occured");
-  	  System.out.println( "A Token occured"); 
-end
-
-rule "Two Tokens occured within 10 seconds" dialect "mvel"
-  when
-      $t : InternalToken() from entry-point SpeechTokenEventStream
-      InternalToken( $t.id != id, this after[0s,10s] $t) from entry-point SpeechTokenEventStream      
-  then
-  	  resultList.add( "Two Tokens occured within 10 seconds");
-  	  System.out.println( "Two Tokens occured within 10 seconds"); 
-end
-
 rule "A Token with exactly 1 related project occured"
     when
         $t : InternalToken( keywordInformation.projects.size() == 1, 
@@ -98,7 +81,6 @@ rule "A Token with exactly 1 related project occured"
       
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
       Project project = requester.getProject($t.getKeywordInformation().getProjects().get(0));
-      System.out.println( "requested project: " + project);
       ProjectReceivedEvent projectReceivedEvent = new ProjectReceivedEvent( project);
       EventService.merge(projectReceivedEvent);
       insert( projectReceivedEvent );
@@ -116,7 +98,6 @@ rule "A Token with exactly 1 related company occured"
       
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
       Company company = requester.getCompany($t.getKeywordInformation().getCompanies().get(0));
-      System.out.println( "requested company: " + company);
       CompanyReceivedEvent companyReceivedEvent = new CompanyReceivedEvent( company);
       EventService.merge(companyReceivedEvent);
       insert( companyReceivedEvent );
@@ -134,8 +115,6 @@ rule "A Token with exactly 1 related employee occured"
       
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
       Employee employee = requester.getEmployee($t.getKeywordInformation().getEmployees().get(0));
-      System.out.println( "requested employee: " + employee);
-      
       EmployeeReceivedEvent employeeReceivedEvent = new EmployeeReceivedEvent( employee);
       EventService.merge(employeeReceivedEvent);
       insert( employeeReceivedEvent );
