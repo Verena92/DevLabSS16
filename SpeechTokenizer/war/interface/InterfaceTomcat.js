@@ -20,10 +20,11 @@ function doPoll(){
 	    success: function(responsedata){
 	    	console.log("success");
 	    	GetResults(responsedata);
+	    	console.log(responsedata);
 	    	/**
 		     * setInterval ruft die Methode <code>doPoll()</code> nach 5000ms erneut auf.
 		     */	    
-	    	//setTimeout(doPoll,5000);
+	    	setTimeout(doPoll,5000);
 	    	} 
 	    
 	});
