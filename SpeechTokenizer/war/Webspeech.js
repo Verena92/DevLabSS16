@@ -1,5 +1,5 @@
 /**
- * In dieser Klasse wird der Google Webspeech Service aufgerufen, welche durch den StartButton aufgerufen wird.
+ * In dieser Klasse wird der Google Webspeech Service angesprochen, welche durch den StartButton aufgerufen wird.
  * @author Verena Hofmann
  */
 
@@ -7,6 +7,10 @@
 var sttResult = '';	
 var recognizing = false;
 var ignore_onend;
+/**
+ * Die Methode <code>doPoll()</code> führt das Polling zum Server durch. 
+ * Diese Methode wird in der Klasse InterfaceTomcat.js ausgeführt.
+ */
 doPoll();
 
 	if (!('webkitSpeechRecognition' in window)) { 
