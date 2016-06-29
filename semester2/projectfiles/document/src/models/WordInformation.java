@@ -6,7 +6,7 @@ import org.apache.commons.collections.iterators.ArrayListIterator;
 
 public class WordInformation {
 	private ArrayList<String> projects;
-	private ArrayList<String> persons;
+	private ArrayList<String> employees;
 	private ArrayList<String> companies;
 
 	public ArrayList<String> getProjects() {
@@ -17,19 +17,19 @@ public class WordInformation {
 		this.projects = projects;
 	}
 
-	public ArrayList<String> getPersons() {
-		return persons;
-	}
-
-	public void setPersons(ArrayList<String> persons) {
-		this.persons = persons;
-	}
-
 	public ArrayList<String> getCompanies() {
 		return companies;
 	}
 
 	public void setCompanies(ArrayList<String> companies) {
 		this.companies = companies;
+	}
+
+	public ArrayList<String> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(ArrayList<String> employees) {
+		this.employees = employees;
 	}
 }
