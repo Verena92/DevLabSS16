@@ -6,14 +6,13 @@
 
 function doPoll(){
 	$.ajax({ type:'GET', 
-		url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments/',  
+		url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments',  
 		contentType: 'application/json',
 		dataType: 'json',
 
 		//Fehler loggen 
 	    error: function(){
 	        console.log("Error");
-	        GetResults();
 	    },
 
 		//Bei erfolgreichem Request Objekt in der Console ausgeben und GetResults aufrufen
