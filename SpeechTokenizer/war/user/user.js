@@ -15,7 +15,6 @@ function getUserData(userData){
 			var name=JSON.stringify(localParticipant.person.displayName);
 			name=name.replace(/\"/g,'');
 			var nameArray=name.split(/\s+/);
-			var eindeutigeId=JSON.stringify(localParticipant.person.id);
 			if(userData=='firstName'){
 				data=nameArray[0];
 			}else if(userData=='lastName'){
@@ -36,5 +35,11 @@ function getHangoutId(){
 	var hangoutId=gapi.hangout.getHangoutId();
 	
 	return hangoutId;
+}
+
+function getUniqueId(){
+	var uniqueId=gapi.hangout.getLocalParticipant().person.id;
+		
+	return uniqueId;
 }
 
