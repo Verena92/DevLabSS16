@@ -54,7 +54,7 @@ function GetResults(responsedata){
 	//DocumentArray.push(document2);
 	
 	if (Document.Array.length == 0){
-		displayText ="Bisher wurden keine Dokumente gefunden ...";
+		displayText += "<li>" + "Bisher wurden keine Dokumente gefunden ..." + "</li>";
 		displayText += "</ul>";
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
