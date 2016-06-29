@@ -137,7 +137,7 @@ public class EventService {
 
 		merge(event);
 
-		// kieSession.fireAllRules(); FIXME muss wieder eingefügt werden, da sonst keine Regeln gefeuert werden
+		kieSession.fireAllRules();
 
 		long advanceTime = ((Event) event).getTimestamp().getTime() - clock.getCurrentTime();
 		clock.advanceTime(advanceTime, TimeUnit.MILLISECONDS);

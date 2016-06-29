@@ -1,8 +1,13 @@
 package de.hdm.wim.events.model;
 
-import de.hdm.wim.events.model.event.User;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import de.hdm.wim.events.TestDataProvider;
+import de.hdm.wim.events.model.event.User;
 
 /**
  * Representation of a Document as we send it to the SpeechTokenizer
@@ -18,11 +23,11 @@ public class DocumentForSpeechTokenizer {
 	private String documentName;
 	@Id
 	private String drivePath;
-	
+
 	public DocumentForSpeechTokenizer() {
-		
+
 	}
-	
+
 	public DocumentForSpeechTokenizer(User user, Document document) {
 		this.userId = user.getGoogle_id();
 		this.hangoutsId = user.getHangouts_id();
@@ -61,10 +66,9 @@ public class DocumentForSpeechTokenizer {
 	public void setDrivePath(String drivePath) {
 		this.drivePath = drivePath;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "DocumentForSpeechTokenizer [userId=" + userId + ", hangoutsId=" + hangoutsId + ", documentName="
-				+ documentName + ", drivePath=" + drivePath + "]";
+		return "DocumentForSpeechTokenizer [userId=" + userId + ", hangoutsId=" + hangoutsId + ", documentName=" + documentName + ", drivePath=" + drivePath + "]";
 	}
 }
