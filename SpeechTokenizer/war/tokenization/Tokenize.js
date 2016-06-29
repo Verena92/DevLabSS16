@@ -19,7 +19,7 @@ function Tokenize(){
 	 * Diese Liste kann upgedated werden.
 	 */
 	
-	var filterWords = 'be, have, do, say, get, make, get, know, take, see, come, then, than, think, current, look, want, give, use, find, tell, ask, work, seem, feel, sure, try, leave, call, good, new, first, last, long, great, little, should, own, us, our, other, old, right, big, high, different, okay, ok, small, large, next, early, young, important, few, public, bad, same, able, to, of, in, for, on, with, at, by, from, up, about, into, over, after, beneath, under, above, the, and, a, an, that, i, it, not, he, as, you, this, but, his, they, her, she, or, and, let, will, my, one, all, would, there, their, is, now, hi, hello, bye, goodbye, good-bye hey, up';
+	var filterWords = 'be, have, do, say, get, make, get, know, take, see, come, how, nice, then, than, think, current, look, want, give, use, find, tell, ask, work, seem, feel, sure, upon, within, concerning, concerned, positive, negative, pro, con, cons, I, how, out, thanks, thank you, thank, your, me, try, leave, call, good, new, first, last, long, great, little, should, own, us, our, other, old, right, big, high, different, okay, ok, small, large, next, early, young, important, few, public, bad, same, able, to, of, in, for, on, with, at, by, from, up, about, into, over, after, beneath, under, above, the, and, a, an, that, i, it, not, he, as, you, this, but, his, they, her, she, or, and, let, will, my, one, all, would, there, their, is, now, hi, hello, bye, goodbye, good-bye hey, up';
 		
 	/**
 	 * In den verschiedenen sttResults werden Satzzeichen herausgefiltert.
