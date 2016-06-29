@@ -1,16 +1,16 @@
 /**
- * In dieser Klasse werden die Dokumente angezeigt
+ * In dieser Klasse werden die Dokumente angezeigt.
+ * Diese Klasse wird von der Funktion <code>doPoll()</code> aufgerufen.
  * Autor: Benjamin Mateja, Verena Hofmann
  */
 
 var displayText = "<ul>";
 
-function GetDocuments(){
-	//displayText = "www.google.de";
+function GetResults(){
 	//create documentarray for documents
 	var DocumentArray = new Array();
 	
-	
+	//Variable i für die Schleife
 	var i;
 	
 	//create first samle document
