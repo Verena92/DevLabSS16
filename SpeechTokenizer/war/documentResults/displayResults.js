@@ -8,16 +8,17 @@ var displayText = "<ul>";
 
 function GetResults(responsedata){
 	//create documentarray for documents
-	var DocumentArray = new Array();
+	//var DocumentArray = new Array();
 	var DocumentTempArray = new Array();
 	
 	//Variable i für die Schleife
 	var i;
 	var b;
 	var googlePath = "https://drive.google.com/openid=";
-	var documentObj = new Object();
+	var userHangoutId = getHangoutId();
+	//var documentObj = new Object();
 
-	
+	/*
 	//create first samle document
 	var document1 = new Object();
 	document1.id = 1;
@@ -39,6 +40,7 @@ function GetResults(responsedata){
 	//document2.window = window.open("https://docs.google.com/document/d/18CkOl89zv9zT9VKI0xZJpO_Gl-g1HCXYdeyFwO7z5vA/edit?usp=drive_web");
 	
 	console.log(document2.show);
+	*/
 	
 	/**
 	 *code here: if document.hangoutsid = user.hangoutsid then push into document array, else not
@@ -47,24 +49,48 @@ function GetResults(responsedata){
 	//var documentObj = JSON.parse(responsedata);
 	//DocumentTempArray.push(documentObj);
 	
+	console.log(responsedata);
+	console.log(DocumentTempArray.length);
+	
 	for (b = 0; b <responsedata.length; b++){
-		DocumentTempArray.push(responsedata[i]);
+		
+		if (responsedata[i].hangoutsId == userHangoutId){
+			responsedata[i].show = googlePath + responsedata[i].drivePath;
+			DocumentTempArray.push(responsedata[i]);
+		} else {
+		}
 	}
 	
-	console.log(responsedata);
+	if (DocumentTempArray.length == 0){
+		displayText = "";
+		displayText = "Bisher wurden leider keine Dokumente gefunden ..."
+		//displayText += "<li>" + "Bisher wurden keine Dokumente gefunden ..." + "</li>";
+		//displayText += "</ul>";
+		displayText = capitalize(displayText);
+		showdocument.innerHTML = linebreak(displayText);
+	} else {
+		for (i = 0; i < DocumentTempArray.length; i++){
+			displayText += "<li>" + DocumentTempArray[i].show + "</li>";
+		}
+		displayText += "</ul>";
+		displayText = capitalize(displayText);
+		showdocument.innerHTML = linebreak(displayText);
+	}
+	
+	
 	console.log(DocumentTempArray.length);
 	
 	
 	
 	//push document in documentarray
 	//Hier die einzelnen Objekte reinpushen
-	DocumentArray.push(document1);
-	DocumentArray.push(document2);
+	//DocumentArray.push(document1);
+	//DocumentArray.push(document2);
 	
 	//console.log(DocumentArray);
-	console.log(DocumentArray.length);
 	
 	
+	/*
 	if (DocumentArray.length == 0){
 		displayText += "<li>" + "Bisher wurden keine Dokumente gefunden ..." + "</li>";
 		displayText += "</ul>";
@@ -77,7 +103,7 @@ function GetResults(responsedata){
 		displayText += "</ul>";
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
-	}
+	}*/
 	
 }
 
