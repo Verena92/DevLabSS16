@@ -16,11 +16,6 @@ function GetResults(responsedata){
 	var googlePath = "https://drive.google.com/openid=";
 	var userHangoutId = getHangoutId();
 	//var documentObj = new Object();
-
-	
-	/**
-	 *code here: if document.hangoutsid = user.hangoutsid then push into document array, else not
-	 */
 	
 	//var documentObj = JSON.parse(responsedata);
 	//DocumentTempArray.push(documentObj);
@@ -35,6 +30,10 @@ function GetResults(responsedata){
 		
 		//console.log(responsedata.documents[4]);
 		
+		/**
+		 * Hier wird überprüft, ob das Dokument zur Hangouts Sitzung passt.
+		 * Ist dies der Fall, wird das Objekt erweitert und in das DocumentTempArray gepushed.
+		 */
 		if (responsedata.documents[b].hangoutsId == userHangoutId){
 			responsedata.documents[b].stringlink = googlePath + responsedata.documents[b].drivePath;
 			var documentName = responsedata.documents[b].documentName
@@ -44,7 +43,10 @@ function GetResults(responsedata){
 		} else {
 		}
 	}
-	
+	/**
+	 * Das DocumentTempArray zeigt wenn es leer ist einen DummyText an.
+	 * Ist das Array befüllt, werden die Dokzumente angezeigt.
+	 */
 	if (DocumentTempArray.length == 0){
 		displayText = "";
 		displayText = "Bisher wurden leider keine Dokumente gefunden ..."
@@ -62,7 +64,7 @@ function GetResults(responsedata){
 	}
 	
 	
-	console.log(DocumentTempArray.length);
+	//console.log(DocumentTempArray.length);
 	
 	
 	
