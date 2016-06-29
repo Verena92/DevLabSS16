@@ -17,6 +17,7 @@ function GetResults(responsedata){
 	var googlePath = "https://drive.google.com/openid=";
 	var documentObj = new Object();
 
+	
 	//create first samle document
 	var document1 = new Object();
 	document1.id = 1;
@@ -35,6 +36,7 @@ function GetResults(responsedata){
 	document2.path = "https://www.spox.com";
 	document2.show = document2.title.link(document2.path);
 	
+	
 	/**
 	 *code here: if document.hangoutsid = user.hangoutsid then push into document array, else not
 	 */
@@ -46,16 +48,17 @@ function GetResults(responsedata){
 		
 	}*/
 	
-	
+	console.log(responsedata);
 	
 	//push document in documentarray
 	//Hier die einzelnen Objekte reinpushen
 	DocumentArray.push(document1);
 	DocumentArray.push(document2);
 	
-	console.log(DocumentArray);
+	//console.log(DocumentArray);
 	console.log(DocumentArray.length);
 	
+	/*
 	if (DocumentArray.length == 0){
 		displayText += "<li>" + "Bisher wurden keine Dokumente gefunden ..." + "</li>";
 		displayText += "</ul>";
@@ -69,6 +72,7 @@ function GetResults(responsedata){
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
 	}
+	*/
 }
 
 /* Durch linebreak und capatilize wird Text eingeblendet */
