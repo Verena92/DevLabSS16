@@ -115,7 +115,7 @@ function startButton(event) {
 function erhalteDocuments(event) {
 	//Asynchroner Post Request auf die Event Gruppe
 	$.ajax({ type:'GET', 
-		url: 'http://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments',  
+		url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments',  
 		contentType: 'application/json',
 		dataType: 'json',
 
@@ -139,7 +139,7 @@ function refreshButton(event) {
 	var Document = new Object();
 		Document.userId = "hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378"
 		Document.hangoutsId = "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg"
-	   	Document.documentName = "MessiTrittAusArgentinienAus"
+	   	Document.documentName = "MaxÜbertreibtÜbertrieben"
 	   	Document.drivePath = "1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g"
 	   		
 	//Asynchron Post Request to own interface for testing
