@@ -45,8 +45,9 @@
  					document.displayText;
  					doPoll();
  				</script>
+ 				<p></p>
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
-			
+			<p></p>
 			<div id="developer">
 			<p>Info-Box</p>
  -				<dl>

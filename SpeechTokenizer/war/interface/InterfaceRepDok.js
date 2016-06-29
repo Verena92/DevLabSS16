@@ -57,11 +57,7 @@ function GetKeywordInformation(TokenNew){
 			TokenNew.keywordInformation = responseData;
 						
 			//ruft die funtkion auf, um den Token an die Event Gruppe zu enden
-			SendTokenToEvent(TokenNew);
-				
-			//ruft methode auf, die das objekt in JSON umwandelt und in der console ausgibt.
-			Stringify(TokenNew);
-				
+			SendTokenToEvent(TokenNew);		
 		}
 			
 	    	
@@ -69,21 +65,3 @@ function GetKeywordInformation(TokenNew){
 			
 		
 }
-	  	  
-	  /*
-	  //Funktionierende  GET Methode ohne JQuery
-	  var request = new XMLHttpRequest();
-	  var keyword = "Haruki";
-	  request.open('GET', "http://104.197.87.226:8080/document/rest/GetWordinformation/"+ keyword, true);
-	  request.setRequestHeader("Content-type", "application/json");
-	  request.send();
-	  request.addEventListener("readystatechange", processRequest, false);
-	  
-	  request.onreadystatechange = processRequest;
-	  
-	  function processRequest(e) {
-		  if (request.readyState == 4 && request.status == 200) {
-			        //var response = JSON.parse(request.responseText);
-			        console.log("Sucess",JSON.parse(request.responseText));
-		    }
-	  };*/
