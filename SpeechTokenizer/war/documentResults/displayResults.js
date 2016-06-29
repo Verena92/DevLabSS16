@@ -55,6 +55,8 @@ function GetResults(responsedata){
 	
 	if (Document.Array.length == 0){
 		displayText ="Bisher wurden keine Dokumente gefunden ...";
+		displayText = capitalize(displayText);
+		showdocument.innerHTML = linebreak(displayText);
 	} else {
 		for (i = 0; i < DocumentArray.length; i++){
 			displayText += "<li>" + DocumentArray[i].show + "</li>";
