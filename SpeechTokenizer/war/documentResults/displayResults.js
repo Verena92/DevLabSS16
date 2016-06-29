@@ -26,6 +26,7 @@ function GetResults(responsedata){
 	document1.title = "BMW Projektbericht 2016";
 	document1.path = "https://www.google.de";
 	document1.show = document1.title.link(document1.path);
+	document1.window = window.open("https://www.google.de";)
 	
 	//create second sample document
 	var document2 = new Object();
@@ -33,9 +34,11 @@ function GetResults(responsedata){
 	document2.UserId = "123@456";
 	document2.hangoutsId = "abcdef";
 	document2.title = "Mercedes Projektbericht 2016";
-	document2.path = "https://www.spox.com";
+	document2.path = "https://docs.google.com/document/d/18CkOl89zv9zT9VKI0xZJpO_Gl-g1HCXYdeyFwO7z5vA/edit?usp=drive_web";
 	document2.show = document2.title.link(document2.path);
+	document2.window = window.open("https://docs.google.com/document/d/18CkOl89zv9zT9VKI0xZJpO_Gl-g1HCXYdeyFwO7z5vA/edit?usp=drive_web")
 	
+	console.log(document2.show);
 	
 	/**
 	 *code here: if document.hangoutsid = user.hangoutsid then push into document array, else not
@@ -58,7 +61,7 @@ function GetResults(responsedata){
 	//console.log(DocumentArray);
 	console.log(DocumentArray.length);
 	
-	/*
+	
 	if (DocumentArray.length == 0){
 		displayText += "<li>" + "Bisher wurden keine Dokumente gefunden ..." + "</li>";
 		displayText += "</ul>";
@@ -66,13 +69,13 @@ function GetResults(responsedata){
 		showdocument.innerHTML = linebreak(displayText);
 	} else {
 		for (i = 0; i < DocumentArray.length; i++){
-			displayText += "<li>" + DocumentArray[i].show + "</li>";
+			displayText += "<li>" + DocumentArray[i].window + "</li>";
 		}
 		displayText += "</ul>";
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
 	}
-	*/
+	
 }
 
 /* Durch linebreak und capatilize wird Text eingeblendet */

@@ -13,6 +13,7 @@ function doPoll(){
 		//Fehler loggen 
 	    error: function(){
 	        console.log("Error");
+	        GetResults();
 	    },
 
 		//Bei erfolgreichem Request Objekt in der Console ausgeben und GetResults aufrufen
@@ -22,7 +23,7 @@ function doPoll(){
 	    	/**
 		     * setInterval ruft die Methode <code>doPoll()</code> nach 5000ms erneut auf.
 		     */	    
-	    	//setTimeout(doPoll,5000);
+	    	setTimeout(doPoll,5000);
 	    	} 
 	    
 	});
