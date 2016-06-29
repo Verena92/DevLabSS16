@@ -22,12 +22,12 @@ public class DocumentForSpeechTokenizer {
 	public DocumentForSpeechTokenizer() {
 		
 	}
-
+	
 	public DocumentForSpeechTokenizer(User user, Document document) {
 		this.userId = user.getGoogle_id();
 		this.hangoutsId = user.getHangouts_id();
 		this.documentName = document.getDocumentName();
-		this.drivePath = document.getDrivePath();
+		this.drivePath = document.getDrivePath().split("=")[1];
 	}
 
 	public String getUserId() {
