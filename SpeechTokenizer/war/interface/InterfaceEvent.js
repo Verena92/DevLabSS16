@@ -4,7 +4,9 @@
  */
 
 /**
- * BITTE BESCHREIBEN
+ *  Ajax Aufruf zur EventGruppe. Das stringify macht aus dem Objekt ein JSON.
+ *  Über die URL wird die Schnittstelle aufgerufen.
+ *  contentType und dataType signalisieren JSON.
  */
 function SendTokenToEvent(TokenNew){
 //Asynchroner Post Request auf die Event Gruppe
