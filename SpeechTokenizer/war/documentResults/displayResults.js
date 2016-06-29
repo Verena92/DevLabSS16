@@ -27,7 +27,7 @@ function GetResults(responsedata){
 	
 	console.log(responsedata);
 	
-	for (b = 0; b <responsedata.length; b++){
+	for (b = 0; b <responsedata.documents.length; b++){
 		
 		if (responsedata[i].documents.hangoutsId == userHangoutId){
 			responsedata[i].documents.show = googlePath + responsedata[i].drivePath;
