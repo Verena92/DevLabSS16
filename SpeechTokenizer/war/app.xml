@@ -45,21 +45,10 @@
  					document.displayText;
  					doPoll();
  				</script>
- 				
-			
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
-			<dt id="button"><button id="refreshbutton" onClick="refreshButton(event)">Refresh</button></dt>
-			<dt id="button"><button id="ipbutton" onClick="ipButton(event)">IP</button></dt>
-			<dt id="button"><button id="getDocument" onClick="erhalteDocuments(event)">Docs</button></dt>
 		</dl>
 	</div>
-	<p>Developer-Box</p>
-	<div id="developer">
-		<dl>
-			<dt><b>Mic active:</b></dt><dt id="micstatus">Warte auf Input...</dt>
-			<dt><b>Hangouts-ID:</b></dt><dt id="hangoutsid"></dt>
-		</dl>
-	</div>
+	
 </div>
 ]]></Content>
 </Module>
