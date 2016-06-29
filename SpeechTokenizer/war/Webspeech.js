@@ -32,7 +32,17 @@ doPoll();
 	
 			/*Listening (capturing voice from audio input) started.*/
 			recognition.onstart = function() {
-    			recognizing = true;   	  		
+    			recognizing = true;   
+    			/**Mit dieser Methode wird der Status des Mikrofons ausgelesen 
+    			* und falls es aktiv ist grün "Mic aktiv" dargestellt. 
+    			* */
+    			var micstatuselement = document.getElementById('micstatus');
+    			/**
+    			 * Outcomment the next two lines for tests on local server.
+    			 * You need the two lines just for App Engine.
+    			 */
+    			 micstatuselement.style.color='green';
+    			 micstatuselement.innerHTML='Mic aktiv';
   			};
   			
   			/**Diese Funktion <code>onend()</code> wird aufgerufen, wenn die Aufnahme beendet wurde. 
@@ -43,6 +53,16 @@ doPoll();
     			if (ignore_onend) {
       				return;
     			}
+    			/*Mit dieser Methode wird der Status des Mic ausgelesen und falls es aktiv "Mic inaktiv" ausgegeben.*/
+    			 var micstatuselement = document.getElementById('micstatus');
+    			    	  		
+    			 /**
+    			 * Outcomment the next two lines for tests on local server.
+    			 * You need the two lines just for App Engine.
+    			 */
+    			 micstatuselement.removeAttribute('style');
+    			 micstatuselement.innerHTML='Mic inaktiv';
+    			 
   	};
   		
   	/**
