@@ -10,7 +10,7 @@ import de.hdm.wim.events.restclient.BaseRestClient;
 import de.hdm.wim.helper.PropertiesHelper;
 
 /**
- * Class used to request further information about a given 'thing',
+ * Class used to request further infrmation about a given 'thing',
  * i.e. a project, product, company or employee.
  * Further to request a document regarding given things,
  * i.e. documents in relation to a combination of a project and an employee.
@@ -39,6 +39,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public DocumentClassesWrapper getDocumentClasses() {
+		System.out.println( "GET GetDocumentClasses");
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetDocumentClasses/");
 		Response response = restClient.doGet("");
 		DocumentClassesWrapper documentClassesWrapper = response.readEntity(DocumentClassesWrapper.class);
@@ -52,6 +53,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public Company getCompany(String companyID) {
+		System.out.println( "GET Request: GetCompanyByID/" + companyID);
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetCompanyByID/");
 		Response response = restClient.doGet(companyID);
 		Company company = response.readEntity(Company.class);
@@ -64,6 +66,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public Document getDocument(String documentID) {
+		System.out.println( "GET Request: GetDocumentByID/" + documentID);
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetDocumentByID/");
 		Response response = restClient.doGet(documentID);
 		Document document = response.readEntity(Document.class);
@@ -77,6 +80,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public Project getProject(String projectID) {
+		System.out.println( "GET Request: GetProjectByID/" + projectID);
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetProjectByID/");
 		Response response = restClient.doGet(projectID);
 		Project project = response.readEntity(Project.class);
@@ -90,6 +94,7 @@ public class DocumentRepresentationRequester {
 	 * @return
 	 */
 	public Employee getEmployee(String employeeID) {
+		System.out.println( "GET Request: GetEmloyeeByID/" + employeeID);
 		BaseRestClient restClient = new BaseRestClient(PropertiesHelper.getProperties("url.document_representation") + "GetEmployeeByID/");
 		Response response = restClient.doGet(employeeID);
 		Employee employee = response.readEntity(Employee.class);

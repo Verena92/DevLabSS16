@@ -2,118 +2,104 @@ package de.hdm.wim.events;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.rule.EntryPoint;
-
-import de.hdm.wim.events.model.event.InternalToken;
-import de.hdm.wim.events.model.event.User;
 
 public class TokenTest {
 	
-	private EntryPoint entryPoint;
-	private KieSession kieSession;
-	private List<String> resultList;
-
 	@Before
 	public void setUp() {
-		KieServices ks = KieServices.Factory.get();
-	    KieContainer kContainer = ks.getKieClasspathContainer();
-    	kieSession = kContainer.newKieSession();
-    	resultList = new ArrayList<>();
-    	kieSession.setGlobal( "resultList", resultList);
-    	entryPoint = kieSession.getEntryPoint("SpeechTokenEventStream");
-    	User user1 = new User("hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378", "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg");
-    	EventService.getActiveUsers().add(user1);
 	}
 	
 	@After
 	public void tearDown() {
-		kieSession.dispose();
-	}
-	
-	@Test
-	public void test_no_token() throws Exception {
-		//no rule should fire, as no token has occured
-		int amountOfRulesFired = kieSession.fireAllRules();
-        
-        assertEquals( 0, amountOfRulesFired);
 	}
 	
 	@Test
 	public void test_token_with_only_one_related_project_occured() throws Exception {
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedProjectP0001()));
-        int amountOfRulesFired = kieSession.fireAllRules();
+		EventService eventService = new EventService();
+		eventService.insertToken(TestDataProvider.createDummyTokenWithRelatedProjectP0001());
+        int amountOfRulesFired = EventService.getKieSession().fireAllRules();
         
         assertEquals( 3, amountOfRulesFired);
-        assertEquals( "A Token with exactly 1 related project occured", resultList.get(0));
-        assertEquals( "Request a document for a project", resultList.get(1));
-        assertEquals( "send Document to SpeechToken", resultList.get(2));
+        assertEquals( "A Token with exactly 1 related project occured", EventService.getResultList().get(0));
+        assertEquals( "Request a document for a project", EventService.getResultList().get(1));
+        assertEquals( "send Document to SpeechToken", EventService.getResultList().get(2));
 	}
 	
 	@Test
 	public void test_token_with_only_one_related_company_occured() throws Exception {
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedCompanyU0001()));
-        int amountOfRulesFired = kieSession.fireAllRules();
+		EventService eventService = new EventService();
+		eventService.insertToken(TestDataProvider.createDummyTokenWithRelatedCompanyU0001());
+        int amountOfRulesFired = EventService.getKieSession().fireAllRules();
         
         assertEquals( 3, amountOfRulesFired);
-        assertEquals( "A Token with exactly 1 related company occured", resultList.get(0));
-        assertEquals( "Request a document for a company", resultList.get(1));
-        assertEquals( "send Document to SpeechToken", resultList.get(2));
+        assertEquals( "A Token with exactly 1 related company occured", EventService.getResultList().get(0));
+        assertEquals( "Request a document for a company", EventService.getResultList().get(1));
+        assertEquals( "send Document to SpeechToken", EventService.getResultList().get(2));
 	}
 	
 	@Test
 	public void test_token_with_only_one_related_employee_occured() throws Exception {
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedEmployeeM0001()));
-        int amountOfRulesFired = kieSession.fireAllRules();
+		EventService eventService = new EventService();
+		eventService.insertToken(TestDataProvider.createDummyTokenWithRelatedEmployeeM0001());
+        int amountOfRulesFired = EventService.getKieSession().fireAllRules();
         
         assertEquals( 3, amountOfRulesFired);
-        assertEquals( "A Token with exactly 1 related employee occured", resultList.get(0));
-        assertEquals( "Request a document for an employee", resultList.get(1));
-        assertEquals( "send Document to SpeechToken", resultList.get(2));
+        assertEquals( "A Token with exactly 1 related employee occured", EventService.getResultList().get(0));
+        assertEquals( "Request a document for an employee", EventService.getResultList().get(1));
+        assertEquals( "send Document to SpeechToken", EventService.getResultList().get(2));
 	}
 	
 	@Test
 	public void test_document_suggestion_accepted() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyDocumentSuggestionReactionAcceptedEvent());
-        int amountOfRulesFired = kieSession.fireAllRules();
+		new EventService().insertCustom(TestDataProvider.createDummyDocumentSuggestionReactionAcceptedEvent());
+        int amountOfRulesFired = EventService.getKieSession().fireAllRules();
         
         assertEquals( 1, amountOfRulesFired);
-        assertEquals( "A DocumentSuggestion was accepted", resultList.get(0));
+        assertEquals( "A DocumentSuggestion was accepted", EventService.getResultList().get(0));
 	}
 	
 	@Test
 	public void test_document_suggestion_declined() throws Exception {
-		entryPoint.insert(TestDataProvider.createDummyDocumentSuggestionReactionDeclinedEvent());
-        int amountOfRulesFired = kieSession.fireAllRules();
+		new EventService().insertCustom(TestDataProvider.createDummyDocumentSuggestionReactionDeclinedEvent());
+        int amountOfRulesFired = EventService.getKieSession().fireAllRules();
         
         assertEquals( 1, amountOfRulesFired);
-        assertEquals( "A DocumentSuggestion was declined", resultList.get(0));
+        assertEquals( "A DocumentSuggestion was declined", EventService.getResultList().get(0));
 	}
 	
+//	@Test 
+//	public void test_token_with_document_class_occured() throws Exception {
+//		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword()));
+//        int amountOfRulesFired = EventService.getKieSession().fireAllRules();
+//        
+//        assertEquals( 1, amountOfRulesFired);
+//        assertEquals( "A Token with a documentClass occured", EventService.getResultList().get(0));
+//	}	
+	
 	@Test
-	public void test_token_with_document_class_occured() throws Exception {
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword()));
-        int amountOfRulesFired = kieSession.fireAllRules();
-        
-        assertEquals( 1, amountOfRulesFired);
-        assertEquals( "A Token with a documentClass occured", resultList.get(0));
+	public void test_token_with_two_related_projects_and_token_with_document_class_occured() throws Exception {
+		EventService eventService = new EventService();
+		eventService.insertToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword());
+		eventService.insertToken(TestDataProvider.createDummyTokenWithRelatedProjectsP0001andP0100());
+		
+		int amountOfRulesFired = EventService.getKieSession().fireAllRules();
+		
+		assertEquals( 2, amountOfRulesFired);
+        assertEquals( "A Token with a documentClass occured", EventService.getResultList().get(0));
+        assertEquals( "A Token with a documentClass occured and Token(s) with several related projects occured", EventService.getResultList().get(1));
 	}	
 	
 	@Test
-	public void test_token_with_only_one_realted_project_and_token_with_document_class_occured() throws Exception {
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithRelatedProjectP0001()));
-		entryPoint.insert(new InternalToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword()));
-        int amountOfRulesFired = kieSession.fireAllRules();
+	public void test_token_with_two_related_projects_and_token_with_document_class_occured_but_after_10min_which_is_too_late() throws Exception {
+		EventService eventService = new EventService();
+		eventService.insertToken(TestDataProvider.createDummyTokenWithRelatedProjectsP0001andP0002_2017());
+		eventService.insertToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword());
+        int amountOfRulesFired = EventService.getKieSession().fireAllRules();
         
         assertEquals( 1, amountOfRulesFired);
-        assertEquals( "A Token with a documentClass occured", resultList.get(0));
+        assertEquals( "A Token with a documentClass occured", EventService.getResultList().get(0));
 	}	
 }

@@ -76,10 +76,10 @@ public class TestDataProvider {
 		return token;
 	}
 
-	public static Token createDummyTokenWithRelatedProjectsP001andP002() {
+	public static Token createDummyTokenWithRelatedProjectsP0001andP0002() {
 		List<String> projects = new ArrayList<String>();
-		projects.add("P001");
-		projects.add("P002");
+		projects.add("P0001");
+		projects.add("P0002");
 
 		List<String> companies = new ArrayList<String>();
 
@@ -89,7 +89,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 29 16 15 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -167,7 +167,7 @@ public class TestDataProvider {
 		projects.add("P001");
 		Document document = null;
 		try {
-			document = new Document("D0002", "Besprechungsprotokoll_HighNet_15-01-2016", "Textdokument", "15-01-2016T12:00:00", "https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g",
+			document = new Document("D0002", "Besprechungsprotokoll_HighNet_15-01-2016", "Textdokument", "15-01-2016T12:00:00", "1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g",
 					"M0001", "Fertiggestellt", "1.0", keywords, projects, "1onKOGZFLOKReA1unsstajHHy6eBK-C6rn52i1Ra4A78", "Protokoll");
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -253,11 +253,55 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 20 22 9 17", "Calculation", "jens", "lindner", "userId", "hangoutId", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "Abschlussbericht", "jens", "lindner", "userId", "hangoutId", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return token;
 	}
+
+	public static Token createDummyTokenWithRelatedProjectsP0001andP0002_2017() {
+		List<String> projects = new ArrayList<String>();
+		projects.add("P0001");
+		projects.add("P0002");
+
+		List<String> companies = new ArrayList<String>();
+
+		List<String> employees = new ArrayList<String>();
+
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
+
+		Token token = null;
+		try {
+			token = new Token("2017 6 29 15 30 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
+	
+	
+	public static Token createDummyTokenWithRelatedProjectsP0001andP0100() {
+		List<String> projects = new ArrayList<String>();
+		projects.add("P0001");
+		projects.add("P0100");
+
+		List<String> companies = new ArrayList<String>();
+
+		List<String> employees = new ArrayList<String>();
+
+		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
+
+		Token token = null;
+		try {
+			token = new Token("2016 6 29 17 20 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
+	
 
 }

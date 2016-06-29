@@ -46,6 +46,14 @@ public class EventService {
 
 	private static List<String> documentClasses;
 
+	public static KieSession getKieSession() {
+		return kieSession;
+	}
+
+	public static List<String> getResultList() {
+		return resultList;
+	}
+
 	static {
 		kieServices = KieServices.Factory.get();
 		kieContainer = kieServices.getKieClasspathContainer();
@@ -62,7 +70,7 @@ public class EventService {
 	}
 
 	private static List<User> activeUsers = new ArrayList<User>();
-	
+
 	public static List<User> getActiveUsers() {
 		return activeUsers;
 	}
@@ -73,34 +81,33 @@ public class EventService {
 	public Response test() {
 		return Response.status(200).entity("test successful").build();
 	}
-	
-	
+
 	@POST
 	@Path("/insert")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/json")
 	public Response insertToken(Token token) {
+		System.out.println("Received Token: " + token);
 		InternalToken internalToken = new InternalToken(token);
-		merge(internalToken);
-		
-		//add User to activeUsers if he isn't present yet
-		if( !activeUsers.contains(internalToken.getUser())) {
-			activeUsers.add( internalToken.getUser());
+
+		// add User to activeUsers if he isn't present yet
+		if (!activeUsers.contains(internalToken.getUser())) {
+			activeUsers.add(internalToken.getUser());
 		}
 
-		//if the token is no relevant information (no associated projects, companies, employees
-		//and is no keyword, it won't get processed
+		// if the token is no relevant information (no associated projects,
+		// companies, employees
+		// and is no keyword, it won't get processed
 		if (hasNoFurtherRelevance(internalToken)) {
 			return Response.status(200).build();
 		}
 
 		try {
 			insert(kieSession, "SpeechTokenEventStream", internalToken);
-			kieSession.fireAllRules();
 		} catch (ParseException e) {
 			System.out.println("A ParseException happened during creation of SpeechTokenEvents: " + e.getMessage());
 			return Response.status(400).entity(e).build();
-		} 
+		}
 		return Response.status(200).build();
 	}
 
@@ -111,29 +118,32 @@ public class EventService {
 	public Response insertReaction(DocumentSuggestionReactionEvent documentSuggestionReactionEvent) {
 		try {
 			insert(kieSession, "SpeechTokenEventStream", documentSuggestionReactionEvent);
-			kieSession.fireAllRules();
 		} catch (ParseException e) {
 			System.out.println("A ParseException happened during creation of DocmentSuggestionReactionEvent: " + e.getMessage());
 			return Response.status(400).entity(e).build();
-		} 
+		}
 		return Response.status(200).build();
 	}
 
-	public static void insert(KieSession kieSession, String stream, Event event) {
-		// insert event
-		SessionPseudoClock pseudoClock = kieSession.getSessionClock();
+	public void insertCustom(Event event) {
+		insert(kieSession, "SpeechTokenEventStream", event);
+	}
+
+	private void insert(KieSession kieSession, String stream, Event event) {
+		System.out.println("inserted object: " + event);
+		SessionPseudoClock clock = kieSession.getSessionClock();
 		EntryPoint ep = kieSession.getEntryPoint(stream);
 		ep.insert(event);
 
-		//persist event
 		merge(event);
 
-		// advance pseudoClock(System) time to event time
-		long advanceTime = ((Event) event).getTimestamp().getTime() - pseudoClock.getCurrentTime();
-		pseudoClock.advanceTime(advanceTime, TimeUnit.MILLISECONDS);
+		// kieSession.fireAllRules(); FIXME
+
+		long advanceTime = ((Event) event).getTimestamp().getTime() - clock.getCurrentTime();
+		clock.advanceTime(advanceTime, TimeUnit.MILLISECONDS);
 	}
 
-	public static void merge(Event event) {
+	public void merge(Event event) { // FIXME: private machen
 		em.getTransaction().begin();
 		em.merge(event);
 		em.getTransaction().commit();

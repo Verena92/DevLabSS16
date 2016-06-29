@@ -81,7 +81,11 @@ public class Document {
 	}
 
 	public void setCreationDate(String creationDate) throws ParseException {
-		this.creationDate = DATE_FORMAT.parse(creationDate);
+		if( creationDate == null) {
+			this.creationDate = null;
+		} else {
+			this.creationDate = DATE_FORMAT.parse(creationDate);
+		}
 	}
 
 	public String getDrivePath() {

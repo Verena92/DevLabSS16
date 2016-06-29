@@ -19,6 +19,7 @@ import de.hdm.wim.events.model.event.EmployeeReceivedEvent;
 import de.hdm.wim.events.model.event.DocumentReceivedEvent;
 import de.hdm.wim.events.model.event.DocumentSuggestionReactionEvent;
 import de.hdm.wim.events.model.event.DocumentClassOccuredEvent;
+import de.hdm.wim.events.model.event.DocumentSentEvent;
 
 import de.hdm.wim.events.documentrepresentation.DocumentRepresentationRequester;
 import de.hdm.wim.events.documentrepresentation.SearchRequest;
@@ -34,42 +35,52 @@ global java.util.List resultList;
 declare InternalToken
     @role( event )
     @timestamp( timestamp.getTime() ) //long
+    @expires(5m)
 end
 
 declare DocumentSuggestionReactionEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
+    @expires(5m)
 end
 
 declare ProjectReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
+    @expires(5m)
 end
 
 declare CompanyReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
+    @expires(5m)
 end
 
 declare EmployeeReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
+    @expires(5m)
 end
 
 declare DocumentReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
+    @expires(5m)
 end
 
 declare DocumentClassOccuredEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
+    @expires(5m)
 end
 
 
 //////////////////////////////////////////////////////
 ///////////// SpeechToken -> Events //////////////////
 //////////////////////////////////////////////////////
+
+// >>>>simple "If a Token with exactly 1 related 'entity' occured' rules
+
 rule "A Token with exactly 1 related project occured"
     when
         $t : InternalToken( keywordInformation.projects.size() == 1, 
@@ -82,9 +93,7 @@ rule "A Token with exactly 1 related project occured"
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
       Project project = requester.getProject($t.getKeywordInformation().getProjects().get(0));
       ProjectReceivedEvent projectReceivedEvent = new ProjectReceivedEvent( project);
-      EventService.merge(projectReceivedEvent);
-      insert( projectReceivedEvent );
-      System.out.println( "inserted " + projectReceivedEvent);
+      new EventService().insertCustom(projectReceivedEvent);
 end
 
 rule "A Token with exactly 1 related company occured"
@@ -99,9 +108,7 @@ rule "A Token with exactly 1 related company occured"
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
       Company company = requester.getCompany($t.getKeywordInformation().getCompanies().get(0));
       CompanyReceivedEvent companyReceivedEvent = new CompanyReceivedEvent( company);
-      EventService.merge(companyReceivedEvent);
-      insert( companyReceivedEvent );
-      System.out.println( "inserted " + companyReceivedEvent);
+      new EventService().insertCustom( companyReceivedEvent );
 end
 
 rule "A Token with exactly 1 related employee occured"
@@ -116,26 +123,62 @@ rule "A Token with exactly 1 related employee occured"
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
       Employee employee = requester.getEmployee($t.getKeywordInformation().getEmployees().get(0));
       EmployeeReceivedEvent employeeReceivedEvent = new EmployeeReceivedEvent( employee);
-      EventService.merge(employeeReceivedEvent);
-      insert( employeeReceivedEvent );
-      System.out.println( "inserted " + employeeReceivedEvent);
+      new EventService().insertCustom( employeeReceivedEvent );
 end
+
+// >>>>DocumentClass related Rules - 
 
 rule "A Token with a documentClass occured"
     when
-        $t : InternalToken( keywordInformation.projects.size() == 0, 
-        			keywordInformation.companies.size() ==0,
-        			keywordInformation.employees.size() == 0) from entry-point SpeechTokenEventStream 
+        $tdc : InternalToken( keywordInformation.projects.empty, 
+        			keywordInformation.companies.empty,
+        			keywordInformation.employees.empty) from entry-point SpeechTokenEventStream
     then
       resultList.add( "A Token with a documentClass occured");
       System.out.println( "A Token with a documentClass occured");
       
-      DocumentClassOccuredEvent documentClassOccuredEvent = new DocumentClassOccuredEvent( $t.getKeyword());
-      EventService.merge(documentClassOccuredEvent);
-      insert( documentClassOccuredEvent );
-      System.out.println( "inserted " + documentClassOccuredEvent);
+      DocumentClassOccuredEvent documentClassOccuredEvent = new DocumentClassOccuredEvent( $tdc.getKeyword());
+      new EventService().insertCustom( documentClassOccuredEvent );
 end
 
+rule "A Token with a documentClass occured and Token(s) with several related projects occured"
+    when
+        $dcoe : DocumentClassOccuredEvent(  ) from entry-point SpeechTokenEventStream
+        $t : InternalToken( keywordInformation.projects.size() > 0, 
+        			keywordInformation.companies.empty,
+        			keywordInformation.employees.empty, this after[-50m,50m] $dcoe) from entry-point SpeechTokenEventStream
+    then
+      resultList.add( "A Token with a documentClass occured and Token(s) with several related projects occured");
+      System.out.println( "A Token with a documentClass occured and Token(s) with several related projects occured");
+      
+       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
+	  List<String> employees = new ArrayList<String>();
+	  List<String> companies = new ArrayList<String>();
+	  List<String> projects = $t.getKeywordInformation().getProjects();
+	  
+	  for( String project: projects) {
+	  
+	      List<String> projectList = new ArrayList<String>();
+	      projectList.add( project);
+		  SearchRequest searchRequest = new SearchRequest(employees, companies, projectList, $dcoe.getKeyword());
+		  //SearchRequest searchRequest = new SearchRequest(employees, companies, projectList, null); //FIXME
+		  
+		  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
+		  
+		  List<String> docIdList = new ArrayList<String>();
+		  docIdList = wrapper.getDocuments();
+		  
+		  System.out.println( docIdList);
+		  for( String docId: docIdList){
+			    Document document = requester.getDocument(docId);
+			  	DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
+			  	new EventService().insertCustom( documentReceivedEvent);
+		    }
+	  }
+end
+
+
+// >>>>Reaction Rules
 
 rule "A document suggestion was accepted"
     when
@@ -159,7 +202,7 @@ end
 
 rule "Request a document for a project"
     when
-      $pre : ProjectReceivedEvent();
+      $pre : ProjectReceivedEvent() from entry-point SpeechTokenEventStream ;
     then
       resultList.add( "Request a document for a project");
       
@@ -168,22 +211,20 @@ rule "Request a document for a project"
 	  List<String> companies = new ArrayList<String>();
 	  List<String> projects = new ArrayList<String>();
 	  projects.add( $pre.getProject().getProjectID());
-	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, "");
+	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, null);
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 	  
 	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
 	  if( documentID != null) {
 	  	Document document = requester.getDocument(documentID);
         DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
-        EventService.merge(documentReceivedEvent);
-        insert( documentReceivedEvent );
-        System.out.println( "inserted " + documentReceivedEvent);
+        new EventService().insertCustom( documentReceivedEvent);
 	  }
 end
 
 rule "Request a document for a company"
     when
-      $cre : CompanyReceivedEvent();
+      $cre : CompanyReceivedEvent() from entry-point SpeechTokenEventStream ;
     then
       resultList.add( "Request a document for a company");
       
@@ -192,22 +233,20 @@ rule "Request a document for a company"
 	  List<String> companies = new ArrayList<String>();
 	  companies.add($cre.getCompany().getCompanyID());
 	  List<String> projects = new ArrayList<String>();
-	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, "");
+	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, null);
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 	  
 	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
 	  if( documentID != null) {
 	  	Document document = requester.getDocument(documentID);
         DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
-        EventService.merge(documentReceivedEvent);
-        insert( documentReceivedEvent );
-        System.out.println( "inserted " + documentReceivedEvent);
+        new EventService().insertCustom(documentReceivedEvent);
 	  }
 end
 
 rule "Request a document for an employee"
     when
-      $ere : EmployeeReceivedEvent();
+      $ere : EmployeeReceivedEvent() from entry-point SpeechTokenEventStream ;
     then
       resultList.add( "Request a document for an employee");
       
@@ -216,16 +255,14 @@ rule "Request a document for an employee"
 	  employees.add($ere.getEmployee().getEmployeeID());
 	  List<String> companies = new ArrayList<String>();
 	  List<String> projects = new ArrayList<String>();
-	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, "");
+	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, null);
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 	  
 	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
 	  if( documentID != null) {
 	  	Document document = requester.getDocument(documentID);
         DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
-        EventService.merge(documentReceivedEvent);
-        insert( documentReceivedEvent );
-        System.out.println( "inserted " + documentReceivedEvent);
+        new EventService().insertCustom( documentReceivedEvent );
 	  }
 end
 
@@ -236,7 +273,7 @@ end
 
 rule "send Document to SpeechToken"
     when
-      $dre : DocumentReceivedEvent();
+      $dre : DocumentReceivedEvent() from entry-point SpeechTokenEventStream ;
     then
       resultList.add( "send Document to SpeechToken");
       SpeechTokenSender sender = new SpeechTokenSender();
@@ -245,5 +282,7 @@ rule "send Document to SpeechToken"
       for( User user: activeUsers) {
         DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer(user, $dre.getDocument()); 
         sender.sendDocument( documentForSpeechTokenizer); 
+        DocumentSentEvent documentSentEvent = new DocumentSentEvent( documentForSpeechTokenizer);
+        new EventService().insertCustom(documentSentEvent);
 	  }      
 end
