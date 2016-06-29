@@ -29,7 +29,7 @@ function GetKeywordInformation(TokenNew){
 	} else {
 		queryWords.nextKeyword = TokenNew.nextKeyword;
 	}
-	queryWords.createdByUserID = TokenNew.createdByUserId;
+	queryWords.createdByUserId = TokenNew.createdByUserId;
 
 //Asynchroner POST Request auf die Schnittstelle der RepDok Gruppe
 	/**
