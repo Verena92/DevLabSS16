@@ -48,6 +48,7 @@
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
 			
 			<div id="developer">
+			<p>Info-Box</p>
  -				<dl>
  -					<dt><b>Mic active:</b></dt><dt id="micstatus">Warte auf Input...</dt>
  -					<dt><b>Hangouts-ID:</b></dt><dt id="hangoutsid"></dt>
