@@ -156,22 +156,6 @@ public class Document {
 		this.status = status;
 	}
 
-	public String getGoogleDrivePath() {
-		return drivePath;
-	}
-
-	public void setGoogleDrivePath(String googleDrivePath) {
-		this.drivePath = googleDrivePath;
-	}
-
-	public String getGoogleDriveID() {
-		return driveID;
-	}
-
-	public void setGoogleDriveID(String googleDriveID) {
-		this.driveID = googleDriveID;
-	}
-
 	public String getDocumentClass() {
 		return documentClass;
 	}

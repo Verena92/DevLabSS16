@@ -1,6 +1,8 @@
 package de.hdm.wim.events.model;
 
 import de.hdm.wim.events.model.event.User;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Representation of a Document as we send it to the SpeechTokenizer
@@ -8,38 +10,61 @@ import de.hdm.wim.events.model.event.User;
  * @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
  *
  */
-public class DocumentForSpeechTokenizer {
-	private User user;
-	private InternalDocument internalDoc;
 
+@Entity
+public class DocumentForSpeechTokenizer {
+	private String userId;
+	private String hangoutsId;
+	private String documentName;
+	@Id
+	private String drivePath;
+	
 	public DocumentForSpeechTokenizer() {
 		
 	}
-	
-	public DocumentForSpeechTokenizer( User user, Document document) {
-		this.user = user;
-		this.internalDoc = new InternalDocument(document);
+
+	public DocumentForSpeechTokenizer(User user, Document document) {
+		this.userId = user.getGoogle_id();
+		this.hangoutsId = user.getHangouts_id();
+		this.documentName = document.getDocumentName();
+		this.drivePath = document.getDrivePath();
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getHangoutsId() {
+		return hangoutsId;
+	}
+
+	public void setHangoutsId(String hangoutsId) {
+		this.hangoutsId = hangoutsId;
+	}
+
+	public String getDocumentName() {
+		return documentName;
+	}
+
+	public void setDocumentName(String documentName) {
+		this.documentName = documentName;
+	}
+
+	public String getDrivePath() {
+		return drivePath;
+	}
+
+	public void setDrivePath(String drivePath) {
+		this.drivePath = drivePath;
+	}
+	
 	@Override
 	public String toString() {
-		return "DocumentForSpeechTokenizer [userId=" + user.getGoogle_id() + ", hangoutsId=" + user.getHangouts_id() + ", documentName=" + internalDoc.getDocumentName() + ", drivePath=" + internalDoc.getDrivePath() + "]";
+		return "DocumentForSpeechTokenizer [userId=" + userId + ", hangoutsId=" + hangoutsId + ", documentName="
+				+ documentName + ", drivePath=" + drivePath + "]";
 	}
-
-	public InternalDocument getInternalDoc() {
-		return internalDoc;
-	}
-
-	public void setInternalDoc(InternalDocument internalDoc) {
-		this.internalDoc = internalDoc;
-	}
-	
-	public User getUser(){
-		return user;
-	}
-	
-	public void setUser(User user){
-		this.user = user;
-	}
-	
 }
