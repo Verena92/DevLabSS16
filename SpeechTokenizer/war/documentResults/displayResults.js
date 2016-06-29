@@ -23,7 +23,7 @@ function GetResults(responsedata){
 	document1.UserId = "123@456";
 	document1.hangoutsId = "abcdef";
 	document1.title = "BMW Projektbericht 2016";
-	document1.path = "www.google.de";
+	document1.path = "https://www.google.de";
 	document1.show = document1.title.link(document1.path);
 	
 	//create second sample document
@@ -32,7 +32,7 @@ function GetResults(responsedata){
 	document2.UserId = "123@456";
 	document2.hangoutsId = "abcdef";
 	document2.title = "Mercedes Projektbericht 2016";
-	document2.path = "www.spox.com";
+	document2.path = "https://www.spox.com";
 	document2.show = document2.title.link(document2.path);
 	
 	/**
@@ -50,10 +50,13 @@ function GetResults(responsedata){
 	
 	//push document in documentarray
 	//Hier die einzelnen Objekte reinpushen
-	//DocumentArray.push(document1);
-	//DocumentArray.push(document2);
+	DocumentArray.push(document1);
+	DocumentArray.push(document2);
 	
-	if (Document.Array.length == 0){
+	console.log(DocumentArray);
+	console.log(DocumentArray.length);
+	
+	if (DocumentArray.length == 0){
 		displayText += "<li>" + "Bisher wurden keine Dokumente gefunden ..." + "</li>";
 		displayText += "</ul>";
 		displayText = capitalize(displayText);
@@ -66,9 +69,6 @@ function GetResults(responsedata){
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
 	}
-	
-	
-
 }
 
 /* Durch linebreak und capatilize wird Text eingeblendet */

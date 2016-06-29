@@ -106,6 +106,7 @@ function startButton(event) {
 	console.log("Service gestartet");
 	sttResult = '';
 	/*aktiviert den Speech Recognizer und ruft onstart Eventhandler auf*/
+	recognition.lang = "en-US";
 	recognition.start();
 	ignore_onend = false;
 	final_span.innerHTML = '';
@@ -138,7 +139,7 @@ function refreshButton(event) {
 	var Document = new Object();
 		Document.userId = "hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378"
 		Document.hangoutsId = "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg"
-	   	Document.documentName = "TheWorldsGreatest-ALI"
+	   	Document.documentName = "MessiTrittAusArgentinienAus"
 	   	Document.drivePath = "1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g"
 	   		
 	//Asynchron Post Request to own interface for testing
