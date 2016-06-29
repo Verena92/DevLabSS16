@@ -173,7 +173,7 @@ public class RestService {
  	        	
  	        	//FileReader fr = new FileReader("/usr/local/postdocument/documents.json");
  	 
- 	           //Object old = parser.parse(new FileReader("/usr/local/postdocument/documents.json"));
+ 	           //Object old = parser.parse(new FileReader("/usr/local/posts/documents.json"));
  	        	
  	        	JsonParser jp = new JsonFactory().createParser(is);
  	        	
@@ -188,20 +188,27 @@ public class RestService {
  	        	
  	            
  	            JSONObject jsonObject = new JSONObject(json);
+ 	            
+ 	            jsonObject.append("documents", obj);
  	        	
 // 	            JSONArray documents = new JSONArray(jsonObject.get(documents));
  	            
- 	            JSONArray documents = jsonObject.getJSONArray("documents");
+// 	            JSONArray documents = jsonObject.getJSONArray("documents");
+ 	            
+// 	            JSONObject newjson = new JSONObject();
 
  	            
 // 	            documents.getJSONObject("documents");
 // 	            obj.toJSONArray(documents);
  	            
- 	            documents.put(obj);
- 	            
- 	            FileWriter file = new FileWriter("/usr/local/postdocument/documents.json", true);
- 	 			//file.write(documents.toString()); //toJSONString()
- 	            file.append(obj.toString());
+// 	            documents.put(json);
+// 	            JSONObject newjson = new JSONObject();
+// 	            newjson.(documents);
+ 	       
+ 	            FileWriter file = new FileWriter("/usr/local/postdocument/documents.json", false);
+ 	 			file.write(jsonObject.toString()); //toJSONString()
+// 	            file.write(newjson.toString());
+// 	            file.append(",");
  	 			file.flush();
  	 			file.close();
  	            
@@ -232,7 +239,7 @@ public class RestService {
 		@Consumes("application/json")
 		@Produces("application/json")
 		//public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
-		public static Response getDocuments(Object getDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {		
+		public static Response getDocuments(Object getDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException, FileNotFoundException {		
 
 			/////////////////START VERSION 1///////////////////
 			
@@ -255,16 +262,70 @@ public class RestService {
 			
 			/////////////////ENDE VERSION 1///////////////////
 			
-			//documentBesprechungsprotokoll_HighNet_15-01-2016.json
+
+	
 			
-			/////////////////START VERSION 2///////////////////
+			ObjectMapper mapper = new ObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+			InputStream is = new FileInputStream("/usr/local/postdocument/documents.json");
 			
+			String line ="";
+			BufferedReader br = null;
+			
+			String json = "";
+			//String old ="";
+			//JsonParser jp = null;
+			
+			//DocumentItems obj = new  DocumentItems();		
+			
+			try {
+ 	        	
+				JsonParser jp = new JsonFactory().createParser(is);
+ 	        	
+ 	        	Object old = mapper.readTree(jp);
+ 	        	
+ 	        	ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+ 	        	json = ow.writeValueAsString(old);
+ 	        	
+ 	        	//obj = mapper.readValue(obj, DocumentItems.class);
+ 	        	
+			
+// 	        	for (int i = 0; i<json.length(); i++){
+// 	        		json += line + "\n";
+// 	        	}
+// 
+//				while ((line = br.readLine())  != null){
+//					json += line + "\n";
+//				}
+ 	        	
+ 	        	//String userId = mapper.writeValueAsString(json.getString("userId"));
+				
+ 	        	
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+	
+     		} catch (Exception ex) {
+     			ex.printStackTrace();
+			}finally{
+				try{
+					if (br !=null)
+						br.close();
+				} catch (IOException ex){
+					ex.printStackTrace();}
+			}
+			
+							
+			return Response.status(200).entity(json).build();
+			
+			
+			
+			/////////////////START VERSION 2/////////////////// FUNKTIONIERT MAL
+			/*
 			
 			
 			String jsonData = "";
 			String line ="";
 			BufferedReader br = null;
-	
 
 			
 			try{
@@ -273,10 +334,13 @@ public class RestService {
 				InputStreamReader isr = new InputStreamReader (is);
 				br = new BufferedReader (isr);
 			
-			
+				
+				
 				while ((line = br.readLine())  != null){
 					jsonData += line + "\n";
 				}
+
+				
 			}catch(IOException ex){
 				ex.printStackTrace();
 			}finally{
@@ -290,7 +354,7 @@ public class RestService {
 			
 		
 				
-			return Response.status(200).entity(jsonData).build();
+			return Response.status(200).entity(jsonData).build();*/
 
 			
 			/////////////////ENDE VERSION 1///////////////////
