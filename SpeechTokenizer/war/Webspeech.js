@@ -7,7 +7,7 @@
 var sttResult = '';	
 var recognizing = false;
 var ignore_onend;
-
+doPoll();
 
 	if (!('webkitSpeechRecognition' in window)) { 
 		
@@ -138,7 +138,7 @@ function refreshButton(event) {
 	var Document = new Object();
 		Document.userId = "hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378"
 		Document.hangoutsId = "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg"
-	   	Document.documentName = "Endpointtest"
+	   	Document.documentName = "SpeechTokenizerFuck"
 	   	Document.drivePath = "1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g"
 	   		
 	//Asynchron Post Request to own interface for testing

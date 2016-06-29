@@ -13,7 +13,8 @@
 <script src="//hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0"></script>
 
 <!-- Javascript Application -->
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+<script src="//speech-tokenizer-1282.appspot.com/interface/InterfaceTomcat.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/app.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/Webspeech.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/tokenization/Token.js"></script>
@@ -22,9 +23,7 @@
 <script src="//speech-tokenizer-1282.appspot.com/user/user.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/interface/InterfaceRepDok.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/interface/InterfaceEvent.js"></script>
-<script src="//speech-tokenizer-1282.appspot.com/interface/InterfaceTomcat.js"></script>
 <script src="//speech-tokenizer-1282.appspot.com/documentResults/displayResults.js"></script>
-
 <script src="//speech-tokenizer-1282.appspot.com/interface/testPostInterfaace.js"></script>
 
 
@@ -44,7 +43,10 @@
 				<script type="text/javascript">
 					document.write(GetResults());
  					document.displayText;
+ 					doPoll();
  				</script>
+ 				
+			
 			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
 			<dt id="button"><button id="refreshbutton" onClick="refreshButton(event)">Refresh</button></dt>
 			<dt id="button"><button id="ipbutton" onClick="ipButton(event)">IP</button></dt>
