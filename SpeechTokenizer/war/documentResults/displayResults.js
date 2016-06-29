@@ -25,13 +25,22 @@ function GetResults(responsedata){
 	//var documentObj = JSON.parse(responsedata);
 	//DocumentTempArray.push(documentObj);
 	
-	console.log(responsedata);
+	//console.log(responsedata);
 	
 	for (b = 0; b <responsedata.documents.length; b++){
 		
-		if (responsedata[i].documents.hangoutsId == userHangoutId){
-			responsedata[i].documents.show = googlePath + responsedata[i].drivePath;
-			DocumentTempArray.push(responsedata[i]);
+		//userHangoutId
+		//documents.show
+		//documents.drivePath
+		
+		//console.log(responsedata.documents[4]);
+		
+		if (responsedata.documents[b].hangoutsId == userHangoutId){
+			responsedata.documents[b].stringlink = googlePath + responsedata.documents[b].drivePath;
+			var documentName = responsedata.documents[b].documentName
+			responsedata.documents[b].show = documentName.link(responsedata.documents[b].stringlink);
+			DocumentTempArray.push(responsedata.documents[b]);
+			console.log(DocumentTempArray[b].show);
 		} else {
 		}
 	}
