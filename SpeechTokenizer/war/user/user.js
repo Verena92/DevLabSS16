@@ -10,6 +10,7 @@ function getUserData(userData){
 	var localParticipant=gapi.hangout.getLocalParticipant();
 	
 	if(userData){
+		var eindeutigeId=JSON.stringify(localParticipant.person.id);
 		if(userData=='firstName'||userData=='lastName'){
 			var name=JSON.stringify(localParticipant.person.displayName);
 			name=name.replace(/\"/g,'');

@@ -48,6 +48,7 @@ function Token(){
 				createdByFirstName: getUserData('firstName'),
 				createdByLastName: getUserData('lastName'),
 				UserId: getUserData('Id'),
+				createdByUserId: getUserData('eindeutigeId'),
 				hangoutsId: getHangoutId(),
 								
 		};
