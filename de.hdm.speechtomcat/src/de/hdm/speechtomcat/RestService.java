@@ -8,10 +8,12 @@ package de.hdm.speechtomcat;
 	import java.sql.*;	
 
 
-//import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
-//import org.codehaus.jackson.annotate.JsonMethod;
-//import org.codehaus.jettison.json.JSONArray;
-//import org.codehaus.jettison.json.JSONObject;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
+import org.codehaus.jackson.annotate.JsonMethod;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
+
+import com.fasterxml.jackson.core.JsonParser;
 
 
 import java.io.BufferedReader;
@@ -52,15 +54,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONException;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
+//import org.json.simple.JSONArray;
 
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.sun.jersey.core.util.Base64;
 import org.json.simple.parser.JSONParser;
 
@@ -114,14 +119,22 @@ public class RestService {
 	@Path("/PostDocuments")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public static void postDocuments(Object objDocument) throws JSONException  {
+	public static void postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException, FileNotFoundException  {
 				
-		//JsonProcessingException
-		//org.codehaus.jettison.json.JSONException
+		org.codehaus.jettison.json.JSONObject obj = null;
 		
+		obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
+		
+		//original
 		//org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
 		
-		JSONObject obj = (JSONObject) objDocument;
+		
+		
+		//JSONObject obj = new JSONObject(objDocument.toJSONString());
+		
+		//JSONObject obj = (JSONObject) objDocument;
+		
+		//JSONObject obj = new JSONObject(objDocument);
 		
 //		String userId = obj.getString("userId");
 //		String hangoutsId = obj.getString("hangoutsId");
@@ -130,7 +143,7 @@ public class RestService {
 //
 //		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);
 		
-		JSONParser parser = new JSONParser();
+		//JSONParser parser = new JSONParser();
 
  		/*try {
  			String path = "/usr/local/postdocument/document";
@@ -150,25 +163,57 @@ public class RestService {
  		}
 
  		System.out.print(obj);*/
+		
+		ObjectMapper mapper = new ObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		
+
+		InputStream is = new FileInputStream("/usr/local/postdocument/documents.json");
  			 
  	        try {
+ 	        	
+ 	        	//FileReader fr = new FileReader("/usr/local/postdocument/documents.json");
  	 
- 	            Object old = parser.parse(new FileReader("/usr/local/postdocument/documents.json"));
- 	 
- 	            JSONObject jsonObject = (JSONObject) old;
- 	 
- 	            JSONArray documents = (JSONArray) jsonObject.get("documents");
- 	 
- 	            documents.add(obj);
+ 	           //Object old = parser.parse(new FileReader("/usr/local/postdocument/documents.json"));
+ 	        	
+ 	        	JsonParser jp = new JsonFactory().createParser(is);
+ 	        	
+ 	        	//Object old = mapper.readValue(new File ("/usr/local/postdocument/documents.json"), JSONArray.class);
+ 	        	Object old = mapper.readTree(jp);
+ 	        			//readValue(new File ("/usr/local/postdocument/documents.json"), JSONArray.class);
+ 	        	
+ 	        	//Object old = mapper.readValue(jp, JSONArray.class);
+ 	        	
+ 	        	ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+ 	        	String json = ow.writeValueAsString(old);
+ 	        	
  	            
- 	            FileWriter file = new FileWriter("/usr/local/postdocument/documents.json");
- 	 			file.write(documents.toString()); //toJSONString()
+ 	            JSONObject jsonObject = new JSONObject(json);
+ 	        	
+// 	            JSONArray documents = new JSONArray(jsonObject.get(documents));
+ 	            
+ 	            JSONArray documents = jsonObject.getJSONArray("documents");
+
+ 	            
+// 	            documents.getJSONObject("documents");
+// 	            obj.toJSONArray(documents);
+ 	            
+ 	            documents.put(obj);
+ 	            
+ 	            FileWriter file = new FileWriter("/usr/local/postdocument/documents.json", true);
+ 	 			//file.write(documents.toString()); //toJSONString()
+ 	            file.append(obj.toString());
  	 			file.flush();
  	 			file.close();
  	            
- 	        } catch (Exception e) {
- 	            e.printStackTrace();
- 	        }
+// 	 			fr.close();
+ 	 			
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+ 	        
+     		} catch (Exception ex) {
+     			ex.printStackTrace();}
+ 	    
  			
  				  
 
