@@ -13,7 +13,6 @@ public class Document {
 	private double version;
 	private ArrayList<String> keywords;
 	private ArrayList<String> projects;
-	private String driveID;
 	private String documentClass;
 	
 	
@@ -78,12 +77,6 @@ public class Document {
 	}
 	public void setProjects(ArrayList<String> projects) {
 		this.projects = projects;
-	}
-	public String getDriveID() {
-		return driveID;
-	}
-	public void setDriveID(String driveID) {
-		this.driveID = driveID;
 	}
 	public String getDocumentClass() {
 		return documentClass;

@@ -65,8 +65,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hp.hpl.jena.tdb.store.Hash;
 import com.sun.jersey.api.client.ClientResponse.Status;
 
-
-
 @Path("/rest") 
 public class RestService {
 	  private static JSONObject jsonObject;	 
@@ -78,10 +76,20 @@ public class RestService {
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// GET Statements
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 /* @GET
-		 @Path("/GetDocumentMetadata2/")
+
+	 
+/*
+public static void main(String[] args) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+	getDocumentMetadata("o");
+}*/
+	  	 @POST
+		 @Path("/GetDocumentMetadata/")
+		 @Consumes("application/json")
 		 @Produces("application/json")
-		 public Response getDocumentMetadata2() throws JSONException, JsonProcessingException {
+		 public static Response getDocumentMetadata(Object objKeyword) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+			org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objKeyword.toString());
+			JSONObject jsonObject = new JSONObject();
+			/*
 			String jsonData = "";
 			BufferedReader br = null;
 			try {
@@ -100,145 +108,13 @@ public class RestService {
 					ex.printStackTrace();
 				}
 			}
-			System.out.println("File Content: \n" + jsonData);
+			// System.out.println("File Content: \n" + jsonData);
 			JSONObject obj = new JSONObject(jsonData);
-		
+			*/
 			
-		  
-		  
-
-		  ArrayList<String> listDocuments = new ArrayList<>();
-	      ArrayList<String> newArrayList = new ArrayList<>();
-	      ArrayList<String> listProjectURIS = new ArrayList<>();
-	      ArrayList<String> listProjectDocuments = new ArrayList<>();
-	      
-	      ArrayList<String> listEmployees = new ArrayList<>();
-	      
-		  JSONObject jsonObject = new JSONObject();
-	      int countIteration = 0;
-		  boolean boolProjectFound = false;
-		  boolean boolEmployeeFound = false;
-		  String projectURI = getIDByURI(obj.getJSONArray("projects").get(0).toString());
-		  String employeeURI = getIDByURI(obj.getJSONArray("employees").get(0).toString());
-		  
-		  HashMap<String, ArrayList<String>> mapProjects = new HashMap<>();
-		  HashMap<String, ArrayList<String>> mapEmployees = new HashMap<>();
-		  
-		  for(int i=0; i<obj.getJSONArray("projects").length();i++){
-			  listProjectURIS.add(getIDByURI((String) obj.getJSONArray("projects").get(i)));
-		  }
-		  
-		  System.out.println("lll"+listProjectURIS);
-
-			try {
-				String sparQuery = "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " SELECT DISTINCT ?Projekt ?Verfasser  ?Klasse"
-						+ " WHERE {"
-						+ " ?Klasse ?y ?z ."
-						+ " ?Klasse Cloud_Dokumente:Dokument_gehoert_zu_Projekt ?Projekt ."
-						+ " ?Klasse Cloud_Dokumente:Dokument_hat_Verfasser ?Verfasser ."
-						+ " }";
-						  
-	
-				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-		        ResultSet results = qe.execSelect();
-		        List var = results.getResultVars(); 
-		        
-		        while (results.hasNext()){
-					QuerySolution qs = results.nextSolution();
-					for(int i=0; i<var.size();i++){
-						String va = var.get(i).toString();
-						RDFNode node = qs.get(va);
-						
-						if(countIteration==0){
-							if(node.toString().equals(projectURI) && projectURI!=""){
-								boolProjectFound = true;
-							}
-						}
-						if(countIteration==1){
-							if(node.toString().equals(employeeURI) && employeeURI!=""){
-								boolEmployeeFound =true;
-							}
-						}
-						if(countIteration==2){
-							if(boolEmployeeFound==true){
-								boolEmployeeFound = false;
-								listEmployees.add(getDocumentByURI(node.toString()));
-								listDocuments.add(getDocumentByURI(node.toString()));
-							}
-							if(boolProjectFound==true){
-								boolProjectFound = false;
-								listProjectDocuments.add(getDocumentByURI(node.toString()));
-								listDocuments.add(getDocumentByURI(node.toString()));
-							}
-						}
-						
-						countIteration++;
-						if(countIteration>2){
-							countIteration=0;
-						} 
-					}
-					for(String projectURIs : listProjectURIS){
-						mapProjects.put(projectURIs, listProjectDocuments);
-					}
-			        
-			        mapEmployees.put(employeeURI, listEmployees);
-				}
-
-		        
-		        System.out.println(mapProjects);
-		        System.out.println(mapEmployees);
-		        if(projectURI != "" && employeeURI!=""){
-			        Set<String> uniqueSet = new HashSet<String>(listDocuments);
-					 for (String temp : uniqueSet) {
-					   		if(Collections.frequency(listDocuments, temp)>1){
-					   			newArrayList.add(temp);
-					   		}
-					}
-		        } else {
-		        	newArrayList = new ArrayList<>(listDocuments);
-		        }
-		        
-		        qe.close();
-			} catch(Exception e){
-				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
-			}
-			jsonObject.put("documents", newArrayList);
-			return Response.status(200).entity(jsonObject.toString()).build();
-		 }*/
-	  
-			  public static void main(String[] args) throws JsonProcessingException, org.codehaus.jettison.json.JSONException {
-				  getDocumentMetadata("ojio");
-			}
-	  	 @POST
-		 @Path("/GetDocumentMetadata/")
-		 @Consumes("application/json")
-		 @Produces("application/json")
-		 public static Response getDocumentMetadata(Object objKeyword) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
-			/*String jsonData = "";
-			BufferedReader br = null;
-			try {
-				String line;
-				br = new BufferedReader(new FileReader("data/Crunchify_JSON"));
-				while ((line = br.readLine()) != null) {
-					jsonData += line + "\n";
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null)
-						br.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
-			System.out.println("File Content: \n" + jsonData);
 			
-			*/org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objKeyword.toString());/*
-			JSONObject obj = new JSONObject(jsonData);
-		*/
-			JSONObject jsonObject = new JSONObject();
+			
+			
 			
 			ArrayList<String> listProjectURIs = new ArrayList<>();
 			ArrayList<String> listEmployeeURIs = new ArrayList<>();
@@ -249,7 +125,6 @@ public class RestService {
 			ArrayList<String> listCompanyIDs = new ArrayList<>();
 			ArrayList<String> listDocumentClassIDs = new ArrayList<>();
 			
-			
 			HashMap<String, String> mapProjectDocuments = new HashMap<>();
 			HashMap<String, String> mapEmployeeDocuments = new HashMap<>();
 			HashMap<String, String> mapDocumentClassDocuments = new HashMap<>();
@@ -257,8 +132,6 @@ public class RestService {
 			String ProjectURI = "";
 			String EmployeeURI = "";
 			String DocumentURI = "";
-			
-			
 			
 			//Transfer the ids from JSON-Array to a ArrayList with the ids
 			for(int i=0; i<obj.getJSONArray("companies").length();i++){
@@ -273,7 +146,7 @@ public class RestService {
 				listEmployeeURIs.add(getIDByURI((String) obj.getJSONArray("employees").get(i)));
 			}
 			
-			if(obj.getString("documentClass")!=null){
+			if(obj.getString("documentClass")!=null && obj.getString("documentClass")!=""){
 				documentClass = obj.getString("documentClass");
 			}
 			
@@ -288,7 +161,7 @@ public class RestService {
 						+ " ?x ?y ?z ."
 						+ " ?x Cloud_Dokumente:Dokument_gehoert_zu_Projekt ?Projekt ."
 						+ " ?x Cloud_Dokumente:Dokument_hat_Verfasser ?Verfasser ."
-						+ " ?x <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#DriveDocumentID> ?DokumentenID ."
+						+ " ?x <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#DokumentenID> ?DokumentenID ."
 						+ " ?x rdf:type ?Dokumentenklasse}";
 						  
 	
@@ -311,8 +184,7 @@ public class RestService {
 							case "Dokumentenklasse" :
 								if(!node.toString().contains("NamedIndividual")){
 									documentURI = node.toString();
-								}
-							
+								}				
 							case "x" :
 								if(!mapDocumentClassDocuments.containsKey(node.toString())){
 									mapDocumentClassDocuments.put(node.toString(), documentURI);
@@ -323,11 +195,8 @@ public class RestService {
 								
 								if(!mapEmployeeDocuments.containsKey(node.toString())){
 									mapEmployeeDocuments.put(node.toString(), EmployeeURI);
-								}
-								
-								
+								}								
 								break;
-
 						}
 					}
 		        }
@@ -442,9 +311,7 @@ public class RestService {
 		        		}
 		        	}
 		        }
-		        
 		        else if(!listDocumentClassIDs.isEmpty() && !listProjectDocumentIDs.isEmpty()){
-		        	System.out.println(listDocumentClassIDs);
 		        	for(int k=0;k<listProjectDocumentIDs.size();k++){
 		        		for(int l=0;l<listDocumentClassIDs.size();l++){
 		        			if(listProjectDocumentIDs.get(k)!=null && listDocumentClassIDs.get(l).contains(listProjectDocumentIDs.get(k))){
@@ -506,227 +373,11 @@ public class RestService {
 			jsonObject.put("documents", listFoundDocumentIDs);
 			return Response.status(200).entity(jsonObject.toString()).build();
 		 }
-	  
-	  /*
+
 	  	 @GET
-		 @Path("/GetDocumentMetadata/")
+	  	 @Path("/GetDocumentByID/{documentID}")
 		 @Produces("application/json")
-		 public Response getDocumentMetadata() throws JSONException, JsonProcessingException {
-	  		Document document = null;
-	  		ObjectMapper mapper = new ObjectMapper();
-	  		
-	  		String jsonInString = "";
-
-			try {
-				String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-						+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-						+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
-						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " SELECT ?DokumentenID ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser "
-						+ " (group_concat(?Schlagwort;separator=',')  as ?Schlagwörter) (group_concat(?Projekt;separator=',')  as ?Projekte) WHERE {"
-						+ " ?x ?y ?DokumentenID "
-						+ " Filter (?DokumentenID = 'D0002') "
-						+ " ?x Cloud_Dokumente:Dokumentenname ?Dokumentenname ."
-						+ " ?x Cloud_Dokumente_old:Status ?Status ."
-						+ " ?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum ."
-						+ " ?x Cloud_Dokumente_old:Dokumenttyp ?Dokumenttyp ."
-						+ " ?x Cloud_Dokumente_old:Speicherort ?Speicherort ."
-						+ " ?x Cloud_Dokumente_old:Version ?Version ."
-						+ " ?x Cloud_Dokumente_old:Dokument_hat_Verfasser ?Verfasser ."
-						+ " ?x Cloud_Dokumente_old:Schlagwort ?Schlagwort . "
-						+ " ?x Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt ?Projekt ."
-						+ " } group by ?DokumentenID ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser ";
-	
-				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-		        ResultSet results = qe.execSelect();
-		        List var = results.getResultVars();    
-		        
-		        while (results.hasNext()){
-					QuerySolution qs = results.nextSolution();
-					document = new Document();
-					for(int i=0; i<var.size();i++){
-						String va = var.get(i).toString();
-						RDFNode node = qs.get(va);
-						document.setDriveID("1onKOGZFLOKReA1unsstajHHy6eBK-C6rn52i1Ra4A78");
-						switch(va){
-							case "DokumentenID" : 
-								document.setDocumentID(node.toString());
-								break;
-							case "Dokumentenname" : 
-								document.setDocumentName(node.toString());
-								break;
-							case "Dokumenttyp" :
-								document.setDocumentType(node.toString());
-								break;
-							case "Speicherort" :
-								document.setDrivePath(node.toString());
-								break;
-							case "Erstellungsdatum" :
-								String creationDate = node.toString().substring(0, node.toString().indexOf("^^"));
-								document.setCreationDate(creationDate);
-								break;
-							case "Version" :
-								Double version = Double.parseDouble(node.toString().substring(0, node.toString().indexOf("^^")));
-								document.setVersion(version);
-								break;
-							case "Status" :
-								document.setStatus(node.toString());
-								break;
-							case "Verfasser" :
-								document.setCreatedBy(getEmployeeByURI(node.toString()));
-								break;
-							case "Schlagwörter" :
-								ArrayList<String> listKeywords = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
-								document.setKeywords(listKeywords);
-								break;
-							case "Projekte" :
-								ArrayList<String> listProjects = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
-								ArrayList<String> newListProjects = new ArrayList<>();
-								int count = 0;
-								for(String getProjects : listProjects){
-									if(count==0){
-										newListProjects.add(getProjectByURI(getProjects));
-									}
-									count++;	
-								}
-								document.setProjects(newListProjects);
-								break;
-						}
-					
-					}
-				}
-		        qe.close();
-			} catch(Exception e){
-				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
-			}
-			
-			if(document!=null){
-				jsonInString = mapper.writeValueAsString(document);
-			}
-
-			return Response.status(200).entity(jsonInString).build();
-		 }
-	  	 
-	  	*/ 
-	  	 
-	  	@GET
-		 @Path("/GetDocumentByID/{documentID}")
-		 @Produces("application/json")
-		 public Response getDocumentByDocumentID(@PathParam("documentID") String documentID) throws JSONException, JsonProcessingException {
-	  		Document document = null;
-	  		ObjectMapper mapper = new ObjectMapper();
-	  		
-	  		String jsonInString = "";
-
-			try {
-				String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-						+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-						+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
-						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " SELECT ?DriveDocumentID ?DokumentenID ?Dokumentenklasse ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser "
-						+ " (group_concat(?Schlagwort;separator=',')  as ?Schlagwörter) (group_concat(?Projekt;separator=',')  as ?Projekte) WHERE {"
-						+ " ?x ?y ?DokumentenID "
-						+ " Filter (?DokumentenID = '"+documentID+"') "
-						+ " optional{?x Cloud_Dokumente:Dokumentenname ?Dokumentenname} ."
-						+ " optional{?x Cloud_Dokumente_old:Status ?Status} ."
-						+ " optional{?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum} ."
-						+ " optional{?x Cloud_Dokumente_old:Dokumenttyp ?Dokumenttyp} ."
-						+ " optional{?x Cloud_Dokumente_old:Speicherort ?Speicherort} ."
-						+ " optional{?x Cloud_Dokumente_old:Version ?Version} ."
-						+ " optional{?x Cloud_Dokumente_old:Dokument_hat_Verfasser ?Verfasser} ."
-						+ " optional{?x Cloud_Dokumente_old:Schlagwort ?Schlagwort} . "
-						+ " optional{?x Cloud_Dokumente_old:DriveDocumentID ?DriveDocumentID} ."
-						+ " optional{?x Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt ?Projekt} ."
-						+ "	optional{?x rdf:type ?Dokumentenklasse} ."
-						+ " } group by ?DriveDocumentID ?DokumentenID ?Dokumentenklasse ?Dokumentenname ?Status ?Dokumenttyp ?Speicherort ?Version ?Erstellungsdatum ?Verfasser ";
-	
-
-				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-		        ResultSet results = qe.execSelect();
-		        List var = results.getResultVars();    
-		        
-		        while (results.hasNext()){
-					QuerySolution qs = results.nextSolution();
-					document = new Document();
-					for(int i=0; i<var.size();i++){
-						String va = var.get(i).toString();
-						RDFNode node = qs.get(va);
-						System.out.println("variable"+va+" node "+node.toString());
-						switch(va){
-							case "DokumentenID" : 
-								document.setDocumentID(node.toString());
-								break;
-							case "Dokumentenname" : 
-								document.setDocumentName(node.toString());
-								break;
-							case "Dokumenttyp" :
-								document.setDocumentType(node.toString());
-								break;
-							case "Speicherort" :
-								document.setDrivePath(node.toString());
-								break;
-							case "Erstellungsdatum" :
-								String creationDate = node.toString().substring(0, node.toString().indexOf("^^"));
-								document.setCreationDate(creationDate);
-								break;
-							case "Version" :
-								Double version = Double.parseDouble(node.toString().substring(0, node.toString().indexOf("^^")));
-								document.setVersion(version);
-								break;
-							case "Status" :
-								document.setStatus(node.toString());
-								break;
-							case "Verfasser" :
-								System.out.println(node.toString());
-								document.setCreatedBy(getEmployeeByURI(node.toString()));
-								break;
-							case "Schlagwörter" :
-								ArrayList<String> listKeywords = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
-								document.setKeywords(listKeywords);
-								break;
-							case "Projekte" :
-								ArrayList<String> listProjects = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
-								ArrayList<String> newListProjects = new ArrayList<>();
-								int count = 0;
-								for(String getProjects : listProjects){
-									if(count==0){
-										newListProjects.add(getProjectByURI(getProjects));
-									}
-									count++;
-								}
-								document.setProjects(newListProjects);
-								break;
-							case "Dokumentenklasse" :
-								System.out.println(node.toString());
-								document.setDocumentClass(node.asResource().getLocalName());
-								break;
-							case "DriveDocumentID" :
-								document.setDriveID(node.toString());
-								break;
-						}
-					
-					}
-				}
-		        qe.close();
-			} catch(Exception e){
-				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
-			}
-			
-			if(document!=null){
-				jsonInString = mapper.writeValueAsString(document);
-			}
-
-			return Response.status(200).entity(jsonInString).build();
-		 }
-	  	
-	  	
-	  	
-	  	
-	  	
-	  	@GET
-		 @Path("/getDocumentByIDTest/{documentID}")
-		 @Produces("application/json")
-		 public Response getDocumentByIDTest(@PathParam("documentID") String documentID) throws JSONException, JsonProcessingException {
+		 public Response GetDocumentByID(@PathParam("documentID") String documentID) throws JSONException, JsonProcessingException {
 	  		Document document = null;
 	  		ObjectMapper mapper = new ObjectMapper();
 	  		ArrayList<String> listKeywords = new ArrayList<>();
@@ -738,24 +389,23 @@ public class RestService {
 						+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
 						+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
 						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " SELECT ?DocumentName ?Dokumentenklasse ?Status ?Projekt ?Schlagwort ?DriveDocumentDrive "
-						+ " ?Speicherort ?Version ?Verfasser ?Erstellungsdatum ?Dokumenttyp "
+						+ " SELECT ?DocumentName ?DriveDocumentDrive ?Status ?Schlagwort ?Speicherort ?Version ?Projekt ?Dokumentenklasse ?Dokumenttyp"
+						+ " ?Erstellungsdatum ?Verfasser"
 						+ " where {"
 						+ " ?x ?y ?DriveDocumentDrive ."
 						+ " Filter (?DriveDocumentDrive = '"+documentID+"') ."
-						+ " ?x Cloud_Dokumente:Dokumentenname ?DocumentName ."
 						+ " ?x Cloud_Dokumente_old:Status ?Status ."
+						+ " ?x Cloud_Dokumente:Dokumentenname ?DocumentName ."
 						+ " ?x Cloud_Dokumente_old:Schlagwort ?Schlagwort . "
 						+ " ?x Cloud_Dokumente_old:Speicherort ?Speicherort ."
 						+ " ?x Cloud_Dokumente_old:Version ?Version ."
-						+ " ?x Cloud_Dokumente_old:Dokumenttyp ?Dokumenttyp ."
 						+ " ?x Cloud_Dokumente_old:Erstellungsdatum ?Erstellungsdatum ."
 						+ " ?x Cloud_Dokumente_old:Dokument_hat_Verfasser ?Verfasser ."
 						+ " ?x Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt ?Projekt ."
+						+ " optional{?x Cloud_Dokumente_old:Dokumenttyp ?Dokumenttyp} ."
 						+ " ?x rdf:type ?Dokumentenklasse ."
 						+ "}";
-  
-	
+				
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 		        ResultSet results = qe.execSelect();
 		        List var = results.getResultVars();    
@@ -766,24 +416,19 @@ public class RestService {
 					for(int i=0; i<var.size();i++){
 						String va = var.get(i).toString();
 						RDFNode node = qs.get(va);
-						System.out.println(node.toString());
 						switch(va){
 							case "DocumentName" : 
-								log.info(node.toString());
 								document.setDocumentName(node.toString());
 								break;
 							case "Status": 
-								log.info(node.toString());
 								document.setStatus(node.toString());
 								break;
 							case "Schlagwort" : 
-								log.info(node.toString());
 								listKeywords.add(node.toString());
 								document.setKeywords(listKeywords);
 								break;
 							case "DriveDocumentDrive" : 
-								log.info(node.toString());
-								document.setDriveID(node.toString());
+								document.setDocumentID(node.toString());
 								break;
 							case "Speicherort" :
 								log.info(node.toString());
@@ -811,11 +456,8 @@ public class RestService {
 								break;
 							case "Dokumenttyp" :
 								document.setDocumentType(node.toString());
-								break;
-								
-								
+								break;		
 						}
-					
 					}
 				}
 		        qe.close();
@@ -824,11 +466,9 @@ public class RestService {
 			}
 		
 			jsonInString = mapper.writeValueAsString(document);
-			
-
 			return Response.status(200).entity(jsonInString).build();
 		 }
-	  
+
 	  
 	  
 	  	/**
@@ -897,8 +537,11 @@ public class RestService {
 							  }
 								  project.setProjectMembers(listEmployees);						  	  
 						  	  break;
-						  case "Status" : project.setStatus(node.toString()); break;
-						  case "Projektleiter" : project.setProjectManager(getEmployeeByURI(node.toString())); break;
+						  case "Status" : project.setStatus(node.toString());
+						 
+						  break;
+						  
+						  case "Projektleiter" :  System.out.println(node.toString()); project.setProjectManager(getEmployeeByURI(node.toString())); break;
 						  case "GroupUnternehmen" : 
 							  if(node.toString().contains("#")){
 								  ArrayList<String> listCompanies = new ArrayList<>(Arrays.asList(node.toString().split(",")));
@@ -931,41 +574,7 @@ public class RestService {
 			
 			return Response.status(200).entity(jsonInString).build();
 		 }
-	  	 
-	  	public static String getDummyDocument (){
-			 String documentClass = "";
-			 try {
-					String sparQuery = 	 "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ " SELECT DISTINCT ?DokumentenID ?Dokumentenklasse ?x where {"
-							+ "	?x ?y ?z ."
-							+ " ?x <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#DriveDocumentID> ?DokumentenID ."
-							+ " ?x rdf:type ?Dokumentenklasse}";
-					
-					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-
-			        ResultSet results = qe.execSelect();
-			        List var = results.getResultVars();
-			        while (results.hasNext()){
-						QuerySolution qs = results.nextSolution();
-						for(int i=0; i<var.size();i++){			
-							String va = var.get(i).toString();
-							RDFNode node = qs.get(va);
-							switch(va){
-								case "Dokumentenklasse" : documentClass = node.toString();
-									System.out.println("sdfsd"+node.toString());
-								case "x" : System.out.println("x"+node.toString());
-							}
-							
-						}
-					}
-			        qe.close();
-				} catch(Exception e){
-					log.error( "getEmployeeByURI: Can´t get employee by uri "+e);
-				}
-					return documentClass;
-	  	}
-	  		  
-	  		
+	  	 	
 	  	 @GET
 		 @Path("/GetDocumentClasses/")
 		 @Produces("application/json")
@@ -995,8 +604,7 @@ public class RestService {
 						if(node.toString().contains("Cloud_Dokumente")){
 							if(!listDocumentClasses.contains(node.asResource().getLocalName())){
 								listDocumentClasses.add(node.asResource().getLocalName());
-							}
-							
+							}					
 						}
 					}
 				}
@@ -1075,18 +683,15 @@ public class RestService {
 							  for(String employee : listEmployee){
 									  newListEmployees.add(getEmployeeByURI(employee));
 							  }
-							  
 							  company.setEmployees(newListEmployees);
 							  break;
 						  case "Branche" : company.setIndustrialSector(node.toString());break;
-						  
 						  case "Projekte" : 
 							  ArrayList<String> listProjects = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
 
 							  for(String projects : listProjects){
 									  newListProjects.add(getProjectByURI(projects));
 							  }
-
 							  company.setProjects(newListProjects);
 							  break;
 						  case "Hauptsitz": company.setHeadquarter(node.asResource().getLocalName());
@@ -1109,8 +714,6 @@ public class RestService {
 			} catch(Exception e){
 				log.error( "GetCompanyByID: Can´t get company information "+e);
 			}
-			
-			
 			String jsonInString = mapper.writeValueAsString(newCompany);
 			if(!jsonInString.contains("U")){
 				return Response.status(Response.Status.NOT_FOUND).entity("Company not found for ID: "+companyID).build(); 
@@ -1155,8 +758,8 @@ public class RestService {
 							+ " ?x Cloud_Dokumente:Jobtitel ?Jobtitel ."
 							+ " ?x Clou_Dokumente_Old:ist_Mitarbeiter_von_Unternehmen ?Unternehmen ."
 							+ " ?x Clou_Dokumente_Old:Mitarbeiter_ist_Projektmitglied_von ?Projekt ."
-							+ " ?x Cloud_Dokumente:HangoutUserID ?HangoutUserID ."
-							+ " ?x Cloud_Dokumente:DriveUserID ?DriveUserID ."
+							+ " ?x Cloud_Dokumente:hangoutUserID ?HangoutUserID ."
+							+ " ?x Cloud_Dokumente:driveUserID ?DriveUserID ."
 							+ "}group by ?MitarbeiterID ?Personenname ?Vorname ?Unternehmen ?Jobtitel ?HangoutUserID ?DriveUserID"; 
 					
 					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
@@ -1177,8 +780,7 @@ public class RestService {
 								case "Jobtitel" :employee.setJobTitle(node.toString());
 								case "Unternehmen" :  
 									if(node.toString().contains("#")){
-										employee.setEmployeeOf(getCompanyByURI("http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"));
-										
+										employee.setEmployeeOf(getCompanyByURI("http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"));							
 									}
 									break;
 								case "Personenname" : 
@@ -1246,14 +848,11 @@ public class RestService {
 					return companyID;
 			}
 		  	 
-		  	 
-		 
-		  	 
 		 public static String getEmployeeByURI(String employeeURI) {	
 			String employeeID = null;
 			try {
 				String sparQuery = " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>select ?HangoutUserID where {"
-						+ " <"+employeeURI+"> Cloud_Dokumente:HangoutUserID ?HangoutUserID }";  
+						+ " <"+employeeURI+"> Cloud_Dokumente:hangoutUserID ?HangoutUserID }";  
 				
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
@@ -1335,7 +934,7 @@ public class RestService {
 		 public static String getIDByURI(String uri) {	
 				String id = null;
 				try {
-					String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+					String sparQuery ="PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
 							+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
 							+ " select ?x where {"
 							+ " ?x ?y ?z ."
@@ -1422,72 +1021,16 @@ public class RestService {
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// GET Statements
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-		 public static void main(String[] args) throws FileNotFoundException, JSONException, JsonProcessingException {
-				String jsonData = "";
-				BufferedReader br = null;
-				try {
-					String line;
-					br = new BufferedReader(new FileReader("data/Crunchify_JSON"));
-					while ((line = br.readLine()) != null) {
-						jsonData += line + "\n";
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				} finally {
-					try {
-						if (br != null)
-							br.close();
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-				}
-				// System.out.println("File Content: \n" + jsonData);
-				JSONObject obj = new JSONObject(jsonData);
-
-				
-				getWordinformation(jsonData);
-			}
-		 */
-		 
-		 /*public static void main(String[] args) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
-			 getWordinformation("");
-		}*/
-			
-
-		
 		 @POST
 		 @Path("/GetWordinformation/")
 		 @Consumes("application/json")
 		 @Produces("application/json")
 		 public static Response getWordinformation(Object objKeyword) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
-			/*org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objKeyword.toString());
-			*/
-			
-				String jsonData = "";
-				BufferedReader br = null;
-				try {
-					String line;
-					br = new BufferedReader(new FileReader("data/Crunchify_JSON"));
-					while ((line = br.readLine()) != null) {
-						jsonData += line + "\n";
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				} finally {
-					try {
-						if (br != null)
-							br.close();
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-				}
-				System.out.println("File Content: \n" + jsonData);
-			JSONObject obj = new JSONObject(jsonData);
+			org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objKeyword.toString());
 			
 			    String keyword = obj.getString("keyword");
 				String priviousKeyword = obj.getString("previousKeyword");
-				String nextKeyword = obj.getString("nextKeyword");
+				String nextKeyword = obj.getString("nextKeword");
 
 			 	ArrayList<WordInformation> listWordInformation = new ArrayList<>();
 			 	for(int i=0; i<5; i++){
@@ -1530,7 +1073,6 @@ public class RestService {
 			 	ArrayList<String> newListProjects = new ArrayList<>();
 			 	ArrayList<String> newListPerseons = new ArrayList<>();
 			 	
-	
 			 		for(WordInformation ausgabe : listWordInformation){
 			 			newListPerseons = new ArrayList<>(ausgabe.getEmployees());
 			 			newListProjects = new ArrayList<>(ausgabe.getProjects());
@@ -1553,10 +1095,8 @@ public class RestService {
 			 			}
 			 			
 			 			if(!newListCompanies.isEmpty()){
-			 				System.out.println("hier");
 			 				newWordInformation.setCompanies(newListCompanies);
 			 			} else {
-			 				System.out.println("hier");
 			 				ArrayList<String> listCompanies = new ArrayList<>();
 			 				newWordInformation.setCompanies(listCompanies);
 			 			}
@@ -1597,25 +1137,6 @@ public class RestService {
 					
 		 	}
 		 
-		 /*
-		 @GET
-		 @Path("/GetWordinformation/")
-		 @Produces("application/json")
-		 public Response getDocume() throws JSONException {
-				jsonObject = new JSONObject();
-				Document document;
-				ArrayList<Document> listDocument = new ArrayList<Document>();
-				ArrayList<String> listKeywort = new ArrayList<String>();				
-				try {
-						
-					
-				} catch(Exception e){
-					log.error( "GetDocumentByTitle: Can´t get document by title "+e);
-				}
-				return Response.status(200).entity("halloo").build();
-		 	}*/
-		 
-		
 		 public static WordInformation parseKeywords(String keyword) throws JsonProcessingException {
 				ArrayList<String> listProjects = new ArrayList<>();
 				ArrayList<String> listEmployees = new ArrayList<>();
@@ -1663,8 +1184,7 @@ public class RestService {
 				WordInformation wordInformation = null;
 				ArrayList<WordInformation> listWordInformation = new ArrayList<WordInformation>();
 				for(ObjectRelation ausgabe : listObjectRelation){
-					wordInformation = new WordInformation();
-					
+					wordInformation = new WordInformation();			
 					if(ausgabe.getType().equals("Projekt")){
 						String projectID = getProjectByURI(ausgabe.getValue());
 						if(projectID != null){
@@ -1692,103 +1212,12 @@ public class RestService {
 				}
 				
 				return wordInformation;
-		 	}
-		 
-		 /*
-		 @GET
-		 @Path("/GetWordinformation/")
-		 @Produces("application/json")
-		 public static Response getWordinformation(Object objKeyword) throws JSONException, JsonProcessingException {
-			 	JSONObject jsonObjectKeywords = new JSONObject(objKeyword.toString());
-			 	
-			 	String keyword = jsonObjectKeywords.getString("keyword");
-			 	String priviousKeyword = jsonObjectKeywords.getString("priviousKeyword");
-			 	String nextKeyword = jsonObjectKeywords.getString("nextKeyword");
-			 	System.out.println(priviousKeyword);
-				jsonObject = new JSONObject();
-		        String Klassentyp = "";
-				ArrayList<String> listProjects = new ArrayList<>();
-				ArrayList<String> listEmployees = new ArrayList<>();
-				ObjectRelation objectRelation;
-				
-				ArrayList<ObjectRelation> listObjectRelation = new ArrayList<>();
-				try {
-					String sparQuery = "prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
-							+ " SELECT  ?Klassentyp ?Wert"
-							+ " WHERE   { ?Wert ?Typ ?Ausgabe ."
-							+ " FILTER regex (?Ausgabe, '"+nextKeyword+"') . "
-							+ " ?Typ <http://www.w3.org/2000/01/rdf-schema#domain> ?Klassentyp "
-							+ " } group by ?Klassentyp ?Wert";
-					
-					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-
-			        ResultSet results = qe.execSelect();
-			        List var = results.getResultVars();
-			        String classType = "";
-			        int countIteration = -1;
-			        while (results.hasNext()){
-
-			        	objectRelation = new ObjectRelation();
-						QuerySolution qs = results.nextSolution();
-						for(int i=0; i<var.size();i++){			
-							String va = var.get(i).toString();
-							RDFNode node = qs.get(va);
-							
-							switch(va){
-								case "Klassentyp" :
-									objectRelation.setType(node.asResource().getLocalName());
-									System.out.println(node.toString());
-									break;
-								case "Wert" : 
-									objectRelation.setValue(node.toString());
-									break;
-							}
-						}
-						listObjectRelation.add(objectRelation);
-					}
-			        qe.close();
-				} catch(Exception e){
-					log.error( "GetWordInformation: Can´t get word information "+e);
-				}
-				WordInformation wordInformation = null;
-				ArrayList<WordInformation> listWordInformation = new ArrayList<WordInformation>();
-				for(ObjectRelation ausgabe : listObjectRelation){
-					wordInformation = new WordInformation();
-					
-					if(ausgabe.getType().equals("Projekt")){
-						String projectID = getProjectByURI(ausgabe.getValue());
-						if(projectID != null){
-							listProjects.add(projectID);
-						}
-					}
-					if(ausgabe.getType().equals("Person")){
-						String employeeID = getEmployeeByURI(ausgabe.getValue());
-						if(employeeID!=null){
-							listEmployees.add(employeeID);
-						}
-					}
-					
-				}
-				String jsonInString = "";
-				ObjectMapper mapper = new ObjectMapper();
-				if(wordInformation!=null){
-					wordInformation.setProjects(listProjects);
-					wordInformation.setPersons(listEmployees);
-					jsonInString = mapper.writeValueAsString(wordInformation);
-				}
-				
-				
-				
-				return Response.status(200).entity(jsonInString).build();
-		 	}
-		 
-		 */
+		 	} 
+		
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // END-----------------------Speech Token Interface
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		 
-		 
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // GOOGLE Apps Script Interface
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1931,29 +1360,29 @@ public class RestService {
 	@POST
 	@Path("/AddDocumentMetadata")
 	@Consumes("application/x-www-form-urlencoded")
-	public static void addDocumentMetadata(@FormParam("name") String name, @FormParam("driveID") String driveID,
-			@FormParam("status") String status, @FormParam("drivePath") String drivePath,
-			@FormParam("version") String version, @FormParam("creationDate") String creationDate,
-			@FormParam("createdBy") String createdBy, @FormParam("project") String project,
-			@FormParam("documentClass") String documentClass, @FormParam("keywords") String keywords,
-			@FormParam("documentType") String documentType) {
-
+	public static void addDocumentMetadata(@FormParam("name") String name, @FormParam("driveID") String driveID, @FormParam("status") String status, 
+			@FormParam("keywords") String keywords, @FormParam("drivePath") String drivePath, @FormParam("version") String version, 
+			@FormParam("creationDate") String creationDate, @FormParam("createdBy") String createdBy, 
+			@FormParam("project") String project, @FormParam("type") String type, @FormParam("documentClass") String documentClass) {
 		try {
 			String UPDATE_TEMPLATE = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
 					+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
 					+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
 					+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-					+ " INSERT DATA" + " { "
+					+ " INSERT DATA { "
 					+ " <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/A-BOX_Cloud_Dokumente#" + name + "> "
-					+ " Cloud_Dokumente:Dokumentenname '" + name + "' ;" + " Cloud_Dokumente_old:Status '" + status+ "' ;" 
-					+ " Cloud_Dokumente_old:DriveDocumentID '" + driveID + "' ;"
-					+ " Cloud_Dokumente_old:Schlagwort " + keywords + " ;" + " Cloud_Dokumente_old:Speicherort '"
-					+ drivePath + "' ;" + " Cloud_Dokumente_old:Version '" + version + "^^xsd:double' ;"
+					+ " Cloud_Dokumente:Dokumentenname '" + name + "' ;" 
+					+ " Cloud_Dokumente_old:Status '"+status+"' ;" 
+					+ " Cloud_Dokumente_old:DriveDocumentID '"+driveID+"' ;"
+					+ " Cloud_Dokumente_old:Schlagwort "+keywords+" ;" 
+					+ " Cloud_Dokumente_old:Speicherort '"+ drivePath + "' ;" 
+					+ " Cloud_Dokumente_old:Version '" + version + "^^xsd:double' ;"
 					+ " Cloud_Dokumente_old:Erstellungsdatum '" + creationDate + "^^xsd:dateTime' ;"
-					+ " Cloud_Dokumente_old:Dokument_hat_Verfasser  <" + createdBy + "> ;"
-					+ " Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt <" + project + "> ;"
-					+ " Cloud_Dokumente_old:Dokumenttyp '" + documentType + "' ; " + " rdf:type <" + documentClass
-					+ "> ;" + " }";
+					+ " Cloud_Dokumente_old:Dokument_hat_Verfasser  <"+createdBy+"> ;"
+					+ " Cloud_Dokumente_old:Dokument_gehoert_zu_Projekt <"+project+"> ;"
+					+ " Cloud_Dokumente_old:Dokumenttyp '"+type+"' ; "
+					+ " rdf:type <"+documentClass+"> ;"
+					+ " }";
 
 			String id = UUID.randomUUID().toString();
 			UpdateProcessor upp = UpdateExecutionFactory.createRemote(
@@ -1962,8 +1391,7 @@ public class RestService {
 		} catch (Exception e) {
 			log.error("AddDocumentMetadata: Can´t add document metadata " + e);
 		}
-	}		
-	
+	}
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// EDIT Statements
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1971,26 +1399,27 @@ public class RestService {
 	@Path("/EditDocumentMetadata")
 	@Consumes("application/x-www-form-urlencoded")
 
-	public void editDocumentMetadata(@FormParam("name") String name, @FormParam("documentType") String documentType,
-			@FormParam("status") String status, @FormParam("documentPath") String documentPath,
-			@FormParam("keyword") String keyword)
+	public static void editDocumentMetadata(@FormParam("driveID") String driveID, 
+			@FormParam("oldName") String oldName, @FormParam("newName") String newName,
+			@FormParam("oldStatus") String oldStatus, @FormParam("newStatus") String newStatus)
 			throws IOException, ParseException, org.codehaus.jettison.json.JSONException {
 		try {
-			String UPDATE_TEMPLATE = "PREFIX foaf:  <http://xmlns.com/foaf/0.1/>"
-					+ "prefix Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#> "
-					+ "DELETE { "
-					+ "		?Document Cloud_Dokumente:Name         	'Besprechungsprotokoll_HighNet_15-01-2016' ."
-					+ "		?Document Cloud_Dokumente:Status 		'Fertiggestellt' ."
-					+ "		?Document Cloud_Dokumente:Schlagwort    'Ideensammlung' , 'Aufgabenverteilung' ."
-					+ "		?Document Cloud_Dokumente:Dokumenttyp 	'Textdokument' . "
-					+ "		?Document Cloud_Dokumente:Speicherort  	'https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8k' ;}"
-					+ "}" + "INSERT { " + "		?Document Cloud_Dokumente:Name         	'" + name + "' ."
-					+ "		?Document Cloud_Dokumente:Status 		'" + status + "' ."
-					+ "		?Document Cloud_Dokumente:Schlagwort    '" + keyword + "' ."
-					+ "		?Document Cloud_Dokumente:Dokumenttyp 	'" + documentType + "' ."
-					+ "		?Document Cloud_Dokumente:Speicherort  	'" + documentPath + "' ;" + "WHERE" + "{ "
-					+ "		?Document Cloud_Dokumente:DriveDocumentID '1K4_pQgxm9dEx4HK5s5ghw740hkcOu8IrbpMFZ4RNuX0'"
-					+ "}";
+			String UPDATE_TEMPLATE = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+					+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+					+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+					+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+					+ " DELETE { "
+					+ " ?x <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Dokumentenname> '"+oldName+"' ."
+					+ " ?x Cloud_Dokumente_old:Status '"+oldStatus+"' ."
+					+ " }"
+					+ " INSERT { "
+					+ " ?x <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Dokumentenname> '"+newName+"' . "
+					+ " ?x Cloud_Dokumente_old:Status '"+newStatus+"' ."
+					+ " }"
+					+ " WHERE  "
+					+ " { "
+					+ " ?x <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#DokumentenID> '"+driveID+"' "
+					+ " }";
 
 			String id = UUID.randomUUID().toString();
 			UpdateProcessor upp = UpdateExecutionFactory.createRemote(

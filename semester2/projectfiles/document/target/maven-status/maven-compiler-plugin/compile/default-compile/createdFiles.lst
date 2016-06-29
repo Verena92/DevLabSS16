@@ -1,4 +1,3 @@
-controller\CrunchifyParseJSONObject.class
 models\Project.class
 models\Employee.class
 models\Company.class
