@@ -18,6 +18,7 @@ function doPoll(){
 		//Bei erfolgreichem Request Objekt in der Console ausgeben und GetResults aufrufen
 	    success: function(responsedata){
 	    	console.log("success");
+	    	console.log(responsedata);
 	    	GetResults(responsedata);
 	    	/**
 		     * setInterval ruft die Methode <code>doPoll()</code> nach 5000ms erneut auf.
