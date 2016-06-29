@@ -115,7 +115,7 @@ function startButton(event) {
 function erhalteDocuments(event) {
 	//Asynchroner Post Request auf die Event Gruppe
 	$.ajax({ type:'GET', 
-		url: 'https://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments/',  
+		url: 'http://146.148.67.230/de.hdm.speechtomcat/rest/GetDocuments/',  
 		contentType: 'application/json',
 		dataType: 'json',
 
