@@ -26,7 +26,7 @@ function GetResults(responsedata){
 	document1.title = "BMW Projektbericht 2016";
 	document1.path = "https://www.google.de";
 	document1.show = document1.title.link(document1.path);
-	document1.window = window.open("https://www.google.de");
+	//document1.window = window.open("https://www.google.de");
 	
 	//create second sample document
 	var document2 = new Object();
@@ -36,7 +36,7 @@ function GetResults(responsedata){
 	document2.title = "Mercedes Projektbericht 2016";
 	document2.path = "https://docs.google.com/document/d/18CkOl89zv9zT9VKI0xZJpO_Gl-g1HCXYdeyFwO7z5vA/edit?usp=drive_web";
 	document2.show = document2.title.link(document2.path);
-	document2.window = window.open("https://docs.google.com/document/d/18CkOl89zv9zT9VKI0xZJpO_Gl-g1HCXYdeyFwO7z5vA/edit?usp=drive_web");
+	//document2.window = window.open("https://docs.google.com/document/d/18CkOl89zv9zT9VKI0xZJpO_Gl-g1HCXYdeyFwO7z5vA/edit?usp=drive_web");
 	
 	console.log(document2.show);
 	
@@ -46,12 +46,15 @@ function GetResults(responsedata){
 	
 	//var documentObj = JSON.parse(responsedata);
 	//DocumentTempArray.push(documentObj);
-	/*
-	for (b = 0; b <DocumentTempArray.length; b++){
-		
-	}*/
+	
+	for (b = 0; b <responsedata.length; b++){
+		DocumentTempArray.push(responsedata[i]);
+	}
 	
 	console.log(responsedata);
+	console.log(DocumentTempArray.length);
+	
+	
 	
 	//push document in documentarray
 	//Hier die einzelnen Objekte reinpushen
