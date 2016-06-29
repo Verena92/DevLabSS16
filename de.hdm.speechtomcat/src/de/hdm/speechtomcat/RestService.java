@@ -1,6 +1,8 @@
 package de.hdm.speechtomcat;
 
 	/**
+	 * Diese Klasse stellt eine POST Schnittstelle zur Verfügung über die Dokumenten URLs mit Zuordnung zu User und Hangouts Session entgegengenommen werden können. 
+	 * Diese Daten können über eine GET Schnittstelle wieder abgerufen werden.
 	 * @author Verena Hofmann
 	 * @author Maren Graeff
 	 */
@@ -54,8 +56,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONException;
-//import org.json.simple.JSONObject;
-//import org.json.simple.JSONArray;
+
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -74,7 +75,10 @@ import org.json.simple.parser.JSONParser;
 public class RestService {
 		
 		
-	// This method is called if TEXT_PLAIN is requested
+	/**
+	 * Testklasse ob der Server angersprochen werden kann und das war korrekt deployed wurde
+	 * @return String
+	 */
 	@GET
 	@Path("/hello") 
 	@Produces(MediaType.TEXT_PLAIN)
@@ -86,11 +90,15 @@ public class RestService {
 	private static JSONObject Object;	 
 	private static Logger log = Logger.getLogger(RestService.class.getName());
 		  
+	/**
+	 * Testmethode um die Ip des zugreifenden Clients auszulesen
+	 * @return IP
+	 */
+	
 	@GET
 	@Path("/register") 
 	@Produces("application/x-www-form-urlencoded")
 		  
-	//Methode um die IP Adresse des zugreifenden Clients auszulesen
 	public String registerClient() { 
 		try { 
 			return InetAddress.getLocalHost().getHostAddress(); 
@@ -102,17 +110,16 @@ public class RestService {
 
 	
 	
-	// Interface to be called from Event Group
-		  
-	/*
-	Wir nehmen entgegen:
-	userId
-	hangoutsId
-	documentName
-	drivePath*/
-
-		  			
-	// POST Statements to post relevant tokens and save them in filestream
+	/**
+	 * @POST um die Daten userId, hangoutsId, documentName und drivePath entgegenzunehmen und im Dateisystem usr/local/postdocument/document.json abzuspeichern
+	 * wird von der Eventgruppe aufgerufen
+	 * @Consumes JSON
+	 * @param objDocument
+	 * @throws JSONException
+	 * @throws JsonProcessingException
+	 * @throws org.codehaus.jettison.json.JSONException
+	 * @throws FileNotFoundException
+	 */
 		
 	
 	@POST
@@ -120,68 +127,29 @@ public class RestService {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public static void postDocuments(Object objDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException, FileNotFoundException  {
+		
+		/**
+		 * Auslesen der Datei documents.json und initialisieren des Object Mappers
+		 */
 				
 		org.codehaus.jettison.json.JSONObject obj = null;
 		
 		obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
 		
-		//original
-		//org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objDocument.toString());
-		
-		
-		
-		//JSONObject obj = new JSONObject(objDocument.toJSONString());
-		
-		//JSONObject obj = (JSONObject) objDocument;
-		
-		//JSONObject obj = new JSONObject(objDocument);
-		
-//		String userId = obj.getString("userId");
-//		String hangoutsId = obj.getString("hangoutsId");
-//		String documentName = obj.getString("documentName");
-//		String drivePath = obj.getString("drivePath");
-//
-//		System.out.println(userId+ " "+hangoutsId+" "+documentName+" "+drivePath);
-		
-		//JSONParser parser = new JSONParser();
-
- 		/*try {
- 			String path = "/usr/local/postdocument/document";
- 			String json = ".json";
- 			FileWriter file = new FileWriter(path+documentName+json);
- 			file.write(obj.toString());
- 			file.flush();
- 			file.close();
- 			
- 			
- 			JSONParser parser = new JSONParser();
- 			
- 			 		
- 		} catch (IOException e) {
- 			e.printStackTrace();
- 			log.info("Error");
- 		}
-
- 		System.out.print(obj);*/
-		
 		ObjectMapper mapper = new ObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		
-
 		InputStream is = new FileInputStream("/usr/local/postdocument/documents.json");
  			 
  	        try {
  	        	
- 	        	//FileReader fr = new FileReader("/usr/local/postdocument/documents.json");
- 	 
- 	           //Object old = parser.parse(new FileReader("/usr/local/posts/documents.json"));
+ 	        	/** 
+ 	        	 * Aktueller Inhalt der documents.json Datei wird ausgelesen, das neu erhaltene Objekt angehängt und wieder in documents.json abgespeichert
+ 	        	 */
  	        	
  	        	JsonParser jp = new JsonFactory().createParser(is);
  	        	
- 	        	//Object old = mapper.readValue(new File ("/usr/local/postdocument/documents.json"), JSONArray.class);
+
  	        	Object old = mapper.readTree(jp);
- 	        			//readValue(new File ("/usr/local/postdocument/documents.json"), JSONArray.class);
- 	        	
- 	        	//Object old = mapper.readValue(jp, JSONArray.class);
  	        	
  	        	ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
  	        	String json = ow.writeValueAsString(old);
@@ -190,81 +158,48 @@ public class RestService {
  	            JSONObject jsonObject = new JSONObject(json);
  	            
  	            jsonObject.append("documents", obj);
- 	        	
-// 	            JSONArray documents = new JSONArray(jsonObject.get(documents));
- 	            
-// 	            JSONArray documents = jsonObject.getJSONArray("documents");
- 	            
-// 	            JSONObject newjson = new JSONObject();
-
- 	            
-// 	            documents.getJSONObject("documents");
-// 	            obj.toJSONArray(documents);
- 	            
-// 	            documents.put(json);
-// 	            JSONObject newjson = new JSONObject();
-// 	            newjson.(documents);
  	       
  	            FileWriter file = new FileWriter("/usr/local/postdocument/documents.json", false);
- 	 			file.write(jsonObject.toString()); //toJSONString()
-// 	            file.write(newjson.toString());
-// 	            file.append(",");
+ 	 			file.write(jsonObject.toString());
+
  	 			file.flush();
  	 			file.close();
- 	            
-// 	 			fr.close();
  	 			
+ 	 			/**
+ 	 			 * Abfangen von Fehlern
+ 	 			 */
+ 	            
 
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
  	        
      		} catch (Exception ex) {
      			ex.printStackTrace();}
- 	    
- 			
- 				  
 
-			
- 		/////////////////ENDE VERSION 2///////////////////
-
- 		 }//Ende POST Methode
+ 		 }
 		  
 		  
-
-		/////////////////VERSUCH GET-Methode zum Auslesen der .json Datei///////////////////
+/**
+ * @GET um die Daten userId, hangoutsId, documentName und drivePath aus dem Dateisystem usr/local/postdocument/document.json auszulesen 
+ * wird vom hangoutsclient aufgerufen
+ * @param getDocument
+ * @return content
+ * @throws JSONException
+ * @throws JsonProcessingException
+ * @throws org.codehaus.jettison.json.JSONException
+ * @throws FileNotFoundException
+ */
 	
 
 		@GET
 		@Path("/GetDocuments")
 		@Consumes("application/json")
 		@Produces("application/json")
-		//public Response getDocuments(@PathParam("hangoutsId") String hangoutsId) throws JSONException {
 		public static Response getDocuments(Object getDocument) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException, FileNotFoundException {		
-
-			/////////////////START VERSION 1///////////////////
-			
-			//org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(getDocument.toString());
-			/*
-			Object obj = null;
-
-			try{
-			
-				java.io.FileInputStream fis = new java.io.FileInputStream("/usr/local/postdocument/documentBesprechungsprotokoll_HighNet_15-01-2016.json");
-				java.io.ObjectInputStream ois = new java.io.ObjectInputStream(fis);
-
-				obj = (org.codehaus.jettison.json.JSONObject) ois.readObject();
-				fis.close();
-				
-				}
-				catch(Exception e){}
-			return Response.status(200).entity(obj).build();
-		}*/
-			
-			/////////////////ENDE VERSION 1///////////////////
-			
-
 	
-			
+			/**
+			 * Initialisieren des ObjectMappers und einlesen der Datei documents.json
+			 */
 			ObjectMapper mapper = new ObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
 			InputStream is = new FileInputStream("/usr/local/postdocument/documents.json");
@@ -273,12 +208,12 @@ public class RestService {
 			BufferedReader br = null;
 			
 			String json = "";
-			//String old ="";
-			//JsonParser jp = null;
-			
-			//DocumentItems obj = new  DocumentItems();		
 			
 			try {
+				
+				/**
+				 * Inhalt der Datei parsen und abspeichern
+				 */
  	        	
 				JsonParser jp = new JsonFactory().createParser(is);
  	        	
@@ -286,20 +221,10 @@ public class RestService {
  	        	
  	        	ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
  	        	json = ow.writeValueAsString(old);
- 	        	
- 	        	//obj = mapper.readValue(obj, DocumentItems.class);
- 	        	
-			
-// 	        	for (int i = 0; i<json.length(); i++){
-// 	        		json += line + "\n";
-// 	        	}
-// 
-//				while ((line = br.readLine())  != null){
-//					json += line + "\n";
-//				}
- 	        	
- 	        	//String userId = mapper.writeValueAsString(json.getString("userId"));
 				
+ 	        	/**
+ 	        	 * Abfangen von Fehlern
+ 	        	 */
  	        	
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -314,93 +239,12 @@ public class RestService {
 					ex.printStackTrace();}
 			}
 			
+			/**
+			 * Inhalt der Datei documents.json zurückgeben
+			 */
 							
 			return Response.status(200).entity(json).build();
 			
-			
-			
-			/////////////////START VERSION 2/////////////////// FUNKTIONIERT MAL
-			/*
-			
-			
-			String jsonData = "";
-			String line ="";
-			BufferedReader br = null;
-
-			
-			try{
-				
-				InputStream is = new FileInputStream("/usr/local/postdocument/documents.json");
-				InputStreamReader isr = new InputStreamReader (is);
-				br = new BufferedReader (isr);
-			
-				
-				
-				while ((line = br.readLine())  != null){
-					jsonData += line + "\n";
-				}
-
-				
-			}catch(IOException ex){
-				ex.printStackTrace();
-			}finally{
-				try{
-					if (br !=null)
-						br.close();
-				} catch (IOException ex){
-					ex.printStackTrace();
-				}
-			}
-			
+ 			} 
 		
-				
-			return Response.status(200).entity(jsonData).build();*/
-
-			
-			/////////////////ENDE VERSION 1///////////////////
-			  
-			/////////////////START VERSION 3///////////////////
-			
-			/*
-			//String hangoutsId = getDocument.getString("hangoutsId");
-			
-			JSONParser parser = new JSONParser();
-			Object object = null;  
-			JSONObject jsonObject = new JSONObject();
-			
-			try {
-
-				object = new FileReader("/usr/local/postdocument/documentBesprechungsprotokoll_HighNet_15-01-2016.json");
-				//jsonObject = (JSONObject) object;
-
-//				String userId = (String) jsonObject.get("userId");
-//				System.out.println(userId);
-//				String hangoutsId = (String) jsonObject.get("hangoutsId");
-//				System.out.println(hangoutsId);
-//				String documentName = (String) jsonObject.get("documentName");
-//				System.out.println(documentName);
-//				String drivePath = (String) jsonObject.get("drivePath");
-//				System.out.println(drivePath);
-				
-				
-
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			catch(Exception e){}
-			return Response.status(200).entity(jsonObject).build();*/
-		
-			/////////////////ENDE VERSION 3///////////////////
-
- 		} //Ende GET Methode
-		
-		
-		}//Ende RestService Methode
-
-
-		
-		
-			
+		}	
