@@ -10,7 +10,7 @@ import de.hdm.wim.events.restclient.BaseRestClient;
 import de.hdm.wim.helper.PropertiesHelper;
 
 /**
- * Class used to request further infrmation about a given 'thing',
+ * Class used to request further information about a given 'thing',
  * i.e. a project, product, company or employee.
  * Further to request a document regarding given things,
  * i.e. documents in relation to a combination of a project and an employee.
