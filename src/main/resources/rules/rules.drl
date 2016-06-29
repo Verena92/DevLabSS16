@@ -146,13 +146,14 @@ rule "A Token with a documentClass occured and Token(s) with several related pro
         $dcoe : DocumentClassOccuredEvent(  ) from entry-point SpeechTokenEventStream
         $t : InternalToken( keywordInformation.projects.size() > 0, 
         			keywordInformation.companies.empty,
-        			keywordInformation.employees.empty, this after[-5m,5m] $dcoe) from entry-point SpeechTokenEventStream
+        			keywordInformation.employees.empty, this after[-50m,50m] $dcoe) from entry-point SpeechTokenEventStream
     then
       resultList.add( "A Token with a documentClass occured and Token(s) with several related projects occured");
       System.out.println( "A Token with a documentClass occured and Token(s) with several related projects occured");
       
        DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
 	  List<String> employees = new ArrayList<String>();
+	  //employees.add( $t.getUser().getGoogle_id()); // wir wollen nicht weiter nach Speaker eingrenzen, da die Suche nur nach 'created_by' filtert und das zu eingeschräkt ist.
 	  List<String> companies = new ArrayList<String>();
 	  List<String> projects = $t.getKeywordInformation().getProjects();
 	  
@@ -161,19 +162,17 @@ rule "A Token with a documentClass occured and Token(s) with several related pro
 	      List<String> projectList = new ArrayList<String>();
 	      projectList.add( project);
 		  SearchRequest searchRequest = new SearchRequest(employees, companies, projectList, $dcoe.getKeyword());
-		  //SearchRequest searchRequest = new SearchRequest(employees, companies, projectList, null); //FIXME
 		  
 		  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 		  
 		  List<String> docIdList = new ArrayList<String>();
 		  docIdList = wrapper.getDocuments();
 		  
-		  System.out.println( docIdList);
 		  for( String docId: docIdList){
 			    Document document = requester.getDocument(docId);
 			  	DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
 			  	new EventService().insertCustom( documentReceivedEvent);
-		    }
+		   }
 	  }
 end
 
@@ -214,12 +213,14 @@ rule "Request a document for a project"
 	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, null);
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 	  
-	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
-	  if( documentID != null) {
-	  	Document document = requester.getDocument(documentID);
-        DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
-        new EventService().insertCustom( documentReceivedEvent);
-	  }
+	  List<String> docIdList = new ArrayList<String>();
+	  docIdList = wrapper.getDocuments();
+	  
+	  for( String docId: docIdList){
+		    Document document = requester.getDocument(docId);
+		  	DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
+		  	new EventService().insertCustom( documentReceivedEvent);
+	   }
 end
 
 rule "Request a document for a company"
@@ -236,12 +237,14 @@ rule "Request a document for a company"
 	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, null);
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 	  
-	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
-	  if( documentID != null) {
-	  	Document document = requester.getDocument(documentID);
-        DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
-        new EventService().insertCustom(documentReceivedEvent);
-	  }
+	  List<String> docIdList = new ArrayList<String>();
+	  docIdList = wrapper.getDocuments();
+	  
+	  for( String docId: docIdList){
+		    Document document = requester.getDocument(docId);
+		  	DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
+		  	new EventService().insertCustom( documentReceivedEvent);
+	   }
 end
 
 rule "Request a document for an employee"
@@ -258,12 +261,14 @@ rule "Request a document for an employee"
 	  SearchRequest searchRequest = new SearchRequest(employees, companies, projects, null);
 	  DocumentIDsWrapper wrapper =  requester.getDocumentIDs(searchRequest);
 	  
-	  String documentID = wrapper.getDocuments().get(0);  //TODO: ggf. bekommen wir hier mehr als 1 Document zurück!
-	  if( documentID != null) {
-	  	Document document = requester.getDocument(documentID);
-        DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
-        new EventService().insertCustom( documentReceivedEvent );
-	  }
+	  List<String> docIdList = new ArrayList<String>();
+	  docIdList = wrapper.getDocuments();
+	  
+	  for( String docId: docIdList){
+		    Document document = requester.getDocument(docId);
+		  	DocumentReceivedEvent documentReceivedEvent = new DocumentReceivedEvent( document);
+		  	new EventService().insertCustom( documentReceivedEvent);
+	   }
 end
 
 

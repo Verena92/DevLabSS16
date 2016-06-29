@@ -17,6 +17,10 @@ import de.hdm.wim.events.model.event.User;
 
 public class TestDataProvider {
 
+	//private static final String USER_ID_1 = "hangout12197171_ephemeral.id.google.com^b48de1652ed790";
+	private static final String USER_ID_1 = "hangout23297470_ephemeral.id.google.com^b18de1652ed100";
+
+
 	public static Token createDummyTokenWithRelatedEmployeeM0001() {
 		List<String> projects = new ArrayList<String>();
 
@@ -24,13 +28,13 @@ public class TestDataProvider {
 
 
 		List<String> employees = new ArrayList<String>();
-		employees.add("hangout12197171_ephemeral.id.google.com^b48de1652ed790");
+		employees.add(USER_ID_1);
 
 		KeywordInformation keywordInformation = new KeywordInformation(projects, companies, employees);
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", USER_ID_1, "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -49,7 +53,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", USER_ID_1, "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -69,7 +73,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "amg", "jens", "lindner", USER_ID_1, "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -89,7 +93,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 29 16 15 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 29 16 15 10", "amg", "jens", "lindner", USER_ID_1, "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -111,7 +115,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 1 12 0 0", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 1 12 0 0", "amg", "jens", "lindner", USER_ID_1, "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -133,7 +137,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 1 12 0 6", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 1 12 0 6", "amg", "jens", "lindner", USER_ID_1, "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -176,7 +180,7 @@ public class TestDataProvider {
 	}
 
 	public static DocumentForSpeechTokenizer createDummyDocumentForSpeechTokenizer() {
-		DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer(new User("hangoutF2AA23F4_ephemeral.id.google.com^b005d30bf33378", "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg"), createDummyDocument());
+		DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer(new User(USER_ID_1, "AP36tYfMptB_3_cJW6AOwyJAIgAdMt5jKh6lyqVUTFVSapjVT0fRNg"), createDummyDocument());
 		return documentForSpeechTokenizer;
 	}
 
@@ -190,7 +194,7 @@ public class TestDataProvider {
 		projects.add("P0001");
 		projects.add("P0100");
 
-		Employee employee = new Employee("M0001", "Maier", "Lisa", "Projektleiter", "U0002", "hangoutsUserID", "driveUserID", projects);
+		Employee employee = new Employee("M0001", "Maier", "Lisa", "Projektleiter", "U0002", "hangoutsUserID", USER_ID_1, projects);
 		return employee;
 	}
 
@@ -224,7 +228,7 @@ public class TestDataProvider {
 	public static DocumentSuggestionReactionEvent createDummyDocumentSuggestionReactionAcceptedEvent() {
 		DocumentSuggestionReactionEvent documentSuggestionReactionEvent = null;
 		try {
-			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", "user", "hangout", "documentNa", "drivepath", true);
+			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", USER_ID_1, "hangout", "documentNa", true);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -236,7 +240,7 @@ public class TestDataProvider {
 	public static DocumentSuggestionReactionEvent createDummyDocumentSuggestionReactionDeclinedEvent() {
 		DocumentSuggestionReactionEvent documentSuggestionReactionEvent = null;
 		try {
-			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", "user", "hangout", "documentNa", "drivepath", false);
+			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", USER_ID_1, "hangout", "documentNa", false);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -253,7 +257,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 20 22 9 10", "Abschlussbericht", "jens", "lindner", "userId", "hangoutId", keywordInformation);
+			token = new Token("2016 6 20 22 9 10", "Abschlussbericht", "jens", "lindner", USER_ID_1, "hangoutId", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -273,7 +277,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2017 6 29 18 40 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2017 6 29 18 40 10", "amg", "jens", "lindner", USER_ID_1, "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -295,7 +299,7 @@ public class TestDataProvider {
 
 		Token token = null;
 		try {
-			token = new Token("2016 6 29 18 55 10", "amg", "jens", "lindner", "asdf", "fdasHangouts", keywordInformation);
+			token = new Token("2016 6 29 19 20 10", "amg", "jens", "lindner", USER_ID_1, "fdasHangouts", keywordInformation);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
