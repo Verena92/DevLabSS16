@@ -26,7 +26,7 @@ function GetResults(responsedata){
 	document1.title = "BMW Projektbericht 2016";
 	document1.path = "https://www.google.de";
 	document1.show = document1.title.link(document1.path);
-	document1.window = window.open("https://www.google.de";);
+	document1.window = window.open("https://www.google.de");
 	
 	//create second sample document
 	var document2 = new Object();
