@@ -4,7 +4,6 @@
  * @author Maren
  */
 
-
 //Funktionierende POST Methode mit JQuery auf RepDok
 /**
  * Die Function <code>GetKeywordInformation</code> holt die Informationen von der DokRepGruppe.
@@ -70,8 +69,7 @@ function GetKeywordInformation(TokenNew){
 			
 		
 }
-	  
-	  
+	  	  
 	  /*
 	  //Funktionierende  GET Methode ohne JQuery
 	  var request = new XMLHttpRequest();
