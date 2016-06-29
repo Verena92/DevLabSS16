@@ -137,13 +137,13 @@ public class EventService {
 
 		merge(event);
 
-		// kieSession.fireAllRules(); FIXME
+		// kieSession.fireAllRules(); FIXME muss wieder eingefügt werden, da sonst keine Regeln gefeuert werden
 
 		long advanceTime = ((Event) event).getTimestamp().getTime() - clock.getCurrentTime();
 		clock.advanceTime(advanceTime, TimeUnit.MILLISECONDS);
 	}
 
-	public void merge(Event event) { // FIXME: private machen
+	private void merge(Event event) {
 		em.getTransaction().begin();
 		em.merge(event);
 		em.getTransaction().commit();

@@ -1,5 +1,7 @@
 package de.hdm.wim.events.speechtokenizer;
 
+import javax.ws.rs.core.Response;
+
 import de.hdm.wim.events.model.DocumentForSpeechTokenizer;
 import de.hdm.wim.events.restclient.BaseRestClient;
 import de.hdm.wim.helper.PropertiesHelper;
@@ -15,8 +17,9 @@ public class SpeechTokenSender {
 	
 	public void sendDocument(DocumentForSpeechTokenizer document) {
 		String url = PropertiesHelper.getProperties("url.speech_tokenizer");
+		System.out.println("SpeechTokenSender sending the following Document to url " + url + ": " + document);
 		BaseRestClient restClient = new BaseRestClient(url);
-		restClient.doPostDocument("PostDocuments", document);
-		System.out.println("SpeechTokenSender sending the following Document: " + document);
+		Response response = restClient.doPostDocument("PostDocuments", document);
+		System.out.println( "Response of the SpeechTokenizer: " + response);
 	}
 }
