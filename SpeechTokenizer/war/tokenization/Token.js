@@ -47,7 +47,8 @@ function Token(){
 				//Geht nur in Hangouts
 				createdByFirstName: getUserData('firstName'),
 				createdByLastName: getUserData('lastName'),
-				createdByUserId: getUserData('eindeutigeId'),
+				UserId: getUserData('Id'),
+				createdByUserId: getUserData('eindeutigeId');
 				hangoutsId: getHangoutId(),
 								
 		};
