@@ -12,7 +12,7 @@ function GetResults(){
 	
 	//Variable i für die Schleife
 	var i;
-	
+
 	//create first samle document
 	var document1 = new Object();
 	document1.id = 1;
@@ -35,16 +35,25 @@ function GetResults(){
 	 *code here: if document.hangoutsid = user.hangoutsid then push into document array, else not
 	 */
 	
-	//push document in documentarray
-	DocumentArray.push(document1);
-	DocumentArray.push(document2);
 	
-	for (i = 0; i < DocumentArray.length; i++){
-		displayText += "<li>" + DocumentArray[i].show + "</li>";
+	
+	//push document in documentarray
+	//Hier die einzelnen Objekte reinpushen
+	//DocumentArray.push(document1);
+	//DocumentArray.push(document2);
+	
+	if (Document.Array.length == 0){
+		"Bisher wurden keine Dokumente gefunden"
+	} else {
+		for (i = 0; i < DocumentArray.length; i++){
+			displayText += "<li>" + DocumentArray[i].show + "</li>";
+		}
+		displayText += "</ul>";
+		displayText = capitalize(displayText);
+		showdocument.innerHTML = linebreak(displayText);
 	}
-	displayText += "</ul>";
-	displayText = capitalize(displayText);
-	showdocument.innerHTML = linebreak(displayText);
+	
+	
 
 }
 
