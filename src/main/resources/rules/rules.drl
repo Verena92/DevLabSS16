@@ -146,7 +146,7 @@ rule "A Token with a documentClass occured and Token(s) with several related pro
         $dcoe : DocumentClassOccuredEvent(  ) from entry-point SpeechTokenEventStream
         $t : InternalToken( keywordInformation.projects.size() > 0, 
         			keywordInformation.companies.empty,
-        			keywordInformation.employees.empty, this after[-50m,50m] $dcoe) from entry-point SpeechTokenEventStream
+        			keywordInformation.employees.empty, this after[-5m,5m] $dcoe) from entry-point SpeechTokenEventStream
     then
       resultList.add( "A Token with a documentClass occured and Token(s) with several related projects occured");
       System.out.println( "A Token with a documentClass occured and Token(s) with several related projects occured");
@@ -273,7 +273,8 @@ end
 
 rule "send Document to SpeechToken"
     when
-      $dre : DocumentReceivedEvent() from entry-point SpeechTokenEventStream ;
+      $dre : DocumentReceivedEvent() from entry-point SpeechTokenEventStream;
+      not( DocumentSentEvent( documentForSpeechTokenizer.getDrivePath() == $dre.getDocument().getDrivePath(), this after[-1m,1m] $dre) from entry-point SpeechTokenEventStream);
     then
       resultList.add( "send Document to SpeechToken");
       SpeechTokenSender sender = new SpeechTokenSender();

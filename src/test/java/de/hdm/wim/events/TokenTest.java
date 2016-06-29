@@ -102,4 +102,21 @@ public class TokenTest {
         assertEquals( 1, amountOfRulesFired);
         assertEquals( "A Token with a documentClass occured", EventService.getResultList().get(0));
 	}	
+	
+	
+	
+	@Test
+	public void test_token_with_two_related_projects_twice_and_token_with_document_class_occured() throws Exception {
+		EventService eventService = new EventService();
+		eventService.insertToken(TestDataProvider.createDummyTokenWithDocumentClassKeyword());
+		eventService.insertToken(TestDataProvider.createDummyTokenWithRelatedProjectsP0001andP0100());
+		eventService.insertToken(TestDataProvider.createDummyTokenWithRelatedProjectsP0001andP0100());
+		
+		int amountOfRulesFired = EventService.getKieSession().fireAllRules();
+		
+		assertEquals( 2, amountOfRulesFired);
+        assertEquals( "A Token with a documentClass occured", EventService.getResultList().get(0));
+        assertEquals( "A Token with a documentClass occured and Token(s) with several related projects occured", EventService.getResultList().get(1));
+	}	
+	
 }
