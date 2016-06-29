@@ -6,12 +6,16 @@
 
 var displayText = "<ul>";
 
-function GetResults(){
+function GetResults(responsedata){
 	//create documentarray for documents
 	var DocumentArray = new Array();
+	var DocumentTempArray = new Array();
 	
 	//Variable i für die Schleife
 	var i;
+	var b;
+	var googlePath = "https://drive.google.com/openid=";
+	var documentObj = new Object();
 
 	//create first samle document
 	var document1 = new Object();
@@ -35,6 +39,13 @@ function GetResults(){
 	 *code here: if document.hangoutsid = user.hangoutsid then push into document array, else not
 	 */
 	
+	//var documentObj = JSON.parse(responsedata);
+	//DocumentTempArray.push(documentObj);
+	/*
+	for (b = 0; b <DocumentTempArray.length; b++){
+		
+	}*/
+	
 	
 	
 	//push document in documentarray
@@ -43,7 +54,7 @@ function GetResults(){
 	//DocumentArray.push(document2);
 	
 	if (Document.Array.length == 0){
-		"Bisher wurden keine Dokumente gefunden"
+		displayText ="Bisher wurden keine Dokumente gefunden ...";
 	} else {
 		for (i = 0; i < DocumentArray.length; i++){
 			displayText += "<li>" + DocumentArray[i].show + "</li>";
