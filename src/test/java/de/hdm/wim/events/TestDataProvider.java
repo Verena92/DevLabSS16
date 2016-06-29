@@ -224,7 +224,7 @@ public class TestDataProvider {
 	public static DocumentSuggestionReactionEvent createDummyDocumentSuggestionReactionAcceptedEvent() {
 		DocumentSuggestionReactionEvent documentSuggestionReactionEvent = null;
 		try {
-			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", "user", "hangout", "documentNa", true);
+			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", "user", "hangout", "documentNa", "drivepath", true);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -236,7 +236,7 @@ public class TestDataProvider {
 	public static DocumentSuggestionReactionEvent createDummyDocumentSuggestionReactionDeclinedEvent() {
 		DocumentSuggestionReactionEvent documentSuggestionReactionEvent = null;
 		try {
-			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", "user", "hangout", "documentNa", false);
+			documentSuggestionReactionEvent = new DocumentSuggestionReactionEvent("1990 12 12 12 12 12", "user", "hangout", "documentNa", "drivepath", false);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

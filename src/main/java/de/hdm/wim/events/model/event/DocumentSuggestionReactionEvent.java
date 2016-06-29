@@ -28,6 +28,7 @@ public class DocumentSuggestionReactionEvent implements Event {
 	private String userId;
 	private String hangoutsId;
 	private String documentName;
+	private String drivePath;
 	private boolean accepted;
 
 	public DocumentSuggestionReactionEvent() {
@@ -35,12 +36,13 @@ public class DocumentSuggestionReactionEvent implements Event {
 		this.timestamp = new Date();
 	}
 
-	public DocumentSuggestionReactionEvent(String timeString, String userId, String hangoutsId, String documentName, boolean accepted) throws ParseException {
+	public DocumentSuggestionReactionEvent(String timeString, String userId, String hangoutsId, String documentName, String drivePath, boolean accepted) throws ParseException {
 		this.id = UUID.randomUUID().toString();
 		this.timestamp = DATE_FORMAT_yyyy_M_d_H_m_s.parse(timeString);
 		this.userId = userId;
 		this.hangoutsId = hangoutsId;
 		this.documentName = documentName;
+		this.drivePath = drivePath;
 		this.accepted = accepted;
 	}
 
@@ -80,6 +82,14 @@ public class DocumentSuggestionReactionEvent implements Event {
 
 	public void setDocumentName(String documentName) {
 		this.documentName = documentName;
+	}
+
+	public String getDrivePath() {
+		return drivePath;
+	}
+
+	public void setDrivePath(String drivePath) {
+		this.drivePath = drivePath;
 	}
 
 	public boolean isAccepted() {
