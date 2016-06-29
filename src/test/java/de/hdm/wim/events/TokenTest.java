@@ -13,7 +13,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.EntryPoint;
 
-import de.hdm.wim.events.model.User;
+import de.hdm.wim.events.model.event.User;
 import de.hdm.wim.events.model.event.InternalToken;
 
 public class TokenTest {
