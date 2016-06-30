@@ -3,10 +3,6 @@ package de.hdm.wim.events.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import de.hdm.wim.events.TestDataProvider;
 import de.hdm.wim.events.model.event.User;
 
 /**
@@ -32,7 +28,12 @@ public class DocumentForSpeechTokenizer {
 		this.userId = user.getGoogle_id();
 		this.hangoutsId = user.getHangouts_id();
 		this.documentName = document.getDocumentName();
-		this.drivePath = document.getDrivePath().split("=")[1];
+		if( document.getDrivePath().contains("=")) {
+			this.drivePath = document.getDrivePath().split("=")[1];
+		} else {
+			this.drivePath = document.getDrivePath();
+		}
+		
 	}
 
 	public String getUserId() {
