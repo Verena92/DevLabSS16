@@ -34,14 +34,25 @@ import de.hdm.wim.events.model.event.Token;
 import de.hdm.wim.events.model.event.User;
 
 /**
- *
- */
+* This class is the Interface for incoming external and internal Events.
+* 
+* External events get inserted via {@link #insertToken(Token)} which calls {@link #insert(KieSession, String, Event)}
+* Internal events get inserted via {@link #insertCustom(Event)}
+* 
+* External Events are SpeechTokenEvents which trigger the rule execution (fireAllRules).
+* If a rule fires and creates a new (complex) Event it will get further processed
+* within the DRL file. 
+* 
+* @author Jens Lindner, Max Harhoff, Sebastian Vaas, Stefan Sigel
+*
+*/
 @Path("/events")
 public class EventService {
 	private static KieServices kieServices;
 	private static KieContainer kieContainer;
 	private static KieSession kieSession;
 	static private List<String> resultList;
+	private static Set<User> activeUsers = new HashSet<User>();
 
 	private static EntityManager em;
 	private static EntityManagerFactory emFactory;
@@ -56,6 +67,14 @@ public class EventService {
 		return resultList;
 	}
 
+
+	public static Set<User> getActiveUsers() {
+		return activeUsers;
+	}
+
+
+	//during first initialization of the Class everything will be set up,
+	//such as the EntityManager for persisting and the creation of the used KieSession
 	static {
 		kieServices = KieServices.Factory.get();
 		kieContainer = kieServices.getKieClasspathContainer();
@@ -69,12 +88,6 @@ public class EventService {
 		DocumentRepresentationRequester documentRepresentationRequester = new DocumentRepresentationRequester();
 		DocumentClassesWrapper documentClassesWrapper = documentRepresentationRequester.getDocumentClasses();
 		documentClasses = documentClassesWrapper.getDocumentClasses();
-	}
-
-	private static Set<User> activeUsers = new HashSet<User>();
-
-	public static Set<User> getActiveUsers() {
-		return activeUsers;
 	}
 
 	@GET
