@@ -41,6 +41,7 @@ function GetResults(responsedata){
 			responsedata.documents[b].show = documentName.link(responsedata.documents[b].stringlink);
 			DocumentTempArray.push(responsedata.documents[b]);
 			console.log(DocumentTempArray);
+			
 			console.log(DocumentTempArray[b].show);
 		} else {
 		}
