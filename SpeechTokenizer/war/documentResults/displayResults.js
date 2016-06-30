@@ -61,7 +61,7 @@ function GetResults(responsedata){
 		displayText += "</ul>";
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
-		DocumentTempArray = []
+		DocumentTempArray = [];
 	}	
 }
 
