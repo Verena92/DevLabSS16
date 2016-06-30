@@ -55,6 +55,8 @@ function GetResults(responsedata){
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
 	} else {
+		displayText ="";
+		displayText = "<ul>";
 		for (i = 0; i < DocumentTempArray.length; i++){
 			displayText += "<li>" + DocumentTempArray[i].show + "</li>";
 		}
