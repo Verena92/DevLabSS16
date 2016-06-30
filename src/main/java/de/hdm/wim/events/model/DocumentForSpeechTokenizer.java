@@ -1,5 +1,9 @@
 package de.hdm.wim.events.model;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -33,7 +37,6 @@ public class DocumentForSpeechTokenizer {
 		} else {
 			this.drivePath = document.getDrivePath();
 		}
-		
 	}
 
 	public String getUserId() {
@@ -66,6 +69,11 @@ public class DocumentForSpeechTokenizer {
 
 	public void setDrivePath(String drivePath) {
 		this.drivePath = drivePath;
+		if( drivePath.contains("=")) {
+			this.drivePath = drivePath.split("=")[1];
+		} else {
+			this.drivePath = drivePath;
+		}
 	}
 
 	@Override
