@@ -12,12 +12,12 @@ function doPoll(){
 
 		//Fehler loggen 
 	    error: function(){
-	        console.log("Error");
+	        console.log("Error from own tomcat");
 	    },
 
 		//Bei erfolgreichem Request Objekt in der Console ausgeben und GetResults aufrufen
 	    success: function(responsedata){
-	    	console.log("success");
+	    	console.log("success from own tomcat");
 	    	GetResults(responsedata);
 	    	/**
 		     * setInterval ruft die Methode <code>doPoll()</code> nach 5000ms erneut auf.

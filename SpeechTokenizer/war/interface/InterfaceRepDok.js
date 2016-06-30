@@ -45,7 +45,7 @@ function GetKeywordInformation(TokenNew){
 		 
 		//Fehler loggen 
 		error: function(){
-	    	console.log("not found");
+	    	console.log("error from repdok");
 		},
 		//Bei erfolgreichem Request Objekt in der Console ausgeben
 		success: function(responseData){
@@ -57,7 +57,9 @@ function GetKeywordInformation(TokenNew){
 			TokenNew.keywordInformation = responseData;
 						
 			//ruft die funtkion auf, um den Token an die Event Gruppe zu enden
-			SendTokenToEvent(TokenNew);		
+			SendTokenToEvent(TokenNew);	
+			
+			console.log("success from repdok");
 		}
 			
 	    	

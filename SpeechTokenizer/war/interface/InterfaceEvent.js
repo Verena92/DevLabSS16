@@ -19,12 +19,12 @@ function SendTokenToEvent(TokenNew){
 
 	//Fehler loggen 
     error: function( ){
-        console.log("Error");
+        console.log("Error from event");
     },
 
 	//Bei erfolgreichem Request Objekt in der Console ausgeben
     success: function(responsedata){
-    	console.log("success")    		
+    	console.log("success from event")    		
     	}
 });
 
