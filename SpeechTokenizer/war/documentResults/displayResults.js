@@ -35,7 +35,7 @@ function GetResults(responsedata){
 		 * Hier wird überprüft, ob das Dokument zur Hangouts Sitzung passt.
 		 * Ist dies der Fall, wird das Objekt erweitert und in das DocumentTempArray gepushed.
 		 */
-		if (responsedata.documents[b].userId == userHangoutId){
+		if (responsedata.documents[b].hangoutsId == userHangoutId){
 			responsedata.documents[b].stringlink = googlePath + responsedata.documents[b].drivePath;
 			var documentName = responsedata.documents[b].documentName
 			responsedata.documents[b].show = documentName.link(responsedata.documents[b].stringlink);
@@ -61,9 +61,8 @@ function GetResults(responsedata){
 		displayText += "</ul>";
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
-	}
-
-	
+		DocumentTempArray = []
+	}	
 }
 
 /* Durch linebreak und capatilize wird Text eingeblendet */
