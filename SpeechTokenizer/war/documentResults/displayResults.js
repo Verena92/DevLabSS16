@@ -35,7 +35,7 @@ function GetResults(responsedata){
 		 * Hier wird überprüft, ob das Dokument zur Hangouts Sitzung passt.
 		 * Ist dies der Fall, wird das Objekt erweitert und in das DocumentTempArray gepushed.
 		 */
-		if (responsedata.documents[b].userId == userUniqueId){
+		if (responsedata.documents[b].userId == userHangoutId){
 			responsedata.documents[b].stringlink = googlePath + responsedata.documents[b].drivePath;
 			var documentName = responsedata.documents[b].documentName
 			responsedata.documents[b].show = documentName.link(responsedata.documents[b].stringlink);

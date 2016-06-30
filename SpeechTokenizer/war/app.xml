@@ -37,6 +37,8 @@
 			<dt><h2>Result:</h2></dt>
 			<dt span id="final_span" class="final"></dt>
 			
+			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
+			
 			
 			<dt><h2>Documents:</h2></dt>
 			<dt span id="showdocument" class="final"></dt>
@@ -46,7 +48,7 @@
  					doPoll();
  				</script>
  				<p></p>
-			<dt id="button"><button id="startbutton" onClick="startButton(event)">Start</button></dt>
+			
 			<p></p>
 			<div id="developer">
 			<p>Info-Box</p>
