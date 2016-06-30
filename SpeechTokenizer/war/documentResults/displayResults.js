@@ -16,21 +16,9 @@ function GetResults(responsedata){
 	var googlePath = "https://drive.google.com/open?id=";
 	var userHangoutId = getHangoutId();
 	var userUniqueId = getUniqueId();
-	//var documentObj = new Object();
-	
-	//var documentObj = JSON.parse(responsedata);
-	//DocumentTempArray.push(documentObj);
-	
-	//console.log(responsedata);
-	
+
 	for (b = 0; b <responsedata.documents.length; b++){
-		
-		//userHangoutId
-		//documents.show
-		//documents.drivePath
-		
-		//console.log(responsedata.documents[4]);
-		
+			
 		/**
 		 * Hier wird überprüft, ob das Dokument zur Hangouts Sitzung passt.
 		 * Ist dies der Fall, wird das Objekt erweitert und in das DocumentTempArray gepushed.
@@ -50,8 +38,6 @@ function GetResults(responsedata){
 	if (DocumentTempArray.length == 0){
 		displayText = "";
 		displayText = "Bisher wurden leider keine passenden Dokumente gefunden ..."
-		//displayText += "<li>" + "Bisher wurden keine Dokumente gefunden ..." + "</li>";
-		//displayText += "</ul>";
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
 	} else {
