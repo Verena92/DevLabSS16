@@ -35,49 +35,49 @@ global java.util.List resultList;
 declare InternalToken
     @role( event )
     @timestamp( timestamp.getTime() ) //long
-    @expires(5m)
+    @expires(2m)
 end
 
 declare DocumentSuggestionReactionEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
-    @expires(5m)
+    @expires(2m)
 end
 
 declare ProjectReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
-    @expires(5m)
+    @expires(5s)
 end
 
 declare CompanyReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
-    @expires(5m)
+    @expires(5s)
 end
 
 declare EmployeeReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
-    @expires(5m)
+    @expires(5s)
 end
 
 declare DocumentReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
-    @expires(5m)
+    @expires(5s)
 end
 
 declare DocumentSentEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
-    @expires(5m)
+    @expires(5s)
 end
 
 declare DocumentClassOccuredEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
-    @expires(5m)
+    @expires(2m)
 end
 
 
@@ -285,8 +285,7 @@ end
 rule "send Document to SpeechToken"
     when
       $dre : DocumentReceivedEvent() from entry-point SpeechTokenEventStream;
-      not( DocumentSentEvent( $dre.getDocument().getDrivePath().contains(documentForSpeechTokenizer.getDrivePath()), this after[-1m,1m] $dre) from entry-point SpeechTokenEventStream); //FIXME
-    then
+     then
       resultList.add( "send Document to SpeechToken");
       SpeechTokenSender sender = new SpeechTokenSender();
       
