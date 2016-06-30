@@ -49,7 +49,7 @@ function GetResults(responsedata){
 	 */
 	if (DocumentTempArray.length == 0){
 		displayText = "";
-		displayText = "Bisher wurden leider keine Dokumente gefunden ..."
+		displayText = "Bisher wurden leider keine passenden Dokumente gefunden ..."
 		//displayText += "<li>" + "Bisher wurden keine Dokumente gefunden ..." + "</li>";
 		//displayText += "</ul>";
 		displayText = capitalize(displayText);
