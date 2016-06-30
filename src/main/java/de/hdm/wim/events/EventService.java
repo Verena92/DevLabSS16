@@ -143,9 +143,11 @@ public class EventService {
 	}
 
 	private void merge(Event event) {
+		System.out.println( "try to merge: " + event);
 		em.getTransaction().begin();
 		em.merge(event);
 		em.getTransaction().commit();
+		System.out.println( "merged: " + event);
 	}
 
 	private static boolean hasNoRelatedEntities(KeywordInformation keywordInformation) {

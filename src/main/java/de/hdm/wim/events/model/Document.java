@@ -80,11 +80,15 @@ public class Document {
 		return creationDate;
 	}
 
-	public void setCreationDate(String creationDate) throws ParseException {
+	public void setCreationDate(String creationDate) {
 		if( creationDate == null) {
 			this.creationDate = null;
 		} else {
-			this.creationDate = DATE_FORMAT.parse(creationDate);
+			try {
+				this.creationDate = DATE_FORMAT.parse(creationDate);
+			} catch (ParseException e) {
+				this.creationDate = null;
+			}
 		}
 	}
 
