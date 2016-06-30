@@ -13,7 +13,7 @@ function GetResults(responsedata){
 	//Variable i für die Schleife
 	var i;
 	var b;
-	var googlePath = "https://drive.google.com/openid=";
+	var googlePath = "https://drive.google.com/open?id=";
 	var userHangoutId = getHangoutId();
 	var userUniqueId = getUniqueId();
 	//var documentObj = new Object();
