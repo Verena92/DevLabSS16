@@ -89,7 +89,7 @@ public class EventService {
 	public Response insertToken(Token token) {
 		System.out.println("Received Token: " + token);
 		InternalToken internalToken = new InternalToken(token);
-
+		
 		// add User to activeUsers if he isn't present yet
 		if (!activeUsers.contains(internalToken.getUser())) {
 			activeUsers.add(internalToken.getUser());
@@ -104,6 +104,7 @@ public class EventService {
 
 		try {
 			insert(kieSession, "SpeechTokenEventStream", internalToken);
+			kieSession.fireAllRules();
 		} catch (ParseException e) {
 			System.out.println("A ParseException happened during creation of SpeechTokenEvents: " + e.getMessage());
 			return Response.status(400).entity(e).build();
@@ -136,8 +137,6 @@ public class EventService {
 		ep.insert(event);
 
 		merge(event);
-
-		kieSession.fireAllRules();
 
 		long advanceTime = ((Event) event).getTimestamp().getTime() - clock.getCurrentTime();
 		clock.advanceTime(advanceTime, TimeUnit.MILLISECONDS);

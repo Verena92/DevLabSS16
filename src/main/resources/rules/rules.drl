@@ -65,7 +65,7 @@ end
 declare DocumentReceivedEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
-    @expires(5s)
+    @expires(30s)
 end
 
 declare DocumentSentEvent
