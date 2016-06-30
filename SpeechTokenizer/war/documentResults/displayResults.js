@@ -1,7 +1,7 @@
 /**
  * In dieser Klasse werden die Dokumente angezeigt.
  * Diese Klasse wird von der Funktion <code>doPoll()</code> aufgerufen.
- * Autor: Benjamin Mateja, Verena Hofmann
+ * @author Benjamin Mateja, Verena Hofmann
  */
 
 var displayText = "<ul>";
@@ -65,34 +65,7 @@ function GetResults(responsedata){
 		displayText = capitalize(displayText);
 		showdocument.innerHTML = linebreak(displayText);
 	}
-	
-	
-	//console.log(DocumentTempArray.length);
-	
-	
-	
-	//push document in documentarray
-	//Hier die einzelnen Objekte reinpushen
-	//DocumentArray.push(document1);
-	//DocumentArray.push(document2);
-	
-	//console.log(DocumentArray);
-	
-	
-	/*
-	if (DocumentArray.length == 0){
-		displayText += "<li>" + "Bisher wurden keine Dokumente gefunden ..." + "</li>";
-		displayText += "</ul>";
-		displayText = capitalize(displayText);
-		showdocument.innerHTML = linebreak(displayText);
-	} else {
-		for (i = 0; i < DocumentArray.length; i++){
-			displayText += "<li>" + DocumentArray[i].window + "</li>";
-		}
-		displayText += "</ul>";
-		displayText = capitalize(displayText);
-		showdocument.innerHTML = linebreak(displayText);
-	}*/
+
 	
 }
 

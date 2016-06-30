@@ -1,5 +1,6 @@
 /**
- * Autor: Benjamin Mecheels
+ * Diese Klasse führt die App innerhalb des Hangouts-Clients aus.
+ * @author Benjamin Mecheels
  */
 
 var serverPath = '//speech-tokenizer-1282.appspot.com/';
@@ -11,26 +12,9 @@ function initUi(){
 	console.log(hangoutsid);
 }
 
-//get ip of hangouts session
-/*function registerClient(){
-	  $.ajax({type:'GET', 
-		  url:'http://146.148.67.230/de.hdm.speechtomcat/rest/register',
-		  dataType: 'text',
-		 
-		//Fehler loggen 
-		error: function(){
-	    	console.log("Error");
-		},
-		
-		// Anfrage erfolgreich
-		success: function(responseData){
-			console.log('ERFOLGREICH');
-			console.log(responseData);
-		}
-	  });
-}*/
-
-// A function to be run at app initialization time which registers the callbacks
+/**
+ * A function to be run at app initialization time which registers the callbacks
+ */
 function init() {
   console.log('Init app.');
 
@@ -40,19 +24,14 @@ function init() {
       
       initUi();
       
-      /*gapi.hangout.data.onStateChanged.add(function(eventObj) {
-        hangoutsid(eventObj.state);
-      });
-      /*gapi.hangout.onParticipantsChanged.add(function(eventObj) {
-        updateParticipantsUi(eventObj.participants);
-      });*/
-      
       gapi.hangout.onApiReady.remove(apiReady);
     }
   };
 
-  // This application is pretty simple, but use this special api ready state
-  // event if you would like to any more complex app setup.
+  /**
+   * This application is pretty simple, but use this special api ready state
+   * event if you would like to any more complex app setup.
+   */
   gapi.hangout.onApiReady.add(apiReady);
 }
 
