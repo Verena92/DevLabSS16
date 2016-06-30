@@ -68,6 +68,12 @@ declare DocumentReceivedEvent
     @expires(5m)
 end
 
+declare DocumentSentEvent
+    @role( event )
+    @timestamp( timestamp.getTime() ) //long
+    @expires(5m)
+end
+
 declare DocumentClassOccuredEvent
     @role( event )
     @timestamp( timestamp.getTime() ) //long
@@ -92,7 +98,6 @@ rule "A Token with exactly 1 related project occured"
       
       DocumentRepresentationRequester requester = new DocumentRepresentationRequester();
       Project project = requester.getProject($t.getKeywordInformation().getProjects().get(0));
-      System.out.println( "project within rule: " + project);
       ProjectReceivedEvent projectReceivedEvent = new ProjectReceivedEvent( project);
       new EventService().insertCustom(projectReceivedEvent);
 end
@@ -147,7 +152,7 @@ rule "A Token with a documentClass occured and Token(s) with several related pro
         $dcoe : DocumentClassOccuredEvent(  ) from entry-point SpeechTokenEventStream
         $t : InternalToken( keywordInformation.projects.size() > 0, 
         			keywordInformation.companies.empty,
-        			keywordInformation.employees.empty, this after[-50m,50m] $dcoe) from entry-point SpeechTokenEventStream //FIXME
+        			keywordInformation.employees.empty, this after[-1m,1m] $dcoe) from entry-point SpeechTokenEventStream 
     then
       resultList.add( "A Token with a documentClass occured and Token(s) with several related projects occured");
       System.out.println( "A Token with a documentClass occured and Token(s) with several related projects occured");
@@ -280,7 +285,7 @@ end
 rule "send Document to SpeechToken"
     when
       $dre : DocumentReceivedEvent() from entry-point SpeechTokenEventStream;
-      not( DocumentSentEvent( documentForSpeechTokenizer.getDrivePath() == $dre.getDocument().getDrivePath(), this after[-1m,1m] $dre) from entry-point SpeechTokenEventStream); //FIXME
+      not( DocumentSentEvent( $dre.getDocument().getDrivePath().contains(documentForSpeechTokenizer.getDrivePath()), this after[-1m,1m] $dre) from entry-point SpeechTokenEventStream); //FIXME
     then
       resultList.add( "send Document to SpeechToken");
       SpeechTokenSender sender = new SpeechTokenSender();
@@ -290,6 +295,6 @@ rule "send Document to SpeechToken"
         DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer(user, $dre.getDocument()); 
         sender.sendDocument( documentForSpeechTokenizer); 
         DocumentSentEvent documentSentEvent = new DocumentSentEvent( documentForSpeechTokenizer);
-        //new EventService().insertCustom(documentSentEvent);
+        new EventService().insertCustom(documentSentEvent);
 	  }      
 end
