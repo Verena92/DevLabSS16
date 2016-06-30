@@ -1,12 +1,15 @@
 package de.hdm.wim.events;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.hdm.wim.events.model.event.User;
-
-import static org.junit.Assert.assertEquals;
 
 public class UserTest {
 
@@ -41,6 +44,22 @@ public class UserTest {
 		//Same GoogleID but different HangoutsID --> not equal
 		User user1 = new User("googleId1", "hangoutId2");
 		User user2 = new User("googleId1", "hangoutId1");
+		
+		assertEquals(false, user1.equals(user2));
+	}
+	
+	@Test
+	public void testListe() throws Exception {
+		//Same GoogleID but different HangoutsID --> not equal
+		User user1 = new User("googleId1", "hangoutId2");
+		User user2 = new User("googleId1", "hangoutId1");
+		User user3 = new User("googleId1", "hangoutId1");
+		
+		Set<User> users = new HashSet<User>();
+		users.add(user1);
+		users.add(user2);
+		users.add(user3);
+		System.out.println( users);
 		
 		assertEquals(false, user1.equals(user2));
 	}

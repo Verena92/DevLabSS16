@@ -2,6 +2,8 @@ package de.hdm.wim.events;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import de.hdm.wim.events.EventService;
 import de.hdm.wim.events.model.event.User;
@@ -289,7 +291,7 @@ rule "send Document to SpeechToken"
      then
       resultList.add( "send Document to SpeechToken");
       SpeechTokenSender sender = new SpeechTokenSender();
-      List<User> activeUsers = EventService.getActiveUsers();
+      Set<User> activeUsers = EventService.getActiveUsers();
       System.out.println(activeUsers);
       for( User user: activeUsers) {
         DocumentForSpeechTokenizer documentForSpeechTokenizer = new DocumentForSpeechTokenizer(user, $dre.getDocument()); 

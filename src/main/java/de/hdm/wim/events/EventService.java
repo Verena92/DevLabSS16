@@ -1,7 +1,9 @@
 package de.hdm.wim.events;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.persistence.EntityManager;
@@ -69,9 +71,9 @@ public class EventService {
 		documentClasses = documentClassesWrapper.getDocumentClasses();
 	}
 
-	private static List<User> activeUsers = new ArrayList<User>();
+	private static Set<User> activeUsers = new HashSet<User>();
 
-	public static List<User> getActiveUsers() {
+	public static Set<User> getActiveUsers() {
 		return activeUsers;
 	}
 
@@ -143,11 +145,9 @@ public class EventService {
 	}
 
 	private void merge(Event event) {
-		System.out.println( "try to merge: " + event);
-		em.getTransaction().begin();
-		em.merge(event);
-		em.getTransaction().commit();
-		System.out.println( "merged: " + event);
+//		em.getTransaction().begin();
+//		em.merge(event);
+//		em.getTransaction().commit();
 	}
 
 	private static boolean hasNoRelatedEntities(KeywordInformation keywordInformation) {

@@ -38,15 +38,49 @@ public class User {
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		boolean sameSame = false;
-
-		if (object != null && object instanceof User) {
-			sameSame = (this.google_id == ((User) object).google_id) && (this.hangouts_id == ((User) object).hangouts_id);
-		}
-
-		return sameSame;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + ((google_id == null) ? 0 : google_id.hashCode());
+		result = prime * result + ((hangouts_id == null) ? 0 : hangouts_id.hashCode());
+		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (firstname == null) {
+			if (other.firstname != null)
+				return false;
+		} else if (!firstname.equals(other.firstname))
+			return false;
+		if (google_id == null) {
+			if (other.google_id != null)
+				return false;
+		} else if (!google_id.equals(other.google_id))
+			return false;
+		if (hangouts_id == null) {
+			if (other.hangouts_id != null)
+				return false;
+		} else if (!hangouts_id.equals(other.hangouts_id))
+			return false;
+		if (lastname == null) {
+			if (other.lastname != null)
+				return false;
+		} else if (!lastname.equals(other.lastname))
+			return false;
+		return true;
+	}
+	
+	
 
 	public String getFirstname() {
 		return firstname;
