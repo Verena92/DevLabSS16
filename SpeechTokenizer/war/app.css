@@ -20,6 +20,16 @@ h1{
 h2{
 	font-size:1em;
 }
+a{
+	color:white;
+}
+a:hover{
+	font-weight:bold;
+	background-color:DarkGrey;
+}
+a:visited{
+	color:green;
+}
 #wrap{
 	/*min-height:100%;*/
 	/*height:auto !important;*/
