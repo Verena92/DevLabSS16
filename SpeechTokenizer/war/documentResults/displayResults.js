@@ -58,7 +58,7 @@ function GetResults(responsedata){
 		displayText ="";
 		displayText = "<ul>";
 		for (i = 0; i < DocumentTempArray.length; i++){
-			displayText += "<li>" + DocumentTempArray[i].show + "</li>";
+			displayText += "<li><a href='" + DocumentTempArray[i].stringlink + "' target='_blank'>" + DocumentTempArray[i].documentName + "</a></li>";
 		}
 		displayText += "</ul>";
 		displayText = capitalize(displayText);

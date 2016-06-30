@@ -45,7 +45,6 @@
 				<script type="text/javascript">
 					document.write(GetResults());
  					document.displayText;
- 					doPoll();
  				</script>
  				<p></p>
 			
