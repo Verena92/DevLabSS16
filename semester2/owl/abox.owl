@@ -261,17 +261,6 @@
         <owl:inverseOf rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Bundesland_gehoert_zu_Land"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Land"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Bundesland"/>
-<<<<<<< HEAD
-=======
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Land_hat_Stadt -->
-
-    <owl:ObjectProperty rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Land_hat_Stadt">
-        <owl:inverseOf rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt_gehoert_zu_Land"/>
->>>>>>> origin/master
     </owl:ObjectProperty>
     
 
@@ -386,8 +375,6 @@
 
     <rdf:Description rdf:about="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Kunde_von_Unternehmen">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Unternehmen"/>
-<<<<<<< HEAD
-=======
     </rdf:Description>
     
 
@@ -396,22 +383,10 @@
 
     <rdf:Description rdf:about="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Mitarbeiter_ist_Projektmitglied_von">
         <rdfs:range rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Projekt"/>
->>>>>>> origin/master
     </rdf:Description>
     
 
 
-<<<<<<< HEAD
-    <!-- http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Mitarbeiter_ist_Projektmitglied_von -->
-
-    <rdf:Description rdf:about="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Mitarbeiter_ist_Projektmitglied_von">
-        <rdfs:range rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Projekt"/>
-    </rdf:Description>
-    
-
-
-=======
->>>>>>> origin/master
     <!-- http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Projekt_umfasst_Abteilung -->
 
     <rdf:Description rdf:about="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Projekt_umfasst_Abteilung"/>
@@ -424,15 +399,6 @@
     
 
 
-<<<<<<< HEAD
-=======
-    <!-- http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt_gehoert_zu_Land -->
-
-    <rdf:Description rdf:about="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt_gehoert_zu_Land"/>
-    
-
-
->>>>>>> origin/master
     <!-- http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Unternehmen_hat_Abteilung -->
 
     <rdf:Description rdf:about="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Unternehmen_hat_Abteilung">
@@ -629,26 +595,6 @@
     
 
 
-<<<<<<< HEAD
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#driveUserID -->
-
-    <owl:DatatypeProperty rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#driveUserID">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Person"/>
-=======
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#driveDokumentenID -->
-
-    <owl:DatatypeProperty rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#driveDokumentenID">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Dokument"/>
->>>>>>> origin/master
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
-
-
-<<<<<<< HEAD
-=======
     <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#driveUserID -->
 
     <owl:DatatypeProperty rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#driveUserID">
@@ -659,7 +605,6 @@
     
 
 
->>>>>>> origin/master
     <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#hangoutUserID -->
 
     <owl:DatatypeProperty rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#hangoutUserID">
@@ -668,13 +613,8 @@
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> origin/master
     <!-- http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#DriveDocumentID -->
 
     <rdf:Description rdf:about="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#DriveDocumentID">
@@ -1059,10 +999,6 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Produktentwicklung"/>
         <Projekt_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
         <Projekt_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#MusterGmbH"/>
-<<<<<<< HEAD
-=======
-        <Projekt_hat_Dokument rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projectcontract_AWG"/>
->>>>>>> origin/master
         <ProjektID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">P0100</ProjektID>
         <Projektname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Awg</Projektname>
         <Cloud_Dokumente:Projekt_hat_Projektleiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Peter_Mueller"/>
@@ -1074,55 +1010,26 @@
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accounting_BrokenBits -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Absatz_BrokenBits -->
 
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Absatz_BrokenBits">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Absatz"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accounting_BrokenBits">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Rechnungswesen"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accounting_MusterGmbH -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Absatz_StarCars -->
 
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accounting_MusterGmbH">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Rechnungswesen"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#MusterGmbH"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accouting_Porsche -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accouting_Porsche">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Rechnungswesen"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#PorscheAG"/>
-    </owl:NamedIndividual>
-    
-
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Absatz_StarCars">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Absatz"/>
-=======
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accouting_StarCars -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accouting_StarCars">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Rechnungswesen"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Anna_Schmidt -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Abschlussbericht_HighNet_19-01-2016 -->
 
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Abschlussbericht_HighNet_19-01-2016">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Abschlussbericht"/>
         <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0001</DokumentenID>
@@ -1150,17 +1057,11 @@
 
     <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Anna_Schmidt -->
 
-=======
->>>>>>> origin/master
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Anna_Schmidt">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#MitarbeiterIntern"/>
         <Cloud_Dokumente:Mitarbeiter_gehoert_zu_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Marketing_Porsche"/>
         <Cloud_Dokumente:Mitarbeiter_ist_Projektmitglied_von rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Ninja"/>
         <Cloud_Dokumente:ist_Mitarbeiter_von_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#PorscheAG"/>
-<<<<<<< HEAD
-=======
-        <Jobtitel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">marketingmanager</Jobtitel>
->>>>>>> origin/master
         <MitarbeiterID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">M0008</MitarbeiterID>
         <Personenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Schmidt</Personenname>
         <driveUserID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">driveuserid118</driveUserID>
@@ -1176,18 +1077,6 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Bundesland"/>
         <Bundesland_hat_Hauptstadt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Stuttgart"/>
         <Cloud_Dokumente:Bundesland_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-<<<<<<< HEAD
-=======
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bavaria -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bavaria">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Bundesland"/>
-        <Bundesland_hat_Hauptstadt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Munich"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1196,7 +1085,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bayern">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Bundesland"/>
-<<<<<<< HEAD
         <Bundesland_hat_Hauptstadt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Muenchen"/>
         <Cloud_Dokumente:Bundesland_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
     </owl:NamedIndividual>
@@ -1234,16 +1122,12 @@
         <Cloud_Dokumente:Mitarbeiter_ist_Projektmitglied_von rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Ninja"/>
         <Cloud_Dokumente:Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Benjamin</Cloud_Dokumente:Vorname>
         <Cloud_Dokumente:ist_Mitarbeiter_von_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
-=======
-        <Cloud_Dokumente:Bundesland_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Benjamin_Mateja -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Berlin -->
 
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Berlin">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Bundesland"/>
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
@@ -1252,63 +1136,24 @@
         <Cloud_Dokumente:Bundesland_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Berlin"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Benjamin_Mateja">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#MitarbeiterIntern"/>
-        <Jobtitel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Projectmanager</Jobtitel>
-        <MitarbeiterID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">M0005</MitarbeiterID>
-        <Personenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mateja</Personenname>
-        <driveUserID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">matejabenjamin@gmail.com</driveUserID>
-        <hangoutUserID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11178847351733638752</hangoutUserID>
-        <Cloud_Dokumente:Mitarbeiter_gehoert_zu_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#IT_BrokenBits"/>
-        <Cloud_Dokumente:Mitarbeiter_ist_Projektleiter_von rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Ninja"/>
-        <Cloud_Dokumente:Mitarbeiter_ist_Projektmitglied_von rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Ninja"/>
-        <Cloud_Dokumente:Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Benjamin</Cloud_Dokumente:Vorname>
-        <Cloud_Dokumente:ist_Mitarbeiter_von_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Benjamin_Mecheels -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Beschaffung_BrokenBits -->
 
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Beschaffung_BrokenBits">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Beschaffung"/>
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Benjamin_Mecheels">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#MitarbeiterIntern"/>
-        <Jobtitel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IT_Cosultant</Jobtitel>
-        <MitarbeiterID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">M0006</MitarbeiterID>
-        <Personenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mecheels</Personenname>
-        <driveUserID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mecheels.benjamin@gmail.com</driveUserID>
-        <hangoutUserID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">115848192973829708764</hangoutUserID>
-        <Cloud_Dokumente:Mitarbeiter_gehoert_zu_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#IT_BrokenBits"/>
-        <Cloud_Dokumente:Mitarbeiter_ist_Projektmitglied_von rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Ninja"/>
-        <Cloud_Dokumente:Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Benjamin</Cloud_Dokumente:Vorname>
-        <Cloud_Dokumente:ist_Mitarbeiter_von_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Berlin -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Beschaffung_StarCars -->
 
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Beschaffung_StarCars">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Beschaffung"/>
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Berlin">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Bundesland"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
-        <Bundesland_hat_Hauptstadt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Berlin"/>
-        <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Berlin"/>
-        <Cloud_Dokumente:Bundesland_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Berlin"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1319,20 +1164,11 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Besprechungsprotokoll"/>
         <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0002</DokumentenID>
         <Dokumentenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Besprechungsprotokoll_HighNet_15-01-2016</Dokumentenname>
-<<<<<<< HEAD
         <Cloud_Dokumente:Aenderungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-01-16T16:47</Cloud_Dokumente:Aenderungsdatum>
         <Cloud_Dokumente:Dokument_gehoert_zu_Projekt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#HighNet"/>
         <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Lisa_Maier"/>
         <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Textdokument</Cloud_Dokumente:Dokumenttyp>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2007-08-31T16:47</Cloud_Dokumente:Erstellungsdatum>
-=======
-        <driveDokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DR00006</driveDokumentenID>
-        <Cloud_Dokumente:Aenderungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-01-16T12:40</Cloud_Dokumente:Aenderungsdatum>
-        <Cloud_Dokumente:Dokument_gehoert_zu_Projekt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#HighNet"/>
-        <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Lisa_Maier"/>
-        <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Textdokument</Cloud_Dokumente:Dokumenttyp>
-        <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">15-01-2016</Cloud_Dokumente:Erstellungsdatum>
->>>>>>> origin/master
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Aufgabenverteilung</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ideensammlung</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vorgehensmodell</Cloud_Dokumente:Schlagwort>
@@ -1360,15 +1196,9 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <Bundesland_hat_Hauptstadt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bremen"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bremen"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Bundesland_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bremen"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Bundesland_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bremen"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1377,14 +1207,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Dienstleistungsunternehmen"/>
-<<<<<<< HEAD
-=======
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accounting_BrokenBits"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_BrokenBits"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_BrokenBits"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Purchasing_BrokenBits"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sales_BrokenBits"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Unternehmen_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Benjamin_Mateja"/>
         <Cloud_Dokumente:Unternehmen_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Benjamin_Mecheels"/>
         <Cloud_Dokumente:Unternehmen_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Tim_Oswald"/>
@@ -1393,7 +1215,6 @@
         <UnternehmensID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">U0001</UnternehmensID>
         <Unternehmensname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BrokenBits</Unternehmensname>
         <Cloud_Dokumente:Mitarbeiteranzahl rdf:datatype="http://www.w3.org/2001/XMLSchema#int">600</Cloud_Dokumente:Mitarbeiteranzahl>
-<<<<<<< HEAD
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Absatz_BrokenBits"/>
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Beschaffung_BrokenBits"/>
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Einkauf_BrokenBits"/>
@@ -1402,11 +1223,6 @@
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_BrokenBits"/>
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Personalwesen_BrokenBits"/>
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Rechnungswesen_BrokenBits"/>
-=======
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#IT_BrokenBits"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Marketing_BrokenBits"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_BrokenBits"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Unternehmen_hat_Hauptsitz_in rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Stuttgart"/>
         <Cloud_Dokumente:Unternehmen_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Lisa_Maier"/>
         <Cloud_Dokumente:Unternehmen_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Peter_Mueller"/>
@@ -1424,14 +1240,8 @@
         <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Benjamin_Mateja"/>
         <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0008</DokumentenID>
         <Dokumentenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Costplan_Ninja</Dokumentenname>
-<<<<<<< HEAD
         <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calculationdocument</Cloud_Dokumente:Dokumenttyp>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-09-31T16:47</Cloud_Dokumente:Erstellungsdatum>
-=======
-        <driveDokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DR00004</driveDokumentenID>
-        <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calculationdocument</Cloud_Dokumente:Dokumenttyp>
-        <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-06-02T14:30</Cloud_Dokumente:Erstellungsdatum>
->>>>>>> origin/master
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">costs</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">porsche</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resources</Cloud_Dokumente:Schlagwort>
@@ -1456,11 +1266,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sachsen"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sachsen"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1471,71 +1277,36 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Nordrhein-Westfalen"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Nordrhein-Westfalen"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Einkauf_BrokenBits -->
+
+    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Einkauf_BrokenBits">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Einkauf"/>
+        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Einkauf_StarCars -->
+
+    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Einkauf_StarCars">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Einkauf"/>
+        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Erfurt -->
 
-<<<<<<< HEAD
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Einkauf_BrokenBits">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Einkauf"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Erfurt">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
-        <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Thueringen"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Thueringen"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Finalreport_HighNet -->
-
-<<<<<<< HEAD
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Einkauf_StarCars">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Einkauf"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Finalreport_HighNet">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Abschlussbericht"/>
-        <Cloud_Dokumente:Dokument_gehoert_zu_Projekt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#HighNet"/>
-        <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Haruki_Murakami"/>
-        <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0001</DokumentenID>
-        <Dokumentenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Finalreport_HighNet</Dokumentenname>
-        <driveDokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DR00001</driveDokumentenID>
-        <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Textdocument</Cloud_Dokumente:Dokumenttyp>
-        <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-05-22T16:00</Cloud_Dokumente:Erstellungsdatum>
-        <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">costdistribution</Cloud_Dokumente:Schlagwort>
-        <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">openrequirements</Cloud_Dokumente:Schlagwort>
-        <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">valuation</Cloud_Dokumente:Schlagwort>
-        <Cloud_Dokumente:Speicherort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://drive.google.com/open?id=1vJNvuPnCwg37yKZRsRuWvDn_LIwF5N4nHm_Xm1SIn8g12345</Cloud_Dokumente:Speicherort>
-        <Cloud_Dokumente:Status rdf:datatype="http://www.w3.org/2001/XMLSchema#string">completed</Cloud_Dokumente:Status>
-        <Cloud_Dokumente:Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2.0</Cloud_Dokumente:Version>
->>>>>>> origin/master
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany -->
-
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Erfurt">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Thueringen"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Thueringen"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Land"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1547,15 +1318,9 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <Bundesland_hat_Hauptstadt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Hamburg"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Hamburg"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Bundesland_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Hamburg"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Bundesland_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Hamburg"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1566,11 +1331,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Niedersachsen"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Niedersachsen"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1579,20 +1340,12 @@
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Haruki_Murakami">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#MitarbeiterIntern"/>
-<<<<<<< HEAD
         <Jobtitel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Produktmanager</Jobtitel>
-=======
-        <Cloud_Dokumente:Mitarbeiter_gehoert_zu_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Production_StarCars"/>
-        <Jobtitel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Productmanager</Jobtitel>
->>>>>>> origin/master
         <MitarbeiterID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">M0002</MitarbeiterID>
         <Personenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Murakami</Personenname>
         <driveUserID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">driveuserid113</driveUserID>
         <hangoutUserID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hangoutuserid113</hangoutUserID>
-<<<<<<< HEAD
         <Cloud_Dokumente:Mitarbeiter_gehoert_zu_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Produktion_StarCars"/>
-=======
->>>>>>> origin/master
         <Cloud_Dokumente:Mitarbeiter_ist_Projektmitglied_von rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#HighNet"/>
         <Cloud_Dokumente:Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Haruki</Cloud_Dokumente:Vorname>
         <Cloud_Dokumente:ist_Mitarbeiter_von_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
@@ -1616,63 +1369,23 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Versuchsprojekt"/>
         <Projekt_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
         <Projekt_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
-<<<<<<< HEAD
-=======
-        <Projekt_hat_Dokument rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Finalreport_HighNet"/>
->>>>>>> origin/master
         <ProjektID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">P0001</ProjektID>
         <Projektname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Highnet</Projektname>
         <Cloud_Dokumente:Projekt_hat_Projektleiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Lisa_Maier"/>
         <Cloud_Dokumente:Projekt_hat_Projektmitglied rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Haruki_Murakami"/>
         <Cloud_Dokumente:Projekt_hat_Projektmitglied rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Lisa_Maier"/>
         <Cloud_Dokumente:Projekt_umfasst_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#IT_BrokenBits"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Projekt_umfasst_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Produktion_StarCars"/>
-=======
->>>>>>> origin/master
         <Cloud_Dokumente:Status rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gruen</Cloud_Dokumente:Status>
     </owl:NamedIndividual>
     
 
 
-<<<<<<< HEAD
-=======
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_BrokenBits -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_BrokenBits">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Personalwesen"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_MusterGmbH -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_MusterGmbH">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Personalwesen"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#MusterGmbH"/>
-    </owl:NamedIndividual>
-    
-
-
->>>>>>> origin/master
     <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_Porsche -->
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_Porsche">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Personalwesen"/>
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#PorscheAG"/>
-<<<<<<< HEAD
-=======
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_StarCars -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_StarCars">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Personalwesen"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1715,11 +1428,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Schleswig-Holstein"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Schleswig-Holstein"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1730,20 +1439,11 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Kostenplan"/>
         <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0005</DokumentenID>
         <Dokumentenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kostenplan_HighNet</Dokumentenname>
-<<<<<<< HEAD
         <Cloud_Dokumente:Aenderungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-08-31T16:47</Cloud_Dokumente:Aenderungsdatum>
         <Cloud_Dokumente:Dokument_gehoert_zu_Projekt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#HighNet"/>
         <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Lisa_Maier"/>
         <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kalkulation</Cloud_Dokumente:Dokumenttyp>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2007-08-31T16:47</Cloud_Dokumente:Erstellungsdatum>
-=======
-        <driveDokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DR00005</driveDokumentenID>
-        <Cloud_Dokumente:Aenderungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">02-02-2016</Cloud_Dokumente:Aenderungsdatum>
-        <Cloud_Dokumente:Dokument_gehoert_zu_Projekt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#HighNet"/>
-        <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Lisa_Maier"/>
-        <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kalkulation</Cloud_Dokumente:Dokumenttyp>
-        <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-01-25T09:15</Cloud_Dokumente:Erstellungsdatum>
->>>>>>> origin/master
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HighNet</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kalkulation</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kosten</Cloud_Dokumente:Schlagwort>
@@ -1759,10 +1459,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Leipzig">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
-<<<<<<< HEAD
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sachsen"/>
     </owl:NamedIndividual>
     
@@ -1793,11 +1489,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sachsen-Anhalt"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sachsen-Anhalt"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1808,11 +1500,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Rheinland-Pfalz"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Rheinland-Pfalz"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1822,7 +1510,6 @@
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Marketing_BrokenBits">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Marketing"/>
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
-        <Cloud_Dokumente:Abteilung_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Peter_Mueller"/>
     </owl:NamedIndividual>
     
 
@@ -1891,14 +1578,8 @@
         <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Benjamin_Mecheels"/>
         <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0006</DokumentenID>
         <Dokumentenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Meetingprotocol_Ninja</Dokumentenname>
-<<<<<<< HEAD
         <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">textdocument</Cloud_Dokumente:Dokumenttyp>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-02-31T16:47</Cloud_Dokumente:Erstellungsdatum>
-=======
-        <driveDokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DR00007</driveDokumentenID>
-        <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">textdocument</Cloud_Dokumente:Dokumenttyp>
-        <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-6-28T11:30</Cloud_Dokumente:Erstellungsdatum>
->>>>>>> origin/master
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">costs</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">organisation</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">problems</Cloud_Dokumente:Schlagwort>
@@ -1909,21 +1590,13 @@
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Munich -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Muenchen -->
 
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Muenchen">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bayern"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bayern"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Munich">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
-        <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bavaria"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Bavaria"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -1932,11 +1605,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#MusterGmbH">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Industrieunternehmen"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Unternehmen_hat_Standort_in rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Muenchen"/>
-=======
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_MusterGmbH"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Unternehmen_hat_Standort_in rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Stuttgart"/>
         <Cloud_Dokumente:Unternehmen_hat_Standort_in rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Tokio"/>
         <Branche rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Automotive</Branche>
@@ -1976,11 +1645,7 @@
         <Cloud_Dokumente:Projekt_hat_Projektmitglied rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Benjamin_Mecheels"/>
         <Cloud_Dokumente:Projekt_umfasst_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Marketing_Porsche"/>
         <ProjektID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">P0002</ProjektID>
-<<<<<<< HEAD
         <Projektname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ninja</Projektname>
-=======
-        <Projektname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ninja</Projektname>
->>>>>>> origin/master
         <Cloud_Dokumente:Projekt_umfasst_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#IT_BrokenBits"/>
         <Cloud_Dokumente:Projekt_umfasst_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#IT_Porsche"/>
         <Cloud_Dokumente:Status rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gruen</Cloud_Dokumente:Status>
@@ -2014,7 +1679,6 @@
 
 
     <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_Porsche -->
-<<<<<<< HEAD
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_Porsche">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Organisation"/>
@@ -2028,17 +1692,10 @@
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_StarCars">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Organisation"/>
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
-=======
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_Porsche">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Organisation"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#PorscheAG"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
 
-<<<<<<< HEAD
     <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Personalwesen_BrokenBits -->
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Personalwesen_BrokenBits">
@@ -2051,12 +1708,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Personalwesen_StarCars">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Personalwesen"/>
-=======
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_StarCars -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_StarCars">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Organisation"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
     </owl:NamedIndividual>
     
@@ -2089,10 +1740,7 @@
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Marketing_Porsche"/>
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_Porsche"/>
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_Porsche"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Production_Porsche"/>
-=======
->>>>>>> origin/master
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sales_Porsche"/>
         <Cloud_Dokumente:Unternehmen_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Anna_Schmidt"/>
         <Cloud_Dokumente:Unternehmen_hat_Projekt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Ninja"/>
@@ -2112,16 +1760,11 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Brandenburg"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Brandenburg"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
 
-<<<<<<< HEAD
     <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_Porsche -->
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_Porsche">
@@ -2144,39 +1787,14 @@
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Produktion_StarCars">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Fertigung"/>
-=======
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_BrokenBits -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_BrokenBits">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Beschaffung"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_Porsche -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_Porsche">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Beschaffung"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#PorscheAG"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_StarCars -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_StarCars">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Beschaffung"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
         <Cloud_Dokumente:Abteilung_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Haruki_Murakami"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Production_Porsche -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projektauftrag_AWG -->
 
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projektauftrag_AWG">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Projektauftrag"/>
         <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0004</DokumentenID>
@@ -2190,48 +1808,12 @@
         <Cloud_Dokumente:Speicherort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://drive.google.com/open?id=1vJNvH77234bsbdf123fba030bbk</Cloud_Dokumente:Speicherort>
         <Cloud_Dokumente:Status rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fertiggestellt</Cloud_Dokumente:Status>
         <Cloud_Dokumente:Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.0</Cloud_Dokumente:Version>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Production_Porsche">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Fertigung"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#PorscheAG"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Production_StarCars -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projektauftrag_HighNet -->
 
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Production_StarCars">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Fertigung"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
-        <Cloud_Dokumente:Abteilung_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Haruki_Murakami"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projectcontract_AWG -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projectcontract_AWG">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Projektauftrag"/>
-        <Cloud_Dokumente:Dokument_gehoert_zu_Projekt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#AWG"/>
-        <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Peter_Mueller"/>
-        <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0004</DokumentenID>
-        <Dokumentenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Projectcontract_AWG</Dokumentenname>
-        <driveDokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DR00002</driveDokumentenID>
-        <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">textdocument</Cloud_Dokumente:Dokumenttyp>
-        <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-04-01T13:00</Cloud_Dokumente:Erstellungsdatum>
-        <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MusterGmbH</Cloud_Dokumente:Schlagwort>
-        <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contract</Cloud_Dokumente:Schlagwort>
-        <Cloud_Dokumente:Speicherort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://drive.google.com/open?id=1vJNvH77234bsbdf123fba030bbk</Cloud_Dokumente:Speicherort>
-        <Cloud_Dokumente:Status rdf:datatype="http://www.w3.org/2001/XMLSchema#string">completed</Cloud_Dokumente:Status>
-        <Cloud_Dokumente:Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.2</Cloud_Dokumente:Version>
->>>>>>> origin/master
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projectcontract_HighNet -->
-
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projektauftrag_HighNet">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Projektauftrag"/>
         <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0003</DokumentenID>
@@ -2255,59 +1837,23 @@
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Purchasing_Porsche">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Einkauf"/>
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#PorscheAG"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Projectcontract_HighNet">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Projektauftrag"/>
-        <Cloud_Dokumente:Dokument_gehoert_zu_Projekt rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#HighNet"/>
-        <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Lisa_Maier"/>
-        <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0003</DokumentenID>
-        <Dokumentenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Projectcontract_HighNet</Dokumentenname>
-        <driveDokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DR00003</driveDokumentenID>
-        <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">textdocument</Cloud_Dokumente:Dokumenttyp>
-        <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-01-15T16:30</Cloud_Dokumente:Erstellungsdatum>
-        <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">StarCars</Cloud_Dokumente:Schlagwort>
-        <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contract</Cloud_Dokumente:Schlagwort>
-        <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">requirements</Cloud_Dokumente:Schlagwort>
-        <Cloud_Dokumente:Speicherort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://drive.google.com/open?id=1vJNvHiiebNalsdK</Cloud_Dokumente:Speicherort>
-        <Cloud_Dokumente:Status rdf:datatype="http://www.w3.org/2001/XMLSchema#string">completed</Cloud_Dokumente:Status>
-        <Cloud_Dokumente:Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2.0</Cloud_Dokumente:Version>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Purchasing_BrokenBits -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Rechnungswesen_BrokenBits -->
 
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Rechnungswesen_BrokenBits">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Rechnungswesen"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Purchasing_BrokenBits">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Einkauf"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Purchasing_Porsche -->
+    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Rechnungswesen_StarCars -->
 
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Purchasing_Porsche">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Einkauf"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#PorscheAG"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Purchasing_StarCars -->
-
-<<<<<<< HEAD
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Rechnungswesen_StarCars">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Rechnungswesen"/>
-=======
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Purchasing_StarCars">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Einkauf"/>
->>>>>>> origin/master
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
     </owl:NamedIndividual>
     
@@ -2329,11 +1875,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Saarland"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Saarland"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -2369,35 +1911,11 @@
     
 
 
-<<<<<<< HEAD
-=======
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sales_BrokenBits -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sales_BrokenBits">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Absatz"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#BrokenBits"/>
-    </owl:NamedIndividual>
-    
-
-
->>>>>>> origin/master
     <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sales_Porsche -->
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sales_Porsche">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Absatz"/>
         <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#PorscheAG"/>
-<<<<<<< HEAD
-=======
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sales_StarCars -->
-
-    <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sales_StarCars">
-        <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Absatz"/>
-        <Cloud_Dokumente:Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -2418,11 +1936,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Mecklenburg-Vorpommern"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Mecklenburg-Vorpommern"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
@@ -2431,26 +1945,17 @@
 
     <owl:NamedIndividual rdf:about="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars">
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Industrieunternehmen"/>
-<<<<<<< HEAD
-=======
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Accouting_StarCars"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Humanresources_StarCars"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Procurement_StarCars"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Production_StarCars"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Purchasing_StarCars"/>
-        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Sales_StarCars"/>
->>>>>>> origin/master
         <Branche rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Automotive</Branche>
         <UnternehmensID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">U0002</UnternehmensID>
         <Unternehmensname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">StarCars</Unternehmensname>
         <Cloud_Dokumente:Mitarbeiteranzahl rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1000</Cloud_Dokumente:Mitarbeiteranzahl>
-<<<<<<< HEAD
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Absatz_StarCars"/>
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Beschaffung_StarCars"/>
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Einkauf_StarCars"/>
-=======
->>>>>>> origin/master
         <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Organisation_StarCars"/>
+        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Personalwesen_StarCars"/>
+        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Produktion_StarCars"/>
+        <Cloud_Dokumente:Unternehmen_hat_Abteilung rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Rechnungswesen_StarCars"/>
         <Cloud_Dokumente:Unternehmen_hat_Hauptsitz_in rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Tokio"/>
         <Cloud_Dokumente:Unternehmen_hat_Mitarbeiter rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Haruki_Murakami"/>
     </owl:NamedIndividual>
@@ -2465,14 +1970,8 @@
         <Cloud_Dokumente:Dokument_hat_Verfasser rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Tim_Oswald"/>
         <DokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">D0007</DokumentenID>
         <Dokumentenname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Status_report_ninja</Dokumentenname>
-<<<<<<< HEAD
         <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">textdocument</Cloud_Dokumente:Dokumenttyp>
         <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-04-31T16:47</Cloud_Dokumente:Erstellungsdatum>
-=======
-        <driveDokumentenID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DR00008</driveDokumentenID>
-        <Cloud_Dokumente:Dokumenttyp rdf:datatype="http://www.w3.org/2001/XMLSchema#string">textdocument</Cloud_Dokumente:Dokumenttyp>
-        <Cloud_Dokumente:Erstellungsdatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-06-25T11:40</Cloud_Dokumente:Erstellungsdatum>
->>>>>>> origin/master
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">milestone</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">problems</Cloud_Dokumente:Schlagwort>
         <Cloud_Dokumente:Schlagwort rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tasks</Cloud_Dokumente:Schlagwort>
@@ -2489,7 +1988,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Baden-Wuerttemberg"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Baden-Wuerttemberg"/>
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
+        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
     </owl:NamedIndividual>
     
 
@@ -2535,11 +2034,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#Stadt"/>
         <ist_Hauptstadt_von_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Hessen"/>
         <Cloud_Dokumente:Stadt_gehoert_zu_Bundesland rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Hessen"/>
-<<<<<<< HEAD
         <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Deutschland"/>
-=======
-        <Cloud_Dokumente:Stadt_gehoert_zu_Land rdf:resource="http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#Germany"/>
->>>>>>> origin/master
     </owl:NamedIndividual>
     
 
