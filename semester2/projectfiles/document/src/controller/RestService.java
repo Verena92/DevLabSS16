@@ -4,37 +4,20 @@
 
 package controller;
 
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
-import org.apache.jena.atlas.lib.cache.Cache0;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.sparql.function.library.leviathan.log;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.log4j.Logger;
-import org.apache.xerces.util.SynchronizedSymbolTable;
-import org.codehaus.jettison.json.JSONArray;
-import org.eclipse.jetty.io.NetworkTrafficListener;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -45,9 +28,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.soap.Node;
 
 import models.Company;
 import models.Document;
@@ -58,12 +39,8 @@ import models.WordInformation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hp.hpl.jena.tdb.store.Hash;
-import com.sun.jersey.api.client.ClientResponse.Status;
 
 @Path("/rest") 
 public class RestService {
@@ -76,46 +53,29 @@ public class RestService {
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// GET Statements
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	 
-/*
-public static void main(String[] args) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
-	getDocumentMetadata("o");
-}*/
+		 /**
+		 * 
+		 * The method GetDocumentMetadata is used to request the document id´s of the
+		 * given project id, company id, employee id or document class
+		 * 
+		 * @param objKeyword
+		 * 		The given keywords from the speech client
+		 * 
+		 * @return A Response-Object with all document id´s found for a given 
+		 * 		lookup key
+		 * 
+		 * @throws org.codehaus.jettison.json.JSONException 
+		 * 		throws a exception, if the json object could not be parsed
+		 * 
+		 */
 	  	 @POST
 		 @Path("/GetDocumentMetadata/")
 		 @Consumes("application/json")
 		 @Produces("application/json")
-		 public static Response getDocumentMetadata(Object objKeyword) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+		 public static Response getDocumentMetadata(Object objKeyword) throws org.codehaus.jettison.json.JSONException {
 			org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objKeyword.toString());
 			JSONObject jsonObject = new JSONObject();
-			/*
-			String jsonData = "";
-			BufferedReader br = null;
-			try {
-				String line;
-				br = new BufferedReader(new FileReader("data/Crunchify_JSON"));
-				while ((line = br.readLine()) != null) {
-					jsonData += line + "\n";
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null)
-						br.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
-			// System.out.println("File Content: \n" + jsonData);
-			JSONObject obj = new JSONObject(jsonData);
-			*/
-			
-			
-			
-			
-			
+					
 			ArrayList<String> listProjectURIs = new ArrayList<>();
 			ArrayList<String> listEmployeeURIs = new ArrayList<>();
 			ArrayList<String> listProjectDocumentIDs = new ArrayList<>();
@@ -332,7 +292,6 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 		        else if(!listCompanyIDs.isEmpty() && !listEmployeeDocumentIDs.isEmpty()){
 		        	for(int k=0;k<listEmployeeDocumentIDs.size();k++){
 		        		for(int l=0;l<listCompanyIDs.size();l++){
-		        			System.out.println(listCompanyIDs +" "+listEmployeeDocumentIDs);
 		        			if(listEmployeeDocumentIDs.get(k)!=null && listCompanyIDs.get(l).contains(listEmployeeDocumentIDs.get(k))){
 	        					listFoundDocumentIDs.add(listCompanyIDs.get(l));
 	        				}
@@ -369,11 +328,22 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 			} catch(Exception e){
 				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
 			}
-			System.out.println("found"+listFoundDocumentIDs);
 			jsonObject.put("documents", listFoundDocumentIDs);
 			return Response.status(200).entity(jsonObject.toString()).build();
 		 }
 
+		 /**
+		 * The method GetDocumentByID is used to request additional document information by document id
+		 * 
+		 * @param documentID
+		 *      The documentID, which will be used to look for further document informations
+		 * 
+		 * @return A Response-Object with all project informations
+		 * 
+		 * @throws JsonProcessingException 
+		 * 		Intermediate base class for all problems encountered when processing 
+		 * 		(parsing, generating) JSON content that are not pure I/O problems
+		 */
 	  	 @GET
 	  	 @Path("/GetDocumentByID/{documentID}")
 		 @Produces("application/json")
@@ -389,7 +359,7 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 						+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
 						+ " PREFIX Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
 						+ " PREFIX Cloud_Dokumente_old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-						+ " SELECT ?DocumentName ?DriveDocumentDrive ?Status ?Schlagwort ?Speicherort ?Version ?Projekt ?Dokumentenklasse ?Dokumenttyp"
+						+ " SELECT Distinct ?DocumentName ?DriveDocumentDrive ?Status ?Schlagwort ?Speicherort ?Version ?Projekt ?Dokumentenklasse ?Dokumenttyp"
 						+ " ?Erstellungsdatum ?Verfasser"
 						+ " where {"
 						+ " ?x ?y ?DriveDocumentDrive ."
@@ -424,8 +394,8 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 								document.setStatus(node.toString());
 								break;
 							case "Schlagwort" : 
-								listKeywords.add(node.toString());
-								document.setKeywords(listKeywords);
+									listKeywords.add(node.toString());
+									document.setKeywords(listKeywords);	
 								break;
 							case "DriveDocumentDrive" : 
 								document.setDocumentID(node.toString());
@@ -451,7 +421,6 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 								document.setProjects(listProjects);
 								break;
 							case "Dokumentenklasse" :
-								System.out.println("kla"+node.toString());
 								document.setDocumentClass(node.asResource().getLocalName());
 								break;
 							case "Dokumenttyp" :
@@ -462,20 +431,15 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 				}
 		        qe.close();
 			} catch(Exception e){
-				log.error( "GetDocumentMetadata: Can´t get document metadata"+e);
+				log.error( "GetDocumentByID: Can´t get document metadata by id"+e);
 			}
 		
 			jsonInString = mapper.writeValueAsString(document);
 			return Response.status(200).entity(jsonInString).build();
 		 }
 
-	  
-	  
 	  	/**
-	     * 
-	     * GetProjectByID
-	     * 
-	     * The method GetProjectByID is used for request additional project information by project id
+	     * The method GetProjectByID is used to request additional project information by project id
 	     * 
 	     * @param projectID
 		 *      The projectID, which will be used to look for further project informations
@@ -518,7 +482,7 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 		        ResultSet results = qe.execSelect();
 		        List var = results.getResultVars();    
-		        
+		   
 		        while (results.hasNext()){
 					QuerySolution qs = results.nextSolution();
 					project = new Project();
@@ -541,7 +505,7 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 						 
 						  break;
 						  
-						  case "Projektleiter" :  System.out.println(node.toString()); project.setProjectManager(getEmployeeByURI(node.toString())); break;
+						  case "Projektleiter" :  project.setProjectManager(getEmployeeByURI(node.toString())); break;
 						  case "GroupUnternehmen" : 
 							  if(node.toString().contains("#")){
 								  ArrayList<String> listCompanies = new ArrayList<>(Arrays.asList(node.toString().split(",")));
@@ -564,7 +528,7 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 				newProject.setProjectMembers((ArrayList) newProjectMembers);
 				newProject.setInvolvedCompanies((ArrayList)newCompanies);
 			} catch(Exception e){
-				log.error( "GetProject: Can´t get project information "+e);
+				log.error( "GetProjectByID: Can´t get project information "+e);
 			}
 			String jsonInString = mapper.writeValueAsString(newProject);
 	  	
@@ -574,11 +538,18 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 			
 			return Response.status(200).entity(jsonInString).build();
 		 }
+	  	 
+		 /**
+		 * The method GetDocumentClasses is used to request all available document classes
+		 * 
+		 * @return A Response-Object with all document class names
+		 * 
+		 */
 	  	 	
 	  	 @GET
 		 @Path("/GetDocumentClasses/")
 		 @Produces("application/json")
-		 public Response getDocumentClasses() throws JSONException, JsonProcessingException {
+		 public Response getDocumentClasses(){
 	  		JSONObject jsonObject = new JSONObject();
 	  		ArrayList<String> listDocumentClasses = new ArrayList<>();
 			try {
@@ -611,16 +582,13 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 		        qe.close();
 
 			} catch(Exception e){
-				log.error( "GetProject: Can´t get project information "+e);
+				log.error( "GetDocumentClasses: Can´t get document class information "+e);
 			}
 			jsonObject.put("documentClasses", listDocumentClasses);
 			return Response.status(200).entity(jsonObject.toString()).build();
 		 }	  	 
 	  	 
 		 /**
-		 * 
-		 * GetCompanyByID
-		 * 
 		 * The method GetCompanyByID is used to request additional company informations by company id.
 		 * 
 		 * @param companyID
@@ -722,132 +690,150 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 		 }
 	  	 
 	  	 
-	  	/**
-			 * 
-			 * GetCompanyByID
-			 * 
-			 * Diese Methode wird als Schnittstelle extrahiert, sodass nach den Unternehmen mit der jeweiligen UnternehmensID
-			 * gesucht werden kann
-			 * 
-			 * @param companyID
-			 *         Die comapanyID wird verwendet, um nach zusätzlichen Unternehmensinformationen zu suchen.
-			 * 
-			 * @return Ein Response-Objekt, welches alle Informationen zu dem Unternehmen enthält
-			 * @throws JsonProcessingException 
-			 */
+		 /**
+		 * The method GetEmployeeByID is used to request additional employee informations by employee id.
+		 * 
+		 * @param employeeID
+		 *      The employeeID, which will be used as a lookup value for further employee informations.
+		 * 
+		 * @return A Response-Object with all employee informations.
+		 * 
+		 * @throws JsonProcessingException 
+		 * 		Intermediate base class for all problems encountered when processing 
+		 * 		(parsing, generating) JSON content that are not pure I/O problems.
+		 */
 		  	 	   
-		  	 @GET
-			 @Path("/GetEmployeeByID/{employeeID}")
-			 @Produces("application/json")
-			 public Response getEmployeeByID(@PathParam("employeeID") String employeeID) throws JsonProcessingException  {
-		  		Employee employee = null;
-		  		ObjectMapper mapper = new ObjectMapper();
-		  		
-		  		ArrayList<String> listProjects = new ArrayList<>();
-		  		
-				try {
-					String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
-							+ " prefix Clou_Dokumente_Old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-							+ " SELECT  ?MitarbeiterID ?DriveUserID ?Personenname ?Vorname ?Unternehmen ?HangoutUserID (group_concat(?Projekt;separator=',') as ?Projekte) ?Jobtitel"
-							+ " WHERE   { "
-							+ " ?x ?y ?MitarbeiterID ."
-							+ " Filter (?MitarbeiterID='"+employeeID+"') ."
-							+ " ?x Clou_Dokumente_Old:Vorname ?Vorname ."
-							+ " ?x Cloud_Dokumente:Personenname ?Personenname ."
-							+ " ?x Cloud_Dokumente:Jobtitel ?Jobtitel ."
-							+ " ?x Clou_Dokumente_Old:ist_Mitarbeiter_von_Unternehmen ?Unternehmen ."
-							+ " ?x Clou_Dokumente_Old:Mitarbeiter_ist_Projektmitglied_von ?Projekt ."
-							+ " ?x Cloud_Dokumente:hangoutUserID ?HangoutUserID ."
-							+ " ?x Cloud_Dokumente:driveUserID ?DriveUserID ."
-							+ "}group by ?MitarbeiterID ?Personenname ?Vorname ?Unternehmen ?Jobtitel ?HangoutUserID ?DriveUserID"; 
-					
-					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+	  	 @GET
+		 @Path("/GetEmployeeByID/{employeeID}")
+		 @Produces("application/json")
+		 public Response getEmployeeByID(@PathParam("employeeID") String employeeID) throws JsonProcessingException  {
+	  		Employee employee = null;
+	  		ObjectMapper mapper = new ObjectMapper();
+	  		
+	  		ArrayList<String> listProjects = new ArrayList<>();
+	  		
+			try {
+				String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+						+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#>"
+						+ " prefix Clou_Dokumente_Old: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
+						+ " SELECT  ?MitarbeiterID ?DriveUserID ?Personenname ?Vorname ?Unternehmen ?HangoutUserID (group_concat(?Projekt;separator=',') as ?Projekte) ?Jobtitel"
+						+ " WHERE   { "
+						+ " ?x ?y ?MitarbeiterID ."
+						+ " Filter (?MitarbeiterID='"+employeeID+"') ."
+						+ " ?x Clou_Dokumente_Old:Vorname ?Vorname ."
+						+ " ?x Cloud_Dokumente:Personenname ?Personenname ."
+						+ " ?x Cloud_Dokumente:Jobtitel ?Jobtitel ."
+						+ " ?x Clou_Dokumente_Old:ist_Mitarbeiter_von_Unternehmen ?Unternehmen ."
+						+ " ?x Clou_Dokumente_Old:Mitarbeiter_ist_Projektmitglied_von ?Projekt ."
+						+ " ?x Cloud_Dokumente:hangoutUserID ?HangoutUserID ."
+						+ " ?x Cloud_Dokumente:driveUserID ?DriveUserID ."
+						+ "}group by ?MitarbeiterID ?Personenname ?Vorname ?Unternehmen ?Jobtitel ?HangoutUserID ?DriveUserID"; 
+				
+				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
 
-			        ResultSet results = qe.execSelect();
-			        List var = results.getResultVars();
-			        
-			        while (results.hasNext()){
-						QuerySolution qs = results.nextSolution();
-						employee = new Employee();
-						for(int i=0; i<var.size();i++){			
-							String va = var.get(i).toString();
-							RDFNode node = qs.get(va);
-							switch(va){
-								case "MitarbeiterID" :  
-									employee.setEmployeeID(node.toString());
-									break;
-								case "Jobtitel" :employee.setJobTitle(node.toString());
-								case "Unternehmen" :  
-									if(node.toString().contains("#")){
-										employee.setEmployeeOf(getCompanyByURI("http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"));							
-									}
-									break;
-								case "Personenname" : 
-									employee.setEmployeeName(node.toString());
-									break;
-								case "Vorname" :
-									employee.setEmployeeSurname(node.toString());
-									break;
-								case "Projekte" :
-									ArrayList<String> newListProjecs = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
-									
-									for(String projects : newListProjecs){
-										listProjects.add(getProjectByURI(projects));
-									}
-									employee.setProjects(listProjects);
-									break;
-								case "HangoutUserID" : 
-									employee.setHangoutUserID(node.toString());
-									break;
-								case "DriveUserID":
-									employee.setDriveUserID(node.toString());
-									break;
-							}
+		        ResultSet results = qe.execSelect();
+		        List var = results.getResultVars();
+		        
+		        while (results.hasNext()){
+					QuerySolution qs = results.nextSolution();
+					employee = new Employee();
+					for(int i=0; i<var.size();i++){			
+						String va = var.get(i).toString();
+						RDFNode node = qs.get(va);
+						switch(va){
+							case "MitarbeiterID" :  
+								employee.setEmployeeID(node.toString());
+								break;
+							case "Jobtitel" :employee.setJobTitle(node.toString());
+							case "Unternehmen" :  
+								if(node.toString().contains("#")){
+									employee.setEmployeeOf(getCompanyByURI("http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#StarCars"));							
+								}
+								break;
+							case "Personenname" : 
+								employee.setEmployeeName(node.toString());
+								break;
+							case "Vorname" :
+								employee.setEmployeeSurname(node.toString());
+								break;
+							case "Projekte" :
+								ArrayList<String> newListProjecs = new ArrayList<String>(Arrays.asList(node.toString().split(",")));
+								
+								for(String projects : newListProjecs){
+									listProjects.add(getProjectByURI(projects));
+								}
+								employee.setProjects(listProjects);
+								break;
+							case "HangoutUserID" : 
+								employee.setHangoutUserID(node.toString());
+								break;
+							case "DriveUserID":
+								employee.setDriveUserID(node.toString());
+								break;
 						}
 					}
-			        qe.close();
-				} catch(Exception e){
-					log.error( "GetEmpoloyeeByID: Can´t get the employee information "+e);
 				}
-				
-				String jsonInString = mapper.writeValueAsString(employee);
-				if(!jsonInString.contains("M")){
-					return Response.status(Response.Status.NOT_FOUND).entity("Employee not found for ID: "+employeeID).build(); 
-				}
-				return Response.status(200).entity(jsonInString).build();
-			 }
+		        qe.close();
+			} catch(Exception e){
+				log.error( "GetEmpoloyeeByID: Can´t get the employee information "+e);
+			}
+			
+			String jsonInString = mapper.writeValueAsString(employee);
+			if(!jsonInString.contains("M")){
+				return Response.status(Response.Status.NOT_FOUND).entity("Employee not found for ID: "+employeeID).build(); 
+			}
+			return Response.status(200).entity(jsonInString).build();
+		 }
 	  	 
 	  	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Methods to get further information
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		  	 public static String getCompanyByURI(String companyURI) {	
-				String companyID = null;
-				try {
-					String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
-							+ "	Select ?Unternehmen where "
-							+ " {<"+companyURI+"> Cloud_Dokumente:UnternehmensID ?Unternehmen }";
-						
-					QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-
-			        ResultSet results = qe.execSelect();
-			        List var = results.getResultVars();
-			        while (results.hasNext()){
-						QuerySolution qs = results.nextSolution();
-						for(int i=0; i<var.size();i++){			
-							String va = var.get(i).toString();
-							RDFNode node = qs.get(va);
-							companyID = node.toString();
-						}
-					}
-			        qe.close();
-				} catch(Exception e){
-					log.error( "getCompanyByURI: Can´t get company by uri "+e);
-				}
-					return companyID;
-			}
 		  	 
+	  	/**
+	     * The method getCompanyByURI is used to request the company id by company uri
+	     * 
+	     * @param companyURI
+		 *      The companyURI, which will be used to look for the companyID
+	     * 
+	     * @return The company id
+	     * 
+	     */
+	  	 public static String getCompanyByURI(String companyURI) {	
+			String companyID = null;
+			try {
+				String sparQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+						+ " prefix Cloud_Dokumente: <http://www.documentrepresentation.org/ontologies/Cloud_Dokumente#> "
+						+ "	Select ?Unternehmen where "
+						+ " {<"+companyURI+"> Cloud_Dokumente:UnternehmensID ?Unternehmen }";
+					
+				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
+
+		        ResultSet results = qe.execSelect();
+		        List var = results.getResultVars();
+		        while (results.hasNext()){
+					QuerySolution qs = results.nextSolution();
+					for(int i=0; i<var.size();i++){			
+						String va = var.get(i).toString();
+						RDFNode node = qs.get(va);
+						companyID = node.toString();
+					}
+				}
+		        qe.close();
+			} catch(Exception e){
+				log.error( "getCompanyByURI: Can´t get company by uri "+e);
+			}
+				return companyID;
+		}
+		  	 
+	  	/**
+	     * The method getEmployeeByURI is used to request the employee id by employee uri
+	     * 
+	     * @param employeeURI
+		 *      The employeeURI, which will be used to look for the employeeID
+	     * 
+	     * @return The employee id
+	     * 
+	     */		  	
 		 public static String getEmployeeByURI(String employeeURI) {	
 			String employeeID = null;
 			try {
@@ -855,7 +841,7 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 						+ " <"+employeeURI+"> Cloud_Dokumente:hangoutUserID ?HangoutUserID }";  
 				
 				QueryExecution qe = QueryExecutionFactory.sparqlService("http://localhost:3030/ds/query", sparQuery);
-
+				
 		        ResultSet results = qe.execSelect();
 		        List var = results.getResultVars();
 		        while (results.hasNext()){
@@ -873,6 +859,16 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 				return employeeID;
 		 }
 		 
+		 
+	  	/**
+	     * The method getProjectByURI is used to request the project id by project uri
+	     * 
+	     * @param projectID
+		 *      The projectID, which will be used to look for the project uri
+		 *       
+	     * @return The project uri
+	     * 
+	     */		
 		 public static String getProjectURIByID(String projectID) {	
 				String projectURI = null;
 				try {
@@ -895,12 +891,20 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 					}
 			        qe.close();
 				} catch(Exception e){
-					log.error( "getEmployeeByURI: Can´t get employee by uri "+e);
+					log.error( "getProjectByURI: Can´t get project by uri "+e);
 				}
 					return projectURI;
 			 }
 		 
-		 
+	  	/**
+	     * The method getProjectOfCompany is used to request all projects of a company
+	     * 
+	     * @param companyID
+		 *      The companyID, which will be used as a lookup value for the associated projects
+	     * 
+	     * @return A list with all projects of the company
+	     * 
+	     */		
 		 public static ArrayList<String> getProjectOfCompany(String companyID) {	
 			 ArrayList<String> listProjects = null;	
 			 try {
@@ -926,11 +930,20 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 					}
 			        qe.close();
 				} catch(Exception e){
-					log.error( "getEmployeeByURI: Can´t get employee by uri "+e);
+					log.error( "getProjectOfCompany: Can´t get projects of the company "+e);
 				}
 					return listProjects;
 			 }
 
+		 /**
+		 * A generic class to get the id of by a uri
+		 * 
+		 * @param uri
+		 *      The uri, which will be used as a lookup value for further informations.
+		 * 
+		 * @return A Response-Object with all informations found for the.
+		 * 
+		 */
 		 public static String getIDByURI(String uri) {	
 				String id = null;
 				try {
@@ -954,12 +967,20 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 					}
 			        qe.close();
 				} catch(Exception e){
-					log.error( "getEmployeeByURI: Can´t get employee by uri "+e);
+					log.error( "getIDByURI: Can´t get id by uri "+e);
 				}
 					return id;
 			 }
 		 
-		 
+	  	/**
+	     * The method getProjectByURI is used to request further project informations by project uri
+	     * 
+	     * @param projectURI
+		 *      The projectURI, which will be used as a lookup value for the associated projects
+	     * 
+	     * @return The project id
+	     * 
+	     */	
 		 public static String getProjectByURI(String projectURI) {	
 				String projectID = null;
 				try {
@@ -987,6 +1008,15 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 					return projectID;
 			 }
 		 
+	  	/**
+	     * The method getDocumentByURI is used to request further document informations by document uri
+	     * 
+	     * @param documentURI
+		 *      The documentURI, which will be used as a lookup value for the associated document id
+	     * 
+	     * @return The document id
+	     * 
+	     */			 
 		 public static String getDocumentByURI(String documentURI) {	
 				String documentID = null;
 				try {
@@ -1017,21 +1047,49 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Speech Token Interface
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			 		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// POST Statements
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// GET Statements
-		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  	/**
+	     * The method getWordinformation is used by the speech client to request further 
+	     * informations about a keyword
+	     * 
+	     * @param objKeyword
+		 *      A JSON-Object with the keywords.
+	     * 
+	     * @return Keyword informations like the associated project id, employee id or company id
+	  	 * @throws org.codehaus.jettison.json.JSONException 
+	  	 * 		throws a exception, if the json object could not be parsed
+	  	 * 
+	  	 * @throws JsonProcessingException 
+	  	 * 		Intermediate base class for all problems encountered when processing 
+		 * 		(parsing, generating) JSON content that are not pure I/O problems
+	     * 
+	     */	
+		 
 		 @POST
 		 @Path("/GetWordinformation/")
 		 @Consumes("application/json")
 		 @Produces("application/json")
-		 public static Response getWordinformation(Object objKeyword) throws JSONException, JsonProcessingException, org.codehaus.jettison.json.JSONException {
+		 public static Response getWordinformation(Object objKeyword) throws org.codehaus.jettison.json.JSONException, JsonProcessingException  {
 			org.codehaus.jettison.json.JSONObject obj = new org.codehaus.jettison.json.JSONObject(objKeyword.toString());
-			
-			    String keyword = obj.getString("keyword");
-				String priviousKeyword = obj.getString("previousKeyword");
-				String nextKeyword = obj.getString("nextKeword");
 
+				String keyword=""; 
+				String nextKeyword="";
+				String priviousKeyword = "";
+				if(obj.getString("keyword")!=null){
+					String ikeyword= obj.getString("keyword");
+					keyword = ikeyword.substring(0, 1).toUpperCase() + ikeyword.substring(1);
+				}
+				if(obj.getString("nextKeyword")!=null){
+					String inextKeyword= obj.getString("nextKeyword");
+					nextKeyword = inextKeyword.substring(0, 1).toUpperCase() + inextKeyword.substring(1);
+				}
+				if(obj.getString("previousKeyword")!=null){
+					String ipriviousKeyword= obj.getString("previousKeyword");
+					priviousKeyword = ipriviousKeyword.substring(0, 1).toUpperCase() + ipriviousKeyword.substring(1);
+				}
+				
 			 	ArrayList<WordInformation> listWordInformation = new ArrayList<>();
 			 	for(int i=0; i<5; i++){
 			 		switch(i){
@@ -1127,17 +1185,19 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 			 	} else {
 			 		newnewWordInformation.setEmployees(newWordInformation.getEmployees());
 			 	}
-			 	
-
 			 	ObjectMapper mapper = new ObjectMapper();
 				String jsonInString = mapper.writeValueAsString(newnewWordInformation);
-				System.out.println(jsonInString);
 				
-				return Response.status(200).entity(jsonInString).build();
-					
+				return Response.status(200).entity(jsonInString).build();	
 		 	}
-		 
-		 public static WordInformation parseKeywords(String keyword) throws JsonProcessingException {
+	  	/**
+	     * The method is used to search for word informations in the abox 
+	     * 
+	     * @param keyword
+		 *      The given keyword
+	     * @return The informations about the word
+	     */
+		 public static WordInformation parseKeywords(String keyword) {
 				ArrayList<String> listProjects = new ArrayList<>();
 				ArrayList<String> listEmployees = new ArrayList<>();
 				ArrayList<String> listCompanies = new ArrayList<>();
@@ -1164,8 +1224,7 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 						QuerySolution qs = results.nextSolution();
 						for(int i=0; i<var.size();i++){			
 							String va = var.get(i).toString();
-							RDFNode node = qs.get(va);
-							
+							RDFNode node = qs.get(va);			
 							switch(va){
 								case "Klassentyp" :
 									objectRelation.setType(node.asResource().getLocalName());
@@ -1222,13 +1281,22 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 // GOOGLE Apps Script Interface
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// EDIT Statements
+	// GET Statements
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  	/**
+     * The method GetEmployeeByDriveUserID is used by the apps script client to request google drive user id  
+     * 
+     * @param driveUserID
+	 *      The driveUserID (e.g. wjaufmann166@gmail.com).
+     * 
+     * @return A Response object with the informations of the drive user
+     * 
+     */
+		 
 	@GET
 	@Path("/GetEmployeeByDriveUserID/{driveUserID}")
 	@Produces("application/json")
-	public Response getEmployeeByDriveUserID(@PathParam("driveUserID") String driveUserID)
-			throws JsonProcessingException {
+	public Response getEmployeeByDriveUserID(@PathParam("driveUserID") String driveUserID) {
 		String employeeURI = "";
 
 		try {
@@ -1251,16 +1319,29 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 			}
 			qe.close();
 		} catch (Exception e) {
-			log.error("GetEmpoloyeeByID: Can´t get the employee information " + e);
+			log.error("GetEmployeeByDriveUserID: Can´t get the employee information " + e);
 		}
 		return Response.status(200).entity(employeeURI).build();
 	}
 		 
+	
+  	/**
+     * The method GetDocumentByDriveID is used by the apps script client to request document informations by 
+     * drive document id.  
+     * 
+     * @param driveDocumentID
+	 *      The driveDocumentID.
+     * 
+     * @return A Response object with the informations of the document
+     * 
+  	 * @throws JsonProcessingException 
+	 * 		Intermediate base class for all problems encountered when processing 
+	 * 		(parsing, generating) JSON content that are not pure I/O problems
+     */
 	@GET
 	@Path("/GetDocumentByDriveID/{driveDocumentID}")
 	@Produces("application/json")
-	public Response getDocumentByDriveID(@PathParam("driveDocumentID") String driveDocumentID)
-			throws JSONException, JsonProcessingException {
+	public Response getDocumentByDriveID(@PathParam("driveDocumentID") String driveDocumentID) throws JsonProcessingException {
 		jsonObject = new JSONObject();
 		Document document = null;
 		ArrayList<Document> listDocument = new ArrayList<Document>();
@@ -1289,7 +1370,6 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 					String va = var.get(i).toString();
 					RDFNode node = qs.get(va);
 					countIteration++;
-					System.out.println(va);
 					switch (va) {
 					case "Dokumentenname":
 						document.setDocumentName(node.toString());
@@ -1315,27 +1395,6 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 		return Response.status(200).entity(jsonInString).build();
 	}
 		 
-		
-	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// DELETE Statements
-	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	@GET
-	@Path("/DeleteDocument/{googleDriveID}")
-	@Produces("application/json")
-	public String deleteDocument(@PathParam("googleDriveID") String googleDriveID) throws JSONException {
-		String UPDATE_TEMPLATE = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-				+ "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-				+ "PREFIX Cloud_Dokumente: <http://www.semanticweb.org/alinasiebert/ontologies/2016/0/Cloud_Dokumente#>"
-				+ "DELETE { ?Cloud_Dokumente ?p ?v }" + "WHERE" + "{ ?Cloud_Dokumente Cloud_Dokumente:Name ?Name ."
-				+ "FILTER regex(?Name,'Besprechungsprotokoll_HighNet_16-01-2016')" + "?Cloud_Dokumente ?p ?v}";
-
-		String id = UUID.randomUUID().toString();
-		UpdateProcessor upp = UpdateExecutionFactory.createRemote(
-				UpdateFactory.create(String.format(UPDATE_TEMPLATE, id)), "http://localhost:3030/ds/update");
-		upp.execute();
-
-		return "Deleted";
-	}
 			 
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// INSERT Statements
@@ -1347,14 +1406,38 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 	 * This Method is responsible for adding the document metadata to the abox.
 	 * The document metadata will be send by the google apps script client.
 	 * 
-	 * @FormParam("name") String name @FormParam("driveID") String
-	 * driveID @FormParam("status") String status @FormParam("drivePath") String
-	 * drivePath @FormParam("version") String version @FormParam("creationDate")
-	 * String creationDate @FormParam("createdBy") String
-	 * createdBy @FormParam("project") String
-	 * project @FormParam("documentClass") String
-	 * documentClass @FormParam("keywords") String
-	 * keywords @FormParam("documentType") String documentType
+	 * @param name
+	 * 		The name of the document
+	 *   
+	 * @param driveID
+	 * 		The google drive id of the document
+	 * 
+	 * @param status
+	 * 		The actual status of the document
+	 * 
+	 * @param drivePath 
+	 * 		The drivePath of the document
+	 * 
+	 * @param version 
+	 * 		The version of the document
+	 * 
+	 * @param creationDate
+	 * 		The creationdate of the document in a ISO 8601 format
+	 * 
+	 * @param createdBy
+	 * 		The creater name of the document
+	 *  
+	 * @param project
+	 * 		The associated project
+	 * 
+	 * @param documentClass
+	 * 		The document class (e.g. Costplan)
+	 * 
+	 * @param keywords
+	 * 		The associated keywords of the document
+	 * 	
+	 * @param type
+	 * 		The associated documenttype
 	 * 
 	 */
 	@POST
@@ -1395,14 +1478,32 @@ public static void main(String[] args) throws JSONException, JsonProcessingExcep
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// EDIT Statements
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  	/**
+     * The method EditDocumentMetadata is used by the apps script client to edit document metadata   
+     * 
+     * @param driveID
+	 *      The driveDocumentID.
+	 *      
+	 * @param oldName
+	 * 		The old name of the document
+	 *      
+	 * @param newName
+	 * 		The new given name of the document
+	 *      
+	 * @param oldStatus
+	 *      The old status of the document
+	 *      
+	 * @param newStatus
+	 *      The new given status of the document
+     * 
+     * 
+     */
 	@POST
 	@Path("/EditDocumentMetadata")
 	@Consumes("application/x-www-form-urlencoded")
-
 	public static void editDocumentMetadata(@FormParam("driveID") String driveID, 
 			@FormParam("oldName") String oldName, @FormParam("newName") String newName,
-			@FormParam("oldStatus") String oldStatus, @FormParam("newStatus") String newStatus)
-			throws IOException, ParseException, org.codehaus.jettison.json.JSONException {
+			@FormParam("oldStatus") String oldStatus, @FormParam("newStatus") String newStatus) {
 		try {
 			String UPDATE_TEMPLATE = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
 					+ " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"

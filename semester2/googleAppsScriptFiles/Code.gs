@@ -1,4 +1,4 @@
-function tim(){
+function time(){
     ScriptApp.newTrigger("createSpreadsheetEditTrigger")
    .timeBased()
    .everyMinutes(1)
@@ -76,25 +76,24 @@ function getLastUpdated() {
   var folders = DriveApp.getFolders();
  while (folders.hasNext()) {
    var folder = folders.next();
-   Logger.log(folder.getName());
  }
 }
 
 
 function checkAvailabilityInOWL() {
  var driveDocumentID =  PropertiesService.getScriptProperties().getProperty('driveDocumentID');
-  var response = UrlFetchApp.fetch("http://104.155.140.18/document/rest/getDocumentByIDTest/"+driveDocumentID);
+ 
+
+  var response = UrlFetchApp.fetch("http://130.211.155.163/document/rest/GetDocumentByID/"+driveDocumentID);
+
+
   
   var params = JSON.parse(response.getContentText());
 
+  PropertiesService.getScriptProperties().setProperty('params', params);
   return params;
 }
 
-
-function te(te){
- Logger.log('I was called!');
- return "hier bin ich";
-}
 /**
 * 
 * addDocumentMetadata
@@ -104,28 +103,30 @@ function te(te){
 */
 
 function addDocumentMetadata(status, version, employeeURI, project, documentClass, listKeywords) {  
+  
+ 
    var fileName = PropertiesService.getScriptProperties().getProperty('fileName');
    var documentPath = PropertiesService.getScriptProperties().getProperty('documentPath');
    var driveDocumentID =  PropertiesService.getScriptProperties().getProperty('driveDocumentID');
    var creationDate =  PropertiesService.getScriptProperties().getProperty('creationDate');  
    var formattedDate = Utilities.formatDate(new Date(creationDate), "CET", "yyyy-MM-dd'T'HH:mm:ss");
-   
+    
+  
    var payload =
    {
      "name" : fileName,
      "driveID" : driveDocumentID,
      "status" : status,
+     "keywords" : "'nummer1'",
      "drivePath" : documentPath,
      "version" : version,
      "creationDate" : formattedDate,
-     "createdBy": employeeURI,
+     "createdBy" : employeeURI,
      "project" : project,
+     "type" : "Spreadsheet",
      "documentClass" : documentClass,
-     "keywords" : ""+listKeywords+"",
-     "documentType" : "Spreadsheet",
    };
   
-
    // Because payload is a JavaScript object, it will be interpreted as
    // an HTML form. (We do not need to specify contentType; it will
    // automatically default to either 'application/x-www-form-urlencoded'
@@ -137,10 +138,7 @@ function addDocumentMetadata(status, version, employeeURI, project, documentClas
      "payload" : payload
    }
    
-   var ausgabe = UrlFetchApp.fetch("http://104.155.140.18/document/rest/AddDocumentMetadata", options);
-  
-  
-  Logger.log(ausgabe);
+   var ausgabe = UrlFetchApp.fetch("http://130.211.155.163/document/rest/AddDocumentMetadata", options);
 }
 
 
@@ -152,27 +150,17 @@ function addDocumentMetadata(status, version, employeeURI, project, documentClas
 * 
 */
 
-function editDocumentMetadata(status) {  
-   /*var fileName = PropertiesService.getScriptProperties().getProperty('fileName');
-   var documentPath = PropertiesService.getScriptProperties().getProperty('documentPath');
-   var driveDocumentID =  PropertiesService.getScriptProperties().getProperty('driveDocumentID');
-   var creationDate =  PropertiesService.getScriptProperties().getProperty('creationDate');  
-   var formattedDate = Utilities.formatDate(new Date(creationDate), "CET", "yyyy-MM-dd'T'HH:mm:ss");
-  */
-  /* 
-   var payload =
+function editDocumentMetadata(newName, oldDocumentName, newStatus, oldStatus) {  
+  var driveDocumentID =  PropertiesService.getScriptProperties().getProperty('driveDocumentID'); 
+  var payload =
    {
-     "name" : fileName,
-     "documentType" : documentType,
-     "status" : status,
-     "documentPath" : documentPath,
-     "driveDocumetID" : driveDocumentID,
-     "keyword" : ""+listKeywords+"",
-     "version" : version,
-     "project" : project,
-     "creationDate" : formattedDate,
+     "driveID" : driveDocumentID,
+     "oldName" : oldDocumentName,
+     "newName" : newName,
+     "newStatus" : newStatus,
+     "oldStatus": oldStatus,
    };
-
+  
    // Because payload is a JavaScript object, it will be interpreted as
    // an HTML form. (We do not need to specify contentType; it will
    // automatically default to either 'application/x-www-form-urlencoded'
@@ -184,14 +172,12 @@ function editDocumentMetadata(status) {
      "payload" : payload
    }
    
-   var ausgabe = UrlFetchApp.fetch("http://104.155.140.18/document/rest/AddDocumentMetadata", options);
-   */
-  
-  Logger.log(status);
+   var ausgabe = UrlFetchApp.fetch("http://130.211.155.163/document/rest/EditDocumentMetadata", options);
 }
 
+
 function doSomething() {
-  var response = UrlFetchApp.fetch("http://104.155.140.18/document/rest/GetEmployeeByDriveUserID/drive");
+  var response = UrlFetchApp.fetch("http://130.211.155.163/document/rest/GetEmployeeByDriveUserID/drive");
   
   return ""+response;
   
